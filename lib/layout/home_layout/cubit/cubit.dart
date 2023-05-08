@@ -37,7 +37,7 @@ class SchoolCubit extends Cubit<SchoolStates>
   List<Widget> screens = [
     HomeScreen(),
     FavoritesScreen(),
-    ProfileScreen(),
+    ProfileStudent(),
     SettingsScreen(),
 
   ];
