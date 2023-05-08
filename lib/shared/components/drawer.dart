@@ -20,7 +20,7 @@ class _TheMenuState extends State<TheMenu> {
             accountEmail:Text('maysa@gmail.com'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.asset('assets/icons/exam.png'),
+                child: Image.asset('assets/icons/graduating-student-g.png'),
               ),
             ),
             decoration: BoxDecoration(
