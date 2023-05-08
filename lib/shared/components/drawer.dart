@@ -21,7 +21,6 @@ class _TheMenuState extends State<TheMenu> {
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.asset('assets/icons/exam.png'),
-
               ),
             ),
             decoration: BoxDecoration(
@@ -33,63 +32,48 @@ class _TheMenuState extends State<TheMenu> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: (){},
-
             ),
           ),
           Card(
             child: ListTile(
-              leading: Icon(Icons.menu_book),
-              title: Text('How To Use App'),
-              onTap: (){},
-
+              leading: Icon(Icons.newspaper
+              ),
+              title: Text('News'),
             ),
           ),
           Card(
             child: ListTile(
-              leading: Icon(Icons.perm_identity_rounded),
-              title: Text('Home'),
+              leading: Icon(Icons.person),
+              title: Text('Profile'),
               onTap: (){},
-
             ),
           ),
           Card(
             child: ListTile(
-              leading: Icon(Icons.roundabout_right),
-              title: Text('About App'),
+              leading: Icon(Icons.school),
+              title: Text('About Us'),
               onTap: (){},
-
             ),
           ),
           Card(
             child: ListTile(
               leading: Icon(Icons.language),
-              title: Text('Change Language'),
+              title: Text('Language'),
               onTap: (){},
 
             ),
           ),
           Card(
             child: ListTile(
-              leading: Icon(Icons.share),
-              title: Text('Share App'),
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
               onTap: (){},
-
-            ),
-          ),
-          Card(
-            child: ListTile(
-              leading: Icon(Icons.contacts),
-              title: Text('Contact Us'),
-              onTap: (){},
-
             ),
           ),
           Card(
             child: ListTile(
               leading: Icon(Icons.logout),
               title: Text('Logout'),
-
-
             ),
           ),
         ],
