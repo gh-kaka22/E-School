@@ -5,7 +5,6 @@ import '../../shared/styles/colors.dart';
 
 class ProfileStudent extends StatelessWidget {
   List item = [
-
     {
       "desc":"Father Name :",
       "text": "Rafiq",
@@ -80,7 +79,7 @@ class ProfileStudent extends StatelessWidget {
                         ),
                         child: CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('\assets\images\woman.png'),
+                          backgroundImage: AssetImage('assets/images/woman.png'),
                         ),
                       ),
                       SizedBox(

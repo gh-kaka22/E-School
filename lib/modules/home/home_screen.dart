@@ -1,15 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_school/modules/attendance/attendance_screen.dart';
+import 'package:e_school/modules/exams/exams_screen.dart';
 import 'package:e_school/shared/components/category_card.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 List<CategoryCard> categories =[
-  CategoryCard('Attendance', 'assets/icons/attendance.png', kWhiteColor),
-  CategoryCard('Exams', 'assets/icons/exam.png', kWhiteColor),
-  CategoryCard('Schedule', 'assets/icons/schedule.png', kWhiteColor),
-  CategoryCard('Library', 'assets/icons/bookshelf.png', kWhiteColor),
-  CategoryCard('Discipline', 'assets/icons/behavior.png', kWhiteColor),
-  CategoryCard('Education', 'assets/icons/homework.png', kWhiteColor),
+  CategoryCard('Attendance', 'assets/icons/attendance.png', kWhiteColor,AttendanceScreen()),
+  CategoryCard('Exams', 'assets/icons/exam.png', kWhiteColor,ExamsScreen()),
+  CategoryCard('Schedule', 'assets/icons/schedule.png', kWhiteColor,AttendanceScreen()),
+  CategoryCard('Library', 'assets/icons/bookshelf.png', kWhiteColor,AttendanceScreen()),
+  CategoryCard('Discipline', 'assets/icons/behavior.png', kWhiteColor,AttendanceScreen()),
+  CategoryCard('Education', 'assets/icons/homework.png', kWhiteColor,AttendanceScreen()),
 ];
 class HomeScreen extends StatelessWidget {
   @override

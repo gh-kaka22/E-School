@@ -13,6 +13,7 @@ ThemeData lightMode = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
     titleSpacing: 20.0,
+    centerTitle: true,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: kDarkBlue2Color,
       statusBarIconBrightness: Brightness.light,
@@ -21,8 +22,9 @@ ThemeData lightMode = ThemeData(
     elevation: 0.0,
     titleTextStyle: TextStyle(
       color: Colors.white,
-      fontSize: 20.0,
+      fontSize: 25.0,
       fontWeight: FontWeight.bold,
+      fontFamily: 'Nunito'
     ),
     iconTheme: IconThemeData(
       color: Colors.white,
@@ -36,7 +38,7 @@ ThemeData lightMode = ThemeData(
     backgroundColor: Colors.white,
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
@@ -75,7 +77,7 @@ ThemeData darkMode = ThemeData(
     backgroundColor: HexColor('333739'),
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,

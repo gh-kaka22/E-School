@@ -1,3 +1,4 @@
+import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -5,13 +6,16 @@ class CategoryCard extends StatelessWidget {
   var _title;
   var _imageUrl;
   var _bgColor;
+  Widget widget;
 
-  CategoryCard(this._title, this._imageUrl, this._bgColor);
+  CategoryCard(this._title, this._imageUrl, this._bgColor, this.widget);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        navigateTo(context, widget);
+      },
       child: Container(
         width: 160,
         height: 160,
