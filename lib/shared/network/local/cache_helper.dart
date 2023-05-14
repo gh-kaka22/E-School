@@ -41,6 +41,11 @@ class CacheHelper{
     return await sharedPreferences.setBool(key, value);
 
   }
+  static Future<bool?> removeData({
+    required String key ,
+  }){
+    return sharedPreferences.remove(key);
+  }
 
 
 }

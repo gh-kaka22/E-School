@@ -70,7 +70,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [
           TextButton(
             onPressed: (){
-              navigateTo(context, HomeLayout());
+              submit();
             },
             child: Text(
               'SKIP',
@@ -128,7 +128,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     {
                       if(isLast)
                       {
-                        navigateAndFinish(context, SchoolLoginScreen());
+                       submit();
                       } else {
                         boardingController.nextPage(
                           duration: Duration(

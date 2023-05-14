@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:e_school/layout/home_layout/home_layout.dart';
 import 'package:e_school/shared/cubit/app_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -20,19 +21,27 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark');
+  Widget widget;
+  String? token = CacheHelper.getData(key: 'token');
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+
+ if(onBoarding != null)
+    {
+      if(token != null) widget= HomeLayout();
+      else widget=SchoolLoginScreen();
+    }else widget=OnBoardingScreen();
 
   runApp( MyApp(
     isDark: false,
-    onBoarding: false,
+    startWidget: widget,
   ));
 }
 
 class MyApp extends StatelessWidget {
 
-  final bool? isDark;
-  final bool? onBoarding;
-  MyApp({this.isDark,this.onBoarding});
+   bool? isDark;
+   Widget? startWidget;
+  MyApp({this.isDark,this.startWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +57,7 @@ class MyApp extends StatelessWidget {
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: onBoarding! ? SchoolLoginScreen() :  OnBoardingScreen(),
+            home: startWidget,
           );
         },
       ),

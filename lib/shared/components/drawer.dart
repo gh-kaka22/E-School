@@ -1,3 +1,6 @@
+import 'package:e_school/modules/school_login/shop_login_screen.dart';
+import 'package:e_school/shared/components/components.dart';
+import 'package:e_school/shared/network/local/cache_helper.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -74,6 +77,13 @@ class _TheMenuState extends State<TheMenu> {
             child: ListTile(
               leading: Icon(Icons.logout),
               title: Text('Logout'),
+              onTap: (){
+                CacheHelper.removeData(key: 'token').then((value) {
+                  if(value!){
+                    navigateAndFinish(context, SchoolLoginScreen());
+                  }
+                });
+              },
             ),
           ),
         ],
