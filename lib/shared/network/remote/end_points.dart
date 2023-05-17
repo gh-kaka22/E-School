@@ -1,0 +1,1 @@
+const RegisterStudent='student/register';
