@@ -1,1 +1,1 @@
-const LOGIN = 'login';
+const LOGIN = 'api/student/login';

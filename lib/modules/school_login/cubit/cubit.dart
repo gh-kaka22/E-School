@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:e_school/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,7 @@ class SchoolLoginCubit extends Cubit<SchoolLoginStates>{
 
   static SchoolLoginCubit get(context) => BlocProvider.of(context);
 
-  LoginModel? loginModel;
+  //LoginModel? loginModel;
 
   void userLogin ({
     required String email,
