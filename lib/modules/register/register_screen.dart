@@ -243,7 +243,7 @@ class Register extends StatelessWidget {
                                               hint: Text('Choose Religion'),
                                               style: TextStyle(color: kGold1Color,fontSize: 16),
                                               onChanged: (newValue) {
-                                                cubit.changeDropDownButton(newValue);
+                                                cubit.ReligionchangeDropDownButton(newValue);
                                               },
                                               items: cubit.religionitem,
                                             ),
@@ -253,9 +253,22 @@ class Register extends StatelessWidget {
                                           width: w / 30,
                                         ),
                                         Expanded(
-                                            child: buildSForm(
-                                                controller: genderController, labeltext: 'Gender')),
-
+                                            child:  DropdownButton<dynamic>(
+                                          value: 2,
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down,
+                                            color: kGold1Color,
+                                          ),
+                                          iconSize: 24,
+                                          elevation: 40,
+                                          hint: Text('Choose Gender'),
+                                          style: TextStyle(color: kGold1Color,fontSize: 16),
+                                          onChanged: (newValue) {
+                                            cubit.GenderchangeDropDownButton(newValue);
+                                          },
+                                          items: cubit.Gendertem,
+                                        ),
+                                        )
                                         // SizedBox(
                                         //   height: h / 30,
                                         // ),

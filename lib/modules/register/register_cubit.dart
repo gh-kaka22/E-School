@@ -13,23 +13,32 @@ class RegisterCubit extends Cubit<RegisterState> {
   StudentModel? student;
 
   static RegisterCubit get(context) => BlocProvider.of(context);
-  String dropDownValue = 'Religion';
+  String religiondropDownValue = 'Religion';
+  String genderdropDownValue = 'Gender';
+
   List<DropdownMenuItem> religionitem = [
 
     DropdownMenuItem(
-      value: 1,
+      value: '1',
       child: Text('Muslime'),
     ),
     DropdownMenuItem(
-      value: 2,
+      value: '2',
       child: Text('Christian'),
     ),
   ];
-  void changeDropDownButton(String newValue)
-  {
-    dropDownValue = newValue;
-    emit(ReligionState());
-  }
+  List<DropdownMenuItem> Gendertem = [
+
+    DropdownMenuItem(
+      value: '1',
+      child: Text('Male'),
+    ),
+    DropdownMenuItem(
+      value: '2',
+      child: Text('Female'),
+    ),
+  ];
+
   void StudentRegister(
       {
     required  first_name,
@@ -82,6 +91,17 @@ class RegisterCubit extends Cubit<RegisterState> {
       );
 
     });
+
+  }
+
+  void ReligionchangeDropDownButton(newValue) {
+    religiondropDownValue = newValue;
+    emit(ReligionState());
+
+  }
+  void GenderchangeDropDownButton(newValue) {
+    genderdropDownValue = newValue;
+    emit(ReligionState());
 
   }
 }
