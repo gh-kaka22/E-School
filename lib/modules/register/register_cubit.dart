@@ -10,51 +10,69 @@ part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
+  StudentModel? student;
 
   static RegisterCubit get(context) => BlocProvider.of(context);
+  String dropDownValue = 'Religion';
+  List<DropdownMenuItem> religionitem = [
 
+    DropdownMenuItem(
+      value: 1,
+      child: Text('Muslime'),
+    ),
+    DropdownMenuItem(
+      value: 2,
+      child: Text('Christian'),
+    ),
+  ];
+  void changeDropDownButton(String newValue)
+  {
+    dropDownValue = newValue;
+    emit(ReligionState());
+  }
   void StudentRegister(
-  //     {
-  //   required first_name,
-  //   required last_name,
-  //   required father_name,
-  //   required father_phone,
-  //   required first_mother_name,
-  //   required last_mother_name,
-  //   required mother_phone,
-  //   required address,
-  //   required detailes,
-  //   required religion,
-  //   required gender,
-  //   required grade_number,
-  //   required have_sib,
-  // }
-  ) {
+      {
+    required  first_name,
+    required last_name,
+    required father_name,
+    required father_phone,
+    required first_mother_name,
+    required last_mother_name,
+    required mother_phone,
+    required address,
+    required detailes,
+    required religion,
+    required gender,
+    required grade_number,
+    required have_sib,
+  }
+  )
+  {
     emit(
       RegisterLoading(),
     );
-    StudentModel student;
+
     Diohelper.postData(
       url: RegisterStudent,
       data: {
-        'firs_name': 'first_name',
-        'last_name': 'last_name',
-        'father_name': 'father_name',
-        'father_phone_number': 'father_phone',
-        'first_mother_name': 'first_mother_name',
-        'last_mother_name': 'last_mother_name',
-        'mother_phone_number': 'mother_phone',
-        'address': 'address',
-        'detailes': 'detailes',
-        'religion': 'religion',
-        'gender': 'gender',
-        'grade_number': 'grade_number',
-        'have_sib': 'have_sib',
+        'firs_name': first_name,
+        'last_name': last_name,
+        'father_name': father_name,
+        'father_phone_number': father_phone,
+        'first_mother_name':first_mother_name,
+        'last_mother_name': last_mother_name,
+        'mother_phone_number': mother_phone,
+        'address': address,
+        'detailes': detailes,
+        'religion': religionitem,
+        'gender':gender,
+        'grade_number': grade_number,
+
       },
     )
         .then((value) => {
               student = StudentModel.fromJson(value.data),
-              print(student.data),
+              print(student?.data),
               emit(RegisterSuccess()),
             })
         .catchError((error) {
@@ -62,7 +80,8 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(
         RegisterError(error.toString()),
       );
+
     });
-    ;
+
   }
 }

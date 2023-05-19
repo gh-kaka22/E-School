@@ -36,160 +36,7 @@ Widget defaultButton({
           )),
     );
 
-Widget buildFormStudents(double w)  {
-  var FnameController = TextEditingController();
-  var LnameController = TextEditingController();
-  var DateController = TextEditingController();
-  var FatherController = TextEditingController();
-  var fatherPhoneController = TextEditingController();
-  var FmotherController = TextEditingController();
-  var LmotherController = TextEditingController();
-  var motherPhoneController = TextEditingController();
-  var religionController = TextEditingController();
-  var gradeController = TextEditingController();
-  var havekidsController = TextEditingController();
-  var detailsController = TextEditingController();
-  var genderController = TextEditingController();
-  var addressController = TextEditingController();
 
-
-  return Column(
-    children: [
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-                child: buildSForm(
-                    controller: FnameController, labeltext: 'First Name')),
-
-            SizedBox(
-              width: w / 30,
-            ),
-            Expanded(
-                child: buildSForm(
-                    controller: LnameController, labeltext: ' Last Name')),
-            SizedBox(
-              width: w / 30,
-            ),
-            Expanded(
-                child: buildSForm(
-                    controller: addressController, labeltext: 'Address')),
-            // Expanded(
-            //     child: buildSForm(
-            //         controller: DateController, labeltext: 'Date Of Birth')),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-                child: buildSForm(
-                    controller: FatherController, labeltext: 'Father\'s Name')),
-            SizedBox(
-              width: w / 30,
-            ),
-            Expanded(
-                child: buildSForm(
-                    controller: fatherPhoneController,
-                    labeltext: 'Father\'s Phone Number')),
-            SizedBox(
-              width: w / 30,
-            ),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-                child: buildSForm(
-                    controller: FmotherController,
-                    labeltext: 'First Mother\'s Name')),
-            SizedBox(
-              width: w / 30,
-            ),
-            Expanded(
-                child: buildSForm(
-                    controller: LmotherController,
-                    labeltext: 'Last Mother\'s Name')),
-            SizedBox(
-              width: w / 30,
-            ),
-            Expanded(
-                child: buildSForm(
-                    controller: motherPhoneController,
-                    labeltext: 'Mother\'s Phone Number')),
-            SizedBox(
-              width: w / 30,
-            ),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-                child: buildSForm(
-                    controller: detailsController, labeltext: 'Details')),
-            SizedBox(
-              width: w / 30,
-            ),
-
-            // SizedBox(
-            //   width: w / 30,
-            // ),
-
-            // SizedBox(
-            //   height: h / 30,
-            // ),
-          ],
-        ),
-      ),
-      // Padding(
-      //   padding: const EdgeInsets.all(16.0),
-      //   child: Row(
-      //     children: [
-      //       Expanded(
-      //         child:CheckboxListTile(
-      //           title: Text('Religion'),
-      //           value: _ischecked,
-      //           onChanged: (bool? newValue{
-      //
-      //           }),
-      //         ),
-      //
-      //         // buildSForm(controller: gradeController, labeltext: 'Grade'),
-      //       ),
-      //
-      //       SizedBox(
-      //         width: w / 30,
-      //       ),
-      //       //
-      //       Expanded(
-      //           child: buildSForm(
-      //               controller: religionController, labeltext: 'Religion')),
-      //       //  Expanded(child: buildSForm(controller: havekidsController)),
-      //       SizedBox(
-      //         width: w / 30,
-      //       ),
-      //       Expanded(
-      //           child: buildSForm(
-      //               controller: genderController, labeltext: 'Gender')),
-      //
-      //       // SizedBox(
-      //       //   height: h / 30,
-      //       // ),
-      //     ],
-      //   ),
-      // ),30
-    ],
-  );
-}
 
 TextFormField buildSForm({
   Color bordercolor = kDarkBlue2Color,
@@ -200,7 +47,6 @@ TextFormField buildSForm({
 }) {
   return TextFormField(
     decoration: InputDecoration(
-
       enabled: true,
       filled: true,
       fillColor: Colors.white30,
@@ -233,8 +79,10 @@ TextFormField buildSForm({
           color: font,
         ),
       ),
+
     ),
     controller: controller,
+
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (String? text) {
       if (text == null || text == " " || text.isEmpty) {

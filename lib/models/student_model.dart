@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class StudentModel {
   String? message;
   Data? data;
@@ -39,27 +41,12 @@ class Data {
   String? motherLastName;
   String? motherPhoneNumber;
   String? accessToken;
+  int? fatherId;
+  int? motherId;
 
-  Data(
-      {this.firstName,
-        this.lastName,
-        this.dateOfBirth,
-        this.religion,
-        this.address,
-        this.gradeId,
-        this.details,
-        this.email,
-        this.genderId,
-        this.updatedAt,
-        this.createdAt,
-        this.studentId,
-        this.passwordDecoded,
-        this.fatherName,
-        this.fatherPhoneNumber,
-        this.motherFirstName,
-        this.motherLastName,
-        this.motherPhoneNumber,
-        this.accessToken});
+
+
+
 
   Data.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
@@ -81,6 +68,8 @@ class Data {
     motherLastName = json['mother_last_name'];
     motherPhoneNumber = json['mother_phone_number'];
     accessToken = json['accessToken'];
+    fatherId=json['father_id'];
+    motherId=json['mother_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -104,6 +93,8 @@ class Data {
     data['mother_last_name'] = this.motherLastName;
     data['mother_phone_number'] = this.motherPhoneNumber;
     data['accessToken'] = this.accessToken;
+    data['father_id']=this.fatherId;
+    data['mother_id']=this.motherId;
     return data;
   }
 
