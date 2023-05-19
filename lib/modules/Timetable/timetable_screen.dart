@@ -1,7 +1,9 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_school/models/timetable_model.dart';
 import 'package:e_school/modules/Timetable/cubit/timetable_cubit.dart';
 import 'package:e_school/modules/Timetable/cubit/timetable_states.dart';
 import 'package:e_school/shared/components/components.dart';
+import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/components/schedule_card.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +15,10 @@ class TimetableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => TimetableCubit(),
+        create: (BuildContext context) => TimetableCubit()..getTimetable(day_number: 1),
       child: BlocConsumer<TimetableCubit,TimetableStates>(
-          listener: (context,states){},
-          builder: (context,states){
+          listener: (context,state){},
+          builder: (context,state){
             var cubit = TimetableCubit.get(context);
             return Scaffold(
               appBar: AppBar(
@@ -42,7 +44,7 @@ class TimetableScreen extends StatelessWidget {
                                   blurRadius: 8) //blur radius of shadow
                             ]),
                         child: Center(child: Text(
-                          'Class- 10 C',
+                          'Class- ${loginModel?.data?.grade_id} A',
                           style: TextStyle(fontSize: 18),
                         )),
                       ),
@@ -56,6 +58,7 @@ class TimetableScreen extends StatelessWidget {
                           itemBuilder: (context,index)=> GestureDetector(
                             onTap: (){
                               cubit.changeTimeTableTabBar(index);
+                              cubit.getTimetable( day_number: cubit.currentIndex+1);
                             },
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 300),
@@ -87,7 +90,10 @@ class TimetableScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20,),
                       Expanded(
-                        child: timetableBuilder(periods, context)
+                        child: ConditionalBuilder(
+                            condition: state is! TimeTableLoadingState,
+                            builder: (context)=>timetableBuilder(cubit.periodsList,context),
+                            fallback: (context)=>Center(child: CircularProgressIndicator())),
                       ),
                     ],
                   ),

@@ -212,7 +212,9 @@ Color chooseToastColor(ToastStates state) {
   return color;
 }
 
-Widget buildTimetableItem(TimetableModel period,context) => Padding(
+////
+
+Widget TimetableItemBuilder(imageUrl,from,to,subject) => Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
         width: 50,
@@ -234,13 +236,13 @@ Widget buildTimetableItem(TimetableModel period,context) => Padding(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
-                  color: period.color,
+                  color: Colors.orangeAccent,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Image.asset(
-                    '${period.imageUrl}',
+                    imageUrl,
                   ),
                 ),
               ),
@@ -255,19 +257,14 @@ Widget buildTimetableItem(TimetableModel period,context) => Padding(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "From ${period.from} to ${period.to}",
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Text(
-                        '${period.subject}',
+                        "From ${from}:00 am to ${to}:00 am",
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                         ),
                       ),
                       Text(
-                        '${period.teacher}',
+                        subject,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.grey,
@@ -282,12 +279,15 @@ Widget buildTimetableItem(TimetableModel period,context) => Padding(
         ),
       ),
     );
+
+
+
 Widget timetableBuilder(periods, context,) => ConditionalBuilder(
   condition: periods.length > 0,
   builder: (context) => ListView.builder(
     physics: BouncingScrollPhysics(),
-    itemBuilder: (context, index) => buildTimetableItem(periods[index], context),
-    itemCount: periods.length,
+    itemBuilder: (context, index) => periods[index],
+    itemCount: 6,
   ),
   fallback: (context) => Center(
     child: CircularProgressIndicator(),
