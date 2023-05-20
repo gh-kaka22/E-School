@@ -5,40 +5,13 @@ import 'package:meta/meta.dart';
 import 'package:untitled/models/student_model.dart';
 import '../../shared/network/remote/dio_helper.dart';
 import '../../shared/network/remote/end_points.dart';
-
 part 'register_state.dart';
-
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
+
   StudentModel? student;
 
   static RegisterCubit get(context) => BlocProvider.of(context);
-  String religiondropDownValue = 'Religion';
-  String genderdropDownValue = 'Gender';
-
-  List<DropdownMenuItem> religionitem = [
-
-    DropdownMenuItem(
-      value: '1',
-      child: Text('Muslime'),
-    ),
-    DropdownMenuItem(
-      value: '2',
-      child: Text('Christian'),
-    ),
-  ];
-  List<DropdownMenuItem> Gendertem = [
-
-    DropdownMenuItem(
-      value: '1',
-      child: Text('Male'),
-    ),
-    DropdownMenuItem(
-      value: '2',
-      child: Text('Female'),
-    ),
-  ];
-
   void StudentRegister(
       {
     required  first_name,
@@ -73,7 +46,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         'mother_phone_number': mother_phone,
         'address': address,
         'detailes': detailes,
-        'religion': religionitem,
+        'religion': religion,
         'gender':gender,
         'grade_number': grade_number,
 
@@ -94,14 +67,4 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   }
 
-  void ReligionchangeDropDownButton(newValue) {
-    religiondropDownValue = newValue;
-    emit(ReligionState());
-
-  }
-  void GenderchangeDropDownButton(newValue) {
-    genderdropDownValue = newValue;
-    emit(ReligionState());
-
-  }
 }

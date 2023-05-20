@@ -12,7 +12,7 @@ Widget defaultButton({
   Color buttColor = kDarkBlue2Color,
   Color colortext = Colors.white,
   double fontsize = 23,
-  FontWeight fontWeight = FontWeight.w500,
+  FontWeight fontWeight = FontWeight.w400,
   required String text,
 }) =>
     Center(
@@ -75,7 +75,7 @@ TextFormField buildSForm({
         labeltext,
         style: TextStyle(
           fontSize: 18,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w400,
           color: font,
         ),
       ),

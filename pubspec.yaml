@@ -37,6 +37,7 @@ dependencies:
   dropdownfield:
   auto_size_text:
   get:
+  dropdown_button2:
 
 
   # The following adds the Cupertino Icons font to your application.

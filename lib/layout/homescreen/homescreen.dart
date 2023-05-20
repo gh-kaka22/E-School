@@ -4,7 +4,6 @@ import '../../styles/colors.dart';
 import 'draweritems.dart';
 import 'items.dart';
 
-
 List<Items> items = [
   Items('Attendance', kDarkBlue2Color),
   Items('Exams', kDarkBlue2Color),
@@ -118,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
                     crossAxisCount: 10,
-                   // mainAxisSpacing: 30.0,
+                    // mainAxisSpacing: 30.0,
                     //crossAxisSpacing: 30.0,
                     children: List.generate(
                       items.length,
