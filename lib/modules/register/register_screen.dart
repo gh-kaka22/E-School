@@ -2,8 +2,8 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/register/register_cubit.dart';
-import '../../layout/homescreen/homescreen.dart';
 import '../../shared/components/components.dart';
+import '../../shared/components/drawer.dart';
 import '../../styles/colors.dart';
 
 class Register extends StatefulWidget {
@@ -92,27 +92,44 @@ class _RegisterState extends State<Register> {
                   height: h,
                   width: w / 5,
                   color: Colors.white24,
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(25),
-                        child: Image.asset('assets/icons/E-School.png'),
-                      ),
-                      GridView.count(
-                        physics: BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        crossAxisCount: 1,
-                        // mainAxisSpacing: 10.0,
-                        //crossAxisSpacing: 10.0,
-                        childAspectRatio: 5,
-                        children: List.generate(
-                          drawer.length,
-                          (index) => drawer[index],
+
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Image.asset('assets/icons/E-School.png'),
                         ),
-                      )
-                    ],
+
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+
+                            children: [
+                              DrawerOfDesktop(text: 'Dashboard'),
+                              DrawerOfDesktop(text: 'Students'),
+                              DrawerOfDesktop(text: 'Teachers'),
+                              DrawerOfDesktop(text: 'Subjects'),
+                              DrawerOfDesktop(text: 'Timetables'),
+                              DrawerOfDesktop(text: 'News'),
+                              DrawerOfDesktop(text: 'Classes'),
+                              DrawerOfDesktop(text: 'Attendance'),
+                              DrawerOfDesktop(text: 'Setting'),
+
+                            ],
+                          ),
+                        )
+
+
+
+                      ],
+                    ),
                   ),
+
+
+
+
+
                 ),
                 Container(
                   width: w - (w / 5) - 5,
@@ -175,10 +192,6 @@ class _RegisterState extends State<Register> {
                                   child: Row(
                                     children: [
 
-                                      // SizedBox(
-                                      //   width: w / 30,
-                                      // ),
-                                      //
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -320,9 +333,7 @@ class _RegisterState extends State<Register> {
                                               controller: fatherPhoneController,
                                               labeltext:
                                                   'Father\'s Phone Number')),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
+
                                     ],
                                   ),
                                 ),
@@ -351,9 +362,7 @@ class _RegisterState extends State<Register> {
                                               controller: motherPhoneController,
                                               labeltext:
                                                   'Mother\'s Phone Number')),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
+                                     
                                     ],
                                   ),
                                 ),
@@ -413,9 +422,7 @@ class _RegisterState extends State<Register> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
+
 
 
                                     ],
