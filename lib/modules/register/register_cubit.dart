@@ -69,6 +69,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
   String? dropDownValue ;
   String? gender;
+  String? grade;
   List<DropdownMenuItem<String>> ReligionItems = [
     DropdownMenuItem(
       value: 'Muslim',
@@ -92,6 +93,20 @@ class RegisterCubit extends Cubit<RegisterState> {
       child: Text('Female'),
     ),
   ];
+  List<DropdownMenuItem<String>> GradeItems = [
+    DropdownMenuItem(
+      value: 'Seventh',
+      child: Text('Seventh'),
+    ),
+    DropdownMenuItem(
+      value: 'Eighth',
+      child: Text('Eighth'),
+    ),
+    DropdownMenuItem(
+      value: 'Ninth',
+      child: Text('Ninth'),
+    ),
+  ];
   void changeDropDownButton(String newValue)
   {
     dropDownValue = newValue;
@@ -101,6 +116,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   {
     gender = ng;
     emit(GenderchangeDropDownButton());
+  }
+  void changeGradeDropDownButton(String gr)
+  {
+    grade = gr;
+    emit(GradechangeDropDownButton());
   }
 
 }

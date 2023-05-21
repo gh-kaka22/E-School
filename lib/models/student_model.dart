@@ -46,8 +46,6 @@ class Data {
 
 
 
-
-
   Data.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
     lastName = json['last_name'];

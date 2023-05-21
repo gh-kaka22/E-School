@@ -17,3 +17,5 @@ class ReligionDropDownButtonState extends RegisterState{}
 
 class GenderInitialState extends RegisterState{}
 class GenderchangeDropDownButton extends RegisterState{}
+class GradeInitialState extends RegisterState{}
+class GradechangeDropDownButton extends RegisterState{}
