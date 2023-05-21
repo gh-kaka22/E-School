@@ -5,14 +5,15 @@ import 'package:untitled/modules/register/register_cubit.dart';
 import '../../layout/homescreen/homescreen.dart';
 import '../../shared/components/components.dart';
 import '../../styles/colors.dart';
+
 class Register extends StatefulWidget {
   @override
   State<Register> createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  var selectReligion='Reeligion';
-  
+  var selectReligion = 'Reeligion';
+
   var FnameController = TextEditingController();
 
   var LnameController = TextEditingController();
@@ -40,10 +41,11 @@ class _RegisterState extends State<Register> {
   var addressController = TextEditingController();
   bool _isChecked = true;
   String _currText = 'Have siblings??';
-  List<String> YN=['Have siblings??'];
+  List<String> YN = ['Have siblings??'];
 
   var formkey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -173,6 +175,141 @@ class _RegisterState extends State<Register> {
                                   child: Row(
                                     children: [
                                       Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 2.0,
+                                              color: kDarkBlue2Color,
+                                            ),
+                                            borderRadius:
+                                            BorderRadius.circular(40),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children: [
+                                              Text("${selectedDate.toLocal()}"
+                                                  .split(' ')[0]),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.white,
+                                                  foregroundColor: kGold1Color,
+                                                  side: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.white),
+                                                  elevation: 0,
+                                                ),
+                                                onPressed: () =>
+                                                    _selectDate(context),
+                                                child: const Text(
+                                                  'Select date of birth',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+                                      // Expanded(
+                                      //   child:
+                                      Expanded(
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                              border:Border.all(
+                                                color: kDarkBlue2Color,
+                                                width: 2,
+
+                                              ),
+                                              borderRadius: BorderRadius.circular(40),
+                                            ),
+                                          child: Center(
+                                            child: DropdownButton<String>(
+
+                                              value: cubit.dropDownValue,
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_down,
+                                                color: kGold1Color,
+                                              ),
+                                              iconSize: 24,
+
+                                              elevation: 40,
+                                              underline: Container(),
+                                              hint: Text('Choose Religion',style: TextStyle(color:kDarkBlue2Color, fontSize: 16),),
+
+                                              onChanged: (newValue) {
+                                                cubit.changeDropDownButton(newValue!);
+                                              },
+                                              items: cubit.ReligionItems,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                           border:Border.all(
+                                             color: kDarkBlue2Color,
+                                             width: 2,
+
+                                           ),
+                                            borderRadius: BorderRadius.circular(40),
+                                          ),
+                                          child: Center(
+                                            child: DropdownButton<String>(
+                                              value: cubit.gender,
+
+
+                                             
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_down,
+                                                color: kGold1Color,
+                                              ),
+                                              iconSize: 24,
+                                              elevation: 40,
+
+                                              underline: Container(
+
+                                              ),
+
+                                              hint: Text('Choose Gender' , style:TextStyle(
+                                                  color: kDarkBlue2Color, fontSize: 16),),
+                                            //  style: ,
+                                              onChanged: (ng) {
+                                                cubit.changeReligionDropDownButton(ng!);
+                                              },
+
+                                              items: cubit.GenderItems,
+
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
                                           child: buildSForm(
                                               controller: FatherController,
                                               labeltext: 'Father\'s Name')),
@@ -232,124 +369,56 @@ class _RegisterState extends State<Register> {
                                       SizedBox(
                                         width: w / 30,
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: 50,
+                                      Column(
+                                        children: YN
+                                            .map((t) => Container(
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               width: 2.0,
                                               color: kDarkBlue2Color,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(40),
+                                            BorderRadius.circular(
+                                                40),
                                           ),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text("${selectedDate.toLocal()}"
-                                                  .split(' ')[0]),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.white,
-                                                  foregroundColor: kGold1Color,
-                                                  side: BorderSide(
-                                                      width: 1,
-                                                      color: Colors.white),
-                                                  elevation: 0,
-                                                ),
-                                                onPressed: () =>
-                                                    _selectDate(context),
-                                                child: const Text(
-                                                  'Select date of birth',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
+                                          child: Container(
+                                            width: w/7,
+                                            child: CheckboxListTile(
+                                              checkColor: Colors.white,
+                                            activeColor: kDarkBlue2Color,
+                                              title: Text(
+                                                t,
+                                                style: TextStyle(
+                                                  color: kGold1Color,
+                                                  fontSize: 18,
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-
-
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
-
-
-                                      Expanded(
-                                          child: Column(
-                                            children: YN
-                                                .map((t) => Container(
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  width: 2.0,
-                                                  color: kDarkBlue2Color,
-                                                ),
-                                                borderRadius:
-                                                BorderRadius.circular(40),
-                                              ),
-
-                                                  child: CheckboxListTile(
-                                              title: Text(t,style: TextStyle(
-                                                color: kGold1Color,
-                                                fontSize: 18,
-
-                                              ),),
-
                                               value: _isChecked,
-                                              onChanged: ( val) {
-                                                  setState(() {
-                                                    _isChecked = val!;
-                                                    if (val == true) {
-                                                      _currText = t;
-                                                    }
-                                                  });
+                                              onChanged: (val) {
+                                                setState(() {
+                                                  _isChecked = val!;
+                                                  if (val == true) {
+                                                    _currText = t;
+                                                  }
+                                                });
                                               },
                                             ),
-                                                ))
-                                                .toList(),
-                                          )),
-
-
-                                      SizedBox(
-                                        width: w / 30,
+                                          ),
+                                        ))
+                                            .toList(),
                                       ),
-                                      // Expanded(
-                                      //   child:DropdownButton(
-                                      //     items: ['Muslim','Christian']
-                                      //         .map((e) => DropdownMenuItem(child: Text('$e'),
-                                      //       value: e ,
-                                      //     ),
-                                      //     ).toList(),
-                                      //     onChanged: (v){
-                                      //       setState(() {
-                                      //        this.selectReligion= v.toString();
-                                      //       });
-                                      //
-                                      //
-                                      //     },
-                                      //     value:selectReligion,
-                                      //   ),
-                                      // ),
-
-
+                                      SizedBox(width: w/30,),
+                                      Expanded(
+                                        child: Visibility(
+                                            visible: _isChecked ,
+                                            child: buildSForm(labeltext: 'Enter father\'s name' , controller: havekidsController),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
+
+
                               ],
                             ),
                           ),
@@ -393,27 +462,5 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-
-
-
-// if (selectedreligion != null && selectedIcon != null)
-//   Row(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: <Widget>[
-//       Text(
-//           'You selected a ${selectedreligion?.label} ${selectedIcon?.label}'),
-//       Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 5),
-//         child: Icon(
-//           selectedIcon?.icon,
-//           color: selectedreligion?.color,
-//         ),
-//       )
-//     ],
-//   )
-// else
-//   const Text('Please select a color and an icon.')
-
-
 
 

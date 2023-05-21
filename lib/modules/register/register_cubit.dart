@@ -65,6 +65,43 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     });
 
+
+  }
+  String? dropDownValue ;
+  String? gender;
+  List<DropdownMenuItem<String>> ReligionItems = [
+    DropdownMenuItem(
+      value: 'Muslim',
+      child: Text('Muslim'),
+
+    ),
+    DropdownMenuItem(
+      value: 'Christian',
+      child: Text('Christian'),
+
+    ),
+
+  ];
+  List<DropdownMenuItem<String>> GenderItems = [
+    DropdownMenuItem(
+      value: 'Male',
+      child: Text('Male'),
+    ),
+    DropdownMenuItem(
+      value: 'Female',
+      child: Text('Female'),
+    ),
+  ];
+  void changeDropDownButton(String newValue)
+  {
+    dropDownValue = newValue;
+    emit(ReligionDropDownButtonState());
+  }
+  void changeReligionDropDownButton(String ng)
+  {
+    gender = ng;
+    emit(GenderchangeDropDownButton());
   }
 
 }
+

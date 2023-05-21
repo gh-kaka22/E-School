@@ -10,3 +10,10 @@ class RegisterError extends RegisterState{
   final String error;
   RegisterError(this.error);
 }
+
+class ReligionInitialState extends RegisterState{}
+
+class ReligionDropDownButtonState extends RegisterState{}
+
+class GenderInitialState extends RegisterState{}
+class GenderchangeDropDownButton extends RegisterState{}
