@@ -3,6 +3,7 @@ import 'package:e_school/modules/Timetable/timetable_screen.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/modules/exams/exams_screen.dart';
 import 'package:e_school/shared/components/category_card.dart';
+import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -90,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Student Name',
+                            loginModel?.data?.first_name ?? '',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 20,
@@ -101,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                                   height: 3,
                                 ),
                                 Text(
-                                  'Grade : 6 ',
+                                  'Grade : ${loginModel?.data?.grade_id ?? ''} ',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15,

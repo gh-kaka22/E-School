@@ -8,6 +8,7 @@ class ExamsCubit extends Cubit<ExamsStates> {
   static ExamsCubit get(context) => BlocProvider.of(context);
 
   String dropDownValue = 'Exams T1';
+
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(
       value: 'Exams T1',

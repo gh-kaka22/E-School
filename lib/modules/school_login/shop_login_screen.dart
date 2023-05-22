@@ -29,7 +29,6 @@ class SchoolLoginScreen extends StatelessWidget {
               if (state.loginModel.status ?? true) {
                 print(state.loginModel.message);
                 print(state.loginModel.data?.token);
-
                 showToast(
                     text: state.loginModel.message,
                     state: ToastStates.SUCCESS
