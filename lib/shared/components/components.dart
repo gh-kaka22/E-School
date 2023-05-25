@@ -2,13 +2,60 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../modules/register/register_cubit.dart';
+
 import '../../styles/colors.dart';
+void navigateTo(context, widget) => Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+);
+
+
+Widget defaultFormField({
+  required TextEditingController controller,
+  required TextInputType type,
+  ValueChanged? onSubmit,
+  ValueChanged? onChange,
+  VoidCallback? suffixPressed,
+  required FormFieldValidator validate,
+  required String label,
+  required IconData prefix,
+  IconData? suffix,
+  bool isPassword = false,
+}) =>
+    TextFormField(
+        controller: controller,
+        keyboardType: type,
+        onFieldSubmitted: onSubmit,
+        onChanged: onChange,
+        validator: validate,
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(color: kDarkBlue2Color),
+          prefixIcon: Icon(prefix,color: kDarkBlue2Color,),
+          suffixIcon: suffix != null
+              ? IconButton(onPressed: suffixPressed, icon: Icon(suffix,color: kDarkBlue2Color,))
+              : null,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: kDarkBlue2Color),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: kGold1Color),
+          ),
+
+        ));
+
+
+
 
 Widget defaultButton({
-  required double width,
+   double width=100,
   required void Function() onPressed,
-  required double height,
+  double height=20,
   Color buttColor = kDarkBlue2Color,
   Color colortext = Colors.white,
   double fontsize = 23,
@@ -91,5 +138,8 @@ TextFormField buildSForm({
 
       return null;
     },
+
   );
+
 }
+

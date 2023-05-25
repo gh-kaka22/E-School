@@ -3,8 +3,8 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/student_model.dart';
-import '../../shared/network/remote/dio_helper.dart';
-import '../../shared/network/remote/end_points.dart';
+import '../../../shared/network/remote/dio_helper.dart';
+import '../../../shared/network/remote/end_points.dart';
 part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
@@ -26,7 +26,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required religion,
     required gender,
     required grade_number,
-    required have_sib,
+    //required have_sib,
   }
   )
   {
@@ -85,11 +85,11 @@ class RegisterCubit extends Cubit<RegisterState> {
   ];
   List<DropdownMenuItem<String>> GenderItems = [
     DropdownMenuItem(
-      value: 'Male',
+      value: "0",
       child: Text('Male'),
     ),
     DropdownMenuItem(
-      value: 'Female',
+      value: "1",
       child: Text('Female'),
     ),
   ];
@@ -112,7 +112,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     dropDownValue = newValue;
     emit(ReligionDropDownButtonState());
   }
-  void changeReligionDropDownButton(String ng)
+  void changeGenderDropDownButton(String ng)
   {
     gender = ng;
     emit(GenderchangeDropDownButton());

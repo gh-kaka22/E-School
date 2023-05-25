@@ -1,10 +1,10 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/modules/register/register_cubit.dart';
-import '../../shared/components/components.dart';
-import '../../shared/components/drawer.dart';
-import '../../styles/colors.dart';
+import 'package:untitled/modules/students/register/register_cubit.dart';
+import 'package:untitled/shared/components/drawer.dart';
+import 'package:untitled/styles/colors.dart';
+import '../../../shared/components/components.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -12,8 +12,6 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-
-
   var FnameController = TextEditingController();
 
   var LnameController = TextEditingController();
@@ -92,7 +90,6 @@ class _RegisterState extends State<Register> {
                   height: h,
                   width: w / 5,
                   color: Colors.white24,
-
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -100,36 +97,29 @@ class _RegisterState extends State<Register> {
                           padding: const EdgeInsets.all(20.0),
                           child: Image.asset('assets/icons/E-School.png'),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
-
                             children: [
-                              DrawerOfDesktop(text: 'Dashboard'),
-                              DrawerOfDesktop(text: 'Students'),
+
+
+                              DrawerOfDesktop(text: 'Students',
+
+                              ),
                               DrawerOfDesktop(text: 'Teachers'),
+
                               DrawerOfDesktop(text: 'Subjects'),
                               DrawerOfDesktop(text: 'Timetables'),
                               DrawerOfDesktop(text: 'News'),
                               DrawerOfDesktop(text: 'Classes'),
                               DrawerOfDesktop(text: 'Attendance'),
-                              DrawerOfDesktop(text: 'Setting'),
 
                             ],
                           ),
                         )
-
-
-
                       ],
                     ),
                   ),
-
-
-
-
-
                 ),
                 Container(
                   width: w - (w / 5) - 5,
@@ -191,7 +181,6 @@ class _RegisterState extends State<Register> {
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
                                     children: [
-
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -262,7 +251,7 @@ class _RegisterState extends State<Register> {
                                               //  style: ,
                                               onChanged: (ng) {
                                                 cubit
-                                                    .changeReligionDropDownButton(
+                                                    .changeGenderDropDownButton(
                                                         ng!);
                                               },
 
@@ -271,7 +260,9 @@ class _RegisterState extends State<Register> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(width: w/30,),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -280,7 +271,7 @@ class _RegisterState extends State<Register> {
                                               width: 2,
                                             ),
                                             borderRadius:
-                                            BorderRadius.circular(40),
+                                                BorderRadius.circular(40),
                                           ),
                                           child: Center(
                                             child: DropdownButton<String>(
@@ -303,8 +294,7 @@ class _RegisterState extends State<Register> {
                                               ),
                                               //  style: ,
                                               onChanged: (gr) {
-                                                cubit
-                                                    .changeGradeDropDownButton(
+                                                cubit.changeGradeDropDownButton(
                                                     gr!);
                                               },
 
@@ -313,7 +303,6 @@ class _RegisterState extends State<Register> {
                                           ),
                                         ),
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -333,7 +322,6 @@ class _RegisterState extends State<Register> {
                                               controller: fatherPhoneController,
                                               labeltext:
                                                   'Father\'s Phone Number')),
-
                                     ],
                                   ),
                                 ),
@@ -362,7 +350,6 @@ class _RegisterState extends State<Register> {
                                               controller: motherPhoneController,
                                               labeltext:
                                                   'Mother\'s Phone Number')),
-                                     
                                     ],
                                   ),
                                 ),
@@ -377,7 +364,6 @@ class _RegisterState extends State<Register> {
                                       SizedBox(
                                         width: w / 30,
                                       ),
-
                                       Expanded(
                                         child: Container(
                                           height: 50,
@@ -387,13 +373,13 @@ class _RegisterState extends State<Register> {
                                               color: kDarkBlue2Color,
                                             ),
                                             borderRadius:
-                                            BorderRadius.circular(40),
+                                                BorderRadius.circular(40),
                                           ),
                                           child: Row(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: [
                                               Text("${selectedDate.toLocal()}"
                                                   .split(' ')[0]),
@@ -422,13 +408,9 @@ class _RegisterState extends State<Register> {
                                           ),
                                         ),
                                       ),
-
-
-
                                     ],
                                   ),
                                 ),
-
                                 Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Row(
@@ -436,54 +418,46 @@ class _RegisterState extends State<Register> {
                                       Column(
                                         children: YN
                                             .map((t) => Container(
-                                              width: w / 7,
-                                              child: CheckboxListTile(
-                                                checkColor: Colors.white,
-                                                activeColor:
-                                                kDarkBlue2Color,
-                                                title: Text(
-                                                  t,
-                                                  style: TextStyle(
-                                                    color: kGold1Color,
-                                                    fontSize: 18,
+                                                  width: w / 7,
+                                                  child: CheckboxListTile(
+                                                    checkColor: Colors.white,
+                                                    activeColor:
+                                                        kDarkBlue2Color,
+                                                    title: Text(
+                                                      t,
+                                                      style: TextStyle(
+                                                        color: kGold1Color,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                    value: _isChecked,
+                                                    onChanged: (val) {
+                                                      setState(() {
+                                                        _isChecked = val!;
+                                                        if (val == true) {
+                                                          _currText = t;
+                                                        }
+                                                      });
+                                                    },
                                                   ),
-                                                ),
-                                                value: _isChecked,
-                                                onChanged: (val) {
-                                                  setState(() {
-                                                    _isChecked = val!;
-                                                    if (val == true) {
-                                                      _currText = t;
-                                                    }
-                                                  });
-                                                },
-                                              ),
-                                            ))
+                                                ))
                                             .toList(),
                                       ),
                                       SizedBox(
                                         width: w / 30,
                                       ),
-
                                       Expanded(
                                         child: Visibility(
                                           visible: _isChecked,
                                           child: buildSForm(
-
                                             labeltext: 'Enter father\'s name',
                                             controller: havekidsController,
-
-
                                           ),
-
                                         ),
                                       ),
-
-
                                     ],
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
@@ -510,11 +484,10 @@ class _RegisterState extends State<Register> {
                                       religion: religionController.text,
                                       gender: genderController.text,
                                       grade_number: gradeController.text,
-                                      have_sib: havekidsController.text,
+                                      // have_sib: 0,
                                     );
                                   })
                               : Center(child: CircularProgressIndicator()),
-
                         ],
                       ),
                     ),
@@ -528,4 +501,3 @@ class _RegisterState extends State<Register> {
     );
   }
 }
-

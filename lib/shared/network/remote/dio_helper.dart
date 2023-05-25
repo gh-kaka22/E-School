@@ -29,7 +29,8 @@ class Diohelper{
 })async{
     return dio.post(
       url,
-      queryParameters: data,
+      queryParameters: query,
+      data: data,
     );
   }
 }
