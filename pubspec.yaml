@@ -39,6 +39,22 @@ dependencies:
   get:
   dropdown_button2:
   fluttertoast:
+  flutter_svg: ^1.1.6
+  google_fonts: ^3.0.1
+  http:
+  image_picker:
+  flutter_bloc: ^8.1.2
+  multi_select_flutter:
+  flutter_native_splash: ^2.2.16
+  conditional_builder_null_safety: ^0.0.6
+  hexcolor:
+  webview_flutter: ^2.0.3
+  smooth_page_indicator:
+  icon:
+  carousel_slider:
+  google_nav_bar:
+  settings_ui: ^2.0.2
+
 
 
   # The following adds the Cupertino Icons font to your application.

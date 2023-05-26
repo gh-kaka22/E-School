@@ -6,12 +6,12 @@ import 'package:untitled/shared/components/drawer.dart';
 import 'package:untitled/styles/colors.dart';
 import '../../../shared/components/components.dart';
 
-class Register extends StatefulWidget {
+class StudentRegisterScreen extends StatefulWidget {
   @override
-  State<Register> createState() => _RegisterState();
+  State<StudentRegisterScreen> createState() => _StudentRegisterScreenState();
 }
 
-class _RegisterState extends State<Register> {
+class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
   var FnameController = TextEditingController();
 
   var LnameController = TextEditingController();
@@ -83,45 +83,7 @@ class _RegisterState extends State<Register> {
         },
         builder: (context, state) {
           var cubit = RegisterCubit.get(context);
-          return Scaffold(
-            body: Row(
-              children: [
-                Container(
-                  height: h,
-                  width: w / 5,
-                  color: Colors.white24,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Image.asset('assets/icons/E-School.png'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-
-
-                              DrawerOfDesktop(text: 'Students',
-
-                              ),
-                              DrawerOfDesktop(text: 'Teachers'),
-
-                              DrawerOfDesktop(text: 'Subjects'),
-                              DrawerOfDesktop(text: 'Timetables'),
-                              DrawerOfDesktop(text: 'News'),
-                              DrawerOfDesktop(text: 'Classes'),
-                              DrawerOfDesktop(text: 'Attendance'),
-
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
+          return  Container(
                   width: w - (w / 5) - 5,
                   decoration: BoxDecoration(
                     color: Colors.white24,
@@ -492,10 +454,9 @@ class _RegisterState extends State<Register> {
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
+                );
+
+
         },
       ),
     );

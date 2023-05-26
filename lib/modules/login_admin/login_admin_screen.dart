@@ -116,7 +116,7 @@ class LoginAdmin extends StatelessWidget {
                                             AdminLoginCubit.get(context).adminLogin(
                                                 email: emailController.text,
                                                 password: passwordController.text);
-                                            navigateTo(context, Register());
+                                            navigateTo(context, StudentRegisterScreen());
                                           }
                                         },
                                         text: 'LogIn',

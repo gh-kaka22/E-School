@@ -140,6 +140,52 @@ TextFormField buildSForm({
     },
 
   );
-
 }
 
+
+
+Widget MyDivider() => Padding(
+  padding: const EdgeInsetsDirectional.only(
+    start: 20.0,
+  ),
+  child: Container(
+    width: double.infinity,
+    height: 1.0,
+    color: Colors.grey,
+  ),
+);
+
+
+Widget ShowStudentItem() =>Container(
+  child:   Row(
+
+    children: [
+
+      Expanded(child: Text('First Name',
+
+          style:TextStyle(overflow: TextOverflow.ellipsis)
+
+      )),
+
+      SizedBox(
+
+        height: 60,
+
+      ),
+
+      Expanded(child: Text('Last Name'),),
+
+      Expanded(child: Text('Grade')),
+
+      Expanded(child: Text('Section'),),
+
+      Expanded(
+
+        child: defaultButton(onPressed: (){},height: 30, text: 'Edit',fontsize: 15,fontWeight: FontWeight.w300,),
+
+      ),
+
+    ],
+
+  ),
+);
