@@ -90,7 +90,7 @@ TextFormField buildSForm({
   Color font = kGold1Color,
   required String labeltext,
   required TextEditingController controller,
-  double borderwidth = 2,
+  double borderwidth = 1,
 }) {
   return TextFormField(
     decoration: InputDecoration(
@@ -102,21 +102,21 @@ TextFormField buildSForm({
           width: borderwidth,
           color: bordercolor,
         ),
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(20),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           width: borderwidth,
           color: bordercolor,
         ),
-        borderRadius: BorderRadius.circular(40),
+        borderRadius: BorderRadius.circular(20),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           width: borderwidth,
           color: bordercolor,
         ),
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(20),
       ),
       label: AutoSizeText(
         labeltext,

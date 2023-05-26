@@ -38,18 +38,20 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
 
   var addressController = TextEditingController();
   bool _isChecked = true;
-  String _currText = 'Have siblings??';
-  List<String> YN = ['Have siblings??'];
+  String _currText = 'Don\'t have siblings';
+  List<String> YN = ['Don\'t have siblings'];
 
   var formkey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
+
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
+
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
@@ -61,6 +63,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    double borderwidth = 1;
     return BlocProvider(
       create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
@@ -77,6 +80,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                 content: Text(
                   'Registered Successfully',
                   style: TextStyle(color: Colors.white),
+
                 )));
             //todo: Navigate to home
           }
@@ -129,13 +133,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                           child: buildSForm(
                                               controller: LnameController,
                                               labeltext: ' Last Name')),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
-                                      Expanded(
-                                          child: buildSForm(
-                                              controller: addressController,
-                                              labeltext: 'Address')),
+
                                     ],
                                   ),
                                 ),
@@ -144,14 +142,192 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                   child: Row(
                                     children: [
                                       Expanded(
+                                          child: buildSForm(
+                                              controller: addressController,
+                                              labeltext: 'Address')),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: borderwidth,
+                                              color: kDarkBlue2Color,
+                                            ),
+                                            borderRadius:
+                                            BorderRadius.circular(20),
+                                          ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children: [
+                                              Text("${selectedDate.toLocal()}"
+                                                  .split(' ')[0]),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.white,
+                                                  foregroundColor: kGold1Color,
+                                                  side: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.white),
+                                                  elevation: 0,
+
+                                                ),
+                                                onPressed: () =>
+                                                    _selectDate(context),
+                                                child: const Text(
+                                                  'Select date of birth',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+
+
+                                      Expanded(
+                                          child: buildSForm(
+                                              controller: detailsController,
+                                              labeltext: 'Details')),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          children: YN
+                                              .map((t) => Expanded(
+                                                child: Container(
+
+                                            width: w / 7,
+                                            child: CheckboxListTile(
+                                                checkColor: Colors.white,
+                                                activeColor:
+                                                kDarkBlue2Color,
+                                                title: Text(
+                                                  t,
+                                                  style: TextStyle(
+                                                    color: kGold1Color,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                                value: _isChecked,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    _isChecked = val!;
+                                                    if (val == true) {
+                                                      _currText = t;
+                                                    }
+                                                  });
+                                                },
+                                            ),
+                                            decoration:BoxDecoration(
+                                                border:Border.all(
+                                                  color: kDarkBlue2Color,
+                                                  width: borderwidth,
+                                                  
+                                                ),
+                                              borderRadius: BorderRadius.circular(20),
+                                                    
+                                            ),
+                                          ),
+                                              ))
+                                              .toList(),
+                                        ),
+                                      ),
+
+
+
+                                    ],
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: _isChecked,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            child: buildSForm(
+                                                controller: FatherController,
+                                                labeltext: 'Father\'s Name')),
+                                        SizedBox(
+                                          width: w / 30,
+                                        ),
+                                        Expanded(
+                                            child: buildSForm(
+                                                controller: fatherPhoneController,
+                                                labeltext:
+                                                    'Father\'s Phone Number')),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: _isChecked,
+
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            child: buildSForm(
+                                                controller: FmotherController,
+                                                labeltext:
+                                                    'First Mother\'s Name')),
+                                        SizedBox(
+                                          width: w / 30,
+                                        ),
+                                        Expanded(
+                                            child: buildSForm(
+                                                controller: LmotherController,
+                                                labeltext:
+                                                    'Last Mother\'s Name')),
+                                        SizedBox(
+                                          width: w / 30,
+                                        ),
+                                        Expanded(
+                                            child: buildSForm(
+                                                controller: motherPhoneController,
+                                                labeltext:
+                                                'Mother\'s Phone Number')),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+
+                                      Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: kDarkBlue2Color,
-                                              width: 2,
+                                              width: borderwidth,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(40),
+                                            BorderRadius.circular(20),
                                           ),
                                           child: Center(
                                             child: DropdownButton<String>(
@@ -186,10 +362,10 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: kDarkBlue2Color,
-                                              width: 2,
+                                              width: borderwidth,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(40),
+                                            BorderRadius.circular(20),
                                           ),
                                           child: Center(
                                             child: DropdownButton<String>(
@@ -214,7 +390,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                               onChanged: (ng) {
                                                 cubit
                                                     .changeGenderDropDownButton(
-                                                        ng!);
+                                                    ng!);
                                               },
 
                                               items: cubit.GenderItems,
@@ -230,10 +406,10 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: kDarkBlue2Color,
-                                              width: 2,
+                                              width:borderwidth,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(40),
+                                            BorderRadius.circular(20),
                                           ),
                                           child: Center(
                                             child: DropdownButton<String>(
@@ -265,161 +441,13 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                           ),
                                         ),
                                       ),
+
+
+
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: buildSForm(
-                                              controller: FatherController,
-                                              labeltext: 'Father\'s Name')),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
-                                      Expanded(
-                                          child: buildSForm(
-                                              controller: fatherPhoneController,
-                                              labeltext:
-                                                  'Father\'s Phone Number')),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: buildSForm(
-                                              controller: FmotherController,
-                                              labeltext:
-                                                  'First Mother\'s Name')),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
-                                      Expanded(
-                                          child: buildSForm(
-                                              controller: LmotherController,
-                                              labeltext:
-                                                  'Last Mother\'s Name')),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
-                                      Expanded(
-                                          child: buildSForm(
-                                              controller: motherPhoneController,
-                                              labeltext:
-                                                  'Mother\'s Phone Number')),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          child: buildSForm(
-                                              controller: detailsController,
-                                              labeltext: 'Details')),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 2.0,
-                                              color: kDarkBlue2Color,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(40),
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text("${selectedDate.toLocal()}"
-                                                  .split(' ')[0]),
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.white,
-                                                  foregroundColor: kGold1Color,
-                                                  side: BorderSide(
-                                                      width: 1,
-                                                      color: Colors.white),
-                                                  elevation: 0,
-                                                ),
-                                                onPressed: () =>
-                                                    _selectDate(context),
-                                                child: const Text(
-                                                  'Select date of birth',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        children: YN
-                                            .map((t) => Container(
-                                                  width: w / 7,
-                                                  child: CheckboxListTile(
-                                                    checkColor: Colors.white,
-                                                    activeColor:
-                                                        kDarkBlue2Color,
-                                                    title: Text(
-                                                      t,
-                                                      style: TextStyle(
-                                                        color: kGold1Color,
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                    value: _isChecked,
-                                                    onChanged: (val) {
-                                                      setState(() {
-                                                        _isChecked = val!;
-                                                        if (val == true) {
-                                                          _currText = t;
-                                                        }
-                                                      });
-                                                    },
-                                                  ),
-                                                ))
-                                            .toList(),
-                                      ),
-                                      SizedBox(
-                                        width: w / 30,
-                                      ),
-                                      Expanded(
-                                        child: Visibility(
-                                          visible: _isChecked,
-                                          child: buildSForm(
-                                            labeltext: 'Enter father\'s name',
-                                            controller: havekidsController,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+
                               ],
                             ),
                           ),
@@ -462,3 +490,10 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
     );
   }
 }
+// SizedBox(
+//                                         width: w / 30,
+//                                       ),
+
+
+
+
