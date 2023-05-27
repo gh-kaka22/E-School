@@ -12,21 +12,21 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
 
   static ShowStudentsCubit get(context) => BlocProvider.of(context);
 
-  String? dropDownValueClass = 'Seventh';
+  String? dropDownValueClass = '7';
   String? dropDownValueSection = 'A';
 
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(
-      value: 'Seventh',
-      child: Text('Seventh'),
+      value: '7',
+      child: Text('7'),
     ),
     DropdownMenuItem(
-      value: 'Eighth',
-      child: Text('Eighth'),
+      value: '8',
+      child: Text('8'),
     ),
     DropdownMenuItem(
-      value: 'Nineth',
-      child: Text('Nineth'),
+      value: '9',
+      child: Text('9'),
     ),
   ];
   List<DropdownMenuItem> menuItems2 = [
@@ -64,6 +64,27 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
     DioHelper.getData(
         url: GETSTUDENTS,
         token: token,
+    ).then((value) {
+      print(value?.data);
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      print(showStudentsModel?.data?[0].email);
+      students = showStudentsModel?.data;
+      print(students?[1].religion);
+      emit(ShowStudentsSuccessState(showStudentsModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowStudentsErrorState(error.toString()));
+    });
+  }
+
+  void getStudentsByGrade(value)
+  {
+    emit(ShowStudentsLoadingState());
+    DioHelper.getData(
+      url: '${GETSTUDENTSBYGRADE}/${value}',
+      token: token,
     ).then((value) {
       print(value?.data);
       showStudentsModel = ShowStudentsModel.fromJson(value?.data);

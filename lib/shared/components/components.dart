@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 
 import '../../styles/colors.dart';
@@ -193,6 +194,7 @@ Widget ShowStudentsItem(w,student, index,context) => Container(
               child: Center(
                 child: defaultButton(
                   onPressed: () {
+                    navigateTo(context, StudentUpdateScreen());
                   },
                   height: 30,
                   text: 'Edit',
@@ -206,13 +208,13 @@ Widget ShowStudentsItem(w,student, index,context) => Container(
       ),
     );
 
-Widget ShowStudentsBuilder(w,students, context,) => ConditionalBuilder(
-    condition: students.length > 0,
+Widget ShowStudentsBuilder(w,students, context,state) => ConditionalBuilder(
+    condition: state is! ShowStudentsLoadingState,
     builder: (context)=> ListView.separated(
         itemBuilder: (context,index)=>ShowStudentsItem(w, students[index], index,context),
         separatorBuilder: (context,index){
           return MyDivider();
         },
         itemCount: students.length),
-    fallback: (context) => LinearProgressIndicator(),
+    fallback: (context) => Center(child: LinearProgressIndicator()),
 );

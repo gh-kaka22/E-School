@@ -159,7 +159,9 @@ class StudentsShow extends StatelessWidget {
                               )),
                           Expanded(
                             child: defaultButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                cubit.getStudentsByGrade(cubit.dropDownValueClass);
+                              },
                               height: 30,
                               text: 'Refresh',
                               fontsize: 15,
@@ -175,7 +177,8 @@ class StudentsShow extends StatelessWidget {
                       child: ShowStudentsBuilder(
                           w,
                           cubit.showStudentsModel?.data,
-                        context
+                        context,
+                        state
                           )
                   )
                 ],

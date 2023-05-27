@@ -87,398 +87,410 @@ class _StudentUpdateScreenState extends State<StudentUpdateScreen> {
         },
         builder: (context, state) {
           var cubit = RegisterCubit.get(context);
-          return  Container(
-            width: w - (w / 5) - 5,
-            decoration: BoxDecoration(
-              color: Colors.white24,
+          return  Scaffold(
+            appBar: AppBar(
+              backgroundColor: kDarkBlue2Color,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Enter Student Data : ",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge!
-                            .copyWith(color: kDarkBlue2Color),
-                      ),
-                    ),
-                    // ...List.generate(
-                    //   1,
-                    //   (index) => buildFormStudents(w),
-                    // ),
-                    Form(
-                      key: formkey,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: buildSForm(
-                                    controller: FnameController,
-                                    labeltext: 'First Name',
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: w / 30,
-                                ),
-                                Expanded(
-                                    child: buildSForm(
-                                        controller: LnameController,
-                                        labeltext: ' Last Name')),
-
-                              ],
-                            ),
+            body: Center(
+              child: Container(
+                width: w - (w / 5) - 5,
+                decoration: BoxDecoration(
+                  color: Colors.white24,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Update Student Data : ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(color: kDarkBlue2Color),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: buildSForm(
-                                        controller: addressController,
-                                        labeltext: 'Address')),
-                                SizedBox(
-                                  width: w / 30,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: borderwidth,
-                                        color: kDarkBlue2Color,
+                        ),
+                        // ...List.generate(
+                        //   1,
+                        //   (index) => buildFormStudents(w),
+                        // ),
+                        Form(
+                          key: formkey,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: buildSForm(
+                                        controller: FnameController,
+                                        labeltext: 'First Name',
                                       ),
-                                      borderRadius:
-                                      BorderRadius.circular(20),
                                     ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Text("${selectedDate.toLocal()}"
-                                            .split(' ')[0]),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.white,
-                                            foregroundColor: kGold1Color,
-                                            side: BorderSide(
-                                                width: 1,
-                                                color: Colors.white),
-                                            elevation: 0,
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: LnameController,
+                                            labeltext: ' Last Name')),
 
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: addressController,
+                                            labeltext: 'Address')),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: borderwidth,
+                                            color: kDarkBlue2Color,
                                           ),
-                                          onPressed: () =>
-                                              _selectDate(context),
-                                          child: const Text(
-                                            'Select date of birth',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
+                                          borderRadius:
+                                          BorderRadius.circular(20),
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                                            Text("${selectedDate.toLocal()}"
+                                                .split(' ')[0]),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white,
+                                                foregroundColor: kGold1Color,
+                                                side: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.white),
+                                                elevation: 0,
+
+                                              ),
+                                              onPressed: () =>
+                                                  _selectDate(context),
+                                              child: const Text(
+                                                'Select date of birth',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+
+
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: detailsController,
+                                            labeltext: 'Details')),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                      child: Row(
+                                        children: YN
+                                            .map((t) => Expanded(
+                                          child: Container(
+
+                                            width: w / 7,
+                                            child: CheckboxListTile(
+                                              checkColor: Colors.white,
+                                              activeColor:
+                                              kDarkBlue2Color,
+                                              title: Text(
+                                                t,
+                                                style: TextStyle(
+                                                  color: kGold1Color,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                              value: _isChecked,
+                                              onChanged: (val) {
+                                                setState(() {
+                                                  _isChecked = val!;
+                                                  if (val == true) {
+                                                    _currText = t;
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                            decoration:BoxDecoration(
+                                              border:Border.all(
+                                                color: kDarkBlue2Color,
+                                                width: borderwidth,
+
+                                              ),
+                                              borderRadius: BorderRadius.circular(20),
+
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ))
+                                            .toList(),
+                                      ),
                                     ),
+
+
+
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: _isChecked,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          child: buildSForm(
+                                              controller: FatherController,
+                                              labeltext: 'Father\'s Name')),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+                                      Expanded(
+                                          child: buildSForm(
+                                              controller: fatherPhoneController,
+                                              labeltext:
+                                              'Father\'s Phone Number')),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
+                              ),
+                              Visibility(
+                                visible: _isChecked,
 
-
-                                Expanded(
-                                    child: buildSForm(
-                                        controller: detailsController,
-                                        labeltext: 'Details')),
-                                SizedBox(
-                                  width: w / 30,
-                                ),
-                                Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
                                   child: Row(
-                                    children: YN
-                                        .map((t) => Expanded(
-                                      child: Container(
+                                    children: [
+                                      Expanded(
+                                          child: buildSForm(
+                                              controller: FmotherController,
+                                              labeltext:
+                                              'First Mother\'s Name')),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+                                      Expanded(
+                                          child: buildSForm(
+                                              controller: LmotherController,
+                                              labeltext:
+                                              'Last Mother\'s Name')),
+                                      SizedBox(
+                                        width: w / 30,
+                                      ),
+                                      Expanded(
+                                          child: buildSForm(
+                                              controller: motherPhoneController,
+                                              labeltext:
+                                              'Mother\'s Phone Number')),
 
-                                        width: w / 7,
-                                        child: CheckboxListTile(
-                                          checkColor: Colors.white,
-                                          activeColor:
-                                          kDarkBlue2Color,
-                                          title: Text(
-                                            t,
-                                            style: TextStyle(
-                                              color: kGold1Color,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                          value: _isChecked,
-                                          onChanged: (val) {
-                                            setState(() {
-                                              _isChecked = val!;
-                                              if (val == true) {
-                                                _currText = t;
-                                              }
-                                            });
-                                          },
-                                        ),
-                                        decoration:BoxDecoration(
-                                          border:Border.all(
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
                                             color: kDarkBlue2Color,
                                             width: borderwidth,
-
                                           ),
-                                          borderRadius: BorderRadius.circular(20),
-
+                                          borderRadius:
+                                          BorderRadius.circular(20),
+                                        ),
+                                        child: Center(
+                                          child: DropdownButton<String>(
+                                            value: cubit.dropDownValue,
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              color: kGold1Color,
+                                            ),
+                                            iconSize: 24,
+                                            elevation: 40,
+                                            underline: Container(),
+                                            hint: Text(
+                                              'Choose Religion',
+                                              style: TextStyle(
+                                                  color: kDarkBlue2Color,
+                                                  fontSize: 16),
+                                            ),
+                                            onChanged: (newValue) {
+                                              cubit.changeDropDownButton(
+                                                  newValue!);
+                                            },
+                                            items: cubit.ReligionItems,
+                                          ),
                                         ),
                                       ),
-                                    ))
-                                        .toList(),
-                                  ),
+                                    ),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: kDarkBlue2Color,
+                                            width: borderwidth,
+                                          ),
+                                          borderRadius:
+                                          BorderRadius.circular(20),
+                                        ),
+                                        child: Center(
+                                          child: DropdownButton<String>(
+                                            value: cubit.gender,
+
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              color: kGold1Color,
+                                            ),
+                                            iconSize: 24,
+                                            elevation: 40,
+
+                                            underline: Container(),
+
+                                            hint: Text(
+                                              'Choose Gender',
+                                              style: TextStyle(
+                                                  color: kDarkBlue2Color,
+                                                  fontSize: 16),
+                                            ),
+                                            //  style: ,
+                                            onChanged: (ng) {
+                                              cubit
+                                                  .changeGenderDropDownButton(
+                                                  ng!);
+                                            },
+
+                                            items: cubit.GenderItems,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: kDarkBlue2Color,
+                                            width:borderwidth,
+                                          ),
+                                          borderRadius:
+                                          BorderRadius.circular(20),
+                                        ),
+                                        child: Center(
+                                          child: DropdownButton<String>(
+                                            value: cubit.grade,
+
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              color: kGold1Color,
+                                            ),
+                                            iconSize: 24,
+                                            elevation: 40,
+
+                                            underline: Container(),
+
+                                            hint: Text(
+                                              'Choose Grade',
+                                              style: TextStyle(
+                                                  color: kDarkBlue2Color,
+                                                  fontSize: 16),
+                                            ),
+                                            //  style: ,
+                                            onChanged: (gr) {
+                                              cubit.changeGradeDropDownButton(
+                                                  gr!);
+                                            },
+
+                                            items: cubit.GradeItems,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+
+
+                                  ],
                                 ),
-
-
-
-                              ],
-                            ),
-                          ),
-                          Visibility(
-                            visible: _isChecked,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: FatherController,
-                                          labeltext: 'Father\'s Name')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: fatherPhoneController,
-                                          labeltext:
-                                          'Father\'s Phone Number')),
-                                ],
                               ),
-                            ),
+
+                            ],
                           ),
-                          Visibility(
-                            visible: _isChecked,
+                        ),
 
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: FmotherController,
-                                          labeltext:
-                                          'First Mother\'s Name')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: LmotherController,
-                                          labeltext:
-                                          'Last Mother\'s Name')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: motherPhoneController,
-                                          labeltext:
-                                          'Mother\'s Phone Number')),
-
-                                ],
-                              ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            state is! RegisterLoading
+                                ? defaultButton(
+                                text: 'update',
+                                buttColor: Colors.orangeAccent,
+                                width: w / 5,
+                                height: h / 20,
+                                onPressed: () {
+                                })
+                                : Center(child: CircularProgressIndicator()),
+                            SizedBox(
+                              width: 50,
                             ),
-                          ),
+                            state is! RegisterLoading
+                                ? defaultButton(
+                                text: 'inactivate',
+                                buttColor: Colors.redAccent,
+                                width: w / 5,
+                                height: h / 20,
+                                onPressed: () {
+                                })
+                                : Center(child: CircularProgressIndicator()),
+                          ],
+                        ),
 
 
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: kDarkBlue2Color,
-                                        width: borderwidth,
-                                      ),
-                                      borderRadius:
-                                      BorderRadius.circular(20),
-                                    ),
-                                    child: Center(
-                                      child: DropdownButton<String>(
-                                        value: cubit.dropDownValue,
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down,
-                                          color: kGold1Color,
-                                        ),
-                                        iconSize: 24,
-                                        elevation: 40,
-                                        underline: Container(),
-                                        hint: Text(
-                                          'Choose Religion',
-                                          style: TextStyle(
-                                              color: kDarkBlue2Color,
-                                              fontSize: 16),
-                                        ),
-                                        onChanged: (newValue) {
-                                          cubit.changeDropDownButton(
-                                              newValue!);
-                                        },
-                                        items: cubit.ReligionItems,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: w / 30,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: kDarkBlue2Color,
-                                        width: borderwidth,
-                                      ),
-                                      borderRadius:
-                                      BorderRadius.circular(20),
-                                    ),
-                                    child: Center(
-                                      child: DropdownButton<String>(
-                                        value: cubit.gender,
-
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down,
-                                          color: kGold1Color,
-                                        ),
-                                        iconSize: 24,
-                                        elevation: 40,
-
-                                        underline: Container(),
-
-                                        hint: Text(
-                                          'Choose Gender',
-                                          style: TextStyle(
-                                              color: kDarkBlue2Color,
-                                              fontSize: 16),
-                                        ),
-                                        //  style: ,
-                                        onChanged: (ng) {
-                                          cubit
-                                              .changeGenderDropDownButton(
-                                              ng!);
-                                        },
-
-                                        items: cubit.GenderItems,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: w / 30,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: kDarkBlue2Color,
-                                        width:borderwidth,
-                                      ),
-                                      borderRadius:
-                                      BorderRadius.circular(20),
-                                    ),
-                                    child: Center(
-                                      child: DropdownButton<String>(
-                                        value: cubit.grade,
-
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down,
-                                          color: kGold1Color,
-                                        ),
-                                        iconSize: 24,
-                                        elevation: 40,
-
-                                        underline: Container(),
-
-                                        hint: Text(
-                                          'Choose Grade',
-                                          style: TextStyle(
-                                              color: kDarkBlue2Color,
-                                              fontSize: 16),
-                                        ),
-                                        //  style: ,
-                                        onChanged: (gr) {
-                                          cubit.changeGradeDropDownButton(
-                                              gr!);
-                                        },
-
-                                        items: cubit.GradeItems,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-
-
-                              ],
-                            ),
-                          ),
-
-                        ],
-                      ),
+                      ],
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                    ),
-                    state is! RegisterLoading
-                        ? defaultButton(
-                        text: 'insert',
-                        width: w / 5,
-                        height: h / 20,
-                        onPressed: () {
-                          RegisterCubit.get(context).StudentRegister(
-                            first_name: FnameController.text,
-                            father_name: FnameController.text,
-                            last_name: LnameController.text,
-                            father_phone: fatherPhoneController.text,
-                            first_mother_name: FmotherController.text,
-                            last_mother_name: LmotherController.text,
-                            mother_phone: motherPhoneController,
-                            address: addressController.text,
-                            detailes: detailsController.text,
-                            religion: religionController.text,
-                            gender: genderController.text,
-                            grade_number: gradeController.text,
-                            // have_sib: 0,
-                          );
-                        })
-                        : Center(child: CircularProgressIndicator()),
-                  ],
+                  ),
                 ),
               ),
             ),
