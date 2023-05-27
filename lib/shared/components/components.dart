@@ -1,16 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:untitled/modules/students/update/update_students_screen.dart';
 
 import '../../styles/colors.dart';
-void navigateTo(context, widget) => Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => widget,
-  ),
-);
 
+void navigateTo(context, widget) => Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
+      ),
+    );
 
 Widget defaultFormField({
   required TextEditingController controller,
@@ -34,9 +35,17 @@ Widget defaultFormField({
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(color: kDarkBlue2Color),
-          prefixIcon: Icon(prefix,color: kDarkBlue2Color,),
+          prefixIcon: Icon(
+            prefix,
+            color: kDarkBlue2Color,
+          ),
           suffixIcon: suffix != null
-              ? IconButton(onPressed: suffixPressed, icon: Icon(suffix,color: kDarkBlue2Color,))
+              ? IconButton(
+                  onPressed: suffixPressed,
+                  icon: Icon(
+                    suffix,
+                    color: kDarkBlue2Color,
+                  ))
               : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
@@ -46,16 +55,12 @@ Widget defaultFormField({
             borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(color: kGold1Color),
           ),
-
         ));
 
-
-
-
 Widget defaultButton({
-   double width=100,
+  double width = 100,
   required void Function() onPressed,
-  double height=20,
+  double height = 20,
   Color buttColor = kDarkBlue2Color,
   Color colortext = Colors.white,
   double fontsize = 23,
@@ -82,8 +87,6 @@ Widget defaultButton({
             ),
           )),
     );
-
-
 
 TextFormField buildSForm({
   Color bordercolor = kDarkBlue2Color,
@@ -126,10 +129,8 @@ TextFormField buildSForm({
           color: font,
         ),
       ),
-
     ),
     controller: controller,
-
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (String? text) {
       if (text == null || text == " " || text.isEmpty) {
@@ -138,54 +139,80 @@ TextFormField buildSForm({
 
       return null;
     },
-
   );
 }
 
-
-
 Widget MyDivider() => Padding(
-  padding: const EdgeInsetsDirectional.only(
-    start: 20.0,
-  ),
-  child: Container(
-    width: double.infinity,
-    height: 1.0,
-    color: Colors.grey,
-  ),
-);
-
-
-Widget ShowStudentItem() =>Container(
-  child:   Row(
-
-    children: [
-
-      Expanded(child: Text('First Name',
-
-          style:TextStyle(overflow: TextOverflow.ellipsis)
-
-      )),
-
-      SizedBox(
-
-        height: 60,
-
+      padding: const EdgeInsetsDirectional.only(
+        start: 2.0,
       ),
-
-      Expanded(child: Text('Last Name'),),
-
-      Expanded(child: Text('Grade')),
-
-      Expanded(child: Text('Section'),),
-
-      Expanded(
-
-        child: defaultButton(onPressed: (){},height: 30, text: 'Edit',fontsize: 15,fontWeight: FontWeight.w300,),
-
+      child: Container(
+        width: double.infinity,
+        height: 1.0,
+        color: Colors.grey,
       ),
+    );
 
-    ],
+Widget ShowStudentsItem(w,student, index,context) => Container(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
+                  child: Text('${student.studentId}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
+            Expanded(
+                child: Center(
+                  child: Text('${student.firstName}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
+            Expanded(
+              child: Center(child: Text('${student.lastName}')),
+            ),
+            Expanded(child: Center(child: Text('${student.gradeId}'))),
+            Expanded(
+              child: Center(child: Text('${student.gradeId}')),
+            ),
+            Expanded(
+                child: Center(
+                  child: Text('${student.email}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {
+                  },
+                  height: 30,
+                  text: 'Edit',
+                  fontsize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
 
-  ),
+Widget ShowStudentsBuilder(w,students, context,) => ConditionalBuilder(
+    condition: students.length > 0,
+    builder: (context)=> ListView.separated(
+        itemBuilder: (context,index)=>ShowStudentsItem(w, students[index], index,context),
+        separatorBuilder: (context,index){
+          return MyDivider();
+        },
+        itemCount: students.length),
+    fallback: (context) => LinearProgressIndicator(),
 );

@@ -21,15 +21,15 @@ class AdminLoginCubit extends Cubit<AdminLoginStates> {
 })
   {
     emit(AdminLoginLoadingState());
-    Diohelper.postData(
+    DioHelper.postData(
         url: AdminLogin,
         data: {
           'email':email,
           'password':password,
         }).then((value) {
 
-          print(value.data);
-         admin= AdminModel.fromJson(value.data);
+          print(value?.data);
+         admin= AdminModel.fromJson(value?.data);
          print(admin!.data!.accessToken);
          print(admin!.data!.password);
 

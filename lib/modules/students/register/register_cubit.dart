@@ -34,7 +34,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       RegisterLoading(),
     );
 
-    Diohelper.postData(
+    DioHelper.postData(
       url: RegisterStudent,
       data: {
         'firs_name': first_name,
@@ -53,7 +53,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       },
     )
         .then((value) => {
-              student = StudentModel.fromJson(value.data),
+              student = StudentModel.fromJson(value?.data),
               print(student?.data),
               emit(RegisterSuccess()),
             })

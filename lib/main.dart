@@ -9,7 +9,7 @@ import 'layout/home_layout_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  Diohelper.init();
+  DioHelper.init();
   runApp( MyApp());
 }
 

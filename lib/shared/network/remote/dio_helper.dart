@@ -1,32 +1,44 @@
 import 'package:dio/dio.dart';
-
-class Diohelper{
+class DioHelper
+{
   static late Dio dio;
   static init(){
-    dio=Dio(
+    dio = Dio(
       BaseOptions(
         baseUrl: 'http://127.0.0.1:8000/api/',
         receiveDataWhenStatusError: true,
-        headers: {
-          'Accept':'application/json',
-        }
-      )
+      ),
     );
   }
-  static Future<Response>getData({
+
+  static Future<Response?> getData({
     required String url,
-    required Map<String,dynamic> query,
-})async{
-    return await dio.get(
-      url,
-      queryParameters: query,
-    );
+    Map<String,dynamic>? query,
+    String lang = 'ar',
+    String? token,
+  })async
+  {
+    dio.options.headers={
+      'content_type':'application/json',
+      'lang':lang,
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.get(url, queryParameters:query, );
   }
-  static Future<Response>postData({
+
+  static Future<Response?> postData({
     required String url,
-     Map<String,dynamic>? query,
-    required Map<String,dynamic> data,
-})async{
+    Map<String,dynamic>? query,
+    required Map<String,dynamic>? data,
+    String lang = 'en',
+    String? token,
+  }) async {
+    dio.options.headers={
+      'content_type':'application/json',
+      'lang':lang,
+      'Authorization': 'Bearer $token',
+    };
+
     return dio.post(
       url,
       queryParameters: query,
