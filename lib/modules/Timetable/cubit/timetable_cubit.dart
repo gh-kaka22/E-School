@@ -1,6 +1,5 @@
 import 'package:e_school/models/timetable_model.dart';
 import 'package:e_school/modules/Timetable/cubit/timetable_states.dart';
-
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/components/timetable_card.dart';
 import 'package:e_school/shared/network/end_points.dart';
@@ -84,6 +83,12 @@ class TimetableCubit extends Cubit<TimetableStates> {
           subject: timetableModel?.data?.sixthSubject,
           from: '1:00 PM',
           to: '2:00 PM',
+          imageUrl: '',
+        ),
+        TimetableCard(
+          subject: timetableModel?.data?.seventhSubject,
+          from: '2:00 PM',
+          to: '3:00 PM',
           imageUrl: '',
         ),
       ];

@@ -282,14 +282,16 @@ Widget TimetableItemBuilder(imageUrl,from,to,subject) => Padding(
 
 
 
-Widget timetableBuilder(periods, context,) => ConditionalBuilder(
-  condition: periods.length > 0,
+Widget timetableBuilder(periods,day, context,) => ConditionalBuilder(
+  condition: day != 5,
   builder: (context) => ListView.builder(
     physics: BouncingScrollPhysics(),
     itemBuilder: (context, index) => periods[index],
     itemCount: 6,
   ),
-  fallback: (context) => Center(
-    child: CircularProgressIndicator(),
+  fallback: (context) => ListView.builder(
+    physics: BouncingScrollPhysics(),
+    itemBuilder: (context, index) => periods[index],
+    itemCount: 7,
   ),
 );

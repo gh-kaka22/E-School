@@ -92,7 +92,7 @@ class TimetableScreen extends StatelessWidget {
                       Expanded(
                         child: ConditionalBuilder(
                             condition: state is! TimeTableLoadingState,
-                            builder: (context)=>timetableBuilder(cubit.periodsList,context),
+                            builder: (context)=>timetableBuilder(cubit.periodsList,cubit.currentIndex+1,context),
                             fallback: (context)=>Center(child: CircularProgressIndicator())),
                       ),
                     ],
