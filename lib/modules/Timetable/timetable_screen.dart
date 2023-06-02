@@ -44,7 +44,7 @@ class TimetableScreen extends StatelessWidget {
                                   blurRadius: 8) //blur radius of shadow
                             ]),
                         child: Center(child: Text(
-                          'Class- ${loginModel?.data?.grade_id} A',
+                          'Class- ${homeModel?.data?.grade_id} ${homeModel?.data?.classroom}',
                           style: TextStyle(fontSize: 18),
                         )),
                       ),

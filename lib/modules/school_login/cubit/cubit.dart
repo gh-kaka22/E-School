@@ -14,7 +14,8 @@ class SchoolLoginCubit extends Cubit<SchoolLoginStates>{
 
   static SchoolLoginCubit get(context) => BlocProvider.of(context);
 
-  //LoginModel? loginModel;
+
+  LoginModel? loginModel;
 
   void userLogin ({
     required String email,
