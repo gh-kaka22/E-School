@@ -31,7 +31,7 @@ class SearchBar extends StatelessWidget {
             height: 50,
             onPressed: () {
             },
-            color: kGold1Color,
+            color: Colors.lightBlue,
             padding: EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 15,
@@ -39,7 +39,7 @@ class SearchBar extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            child: Icon(Icons.search),
+            child: Icon(Icons.search,color: Colors.white,),
           ),
         ],
       ),

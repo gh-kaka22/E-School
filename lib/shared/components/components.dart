@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
+import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 
@@ -208,8 +210,141 @@ Widget ShowStudentsItem(w,student, index,context) => Container(
       ),
     );
 
+Widget ShowExamsItem(w,student, index,context) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${student.studentId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${student.firstName}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(child: Text('${student.lastName}')),
+        ),
+        Expanded(child: Center(child: Text('${student.gradeId}'))),
+        Expanded(
+          child: Center(child: Text('${student.gradeId}')),
+        ),
+        Expanded(
+            child: Center(
+              child: Text('Math',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${35}',
+                  style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                    color: Colors.green,
+                  )),
+            )),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () {
+                navigateTo(context, StudentUpdateScreen());
+              },
+              height: 30,
+              text: 'Edit',
+              fontsize: 15,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
+Widget AddExamsItem(w,student, index,context,controller) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${student.studentId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${student.firstName}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(child: Text('${student.lastName}')),
+        ),
+        Expanded(child: Center(child: Text('${student.gradeId}'))),
+        Expanded(
+          child: Center(child: Text('${student.gradeId}')),
+        ),
+        Expanded(
+            child: Center(
+              child: Text('Math',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: TextFormField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                validator: (value){},
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(1),
+                      borderSide: BorderSide(color: kDarkBlue2Color),
+                    ),
+                  )
+
+
+              ),
+            )),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () {
+                navigateTo(context, StudentUpdateScreen());
+              },
+              height: 30,
+              text: 'Send',
+              fontsize: 15,
+              buttColor: kGold1Color,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
 Widget ShowStudentsBuilder(w,students, context,state) => ConditionalBuilder(
-    condition: state is! ShowStudentsLoadingState,
+    condition: state is! ShowStudentsLoadingState && students != null,
     builder: (context)=> ListView.separated(
         itemBuilder: (context,index)=>ShowStudentsItem(w, students[index], index,context),
         separatorBuilder: (context,index){
@@ -217,4 +352,29 @@ Widget ShowStudentsBuilder(w,students, context,state) => ConditionalBuilder(
         },
         itemCount: students.length),
     fallback: (context) => Center(child: LinearProgressIndicator()),
+);
+
+Widget ShowExamsBuilder(w,students, context,state) => ConditionalBuilder(
+  condition: state is! ShowExamsLoadingState && students != null,
+  builder: (context)=> ListView.separated(
+      itemBuilder: (context,index)=>ShowExamsItem(w, students[index], index,context),
+      separatorBuilder: (context,index){
+        return MyDivider();
+      },
+      itemCount: students.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
+
+Widget AddExamsBuilder(w,students, context,state,controllers) => ConditionalBuilder(
+  condition: state is! AddExamsLoadingState && students != null,
+  builder: (context)=> ListView.separated(
+      itemBuilder: (context,index) {
+        controllers.add(TextEditingController());
+        return AddExamsItem(w, students[index], index, context, controllers[index]);
+      },
+      separatorBuilder: (context,index){
+        return MyDivider();
+      },
+      itemCount: students.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
 );

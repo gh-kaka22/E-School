@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
+import 'package:untitled/modules/books/add/add_books.dart';
 import 'package:untitled/modules/dashboard/dashboard.dart';
+import 'package:untitled/modules/exams/add/exams_add_screen.dart';
+import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
 
@@ -44,7 +47,7 @@ class HomeLayout extends StatelessWidget {
                         children: [
                           cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: StudentsShow(),
+                            screen: MainScreen(),
                           ),
                           cubit.SideBarItem(
                               text: 'Students',
@@ -63,7 +66,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                           cubit.SideBarItem(
                               text: 'Subjects',
-                              showScreen: StudentsShow(),
+                              showScreen: FileUpload(),
                               addScreen: StudentRegisterScreen()
                           ),
                           cubit.SideBarItem(
@@ -73,8 +76,8 @@ class HomeLayout extends StatelessWidget {
                           ),
                           cubit.SideBarItem(
                               text: 'Exams',
-                              showScreen: StudentsShow(),
-                              addScreen: StudentRegisterScreen()
+                              showScreen: ExamsShow(),
+                              addScreen: ExamsAdd()
                           ),
                           cubit.SideBarItem(
                               text: 'Attendance',
