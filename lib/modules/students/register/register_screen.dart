@@ -37,27 +37,13 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
   var genderController = TextEditingController();
 
   var addressController = TextEditingController();
-  bool _isChecked = true;
-  String _currText = 'Don\'t have siblings';
+  bool isChecked = true;
+  String currText = 'Don\'t have siblings';
   List<String> YN = ['Don\'t have siblings'];
 
+
   var formkey = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +94,6 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                   .copyWith(color: kDarkBlue2Color),
                             ),
                           ),
-                          // ...List.generate(
-                          //   1,
-                          //   (index) => buildFormStudents(w),
-                          // ),
                           Form(
                             key: formkey,
                             child: Column(
@@ -163,9 +145,10 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                             crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                             mainAxisAlignment:
+
                                             MainAxisAlignment.center,
                                             children: [
-                                              Text("${selectedDate.toLocal()}"
+                                              Text("${cubit.selectedDate}"
                                                   .split(' ')[0]),
                                               SizedBox(
                                                 width: 20,
@@ -180,8 +163,10 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                                   elevation: 0,
 
                                                 ),
-                                                onPressed: () =>
-                                                    _selectDate(context),
+                                                onPressed: ()
+                                                    {
+                                                      cubit.selectedDate;
+                                                    },
                                                 child: const Text(
                                                   'Select date of birth',
                                                   style: TextStyle(
@@ -227,12 +212,12 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                                     fontSize: 18,
                                                   ),
                                                 ),
-                                                value: _isChecked,
+                                                value: isChecked,
                                                 onChanged: (val) {
                                                   setState(() {
-                                                    _isChecked = val!;
+                                                    isChecked = val!;
                                                     if (val == true) {
-                                                      _currText = t;
+                                                      currText = t;
                                                     }
                                                   });
                                                 },
@@ -258,7 +243,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                   ),
                                 ),
                                 Visibility(
-                                  visible: _isChecked,
+                                  visible: isChecked,
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
                                     child: Row(
@@ -280,7 +265,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                                   ),
                                 ),
                                 Visibility(
-                                  visible: _isChecked,
+                                  visible: isChecked,
 
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
@@ -490,9 +475,7 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
     );
   }
 }
-// SizedBox(
-//                                         width: w / 30,
-//                                       ),
+
 
 
 

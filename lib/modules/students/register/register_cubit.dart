@@ -10,6 +10,16 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
 
   StudentModel? student;
+  String? dropDownValue ;
+  String? gender;
+  String? grade;
+  int? genderId;
+  int? gradeId;
+  bool isChecked = true;
+  String currText = 'Don\'t have siblings';
+  List<String> YN = ['Don\'t have siblings'];
+
+  DateTime selectedDate = DateTime.now();
 
   static RegisterCubit get(context) => BlocProvider.of(context);
   void StudentRegister(
@@ -46,9 +56,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         'mother_phone_number': mother_phone,
         'address': address,
         'detailes': detailes,
-        'religion': religion,
-        'gender':gender,
-        'grade_number': grade_number,
+        'religion': dropDownValue,
+        'gender':genderId,
+        'grade_number': gradeId,
 
       },
     )
@@ -67,9 +77,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
 
   }
-  String? dropDownValue ;
-  String? gender;
-  String? grade;
+
   List<DropdownMenuItem<String>> ReligionItems = [
     DropdownMenuItem(
       value: 'Muslim',
@@ -115,12 +123,34 @@ class RegisterCubit extends Cubit<RegisterState> {
   void changeGenderDropDownButton(String ng)
   {
     gender = ng;
+    if(gender=='Male')
+      genderId=1;
+    else
+      genderId=2;
     emit(GenderchangeDropDownButton());
   }
   void changeGradeDropDownButton(String gr)
   {
     grade = gr;
+    if(grade=='Seventh')
+      gradeId=1;
+    if(grade=='Eighth')
+      gradeId=2;
+    else
+      gradeId=3;
     emit(GradechangeDropDownButton());
+  }
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2008, 8),
+        lastDate: DateTime(2101));
+
+    if (picked != null && picked != selectedDate) {
+     emit(DateOfBirthState());
+    }
   }
 
 }
