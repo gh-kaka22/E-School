@@ -140,6 +140,12 @@ TextFormField buildSForm({
         return 'Can\'t be empty';
       }
 
+      if (text.length > 40) {
+        return 'It is too long';
+      }
+      if (text.length < 2) {
+        return 'It is too short';
+      }
       return null;
     },
   );
@@ -156,7 +162,7 @@ Widget MyDivider() => Padding(
       ),
     );
 
-Widget ShowStudentsItem(w,student, index,context) => Container(
+Widget ShowStudentsItem(w, student, index, context) => Container(
       width: 4 / 5 * w,
       height: 50,
       decoration: BoxDecoration(
@@ -172,14 +178,14 @@ Widget ShowStudentsItem(w,student, index,context) => Container(
           children: [
             Expanded(
                 child: Center(
-                  child: Text('${student.studentId}',
-                      style: TextStyle(overflow: TextOverflow.ellipsis)),
-                )),
+              child: Text('${student.studentId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
             Expanded(
                 child: Center(
-                  child: Text('${student.firstName}',
-                      style: TextStyle(overflow: TextOverflow.ellipsis)),
-                )),
+              child: Text('${student.firstName}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
             Expanded(
               child: Center(child: Text('${student.lastName}')),
             ),
@@ -189,9 +195,9 @@ Widget ShowStudentsItem(w,student, index,context) => Container(
             ),
             Expanded(
                 child: Center(
-                  child: Text('${student.email}',
-                      style: TextStyle(overflow: TextOverflow.ellipsis)),
-                )),
+              child: Text('${student.email}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
             Expanded(
               child: Center(
                 child: defaultButton(
@@ -210,171 +216,183 @@ Widget ShowStudentsItem(w,student, index,context) => Container(
       ),
     );
 
-Widget ShowExamsItem(w,student, index,context) => Container(
-  width: 4 / 5 * w,
-  height: 50,
-  decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.2),
-            blurRadius: 20) //blur radius of shadow
-      ]),
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: Row(
-      children: [
-        Expanded(
-            child: Center(
+Widget ShowExamsItem(w, student, index, context) => Container(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
               child: Text('${student.studentId}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-            child: Center(
+            Expanded(
+                child: Center(
               child: Text('${student.firstName}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-          child: Center(child: Text('${student.lastName}')),
-        ),
-        Expanded(child: Center(child: Text('${student.gradeId}'))),
-        Expanded(
-          child: Center(child: Text('${student.gradeId}')),
-        ),
-        Expanded(
-            child: Center(
+            Expanded(
+              child: Center(child: Text('${student.lastName}')),
+            ),
+            Expanded(child: Center(child: Text('${student.gradeId}'))),
+            Expanded(
+              child: Center(child: Text('${student.gradeId}')),
+            ),
+            Expanded(
+                child: Center(
               child: Text('Math',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-            child: Center(
+            Expanded(
+                child: Center(
               child: Text('${35}',
                   style: TextStyle(
-                      overflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.ellipsis,
                     color: Colors.green,
                   )),
             )),
-        Expanded(
-          child: Center(
-            child: defaultButton(
-              onPressed: () {
-                navigateTo(context, StudentUpdateScreen());
-              },
-              height: 30,
-              text: 'Edit',
-              fontsize: 15,
-              fontWeight: FontWeight.w300,
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {
+                    navigateTo(context, StudentUpdateScreen());
+                  },
+                  height: 30,
+                  text: 'Edit',
+                  fontsize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
-Widget AddExamsItem(w,student, index,context,controller) => Container(
-  width: 4 / 5 * w,
-  height: 50,
-  decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.2),
-            blurRadius: 20) //blur radius of shadow
-      ]),
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: Row(
-      children: [
-        Expanded(
-            child: Center(
+Widget AddExamsItem(w, student, index, context, controller) => Container(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
               child: Text('${student.studentId}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-            child: Center(
+            Expanded(
+                child: Center(
               child: Text('${student.firstName}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-          child: Center(child: Text('${student.lastName}')),
-        ),
-        Expanded(child: Center(child: Text('${student.gradeId}'))),
-        Expanded(
-          child: Center(child: Text('${student.gradeId}')),
-        ),
-        Expanded(
-            child: Center(
+            Expanded(
+              child: Center(child: Text('${student.lastName}')),
+            ),
+            Expanded(child: Center(child: Text('${student.gradeId}'))),
+            Expanded(
+              child: Center(child: Text('${student.gradeId}')),
+            ),
+            Expanded(
+                child: Center(
               child: Text('Math',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-            child: Center(
+            Expanded(
+                child: Center(
               child: TextFormField(
-                controller: controller,
-                keyboardType: TextInputType.number,
-                validator: (value){},
+                  controller: controller,
+                  keyboardType: TextInputType.number,
+                  validator: (value) {},
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(1),
                       borderSide: BorderSide(color: kDarkBlue2Color),
                     ),
-                  )
-
-
-              ),
+                  )),
             )),
-        Expanded(
-          child: Center(
-            child: defaultButton(
-              onPressed: () {
-                navigateTo(context, StudentUpdateScreen());
-              },
-              height: 30,
-              text: 'Send',
-              fontsize: 15,
-              buttColor: kGold1Color,
-              fontWeight: FontWeight.w300,
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {
+                    navigateTo(context, StudentUpdateScreen());
+                  },
+                  height: 30,
+                  text: 'Send',
+                  fontsize: 15,
+                  buttColor: kGold1Color,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
-Widget ShowStudentsBuilder(w,students, context,state) => ConditionalBuilder(
-    condition: state is! ShowStudentsLoadingState && students != null,
-    builder: (context)=> ListView.separated(
-        itemBuilder: (context,index)=>ShowStudentsItem(w, students[index], index,context),
-        separatorBuilder: (context,index){
-          return MyDivider();
-        },
-        itemCount: students.length),
-    fallback: (context) => Center(child: LinearProgressIndicator()),
-);
+Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
+      condition: state is! ShowStudentsLoadingState && students != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowStudentsItem(w, students[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: students.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
 
-Widget ShowExamsBuilder(w,students, context,state) => ConditionalBuilder(
-  condition: state is! ShowExamsLoadingState && students != null,
-  builder: (context)=> ListView.separated(
-      itemBuilder: (context,index)=>ShowExamsItem(w, students[index], index,context),
-      separatorBuilder: (context,index){
-        return MyDivider();
-      },
-      itemCount: students.length),
-  fallback: (context) => Center(child: LinearProgressIndicator()),
-);
+Widget ShowExamsBuilder(w, students, context, state) => ConditionalBuilder(
+      condition: state is! ShowExamsLoadingState && students != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowExamsItem(w, students[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: students.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
 
-Widget AddExamsBuilder(w,students, context,state,controllers) => ConditionalBuilder(
-  condition: state is! AddExamsLoadingState && students != null,
-  builder: (context)=> ListView.separated(
-      itemBuilder: (context,index) {
-        controllers.add(TextEditingController());
-        return AddExamsItem(w, students[index], index, context, controllers[index]);
-      },
-      separatorBuilder: (context,index){
-        return MyDivider();
-      },
-      itemCount: students.length),
-  fallback: (context) => Center(child: LinearProgressIndicator()),
-);
+Widget AddExamsBuilder(w, students, context, state, controllers) =>
+    ConditionalBuilder(
+      condition: state is! AddExamsLoadingState && students != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) {
+            controllers.add(TextEditingController());
+            return AddExamsItem(
+                w, students[index], index, context, controllers[index]);
+          },
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: students.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+Widget MyText({required String name}) => Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        "$name",
+        style: TextStyle(
+          fontSize: 35,
+          fontWeight: FontWeight.w400,
+          color: kDarkBlue2Color,
+        ),
+      ),
+    );

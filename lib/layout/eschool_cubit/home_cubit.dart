@@ -10,16 +10,14 @@ part 'home_states.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
-  static HomeCubit get(context)=> BlocProvider.of(context);
+  static HomeCubit get(context) => BlocProvider.of(context);
 
-  Widget currentScreen=MainScreen();
-
-
+  Widget currentScreen = MainScreen();
 
   //void changeScreen(Widget screen)
   //{
-    //currentScreen= screen;
-    //emit(HomeChangeScreenState());
+  //currentScreen= screen;
+  //emit(HomeChangeScreenState());
   //}
 
   Widget SideBarItem({
@@ -53,7 +51,6 @@ class HomeCubit extends Cubit<HomeStates> {
                 currentScreen = showScreen;
                 emit(HomeChangeScreenState());
               },
-
             ),
             ListTile(
               title: Text('Add'),
@@ -75,7 +72,7 @@ class HomeCubit extends Cubit<HomeStates> {
       Card(
         elevation: 5,
         child: InkWell(
-          onTap: (){
+          onTap: () {
             currentScreen = screen;
             emit(HomeChangeScreenState());
           },
@@ -90,8 +87,4 @@ class HomeCubit extends Cubit<HomeStates> {
           ),
         ),
       );
-
-
-
-
 }

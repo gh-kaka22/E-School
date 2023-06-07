@@ -56,6 +56,7 @@ dependencies:
   settings_ui: ^2.0.2
   file_picker: ^4.0.0
   shared_preferences:
+  intl:
 
 
 

@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/models/admin_models.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
-import '../../shared/network/remote/end_points.dart';
-import 'login_admin_state.dart';
+import '../../../shared/network/remote/end_points.dart';
+import 'login_owner_state.dart';
 
 
 
-class AdminLoginCubit extends Cubit<AdminLoginStates> {
-  AdminLoginCubit() : super(AdminLoginInitialState());
-  static AdminLoginCubit get(context)=>BlocProvider.of(context);
+class OwnerLoginCubit extends Cubit<OwnerLoginStates> {
+  OwnerLoginCubit() : super(OwnerLoginInitialState());
+  static OwnerLoginCubit get(context)=>BlocProvider.of(context);
   AdminModel ?admin;
   void adminLogin(
   {
@@ -20,7 +20,7 @@ class AdminLoginCubit extends Cubit<AdminLoginStates> {
 
 })
   {
-    emit(AdminLoginLoadingState());
+    emit(OwnerLoginLoadingState());
     DioHelper.postData(
         url: AdminLogin,
         data: {
@@ -33,11 +33,11 @@ class AdminLoginCubit extends Cubit<AdminLoginStates> {
          print(admin!.data!.accessToken);
          print(admin!.data!.password);
 
-          emit(AdminLoginSuccessState(admin!));
+          emit(OwnerLoginSuccessState(admin!));
 
     }).catchError((error){
       print(error.toString());
-      emit(AdminLoginErrorState(error.toString()));
+      emit(OwnerLoginErrorState(error.toString()));
     });
 
   }
@@ -47,7 +47,7 @@ class AdminLoginCubit extends Cubit<AdminLoginStates> {
 
     ispassword=!ispassword;
     suffix=ispassword? Icons.visibility_off : Icons.visibility;
-    emit(AdminLoginChangePasswordVisibilityState());
+    emit(OwnerLoginChangePasswordVisibilityState());
 
   }
 }

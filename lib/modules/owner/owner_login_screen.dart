@@ -1,11 +1,12 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:untitled/modules/login_admin/login_admin_cubit.dart';
-import 'package:untitled/modules/login_admin/login_admin_state.dart';
+
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/styles/colors.dart';
 import '../students/register/register_screen.dart';
+import 'cubit/login_owner_cubit.dart';
+import 'cubit/login_owner_state.dart';
 
 class LoginAdmin extends StatelessWidget {
   var formkey = GlobalKey<FormState>();
@@ -18,10 +19,10 @@ class LoginAdmin extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (BuildContext context) => AdminLoginCubit(),
-      child: BlocConsumer<AdminLoginCubit, AdminLoginStates>(
+      create: (BuildContext context) => OwnerLoginCubit(),
+      child: BlocConsumer<OwnerLoginCubit, OwnerLoginStates>(
         listener: (context, state) {
-          if (state is AdminLoginSuccessState) {
+          if (state is OwnerLoginSuccessState) {
             if (state.adminModel.status == true) {
               print(state.adminModel.status);
               print(state.adminModel.data!.accessToken);
@@ -95,25 +96,25 @@ class LoginAdmin extends StatelessWidget {
                                   label: 'Password',
                                   prefix: Icons.lock_outline,
                                   suffix: Icons.visibility,
-                                  isPassword: AdminLoginCubit.get(context).ispassword,
+                                  isPassword: OwnerLoginCubit.get(context).ispassword,
                                   suffixPressed: () {
-                                    AdminLoginCubit.get(context)
+                                    OwnerLoginCubit.get(context)
                                         .changepasswordvisibility();
                                   },
                                   onSubmit: (value) {
                                     if (formkey.currentState!.validate()) {
-                                      AdminLoginCubit.get(context).adminLogin(
+                                      OwnerLoginCubit.get(context).adminLogin(
                                           email: emailController.text,
                                           password: passwordController.text);
                                     }
                                   },
                                 ),
                                 SizedBox(height: h / 20),
-                                state is! AdminLoginLoadingState
+                                state is! OwnerLoginLoadingState
                                     ? defaultButton(
                                         onPressed: () {
                                           if (formkey.currentState!.validate()) {
-                                            AdminLoginCubit.get(context).adminLogin(
+                                            OwnerLoginCubit.get(context).adminLogin(
                                                 email: emailController.text,
                                                 password: passwordController.text);
                                             navigateTo(context, StudentRegisterScreen());

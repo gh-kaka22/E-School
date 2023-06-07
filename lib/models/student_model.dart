@@ -8,7 +8,7 @@ class StudentModel {
 
   StudentModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ?  Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -22,29 +22,31 @@ class StudentModel {
 }
 
 class Data {
-  String?firstName;
-  String?lastName;
+  String? firstName;
+  String? lastName;
   String? dateOfBirth;
-  String? religion;
-  String? address;
-  String? gradeId;
-  String ?details;
-  String?email;
-  String? genderId;
-  String? updatedAt;
-  String? createdAt;
-  int? studentId;
-  int? passwordDecoded;
   String? fatherName;
   String? fatherPhoneNumber;
   String? motherFirstName;
   String? motherLastName;
   String? motherPhoneNumber;
+  String? religion;
+  String? address;
+  String? gradenumber;
+  String? details;
+  String? email;
+  int? havekids;
+  String? genderId;
+  String? updatedAt;
+  String? createdAt;
+  int? studentId;
+  int? passwordDecoded;
+
+
+
   String? accessToken;
   int? fatherId;
   int? motherId;
-
-
 
   Data.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
@@ -52,7 +54,7 @@ class Data {
     dateOfBirth = json['date_of_birth'];
     religion = json['religion'];
     address = json['address'];
-    gradeId = json['grade_id'];
+    gradenumber = json['grade_id'];
     details = json['details'];
     email = json['email'];
     genderId = json['gender_id'];
@@ -66,8 +68,8 @@ class Data {
     motherLastName = json['mother_last_name'];
     motherPhoneNumber = json['mother_phone_number'];
     accessToken = json['accessToken'];
-    fatherId=json['father_id'];
-    motherId=json['mother_id'];
+    fatherId = json['father_id'];
+    motherId = json['mother_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -77,7 +79,7 @@ class Data {
     data['date_of_birth'] = this.dateOfBirth;
     data['religion'] = this.religion;
     data['address'] = this.address;
-    data['grade_id'] = this.gradeId;
+    data['grade_id'] = this.gradenumber;
     data['details'] = this.details;
     data['email'] = this.email;
     data['gender_id'] = this.genderId;
@@ -91,9 +93,8 @@ class Data {
     data['mother_last_name'] = this.motherLastName;
     data['mother_phone_number'] = this.motherPhoneNumber;
     data['accessToken'] = this.accessToken;
-    data['father_id']=this.fatherId;
-    data['mother_id']=this.motherId;
+    data['father_id'] = this.fatherId;
+    data['mother_id'] = this.motherId;
     return data;
   }
-
 }

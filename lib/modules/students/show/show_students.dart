@@ -1,6 +1,5 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/shared/components/components.dart';
@@ -28,10 +27,10 @@ class StudentsShow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Students',
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  SizedBox(
+                    height: 30,
                   ),
+                  MyText(name: 'Students'),
                   SizedBox(
                     height: 30,
                   ),
