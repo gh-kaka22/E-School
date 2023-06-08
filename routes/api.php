@@ -30,7 +30,7 @@ Route::post('/admin/register',[AuthController::class, 'AdminRegister']);
    Route::post('login2', [AuthController::class, 'login2']);
    Route::post('register', [AuthController::class, 'register']);
 
-    Route::middleware('auth:api')->group(function () {
+    Route::middleware(['auth:api', 'isAdmin'])->group(function () {
         Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
 
 
