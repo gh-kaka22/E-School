@@ -9,6 +9,8 @@ use App\Models\Student;
 use App\Models\Student_Parent;
 use App\Models\Teacher;
 use App\Models\TeacherClassroom;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +21,77 @@ use App\Http\Controllers\ApiResponseTrait;
 class AuthController extends Controller
 {
     use ApiResponseTrait;
+
+
+
+    public function login2(Request $request)
+    {
+
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $success['token'] = $user->createToken('accessToken')->accessToken;
+
+            return $this->apiResponse('You are successfully logged in.', $success);
+
+        } else {
+            return $this->apiResponse('Unauthorised.', null);
+        }
+    }
+
+
+    public function register(Request $request)
+    {
+//        $validator = Validator::make($request->all(), [
+//            'name' => 'required',
+//            'email' => 'required|email|unique:users',
+//            'password' => 'required|min:8'
+//        ]);
+
+       // if ($validator->fails()) return sendError('Validation Error.', $validator->errors(), 422);
+
+        try {
+            $user = User::create([
+                'role' => $request->role,
+                'email' => $request->email,
+                'password' => bcrypt($request->password)
+            ]);
+
+            $success['name'] = $user->name;
+            $message = 'Yay! A user has been successfully created.';
+            $success['token'] = $user->createToken('accessToken')->accessToken;
+        } catch (Exception $e) {
+            $success['token'] = [];
+            $message = $e->getMessage();
+        }
+
+        return $this->apiResponse($message,$success);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function StudentRegister(Request $request): JsonResponse
     {
 
