@@ -31,7 +31,7 @@ class SearchBar extends StatelessWidget {
             height: 50,
             onPressed: () {
             },
-            color: Colors.lightBlue,
+            color: kDarkBlue2Color,
             padding: EdgeInsets.symmetric(
               horizontal: 10,
               vertical: 15,

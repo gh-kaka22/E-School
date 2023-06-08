@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
+import 'package:untitled/modules/attendance/add/add.dart';
 import 'package:untitled/modules/books/add/add_books.dart';
 import 'package:untitled/modules/dashboard/dashboard.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
+import 'package:untitled/modules/teachers/add/add_teacher.dart';
 
 class HomeLayout extends StatelessWidget {
   @override
@@ -47,7 +49,7 @@ class HomeLayout extends StatelessWidget {
                             cubit.SideBarItem(
                                 text: 'Teachers',
                                 showScreen: StudentsShow(),
-                                addScreen: StudentRegisterScreen()),
+                                addScreen: AddTeacher()),
                             cubit.SideBarItem(
                                 text: 'Classes',
                                 showScreen: StudentsShow(),
@@ -67,7 +69,7 @@ class HomeLayout extends StatelessWidget {
                             cubit.SideBarItem(
                                 text: 'Attendance',
                                 showScreen: StudentsShow(),
-                                addScreen: StudentRegisterScreen()),
+                                addScreen: AddAttendance()),
                             cubit.SideBarItem(
                                 text: 'News',
                                 showScreen: StudentsShow(),
