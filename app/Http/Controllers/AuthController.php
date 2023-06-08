@@ -22,79 +22,9 @@ class AuthController extends Controller
 {
     use ApiResponseTrait;
 
-
-
-    public function login2(Request $request)
-    {
-
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $success['token'] = $user->createToken('accessToken')->accessToken;
-
-            return $this->apiResponse('You are successfully logged in.', $success);
-
-        } else {
-            return $this->apiResponse('Unauthorised.', null);
-        }
-    }
-
-
-    public function register(Request $request)
-    {
-//        $validator = Validator::make($request->all(), [
-//            'name' => 'required',
-//            'email' => 'required|email|unique:users',
-//            'password' => 'required|min:8'
-//        ]);
-
-       // if ($validator->fails()) return sendError('Validation Error.', $validator->errors(), 422);
-
-        try {
-            $user = User::create([
-                'role' => $request->role,
-                'email' => $request->email,
-                'password' => bcrypt($request->password)
-            ]);
-
-            $success['name'] = $user->name;
-            $message = 'Yay! A user has been successfully created.';
-            $success['token'] = $user->createToken('accessToken')->accessToken;
-        } catch (Exception $e) {
-            $success['token'] = [];
-            $message = $e->getMessage();
-        }
-
-        return $this->apiResponse($message,$success);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function StudentRegister(Request $request): JsonResponse
     {
-
+        $parent_id=null;
         $attributes=$request->validate([
             'first_name' => ['required', 'max:55', 'string'],
             'last_name' => ['required', 'max:55', 'string'],
@@ -117,6 +47,9 @@ class AuthController extends Controller
 
         ]);
 
+        $student_role=2;
+        $parent_role=3;
+
 
 
         if($request->have_kids==0){
@@ -137,6 +70,11 @@ class AuthController extends Controller
             $ParentpasswordDecoded=$Pinput['parent_password'];
             $Pinput['parent_password'] = bcrypt($Pinput['parent_password']);
             $Pinput['parent_email'] =   $request->father_first_name  . rand(pow(10, 4 - 1), pow(10, 4) -1). $request->mother_first_name .'@schoolname.com';
+            $parent_user=User::create([
+                'email' =>$Pinput['parent_email'],
+                'password' => $Pinput['parent_password'],
+                'role'=>$parent_role
+            ]);
 
 
            try{
@@ -148,13 +86,15 @@ class AuthController extends Controller
                'mother_last_name'=>$request->mother_last_name,
                'mother_phone_number'=>$request->mother_phone_number,
                'national_id'=>$request->national_id,
-               'email'=>$Pinput['parent_email'],
-               'password'=>$Pinput['parent_password'],
+               'user_id'=>$parent_user->id,
+
+//               'email'=>$Pinput['parent_email'],
+//               'password'=>$Pinput['parent_password'],
 
            ]);
 
                $parent_id=$parent->parent_id;
-               $parent_email=$parent->email;
+               $parent_email=$parent_user->email;
 
            } catch (\Exception $e){
                if($e->getCode()==23000)
@@ -181,7 +121,13 @@ class AuthController extends Controller
                 ->where('national_id','=',$request->national_id)
                 ->first();
                 $parent_id=$parent->parent_id;
-                $parent_email=$parent->email;
+
+                $parent_email=DB::table('users')
+                ->where('id','=',$parent->user_id)
+                ->first()
+                ->email;
+
+
             }catch (\Exception $e){
                 if($e->getCode()==0)
                 return $this->apiResponse('The national id does not exist',null,false);
@@ -204,6 +150,15 @@ class AuthController extends Controller
         $input['student_password'] = bcrypt($input['student_password']);
         $input['student_email'] =   $request->first_name . rand(pow(10, 4 - 1), pow(10, 4) -1).'@schoolname.com';
 
+        $student_user=User::create([
+            'email' =>$input['student_email'],
+            'password' => $input['student_password'],
+            'role'=>$student_role
+        ]);
+
+
+
+
         $student = Student::query()->create(
             [
                 'first_name'=>$request->first_name,
@@ -213,10 +168,11 @@ class AuthController extends Controller
                 'address'=>$request->address,
                 'grade_id'=>$request->grade_number,
                 'details'=>$request->details,
-                'email'=>$input['student_email'],
-                'password'=>$input['student_password'],
+//                'email'=>$input['student_email'],
+//                'password'=>$input['student_password'],
                 'gender_id'=>$request->gender_id,
                 'parent_id'=>$parent_id,
+                'user_id'=>$student_user->id
             ]
         );
         if($request->have_kids==0)
@@ -224,7 +180,7 @@ class AuthController extends Controller
 
 
 
-
+        $student['student_email']=$input['student_email'];
         $student['StudentPasswordDecoded']=$StudentpasswordDecoded;
         $student['father_name']=$father_name;
         $student['father_phone_number']=$father_phone_number;
@@ -232,12 +188,136 @@ class AuthController extends Controller
         $student['mother_last_name']=$mother_last_name;
         $student['mother_phone_number']=$mother_phone_number;
         $student['parent_email']=$parent_email;
-        $student['student_token']=$accessToken = $student->createToken('MyApp', ['student'])->accessToken;
+        $student['student_token']=$accessToken = $student->createToken('token')->accessToken;
 
 
         return $this->apiResponse('success',$student);
 
     }
+
+
+    public function TeacherRegister(Request $request): JsonResponse
+    {
+
+        $request->validate([
+            'first_name' => ['required', 'max:55', 'string'],
+            'last_name' => ['required', 'max:55', 'string'],
+            'phone_number' => ['required','min:10', 'max:14', 'string'],
+            'address'=>['required', 'string'],
+            'details' => 'nullable',
+            'classrooms' => ['required', 'array'],
+            'subject_id' => ['required' , ' integer'],
+        ]);
+        $role=4;
+
+
+        $input = $request->all();
+        $email =   $request->first_name . rand(pow(10, 4 - 1), pow(10, 4) -1).'@schoolname.com';
+        $input['password'] =  400 . rand(pow(10, 6 - 1), pow(10, 6) -1);
+        $passwordDecoded=$input['password'];
+        $input['password']=bcrypt($input['password']);
+
+        $user = User::create([
+            'email' => $email,
+            'password' => $input['password'],
+            'role' => $role,
+        ]);
+
+        $token = $user->createToken('accessToken')->accessToken;
+
+
+
+        $teacher = Teacher::query()->create([
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
+            'phone_number'=>$request->phone_number,
+            'subject_id'=>$request->subject_id,
+            'address'=>$request->address,
+            'details'=>$request->details,
+            'user_id'=>$user->id,
+
+
+        ]);
+
+
+        $teacher['email']=$email;
+        $teacher['password_decoded']=$passwordDecoded;
+        $teacher['token']=$token;
+
+        foreach ($request->classrooms as $classroom_id){
+            $data=[
+                'teacher_id'=>$teacher->teacher_id,'classroom_id'=>$classroom_id
+            ];
+            TeacherClassroom::insert($data);
+
+        }
+
+
+
+        return $this->apiResponse('Register success',$teacher);
+
+    }
+
+
+    public function AdminRegister(Request $request): JsonResponse
+    {
+
+        $request->validate([
+            'first_name' => ['required', 'max:55', 'string'],
+            'last_name' => ['required', 'max:55', 'string'],
+
+        ]);
+
+        $role=1;
+
+
+        $input = $request->all();
+        $input['email'] =   $request->first_name . rand(pow(10, 4 - 1), pow(10, 4) -1).'@schoolname.com';
+        $input['password'] =  100 . rand(pow(10, 6 - 1), pow(10, 6) -1);
+        $passwordDecoded=$input['password'];
+        $input['password']=bcrypt($input['password']);
+        $input['role']=$role;
+
+
+
+        $admin = User::query()->create($input);
+        $accessToken = $admin->createToken('token')->accessToken;
+        $admin['password_decoded']=$passwordDecoded;
+        $admin['token']=$accessToken;
+
+
+
+
+        return $this->apiResponse('Register success',$admin);
+
+    }
+
+
+
+
+
+    public function register(Request $request)
+    {
+
+
+            $user = User::create([
+                'role' => $request->role,
+                'email' => $request->email,
+                'password' => bcrypt($request->password)
+            ]);
+
+            $success['name'] = $user->name;
+            $message = 'Yay! A user has been successfully created.';
+            $success['token'] = $user->createToken('accessToken')->accessToken;
+
+
+        return $this->apiResponse($message,$success);
+    }
+
+
+
+
+
 
 
 /*
@@ -282,81 +362,11 @@ class AuthController extends Controller
 
 
 
-    public function AdminRegister(Request $request): JsonResponse
-    {
-
-        $request->validate([
-            'first_name' => ['required', 'max:55', 'string'],
-            'last_name' => ['required', 'max:55', 'string'],
-
-        ]);
-
-
-        $input = $request->all();
-        $input['email'] =   $request->first_name . rand(pow(10, 4 - 1), pow(10, 4) -1).'@schoolname.com';
-        $input['password'] =  100 . rand(pow(10, 6 - 1), pow(10, 6) -1);
-        $passwordDecoded=$input['password'];
-        $input['password']=bcrypt($input['password']);
-
-
-
-        $admin = Admin::query()->create($input);
-        $accessToken = $admin->createToken('MyApp', ['admin'])->accessToken;
-        $admin['password_decoded']=$passwordDecoded;
-        $admin['token']=$accessToken;
-
-
-
-
-        return $this->apiResponse('Register success',$admin);
-
-    }
-
-
-
-    public function TeacherRegister(Request $request): JsonResponse
-    {
-
-        $request->validate([
-            'first_name' => ['required', 'max:55', 'string'],
-            'last_name' => ['required', 'max:55', 'string'],
-            'phone_number' => ['required','min:10', 'max:14', 'string'],
-            'address'=>['required', 'string'],
-            'details' => 'nullable',
-            'classrooms' => ['required', 'array'],
-            'subject_id' => ['required' , ' integer'],
-        ]);
 
 
 
 
 
-        $input = $request->all();
-        $input['email'] =   $request->first_name . rand(pow(10, 4 - 1), pow(10, 4) -1).'@schoolname.com';
-        $input['password'] =  400 . rand(pow(10, 6 - 1), pow(10, 6) -1);
-        $passwordDecoded=$input['password'];
-        $input['password']=bcrypt($input['password']);
-
-
-
-        $teacher = Teacher::query()->create($input);
-        $accessToken = $teacher->createToken('MyApp', ['teacher'])->accessToken;
-        $teacher['password_decoded']=$passwordDecoded;
-        $teacher['token']=$accessToken;
-
-        foreach ($request->classrooms as $classroom_id){
-            $data=[
-                'teacher_id'=>$teacher->teacher_id,'classroom_id'=>$classroom_id
-            ];
-            TeacherClassroom::insert($data);
-
-        }
-
-
-
-        return $this->apiResponse('Register success',$teacher);
-
-    }
 
 
 
@@ -383,52 +393,65 @@ class AuthController extends Controller
 
     }
 
+    public function login2(Request $request)
+    {
+        $loginData = $request->validate([
+            'email'=>'email|required',
+            'password' => 'required'
+        ]);
+
+
+        $credentials = $request->only('email', 'password');
+
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+
+            if($user->role==1)
+                return $this->AdminLogin($request);
+           else if($user->role==2)
+               return $this->StudentLogin($request);
+           else if($user->role==3)
+                return $this->ParentLogin($request);
+           else if($user->role==4)
+                return $this->TeacherLogin($request);
+
+
+        } else {
+            return $this->apiResponse('Unauthorised.',null,false);
+        }
+    }
 
     public function StudentLogin(Request $request): JsonResponse
     {
 
-        $loginData = $request->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-
-        $credentials = request(['email', 'password']);
-
-
-        if(auth()->guard('student')->attempt($request->only('email', 'password'))){;
-
-
-           config(['auth.guards.api.provider' => 'student']);
-          $student = Student::select('students.*')->find(auth()->guard('student')->user()['student_id']);
-
-          $success =  $student;
+        $student=DB::table('students')
+            ->where('user_id','=',Auth::id())
+            ->first();
 
 
 
-            $accessToken =  $student->createToken('MyApp', ['student'])->accessToken;
 
-
-            $parents=DB::table('parents')
+        $parents=DB::table('parents')
             ->where('parent_id','=',$student->parent_id)
             ->first();
 
-            $success['father_first_name']=$parents->father_first_name;
-            $success['father_last_name']=$parents->father_last_name;
-            $success['father_phone_number']=$parents->father_phone_number;
-            $success['mother_first_name']=$parents->mother_first_name;
-            $success['mother_last_name']=$parents->mother_last_name;
-            $success['mother_phone_number']=$parents->mother_phone_number;
 
 
+        //user//email
 
-            $success['token'] = $accessToken;
+        $student->email =Auth::user()->email;
+        $student->father_first_name=$parents->father_first_name;
+        $student->father_last_name=$parents->father_last_name;
+        $student->father_phone_number=$parents->father_phone_number;
+        $student->mother_first_name=$parents->mother_first_name;
+        $student->mother_last_name=$parents->mother_last_name;
+        $student->mother_phone_number=$parents->mother_phone_number;
+        $student->token = Auth::user()->createToken('accessToken')->accessToken;;
 
 
-            return $this->apiResponse('login successfully',$success);
-        } else {
-            return $this->apiResponse('Credentials did not match',null,false);
-
-        }
+        return $this->apiResponse('login successfully',$student);
 
 
     }

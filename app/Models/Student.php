@@ -27,7 +27,8 @@ class Student extends Authenticatable
         //'details',
         'grade_id',
         'gender_id',
-        'parent_id'
+        'parent_id',
+        'user_id'
 
     ];
 
@@ -82,6 +83,12 @@ class Student extends Authenticatable
     public function exams() : HasMany
     {
         return $this->hasMany(Exam::class,'student_id');
+
+    }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id');
 
     }
 

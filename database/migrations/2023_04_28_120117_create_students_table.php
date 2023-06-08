@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('religion');
-            $table->string('email')->unique();
-            $table->string('password');
+            //$table->string('email')->unique();
+            //$table->string('password');
             $table->date('date_of_birth');
             $table->text('address');
             $table->text('details')->default('none');
@@ -26,6 +26,11 @@ return new class extends Migration
 
             $table->unsignedBigInteger('parent_id');
             $table->foreign('parent_id')->references('parent_id')->on('parents')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

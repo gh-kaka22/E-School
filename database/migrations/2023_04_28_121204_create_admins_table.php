@@ -19,9 +19,14 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
            // $table->string('user_name')->unique()->nullable();
-            $table->string('email')->unique();
+            //$table->string('email')->unique();
             //$table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            //$table->string('password');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

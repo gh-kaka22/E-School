@@ -22,6 +22,11 @@ class ClassroomSeeder extends Seeder
                 'room_number' => "A6",
                 'grade_id'=>1,
             ],
+            [
+                'capacity' => 35,
+                'room_number' => "A7",
+                'grade_id'=>1,
+            ],
 
 
         ]);

@@ -18,13 +18,18 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone_number');
            // $table->string('urgent_phone_number');
-            $table->string('email')->unique();
-            $table->string('password')->nullable();
+            //$table->string('email')->unique();
+            //$table->string('password')->nullable();
             $table->text('address');
             $table->text('details')->default('none');
             $table->unsignedbigInteger('subject_id');
             $table->foreign('subject_id')->references('subject_id')->on('subjects')
                 ->onUpdate('cascade');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
 
 

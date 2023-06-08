@@ -18,9 +18,14 @@ return new class extends Migration
             $table->string('mother_first_name');
             $table->string('mother_last_name');
             $table->string('mother_phone_number');
-            $table->string('email')->unique()->nullable();
-            $table->string('password')->nullable();
+            //$table->string('email')->unique()->nullable();
+            //$table->string('password')->nullable();
             $table->string('national_id')->unique();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             //$table->string('mother_national_id')->unique();
 
 

@@ -26,6 +26,7 @@ class Teacher extends Authenticatable
         'address',
         'details',
         'subject_id',
+        'user_id'
 
     ];
 
@@ -59,6 +60,11 @@ class Teacher extends Authenticatable
     public function teacher_classroom() : HasMany
     {
         return $this->hasMany(TeacherClassroomController::class,'teacher_id');
+
+    }
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id');
 
     }
 }

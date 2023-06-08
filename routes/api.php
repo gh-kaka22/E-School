@@ -15,20 +15,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
 Route::post('/student/register',[AuthController::class, 'StudentRegister']);
+Route::post('/admin/register',[AuthController::class, 'AdminRegister']);
 
 
 
 
-    Route::post('login2', [AuthController::class, 'login2']);
+
+   Route::post('login2', [AuthController::class, 'login2']);
    Route::post('register', [AuthController::class, 'register']);
 
     Route::middleware('auth:api')->group(function () {
+        Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
+
+
         Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
     });
 
