@@ -10,36 +10,22 @@ class SchoolController extends Controller
     use ApiResponseTrait;
 
 
-    /**
-     * Display a listing of the resource.
-     */
-
     public function index()
     {
         //
-//        $school = School::all();
-//        return $this->apiResponse('success',$school);
-
-
+        //        $school = School::all();
+        //        return $this->apiResponse('success',$school);
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
-
     public function store(Request $request)
     {
-        //
-
         $request->validate([
             'name' => ['required', 'max:55', 'string'],
             'address' => ['required', 'string'],
             'overview' => ['required' , 'string'],
             'phone' => ['required','min:10', 'max:14', 'string'],
-
         ]);
-
         $school= School::query()->Create([
             'name' => $request->name,
             'address' => $request->address,
@@ -47,23 +33,15 @@ class SchoolController extends Controller
             'overview' => $request->overview,
         ]);
 
-
         return $this->apiResponse('The School created successfully',$school);
-
     }
-
-    /**
-     * Display the specified resource.
-     */
 
     public function show(string $id)
     {
         //
         $school = School::find($id);
-
         if(!$school)
             return $this->apiResponse('School not found');
-
         return $this->apiResponse('success',$school);
 
     }
@@ -86,23 +64,10 @@ class SchoolController extends Controller
             'phone' => $request->has('phone') ? $request['phone'] : $school['phone'],
             ]);
 
-        //$school = School::query()->get();
+        $school = School::query()->first();
         if(!$school)
             return $this->apiResponse('School not found');
         return $this->apiResponse('School updated successfully',$school);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-        $school = School::find($id);
-        if(!$school)
-            return $this->apiResponse('School not found');
-        $school->delete();
-        return $this->apiResponse('School deleted successfully',$school);
-
-    }
 }

@@ -313,7 +313,8 @@ class AuthController extends Controller
     }
 
 
-
+/*
+ *
     public function register(Request $request)
     {
 
@@ -331,6 +332,9 @@ class AuthController extends Controller
 
         return $this->apiResponse($message,$success);
     }
+ *
+ */
+
 
 
 
@@ -489,30 +493,9 @@ class AuthController extends Controller
     //.............................................................................................
 
 
-    public function StudentLogout(): JsonResponse
+    public function Logout(): JsonResponse
     {
-        Auth::guard('student-api')->User()->token()->revoke();
-        return $this->apiResponse('logged out successfully');
-    }
-
-
-    public function AdminLogout(): JsonResponse
-    {
-        Auth::guard('admin-api')->user()->token()->revoke();
-        return $this->apiResponse('logged out successfully');
-    }
-
-
-    public function TeacherLogout(): JsonResponse
-    {
-        Auth::guard('teacher-api')->User()->token()->revoke();
-        return $this->apiResponse('logged out successfully');
-    }
-
-
-    public function ParentLogout(): JsonResponse
-    {
-        Auth::guard('parent-api')->User()->token()->revoke();
+        Auth::User()->token()->revoke();
         return $this->apiResponse('logged out successfully');
     }
 
