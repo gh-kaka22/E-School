@@ -18,7 +18,7 @@ class AddTeacher extends StatelessWidget {
 
       var TaddressController = TextEditingController();
 
-      var SubjectController = TextEditingController();
+
 
       var TeacherDetailesController = TextEditingController();
 
@@ -115,15 +115,12 @@ class AddTeacher extends StatelessWidget {
                                   ),
                                   Expanded(
                                       child: buildSForm(
-                                          controller: TLastnameController,
-                                          labeltext: ' Last Name')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: TLastnameController,
-                                          labeltext: ' Last Name')),
+                                          controller:TeacherDetailesController ,
+                                          labeltext: ' Details')),
+                                  // SizedBox(
+                                  //   width: w / 30,
+                                  // ),
+                               //todo: dropdown for sub and multi select for section
                                 ],
                               ),
                             ),
