@@ -38,7 +38,7 @@ class AddAttendance extends StatelessWidget {
                      borderRadius: BorderRadius.circular(50),
                      boxShadow: <BoxShadow>[
                        BoxShadow(
-                           color: Color.fromRGBO(0, 0, 0, 0.57),
+                           color: Color.fromRGBO(0, 0, 0, 0.2),
                            //shadow for button
                            blurRadius: 5) //blur radius of shadow
                      ]),
@@ -76,7 +76,7 @@ class AddAttendance extends StatelessWidget {
                      borderRadius: BorderRadius.circular(50),
                      boxShadow: <BoxShadow>[
                        BoxShadow(
-                           color: Color.fromRGBO(0, 0, 0, 0.57),
+                           color: Color.fromRGBO(0, 0, 0, 0.2),
                            //shadow for button
                            blurRadius: 5) //blur radius of shadow
                      ]),
@@ -119,13 +119,14 @@ class AddAttendance extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white70,
           border: Border.all(color: kDarkBlue2Color, width: 3),
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: <BoxShadow>[
             BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.57),
+                color: Color.fromRGBO(0, 0, 0, 0.2),
                 //shadow for button
                 blurRadius: 5) //blur radius of shadow
-          ]),
+          ]
+           ),
       child: Row(
         children: [
           Expanded(
@@ -154,9 +155,19 @@ class AddAttendance extends StatelessWidget {
           Expanded(
             child: ShowText(name:'Absent??'),
           ),
+
         ],
       ),
     ),
+        SizedBox(height: h/20,),
+        Expanded(
+            child: ShowStudentsBuilder(
+                w,
+                cubit.attendanceModel?.data,
+                context,
+                state
+            )
+        )
 
       ],
     );

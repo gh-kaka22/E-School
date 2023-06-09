@@ -4,6 +4,7 @@ import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/search_bar.dart';
+import 'package:untitled/shared/components/show_components.dart';
 import 'package:untitled/styles/colors.dart';
 
 class StudentsShow extends StatelessWidget {
@@ -136,25 +137,25 @@ class StudentsShow extends StatelessWidget {
                         children: [
                           Expanded(
                               child: Center(
-                                child: Text('Id',
-                                    style: TextStyle(overflow: TextOverflow.ellipsis)),
+                                child: ShowText(name:'Id',
+                                  ),
                               )),
                           Expanded(
                               child: Center(
-                                child: Text('First Name',
-                                    style: TextStyle(overflow: TextOverflow.ellipsis)),
+                                child: ShowText(name:'First Name',
+                                    ),
                               )),
                           Expanded(
-                            child: Center(child: Text('Last Name')),
+                            child: Center(child: ShowText(name:'Last Name')),
                           ),
-                          Expanded(child: Center(child: Text('Grade'))),
+                          Expanded(child: Center(child: ShowText(name:'Grade'))),
                           Expanded(
-                            child: Center(child: Text('Section')),
+                            child: Center(child: ShowText(name:'Section')),
                           ),
                           Expanded(
                               child: Center(
-                                child: Text('E-Mail',
-                                    style: TextStyle(overflow: TextOverflow.ellipsis)),
+                                child: ShowText(name:'E-Mail',
+                                    ),
                               )),
                           Expanded(
                             child: defaultButton(

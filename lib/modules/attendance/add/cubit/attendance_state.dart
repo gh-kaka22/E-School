@@ -6,8 +6,8 @@ abstract class AttendanceState {}
 class AttendanceInitial extends AttendanceState {}
 class AttendanceLoadingState extends AttendanceState{}
 class AttendanceSuccessState extends AttendanceState{
-  final ShowStudentsModel showStudentsModel;
-  AttendanceSuccessState(this.showStudentsModel);
+  final AttendanceModel attendanceModel;
+  AttendanceSuccessState(this.attendanceModel);
 }
 
 class AttendanceErrorState extends AttendanceState{

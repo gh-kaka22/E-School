@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:untitled/models/attendance_model.dart';
 import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -53,7 +54,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
     dropDownValueSection = newValue;
     emit(ShowStudentsSectionDropDownButtonState());
   }
-  ShowStudentsModel? showStudentsModel;
+  AttendanceModel? attendanceModel;
   List<dynamic>? students;
   void getStudentsByGrade(value)
   {
@@ -63,16 +64,39 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       token: token,
     ).then((value) {
       print(value?.data);
-      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
-      print(showStudentsModel?.status);
-      print(showStudentsModel?.message);
-      print(showStudentsModel?.data?[0].email);
-      students = showStudentsModel?.data;
+      attendanceModel = AttendanceModel.fromJson(value?.data);
+      print(attendanceModel?.status);
+      print(attendanceModel?.message);
+      print(attendanceModel?.data?[0].email);
+      students = attendanceModel?.data as List?;
       print(students?[1].religion);
-      emit(AttendanceSuccessState(showStudentsModel!));
+      emit(AttendanceSuccessState(attendanceModel!));
     }).catchError((error){
       print(error.toString());
       emit(AttendanceErrorState(error.toString()));
     });
   }
+
+  void getStudents()
+  {
+    emit(AttendanceLoadingState());
+    DioHelper.getData(
+      url: GETSTUDENTS,
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      attendanceModel = AttendanceModel.fromJson(value?.data);
+      print(attendanceModel?.status);
+      print(attendanceModel?.message);
+      print(attendanceModel?.data?[0].email);
+      students = attendanceModel?.data;
+      print(students?[1].religion);
+      emit(AttendanceSuccessState(attendanceModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(AttendanceErrorState(error.toString()));
+    });
+  }
+
+
 }
