@@ -65,5 +65,13 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isAdmin' => \App\Http\Middleware\CheckAdminMiddleware::class,
+        'isOwner' => \App\Http\Middleware\CheckOwnerMiddleware::class,
+        'isAdminOrOwner' => \App\Http\Middleware\CheckAdminOrOwnerMiddleware::class,
+        'isParent' => \App\Http\Middleware\CheckParentMiddleware::class,
+        'isStudent' => \App\Http\Middleware\CheckStudentMiddleware::class,
+        'isStudentOrParent' => \App\Http\Middleware\CheckStudentOrParentMiddleware::class,
+        'isTeacher' => \App\Http\Middleware\CheckTeacherMiddleware::class,
+        'isStudentOrParentOrTeacher' => \App\Http\Middleware\CheckStudentOrParentOrTeacherMiddleware::class,
+
     ];
 }
