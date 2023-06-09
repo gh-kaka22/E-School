@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/search_bar.dart';
-import 'package:untitled/shared/components/text_components.dart';
+import 'package:untitled/shared/components/show_components.dart';
 import 'package:untitled/styles/colors.dart';
 
 class AddAttendance extends StatelessWidget {
