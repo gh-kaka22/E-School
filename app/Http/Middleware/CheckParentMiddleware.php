@@ -26,7 +26,7 @@ class CheckParentMiddleware
             return $next($request);
         } else {
             // User is not an admin, so return an error response
-            return response()->json(['message' => 'Access denied: admin privileges required'], 403);
+            return response()->json(['message' => 'Access denied: parent privileges required'], 403);
 
         }
     }

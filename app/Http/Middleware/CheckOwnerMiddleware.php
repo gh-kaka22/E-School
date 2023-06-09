@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\ApiResponseTrait;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CheckOwnerMiddleware
 {
 //            owner=0
+use ApiResponseTrait;
     public function handle(Request $request, Closure $next): Response
     {
         // Get the authenticated user's ID
@@ -24,7 +26,8 @@ class CheckOwnerMiddleware
             return $next($request);
         } else {
             // User is not an admin, so return an error response
-            return response()->json(['message' => 'Access denied: owner privileges required'], 403);
+
+            return $this->apiResponse('Access denied: owner privileges required',null,false);
 
         }
     }

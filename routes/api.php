@@ -4,36 +4,68 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+
 
 //Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
 
-Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
+Route::post('login', [AuthController::class, 'login']);
+
 Route::post('/student/register',[AuthController::class, 'StudentRegister']);
 Route::post('/admin/register',[AuthController::class, 'AdminRegister']);
 
 
 
+Route::post('register', [AuthController::class, 'register']);
 
 
-   Route::post('login2', [AuthController::class, 'login2']);
-   Route::post('register', [AuthController::class, 'register']);
-
-    Route::middleware(['auth:api', 'isAdmin'])->group(function () {
-        Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
 
 
-        Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
-    });
+//Admin or Owner routes
+Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
+    Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
+
+
+});
+
+//Parent routes
+Route::middleware(['auth:api', 'isParent'])->group(function () {
+
+
+
+});
+
+//Student routes
+Route::middleware(['auth:api', 'isStudent'])->group(function () {
+    Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
+
+});
+
+//Students or Parents routes
+Route::middleware(['auth:api', 'isStudentOrParent'])->group(function () {
+    Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
+});
+
+//Teacher routes
+Route::middleware(['auth:api', 'isTeacher'])->group(function () {
+
+});
+
+//Student or Parent or Teacher routes
+Route::middleware(['auth:api', 'isStudentOrParentOrTeacher'])->group(function () {
+
+});
+
+//Admin routes
+Route::middleware(['auth:api', 'isAdmin'])->group(function () {
+
+});
+
+//Owner routes
+Route::middleware(['auth:api', 'isOwner'])->group(function () {
+
+});
+
+
 

@@ -188,7 +188,7 @@ class AuthController extends Controller
         $student['mother_last_name']=$mother_last_name;
         $student['mother_phone_number']=$mother_phone_number;
         $student['parent_email']=$parent_email;
-        $student['student_token']=$accessToken = $student->createToken('token')->accessToken;
+        $student['student_token']= $student_user->createToken('token')->accessToken;
 
 
         return $this->apiResponse('success',$student);
@@ -285,15 +285,30 @@ class AuthController extends Controller
 
 
 
-        $admin = User::query()->create($input);
-        $accessToken = $admin->createToken('token')->accessToken;
-        $admin['password_decoded']=$passwordDecoded;
-        $admin['token']=$accessToken;
+
+
+        $admin_user = User::query()->create($input);
+
+        $admin= Admin::query()->create([
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
+            'user_id'=>$admin_user->id,
+        ]);
+
+        $admin_user['first_name']=$admin->first_name;
+        $admin_user['last_name']=$admin->last_name;
+
+        $accessToken = $admin_user->createToken('token')->accessToken;
+        $admin_user['password_decoded']=$passwordDecoded;
+        $admin_user['token']=$accessToken;
 
 
 
 
-        return $this->apiResponse('Register success',$admin);
+
+
+
+        return $this->apiResponse('Register success',$admin_user);
 
     }
 
@@ -322,27 +337,9 @@ class AuthController extends Controller
 
     //.............................................................................................
 
-    public function login(Request $request){
-        $loginData = $request->validate([
-            'email'=>'email|required',
-            'password' => 'required'
-        ]);
-        $code="{$request->password[0]}{$request->password[1]}{$request->password[2]}";
-        if($code==100)
-            return $this->AdminLogin($request);
-        else if($code==200)
-            return $this->StudentLogin($request);
-        else if($code==300)
-            return $this->ParentLogin($request);
-        else if($code==400)
-            return $this->TeacherLogin($request);
-        else return $this->apiResponse('email or password are incorrect',null,false);
 
 
-
-    }
-
-    public function login2(Request $request)
+    public function login(Request $request)
     {
         $loginData = $request->validate([
             'email'=>'email|required',
@@ -357,7 +354,9 @@ class AuthController extends Controller
             $user = Auth::user();
 
 
-            if($user->role==1)
+            if($user->role==0)
+                return $this->OwnerLogin($request);
+            else if($user->role==1)
                 return $this->AdminLogin($request);
            else if($user->role==2)
                return $this->StudentLogin($request);
@@ -409,97 +408,14 @@ class AuthController extends Controller
     public function AdminLogin(Request $request): JsonResponse
     {
 
-        $loginData = $request->validate([
-            'email'=>'email|required',
-            'password' => 'required'
-        ]);
+        $admin=DB::table('admins')
+            ->where('user_id','=',Auth::id())
+            ->first();
 
-        if(auth()->guard('admin')->attempt($request->only('email', 'password'))){
+        $admin->token=Auth::user()->createToken('accessToken')->accessToken;
 
-            config(['auth.guards.api.provider' => 'admin']);
+        return $this->apiResponse('login successfully',$admin);
 
-            $admin = Admin::select('admins.*')->find(auth()->guard('admin')->user()['id']);
-            $success =  $admin;
-            $success['token'] =  $admin->createToken('MyApp',['admin'])->accessToken;
-
-            return $this->apiResponse('login successfully',$success);
-
-        }
-
-
-        else if(auth()->guard('owner')->attempt($request->only('email', 'password')))
-        {
-
-
-            config(['auth.guards.api.provider' => 'owner']);
-
-            $owner = Owner::select('owners.*')->find(auth()->guard('owner')->user()['id']);
-            $success =  $owner;
-            $success['token'] =  $owner->createToken('MyApp',['owner'])->accessToken;
-
-            return $this->apiResponse('login successfully as owner',$success);
-
-        }
-
-
-        else {
-            return $this->apiResponse('Credentials did not match',"null",false);
-
-        }
-
-    }
-
-
-    public function OwnerLogin(Request $request): JsonResponse
-    {
-
-        $loginData = $request->validate([
-            'email'=>'email|required',
-            'password' => 'required'
-        ]);
-
-        if(auth()->guard('admin')->attempt($request->only('email', 'password'))){
-
-            config(['auth.guards.api.provider' => 'admin']);
-
-            $owner = Admin::select('owners.*')->find(auth()->guard('admin')->user()['id']);
-            $success =  $owner;
-            $success['token'] =  $owner->createToken('MyApp',['admin'])->accessToken;
-
-            return $this->apiResponse('login successfully',$success);
-
-        } else {
-
-            return $this->apiResponse('Credentials did not match',"null",false);
-
-        }
-
-    }
-
-
-    public function TeacherLogin(Request $request): JsonResponse
-    {
-
-        $loginData = $request->validate([
-            'email'=>'email|required',
-            'password' => 'required'
-        ]);
-
-        if(auth()->guard('teacher')->attempt($request->only('email', 'password'))){
-
-            config(['auth.guards.api.provider' => 'teacher']);
-
-            $teacher = Teacher::select('teachers.*')->find(auth()->guard('teacher')->user()['teacher_id']);
-            $success =  $teacher;
-            $success['token'] =  $teacher->createToken('MyApp',['teacher'])->accessToken;
-
-            return $this->apiResponse('login successfully',$success);
-
-        } else {
-
-            return $this->apiResponse('Credentials did not match',"null",false);
-
-        }
 
     }
 
@@ -507,28 +423,65 @@ class AuthController extends Controller
     public function ParentLogin(Request $request): JsonResponse
     {
 
-        $loginData = $request->validate([
-            'email'=>'email|required',
-            'password' => 'required'
-        ]);
+        $parent=DB::table('parents')
+            ->where('user_id','=',Auth::id())
+            ->first();
 
-        if(auth()->guard('parent')->attempt($request->only('email', 'password'))){
+        $kids=DB::table('students')
+            ->where('parent_id','=',8)
+            ->get();
 
-            config(['auth.guards.api.provider' => 'parent']);
+       // return $this->apiResponse('s',$kids);
 
-            $parent = Parentt::select('parents.*')->find(auth()->guard('parent')->user()['parent_id']);
-            $success =  $parent;
-            $success['token'] =  $parent->createToken('MyApp',['parent'])->accessToken;
-//
-            return $this->apiResponse('login successfully',$success);
-
-        } else {
-
-            return $this->apiResponse('Credentials did not match',"null",false);
+        $counter =1;
+        foreach ($kids as $kid){
+            $parent->{"kid_number_$counter"}=$kid->student_id;
+            $counter++;
 
         }
 
+        $parent->token=Auth::user()->createToken('accessToken')->accessToken;
+
+        return $this->apiResponse('login successfully',$parent);
+
+
+
     }
+
+
+    public function OwnerLogin(Request $request): JsonResponse
+    {
+
+        $owner=DB::table('owners')
+            ->where('user_id','=',Auth::id())
+            ->first();
+
+        $owner->token=Auth::user()->createToken('accessToken')->accessToken;
+
+        return $this->apiResponse('login successfully',$owner);
+
+
+
+    }
+
+
+    public function TeacherLogin(Request $request): JsonResponse
+    {
+
+        $teacher=DB::table('teachers')
+            ->where('user_id','=',Auth::id())
+            ->first();
+
+        $teacher->token=Auth::user()->createToken('accessToken')->accessToken;
+
+        return $this->apiResponse('login successfully',$teacher);
+
+
+
+    }
+
+
+
 
 
 

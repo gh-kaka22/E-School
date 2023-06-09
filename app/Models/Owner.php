@@ -14,11 +14,13 @@ class Owner extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
 
-    protected $fillable = [
-        'email',
-        'password',
-        'user_id',
-    ];
+//    protected $fillable = [
+//        'email',
+//        'password',
+//        'user_id',
+//    ];
+
+    protected $guarded =[];
 
     protected $hidden = [
         'password',

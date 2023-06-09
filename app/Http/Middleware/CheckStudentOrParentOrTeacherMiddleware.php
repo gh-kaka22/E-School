@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\ApiResponseTrait;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckStudentOrParentOrTeacherMiddleware
 {
+    use ApiResponseTrait;
 
 //            student=2
 //            parent=3
@@ -27,7 +29,7 @@ class CheckStudentOrParentOrTeacherMiddleware
             return $next($request);
         } else {
             // User is not an admin, so return an error response
-            return response()->json(['message' => 'Access denied: admin privileges required'], 403);
+            return $this->apiResponse('Access denied: student or teacher or parent privileges required',null,false);
 
         }
     }

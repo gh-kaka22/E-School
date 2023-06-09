@@ -29,7 +29,7 @@ class CheckAdminOrOwnerMiddleware
             return $next($request);
         } else {
             // User is not an admin, so return an error response
-            return response()->json(['message' => 'Access denied: owner or admin privileges required'], 403);
+            return $this->apiResponse('Access denied: owner or admin privileges required',null,false);
 
         }
     }
