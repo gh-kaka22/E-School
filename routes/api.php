@@ -60,6 +60,29 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/Ashownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforadmin']);
 
 
+    //Exams Routes
+    Route::Post('/exams/store', [\App\Http\Controllers\ExamController::class, 'store']);
+    Route::get('/exams/show/{id}', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
+
+
+
+    //Subject Routes
+    Route::get('/subjects', [\App\Http\Controllers\SubjectController::class, 'index']);
+    Route::get('/subject/{id}', [\App\Http\Controllers\SubjectController::class, 'show']);
+    Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
+    Route::post('/update_subject/{id}', [\App\Http\Controllers\SubjectController::class, 'update']);
+    Route::get('/delete_subject/{id}', [\App\Http\Controllers\SubjectController::class, 'destroy']);
+    Route::get('/search_subject/{name}', [\App\Http\Controllers\SubjectController::class, 'searchByName']);
+
+
+    //School Years Routes
+    Route::get('/schoolyears', [\App\Http\Controllers\SchoolYearController::class, 'index']);
+    Route::post('/create_schoolyear', [\App\Http\Controllers\SchoolYearController::class, 'store']);
+    //Route::get('/delete_schoolyear/{id}', [\App\Http\Controllers\SchoolYearController::class, 'destroy']);
+
+
+
+
 });
 
 
@@ -74,7 +97,6 @@ Route::middleware(['auth:api', 'isParent'])->group(function () {
 
 //Student routes
 Route::middleware(['auth:api', 'isStudent'])->group(function () {
-    Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
     Route::get('/Sshowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforstudent']);
 
 });
@@ -93,6 +115,8 @@ Route::middleware(['auth:api', 'isTeacher'])->group(function () {
 Route::middleware(['auth:api', 'isStudentOrParentOrTeacher'])->group(function () {
 
 });
+
+
 
 
 
@@ -130,13 +154,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
 
 
-//Subject Routes
-Route::get('/subjects', [\App\Http\Controllers\SubjectController::class, 'index']);
-Route::get('/subject/{id}', [\App\Http\Controllers\SubjectController::class, 'show']);
-Route::post('/create_subject', [\App\Http\Controllers\SubjectController::class, 'store']);
-Route::post('/update_subject/{id}', [\App\Http\Controllers\SubjectController::class, 'update']);
-Route::get('/delete_subject/{id}', [\App\Http\Controllers\SubjectController::class, 'destroy']);
-Route::get('/search_subject/{name}', [\App\Http\Controllers\SubjectController::class, 'searchByName']);
+
 
 //Gender Routes
 Route::get('genders', [\App\Http\Controllers\GenderController::class, 'index']);

@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
-            //$table->id();
-            $table->bigIncrements('subject_id');
+        Schema::create('school_years', function (Blueprint $table) {
+            $table->id();
             $table->string('name')->unique();
-            $table->float('max_mark');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('school_years');
     }
 };

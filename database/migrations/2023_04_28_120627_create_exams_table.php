@@ -27,6 +27,7 @@ return new class extends Migration
 
             $table->float('mark');
             $table->date('date');
+            $table->string('schoolyear');
             $table->timestamps();
         });
     }

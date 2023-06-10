@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([OwnerFirstAcc::class,]);
         $this->call([SubjectSeeder::class]);
         $this->call([ClassroomSeeder::class]);
+        $this->call([ExamTypeSeeder::class]);
+        $this->call([SchoolYearSeeder::class]);
         //$this->call([PostTypeSeeder::class]);
 
 

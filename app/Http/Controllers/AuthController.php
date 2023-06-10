@@ -28,7 +28,7 @@ class AuthController extends Controller
         $attributes=$request->validate([
             'first_name' => ['required', 'max:55', 'string'],
             'last_name' => ['required', 'max:55', 'string'],
-            'date_of_birth'=>['required', 'date'],
+            'date_of_birth'=>['required', 'date','date_format:Y-m-d'],
             'father_first_name' => ['nullable', 'max:55', 'string'],
             'father_phone_number' => ['nullable','min:10', 'max:14', 'string'],
             //'father_national_id' => ['nullable', 'string'],
@@ -432,7 +432,7 @@ class AuthController extends Controller
             ->first();
 
         $kids=DB::table('students')
-            ->where('parent_id','=',8)
+            ->where('parent_id','=',$parent->parent_id)
             ->get();
 
        // return $this->apiResponse('s',$kids);

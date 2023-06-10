@@ -6,23 +6,23 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class SubjectSeeder extends Seeder
+class ExamTypeSeeder extends Seeder
 {
 
     public function run(): void
     {
-        DB::table('subjects')->insert([
+        DB::table('exams_type')->insert([
             [
-                'name' => "none",
-                'max_mark'=>0
+                'name' => "مذاكرة اولى",
             ],
             [
-                'name' => "physics",
-                'max_mark'=>400
+                'name' => "فحص نصفي",
             ],
             [
-                'name' => "sport",
-                'max_mark'=>200
+                'name' => "مذاكرة ثانية",
+            ],
+            [
+                'name'=>'فحص نهائي'
             ]
 
         ]);

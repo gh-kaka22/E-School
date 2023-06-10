@@ -22,12 +22,14 @@ class SubjectController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required'
+                'name' => 'required',
+                'max_mark'=>'required'
             ]);
 
             $subject = Subject::create($validatedData);
 
         }catch (\Exception $e){
+            if($e->getCode()==23000)
             return $this->apiResponse('subject already exist',null,false);
         }
 
@@ -46,7 +48,8 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'max_mark'=>'required'
         ]);
 
         $subject = Subject::find($id);
