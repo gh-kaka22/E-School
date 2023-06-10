@@ -73,6 +73,16 @@ class AttendanceController extends Controller
         return $this->apiResponse('success', $attend);
     }
 
+    public function showforparent($id)
+    {
+        $attend= Attendance::query()->where('student_id' , '=' , $id)->get();
+
+        if ($attend->isEmpty())
+            return $this->apiResponse('You did not absent',null,false);
+
+        return $this->apiResponse('success', $attend);
+    }
+
 
 
 

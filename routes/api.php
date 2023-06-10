@@ -55,6 +55,11 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
         Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
 
 
+    //Notices Routes
+    Route::Post('/storenotice', [\App\Http\Controllers\NoticeController::class, 'store']);
+    Route::get('/Ashownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforadmin']);
+
+
 });
 
 
@@ -62,6 +67,8 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 //Parent routes
 Route::middleware(['auth:api', 'isParent'])->group(function () {
 
+    Route::get('/Pshowattrndence/{id}', [\App\Http\Controllers\NoticeController::class, 'showforparent']);
+    Route::get('/Pshowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforparent']);
 
 });
 

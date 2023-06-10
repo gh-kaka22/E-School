@@ -62,11 +62,7 @@ class Student extends Authenticatable
 
     }
 
-//    public function grade() : BelongsTo
-//    {
-//
-//        return $this->belongsTo(Grade::class,'grade_id');
-//    }
+
 
     public function student_classroom() : HasMany
     {
@@ -89,6 +85,12 @@ class Student extends Authenticatable
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class,'user_id');
+
+    }
+
+    public function notice() : HasMany
+    {
+        return $this->hasMany(Notice::class,'Student_id');
 
     }
 
