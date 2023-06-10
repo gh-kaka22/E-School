@@ -46,7 +46,7 @@ class ExamController extends Controller
          ]);
 
 
-         return $this->apiResponse('s',$exam);
+         return $this->apiResponse('success',$exam);
 
 
 
