@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->string('room_number');
             $table->integer('grade_id');
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 

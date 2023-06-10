@@ -13,6 +13,8 @@ Route::middleware(['auth:api', 'isOwner'])->group(function () {
     Route::post('/admin/register',[AuthController::class, 'AdminRegister']);
 });
 
+
+
 //Admin routes
 Route::middleware(['auth:api', 'isAdmin'])->group(function () {
     Route::post('/student/register',[AuthController::class, 'StudentRegister']);
@@ -82,6 +84,22 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
 
+    //Student Routes
+    Route::put('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
+    Route::get('/students/index', [\App\Http\Controllers\StudentController::class, 'index']);
+    Route::delete('delete_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'destroy']);
+    Route::get('/show_by_grade/{grade_id}', [\App\Http\Controllers\StudentController::class, 'showByGrade']);
+    Route::get('/show_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'show']);
+    Route::get('/show_by_classroom/{classroom_id}', [\App\Http\Controllers\StudentController::class, 'showByClassroom']);
+
+
+    //Classroom Routes
+    Route::post('/create_classroom', [\App\Http\Controllers\ClassroomController::class, 'store']);
+    Route::get('/classrooms/index', [\App\Http\Controllers\ClassroomController::class, 'index']);
+    Route::post('/createOneStudent', [\App\Http\Controllers\StudentClassroomController::class, 'create']);
+
+
+
 
 });
 
@@ -140,12 +158,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 
 
     //Student routes
-    Route::get('/index', [\App\Http\Controllers\StudentController::class, 'index']);
-    Route::get('/index', [\App\Http\Controllers\StudentController::class, 'index']);
-    Route::put('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
-    Route::delete('delete_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'destroy']);
-    Route::get('/show_by_grade/{grade_id}', [\App\Http\Controllers\StudentController::class, 'showByGrade']);
-    Route::get('/show_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'show']);
+
 
 
 });
@@ -188,8 +201,6 @@ Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, '
 Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
 Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
 
-//Classroom routes
-Route::post('/create', [\App\Http\Controllers\StudentClassroomController::class, 'create']);
 
 //Parent Routes
 Route::get('/search_parent', [\App\Http\Controllers\ParenttController::class, 'search']);

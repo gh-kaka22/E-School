@@ -182,4 +182,22 @@ class StudentController extends Controller
         return $this->apiResponse('Success',$student);
     }
 
+    public function showByClassroom($classroom_id){
+       $students_classrooms= DB::table('students_classrooms')
+            ->where('classroom_id','=',$classroom_id)
+            ->get();
+
+       $students_ids=array();
+
+       foreach ($students_classrooms as $object){
+           array_push($students_ids,$object->student_id);
+       }
+
+        $students = DB::table('students')
+            ->whereIn('student_id', $students_ids)
+            ->get();
+       return $this->apiResponse('success',$students);
+
+    }
+
 }
