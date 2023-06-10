@@ -2,6 +2,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/students/register/register_cubit.dart';
+import 'package:untitled/shared/components/text_components.dart';
 
 import 'package:untitled/styles/colors.dart';
 import '../../../shared/components/components.dart';

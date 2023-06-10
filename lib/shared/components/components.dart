@@ -385,14 +385,4 @@ Widget AddExamsBuilder(w, students, context, state, controllers) =>
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
-Widget MyText({required String name}) => Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        "$name",
-        style: TextStyle(
-          fontSize: 35,
-          fontWeight: FontWeight.w400,
-          color: kDarkBlue2Color,
-        ),
-      ),
-    );
+

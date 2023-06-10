@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:untitled/models/attendance_model.dart';
 import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/shared/components/constants.dart';
+import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
 
@@ -19,29 +20,29 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(
       value: '7',
-      child: Text('7'),
+      child: DropText(name: '7'),
     ),
     DropdownMenuItem(
       value: '8',
-      child: Text('8'),
+      child: DropText(name:'8'),
     ),
     DropdownMenuItem(
       value: '9',
-      child: Text('9'),
+      child: DropText(name:'9'),
     ),
   ];
   List<DropdownMenuItem> menuItems2 = [
     DropdownMenuItem(
       value: 'A',
-      child: Text('A'),
+      child: DropText(name:'A'),
     ),
     DropdownMenuItem(
       value: 'B',
-      child: Text('B'),
+      child: DropText(name:'B'),
     ),
     DropdownMenuItem(
       value: 'C',
-      child: Text('C'),
+      child: DropText(name:'C'),
     ),
   ];
   void changeClassDropDownButton(String newValue)
@@ -68,7 +69,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       print(attendanceModel?.status);
       print(attendanceModel?.message);
       print(attendanceModel?.data?[0].email);
-      students = attendanceModel?.data as List?;
+      students = attendanceModel?.data;
       print(students?[1].religion);
       emit(AttendanceSuccessState(attendanceModel!));
     }).catchError((error){

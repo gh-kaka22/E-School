@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/search_bar.dart';
-import 'package:untitled/shared/components/show_components.dart';
+import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/styles/colors.dart';
 
 class AddAttendance extends StatelessWidget {
@@ -30,8 +30,9 @@ class AddAttendance extends StatelessWidget {
          padding: const EdgeInsets.only(left:30),
          child: Row(
            children: [
-             Center(
+             Expanded(
                child: DecoratedBox(
+                 
                  decoration: BoxDecoration(
                      color: Colors.white70,
                      border: Border.all(color: kDarkBlue2Color, width: 3),
@@ -42,33 +43,30 @@ class AddAttendance extends StatelessWidget {
                            //shadow for button
                            blurRadius: 5) //blur radius of shadow
                      ]),
-                 child: Padding(
-                   padding:
-                   const EdgeInsets.only(left: 100, right: 100),
-                   child: DropdownButton<dynamic>(
-                     underline: const SizedBox(),
-                     value: cubit.dropDownValueClass,
-                     icon: Icon(
-                       Icons.keyboard_arrow_down,
-                       color: kGold1Color,
-                     ),
-                     iconSize: 24,
-                     elevation: 40,
-                     hint: Text('Choose Class'),
-                     style:
-                     TextStyle(color: kGold1Color, fontSize: 16),
-                     onChanged: (newValue) {
-                       cubit.changeClassDropDownButton(newValue!);
-                     },
-                     items: cubit.menuItems,
+                 child: DropdownButton<dynamic>(
+                   underline: const SizedBox(),
+                   value: cubit.dropDownValueClass,
+                   icon: Icon(
+                     Icons.keyboard_arrow_down,
+                     color: kGold1Color,
                    ),
+                   iconSize: 24,
+                   elevation: 40,
+                   borderRadius: BorderRadius.circular(50),
+                   hint: Text('Choose Class'),
+                   style:
+                   TextStyle(color: kGold1Color, fontSize: 16),
+                   onChanged: (newValue) {
+                     cubit.changeClassDropDownButton(newValue!);
+                   },
+                   items: cubit.menuItems,
                  ),
                ),
              ),
              SizedBox(
                width: 20,
              ),
-             Center(
+             Expanded(
                child: DecoratedBox(
                  decoration: BoxDecoration(
                      color: Colors.white70,
@@ -80,26 +78,23 @@ class AddAttendance extends StatelessWidget {
                            //shadow for button
                            blurRadius: 5) //blur radius of shadow
                      ]),
-                 child: Padding(
-                   padding:
-                   const EdgeInsets.only(left: 100, right: 100),
-                   child: DropdownButton<dynamic>(
-                     underline: const SizedBox(),
-                     value: cubit.dropDownValueSection,
-                     icon: Icon(
-                       Icons.keyboard_arrow_down,
-                       color: kGold1Color,
-                     ),
-                     iconSize: 24,
-                     elevation: 40,
-                     hint: Text('Choose Class'),
-                     style:
-                     TextStyle(color: kGold1Color, fontSize: 16),
-                     onChanged: (newValue) {
-                       cubit.changeSectionDropDownButton(newValue!);
-                     },
-                     items: cubit.menuItems2,
+                 child: DropdownButton<dynamic>(
+                   underline: const SizedBox(),
+                   value: cubit.dropDownValueSection,
+                   icon: Icon(
+                     Icons.keyboard_arrow_down,
+                     color: kGold1Color,
                    ),
+                   iconSize: 24,
+                   elevation: 40,
+                   borderRadius: BorderRadius.circular(50),
+                   hint: Text('Choose Class'),
+                   style:
+                   TextStyle(color: kGold1Color, fontSize: 16),
+                   onChanged: (newValue) {
+                     cubit.changeSectionDropDownButton(newValue!);
+                   },
+                   items: cubit.menuItems2,
                  ),
                ),
              ),
