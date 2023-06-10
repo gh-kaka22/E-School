@@ -24,6 +24,14 @@ class ExamController extends Controller
                 ->where('name','=',$request->subject_name)
                 ->first()
                 ->subject_id;
+
+         $subject_max_mark=DB::table('subjects')
+             ->where('name','=',$request->subject_name)
+             ->first()
+             ->max_mark;
+
+         if($request->mark>$subject_max_mark)
+             return $this->apiResponse('The mark you entered is greater than the max mark',null,false);
 //         $dateString = $request->date;
 //         $date = Carbon::createFromFormat('Y-m-d', $dateString);
 //         $monthNumber = $date->format('m');
