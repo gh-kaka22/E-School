@@ -16,4 +16,5 @@ class AttendanceErrorState extends AttendanceState{
 }
 class ShowStudentsClassDropDownButtonState extends AttendanceState{}
 class ShowStudentsSectionDropDownButtonState extends AttendanceState{}
+class CheckIsAbsentState extends AttendanceState{}
 

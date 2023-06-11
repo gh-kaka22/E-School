@@ -77,7 +77,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     )
         .then((value) => {
               student = StudentModel.fromJson(value!.data),
-              print(student?.data),
+              print(student?.data!.email),
               emit(RegisterSuccess()),
             })
         .catchError((error) {

@@ -1,6 +1,7 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:untitled/modules/students/register/register_cubit.dart';
 import 'package:untitled/shared/components/text_components.dart';
 
@@ -32,10 +33,12 @@ class StudentRegisterScreen extends StatelessWidget {
 
   var formkey = GlobalKey<FormState>();
 
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    double padding=MediaQuery.of(context).size.width/20;
     double borderwidth = 1;
     //dropdown padding
     double ddp = 20.0;
@@ -275,7 +278,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                       underline: Container(),
                                       hint: Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 20,right: 150),
+                                         EdgeInsets.only(left: padding,right: padding),
                                         child: Text(
                                           'Choose Religion',
                                           style: TextStyle(
@@ -317,7 +320,7 @@ class StudentRegisterScreen extends StatelessWidget {
 
                                       hint: Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 20.0, right: 150,),
+                                             EdgeInsets.only(left:padding, right: padding,),
                                         child: Text(
                                           'Choose Gender',
                                           style: TextStyle(
@@ -360,9 +363,9 @@ class StudentRegisterScreen extends StatelessWidget {
                                       underline: Container(),
 
                                       hint: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 150,
-                                          left: 20,
+                                        padding:  EdgeInsets.only(
+                                          right: padding,
+                                          left: padding,
                                         ),
                                         child: Text(
                                           'Choose Grade',
@@ -387,7 +390,7 @@ class StudentRegisterScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding:  EdgeInsets.all(padding),
                     ),
                     state is! RegisterLoading
                         ? defaultButton(
@@ -411,6 +414,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                 date_of_birth: cubit.selectedDate,
                                 father_national_id: nationalitycontroller.text,
                                 have_sib: cubit.ischeck,
+
                               );
                             })
                         : Center(child: CircularProgressIndicator()),

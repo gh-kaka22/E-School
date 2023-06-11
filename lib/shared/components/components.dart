@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
 import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.dart';
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
 import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
@@ -263,53 +264,6 @@ Widget ShowSubjectsItem(w, subject, index, context) => Container(
   ),
 );
 
-Widget ShowClassroomsItem(w, classroom, index, context) => Container(
-  width: 4 / 5 * w,
-  height: 50,
-  decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.2),
-            blurRadius: 20) //blur radius of shadow
-      ]),
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: Row(
-      children: [
-        Expanded(
-            child: Center(
-              child: Text('${classroom.classroomId}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-        Expanded(
-            child: Center(
-              child: Text('${classroom.roomNumber}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-        Expanded(
-          child: Center(child: Text('${classroom.gradeId}')),
-        ),
-        Expanded(
-          child: Center(child: Text('${classroom.capacity}')),
-        ),
-        Expanded(
-          child: Center(
-            child: defaultButton(
-              onPressed: () {
-              },
-              height: 30,
-              text: 'Edit',
-              fontsize: 15,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
-      ],
-    ),
-  ),
-);
-
 Widget ShowExamsItem(w, student, index, context) => Container(
       width: 4 / 5 * w,
       height: 50,
@@ -452,6 +406,56 @@ Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
+Widget ShowStudentsAttendanceItem(w, student, index, context) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${student.studentId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${student.firstName}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(child: Text('${student.lastName}')),
+        ),
+        Expanded(child: Center(child: Text('${student.gradeId}'))),
+        Expanded(
+          child: Center(child: Text('${student.gradeId}')),
+        ),
+        Expanded(
+            child: Center(
+              child: Text('${student.email}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(
+            child: CheckboxListTile(
+              checkColor: Colors.white,
+              activeColor: kDarkBlue2Color,
+              value: AttendanceCubit.get(context).checkbox,
+              onChanged: AttendanceCubit.get(context).changeCheck,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
 Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
   condition: state is! ShowSubjectsLoadingState && subjects != null,
   builder: (context) => ListView.separated(

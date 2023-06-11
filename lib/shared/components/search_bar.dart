@@ -8,7 +8,7 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width/3,
-      height: 50,
+      height: MediaQuery.of(context).size.height/20,
       child: Row(
         children: <Widget>[
           Container(

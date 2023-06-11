@@ -16,7 +16,18 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   static AttendanceCubit get(context) => BlocProvider.of(context);
   String? dropDownValueClass = '7';
   String? dropDownValueSection = 'A';
+  bool? checkbox=false;
+  int? ischeck;
+  changeCheck(val) {
+    ischeck = val!;
+    if (ischeck == false)
+      ischeck = 0;
+    else
+      ischeck = 1;
+    print('maysa ya maysa ${ischeck}');
 
+    emit(CheckIsAbsentState());
+  }
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(
       value: '7',

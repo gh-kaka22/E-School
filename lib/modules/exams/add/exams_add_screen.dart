@@ -31,7 +31,7 @@ class ExamsAdd extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'EXAMS:',
+                    'EXAMS',
                     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
