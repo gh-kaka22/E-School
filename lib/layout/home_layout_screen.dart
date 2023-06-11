@@ -4,9 +4,13 @@ import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
 import 'package:untitled/modules/admin/admin_register/register_screen.dart';
 import 'package:untitled/modules/attendance/add/add.dart';
 import 'package:untitled/modules/books/add/add_books.dart';
+import 'package:untitled/modules/classrooms/add/add_classroom.dart';
+import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
 import 'package:untitled/modules/dashboard/dashboard.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
+import 'package:untitled/modules/schoolYears/add/add_school_year.dart';
+import 'package:untitled/modules/schoolYears/show/show_school_year.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
 import 'package:untitled/modules/subjects/add/add_subject.dart';
@@ -62,9 +66,9 @@ class HomeLayout extends StatelessWidget {
                               addScreen: AddTeacher()
                           ),
                           cubit.SideBarItem(
-                              text: 'Classes',
-                              showScreen: StudentsShow(),
-                              addScreen: StudentRegisterScreen()
+                              text: 'Classrooms',
+                              showScreen: ClassroomsShow(),
+                              addScreen: AddClassroom()
                           ),
                           cubit.SideBarItem(
                               text: 'Subjects',
@@ -91,6 +95,11 @@ class HomeLayout extends StatelessWidget {
                               showScreen: StudentsShow(),
                               addScreen: AddAttendance()
                           ),
+                            cubit.SideBarItem(
+                                text: 'School Year',
+                                showScreen: SchoolYearShow(),
+                                addScreen: AddSchoolYear()
+                            ),
                           cubit.SideBarItem(
                               text: 'News',
                               showScreen: StudentsShow(),
