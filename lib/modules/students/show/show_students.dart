@@ -14,6 +14,7 @@ class StudentsShow extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    double padding=MediaQuery.of(context).size.width/20;
     return BlocProvider(
       create: (BuildContext context) => ShowStudentsCubit()..getStudents(),
       child: BlocConsumer<ShowStudentsCubit, ShowStudentsStates>(
@@ -39,7 +40,8 @@ class StudentsShow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Center(
+                      Expanded(
+                        
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               color: kDarkBlue2Color,
@@ -53,7 +55,7 @@ class StudentsShow extends StatelessWidget {
                               ]),
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(left: 100, right: 100),
+                               EdgeInsets.only(left: padding, right: padding),
                             child: DropdownButton<dynamic>(
                               underline: const SizedBox(),
                               value: cubit.dropDownValueClass,
@@ -77,7 +79,7 @@ class StudentsShow extends StatelessWidget {
                       SizedBox(
                         width: 20,
                       ),
-                      Center(
+                      Expanded(
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               color: kDarkBlue2Color,
@@ -91,7 +93,7 @@ class StudentsShow extends StatelessWidget {
                               ]),
                           child: Padding(
                             padding:
-                                const EdgeInsets.only(left: 100, right: 100),
+                                 EdgeInsets.only(left: padding, right: padding),
                             child: DropdownButton<dynamic>(
                               underline: const SizedBox(),
                               value: cubit.dropDownValueSection,
@@ -122,6 +124,7 @@ class StudentsShow extends StatelessWidget {
                     height: 30,
                   ),
                   Container(
+
                     width: 4 / 5 * w,
                     height: 50,
                     decoration: BoxDecoration(
@@ -132,7 +135,7 @@ class StudentsShow extends StatelessWidget {
                               blurRadius: 20) //blur radius of shadow
                         ]),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding:  EdgeInsets.symmetric(horizontal: padding),
                       child: Row(
                         children: [
                           Expanded(
