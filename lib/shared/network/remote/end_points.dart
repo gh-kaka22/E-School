@@ -6,3 +6,5 @@ const GETSTUDENTS='admin/index';
 const GETSTUDENTSBYGRADE='admin/show_by_grade';
 const UPDATETEACHER='';
 const ADDTEACHER='';
+const ADDSUBJECT='create_subject';
+const GETSUBJECTS='subjects';

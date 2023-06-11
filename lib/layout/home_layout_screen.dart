@@ -8,6 +8,8 @@ import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
+import 'package:untitled/modules/subjects/add/add_subject.dart';
+import 'package:untitled/modules/subjects/show/show_subjects.dart';
 import 'package:untitled/modules/teachers/add/add_teacher.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -40,53 +42,67 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                              screen: MainScreen(),
-                            ),
-                            cubit.SideBarItem(
-                                text: 'Students',
-                                showScreen: StudentsShow(),
-                                addScreen: StudentRegisterScreen()),
-                            cubit.SideBarItem(
-                                text: 'Teachers',
-                                showScreen: StudentsShow(),
-                                addScreen: AddTeacher()),
-                            cubit.SideBarItem(
-                                text: 'Classes',
-                                showScreen: StudentsShow(),
-                                addScreen: StudentRegisterScreen()),
-                            cubit.SideBarItem(
-                                text: 'Subjects',
-                                showScreen: FileUpload(),
-                                addScreen: StudentRegisterScreen()),
-                            cubit.SideBarItem(
-                                text: 'Timetables',
-                                showScreen: StudentsShow(),
-                                addScreen: StudentRegisterScreen()),
-                            cubit.SideBarItem(
-                                text: 'Exams',
-                                showScreen: ExamsShow(),
-                                addScreen: ExamsAdd()),
-                            cubit.SideBarItem(
-                                text: 'Attendance',
-                                showScreen: StudentsShow(),
-                                addScreen: AddAttendance()),
-                            cubit.SideBarItem(
-                                text: 'News',
-                                showScreen: StudentsShow(),
-                                addScreen: StudentRegisterScreen()),
-                            cubit.SpecialSideBarItem(
-                              text: 'Settings',
-                              screen: StudentsShow(),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                            screen: MainScreen(),
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Students',
+                              showScreen: StudentsShow(),
+                              addScreen: StudentRegisterScreen()
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Teachers',
+                              showScreen: StudentsShow(),
+                              addScreen: AddTeacher()
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Classes',
+                              showScreen: StudentsShow(),
+                              addScreen: StudentRegisterScreen()
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Subjects',
+                              showScreen: SubjectsShow(),
+                              addScreen: AddSubject(),
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Timetables',
+                              showScreen: StudentsShow(),
+                              addScreen: StudentRegisterScreen()
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Exams',
+                              showScreen: ExamsShow(),
+                              addScreen: ExamsAdd()
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Books',
+                              showScreen: FileUpload(),
+                              addScreen: ExamsAdd()
+                          ),
+                          cubit.SideBarItem(
+                              text: 'Attendance',
+                              showScreen: StudentsShow(),
+                              addScreen: AddAttendance()
+                          ),
+                          cubit.SideBarItem(
+                              text: 'News',
+                              showScreen: StudentsShow(),
+                              addScreen: StudentRegisterScreen()
+                          ),
+                          cubit.SpecialSideBarItem(
+                            text: 'Settings',
+                            screen: StudentsShow(),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Expanded(child: cubit.currentScreen)
-            ]),
+            ),
+                Expanded(child: cubit.currentScreen)
+              ]
+            ),
           );
         },
       ),
