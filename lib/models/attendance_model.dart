@@ -49,6 +49,7 @@ class Datum {
   int parentId;
   DateTime createdAt;
   DateTime updatedAt;
+  DateTime date;
 
   Datum({
     required this.studentId,
@@ -64,6 +65,7 @@ class Datum {
     required this.parentId,
     required this.createdAt,
     required this.updatedAt,
+    required this.date,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -80,6 +82,7 @@ class Datum {
     parentId: json["parent_id"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+      date:DateTime.parse(json["date"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -97,5 +100,7 @@ class Datum {
     "parent_id": parentId,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
+    "date":
+    "${dateOfBirth.year.toString().padLeft(4, '0')}-${dateOfBirth.month.toString().padLeft(2, '0')}-${dateOfBirth.day.toString().padLeft(2, '0')}",
   };
 }

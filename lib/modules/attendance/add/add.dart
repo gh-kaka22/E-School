@@ -26,7 +26,7 @@ class AddAttendance extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height:h/25 ,),
-        MyText(name: 'Attendance'),
+        MyText(name: 'Attendance:'),
         SizedBox(height:h/20 ,),
        Padding(
          padding: const EdgeInsets.only(left:30),
