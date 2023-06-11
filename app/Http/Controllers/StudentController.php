@@ -20,7 +20,9 @@ class StudentController extends Controller
         //$students = Student::all();
         $students = DB::table('students')
             ->join('users', 'students.user_id', '=', 'users.id')
-            ->select('students.*', 'users.email')
+            ->join('students_classrooms', 'students.student_id', '=', 'students_classrooms.student_id')
+            ->join('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
+            ->select('students.*', 'users.email', 'classrooms.room_number')
             ->get();
         return $this->apiResponse('success', $students);
     }
