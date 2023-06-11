@@ -17,7 +17,11 @@ class StudentController extends Controller
 
     public function index()
     {
-        $students = Student::all();
+        //$students = Student::all();
+        $students = DB::table('students')
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->select('students.*', 'users.email')
+            ->get();
         return $this->apiResponse('success', $students);
     }
 
