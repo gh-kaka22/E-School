@@ -264,6 +264,54 @@ Widget ShowSubjectsItem(w, subject, index, context) => Container(
   ),
 );
 
+Widget ShowClassroomsItem(w, classroom, index, context) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${classroom.classroomId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${classroom.roomNumber}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(child: Text('${classroom.gradeId}')),
+        ),
+        Expanded(
+          child: Center(child: Text('${classroom.capacity}')),
+        ),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () {
+
+              },
+              height: 30,
+              text: 'Edit',
+              fontsize: 15,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
 Widget ShowExamsItem(w, student, index, context) => Container(
       width: 4 / 5 * w,
       height: 50,
@@ -456,6 +504,7 @@ Widget ShowStudentsAttendanceItem(w, student, index, context) => Container(
     ),
   ),
 );
+
 Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
   condition: state is! ShowSubjectsLoadingState && subjects != null,
   builder: (context) => ListView.separated(
