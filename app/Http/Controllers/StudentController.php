@@ -182,21 +182,44 @@ class StudentController extends Controller
         return $this->apiResponse('Success',$student);
     }
 
-    public function showByClassroom($classroom_id){
-       $students_classrooms= DB::table('students_classrooms')
-            ->where('classroom_id','=',$classroom_id)
-            ->get();
+    public function showByClassroom(Request $request){
 
-       $students_ids=array();
+        $request->validate([
+            'room_number'=>['required'],
+            'grade_id'=>['required']
+        ]);
 
-       foreach ($students_classrooms as $object){
-           array_push($students_ids,$object->student_id);
-       }
+        $classroom=DB::table('classrooms')
+            ->where('grade_id','=',$request->grade_id)
+            ->where('room_number','=',$request->room_number)
+            ->first();
 
-        $students = DB::table('students')
-            ->whereIn('student_id', $students_ids)
-            ->get();
-       return $this->apiResponse('success',$students);
+        if($classroom){
+            $classroom_id=$classroom->classroom_id;
+
+            $students_classrooms= DB::table('students_classrooms')
+                ->where('classroom_id','=',$classroom_id)
+                ->get();
+
+            $students_ids=array();
+
+            foreach ($students_classrooms as $object){
+                array_push($students_ids,$object->student_id);
+            }
+
+            $students = DB::table('students')
+                ->whereIn('student_id', $students_ids)
+                ->get();
+            return $this->apiResponse('success',$students);
+
+
+        }
+
+
+        return $this->apiResponse('The classroom does not exist',null,false);
+
+
+
 
     }
 

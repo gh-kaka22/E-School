@@ -90,12 +90,13 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::delete('delete_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'destroy']);
     Route::get('/show_by_grade/{grade_id}', [\App\Http\Controllers\StudentController::class, 'showByGrade']);
     Route::get('/show_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'show']);
-    Route::get('/show_by_classroom/{classroom_id}', [\App\Http\Controllers\StudentController::class, 'showByClassroom']);
+    Route::post('/show_by_classroomAndGrade', [\App\Http\Controllers\StudentController::class, 'showByClassroom']);
 
 
     //Classroom Routes
     Route::post('/create_classroom', [\App\Http\Controllers\ClassroomController::class, 'store']);
     Route::get('/classrooms/index', [\App\Http\Controllers\ClassroomController::class, 'index']);
+    Route::get('/classrooms/showByGrade/{grade_id}', [\App\Http\Controllers\ClassroomController::class, 'showByGrade']);
     Route::post('/createOneStudent', [\App\Http\Controllers\StudentClassroomController::class, 'create']);
 
 
@@ -157,7 +158,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:ad
 //    Route::post('logout',[AuthController::class, 'AdminLogout']);
 
 
-    //Student routes
+
 
 
 

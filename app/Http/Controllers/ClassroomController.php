@@ -37,4 +37,15 @@ class ClassroomController extends Controller
         $classroom=Classroom::create($data);
         return $this->apiResponse('success',$data);
     }
+
+
+    public function showByGrade($grade_id){
+       $classrooms= DB::table('classrooms')
+            ->where('grade_id','=',$grade_id)
+            ->get();
+
+      if($classrooms->isEmpty())
+       return $this->apiResponse('classrooms not found',null,false);
+           return $this->apiResponse('success',$classrooms);
+    }
 }
