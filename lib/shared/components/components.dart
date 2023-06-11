@@ -6,6 +6,7 @@ import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
 import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.dart';
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
 import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
+import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 import 'package:untitled/modules/subjects/show/cubit/show_subjects_states.dart';
@@ -246,6 +247,48 @@ Widget ShowSubjectsItem(w, subject, index, context) => Container(
         Expanded(
           child: Center(child: Text('${subject.max_mark}')),
         ),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () {
+
+              },
+              height: 30,
+              text: 'Edit',
+              fontsize: 15,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
+Widget ShowSchoolYearsItem(w, schoolYear, index, context) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${schoolYear.id}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${schoolYear.name}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
         Expanded(
           child: Center(
             child: defaultButton(
@@ -514,6 +557,18 @@ Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
         return MyDivider();
       },
       itemCount: subjects.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
+
+Widget ShowSchoolYearsBuilder(w, schoolYears, context, state) => ConditionalBuilder(
+  condition: state is! ShowSchoolYearLoadingState && schoolYears != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          ShowSchoolYearsItem(w, schoolYears[index], index, context),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: schoolYears.length),
   fallback: (context) => Center(child: LinearProgressIndicator()),
 );
 
