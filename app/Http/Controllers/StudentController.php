@@ -113,7 +113,11 @@ class StudentController extends Controller
 
     public function showByGrade($grade_id){
         $students=DB::table('students')
-            ->where('grade_id','=',$grade_id)
+            ->where('students.grade_id','=',$grade_id)
+            ->join('users', 'students.user_id', '=', 'users.id')
+            ->join('students_classrooms', 'students.student_id', '=', 'students_classrooms.student_id')
+            ->join('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
+            ->select('students.*', 'users.email', 'classrooms.room_number')
             ->get();
 
         return $this->apiResponse('success',$students);
@@ -214,7 +218,11 @@ class StudentController extends Controller
             }
 
             $students = DB::table('students')
-                ->whereIn('student_id', $students_ids)
+                ->whereIn('students.student_id', $students_ids)
+                ->join('users', 'students.user_id', '=', 'users.id')
+                ->join('students_classrooms', 'students.student_id', '=', 'students_classrooms.student_id')
+                ->join('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
+                ->select('students.*', 'users.email', 'classrooms.room_number')
                 ->get();
             return $this->apiResponse('success',$students);
 
