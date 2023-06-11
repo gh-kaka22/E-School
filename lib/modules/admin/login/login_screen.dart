@@ -54,88 +54,103 @@ class LoginAdmin extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: kDarkBlue2Color,
-            body: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+            body: Stack(
+              children:[
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/Background.jpg'),
+                      fit: BoxFit.cover,
+                    )
+                  ),
+                  ),
+                Container(
+                  color: kDarkBlue2Color.withOpacity(0.8),
+
+                
+                ),
+
                 Center(
-                  child: Container(
-                    padding: EdgeInsets.all(40),
-                    width: w / 3.5,
-                    height: h - (h/4),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/icons/E-School.png'),
-                          SizedBox(height: 20,),
-                          Form(
-                            key: formkey,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                defaultFormField(
-                                  controller: emailController,
-                                  type: TextInputType.emailAddress,
-                                  validate: (value) {
-                                    if (value.isEmpty)
-                                      return 'Please Enter Email Address';
-                                  },
-                                  label: 'Email Address',
-                                  prefix: Icons.email_outlined,
-                                ),
-                                SizedBox(height: h / 20),
-                                defaultFormField(
-                                  controller: passwordController,
-                                  type: TextInputType.visiblePassword,
-                                  validate: (value) {
-                                    if (value.isEmpty) return 'Password is too short';
-                                  },
-                                  label: 'Password',
-                                  prefix: Icons.lock_outline,
-                                  suffix: Icons.visibility,
-                                  isPassword: AdminLoginCubit.get(context).ispassword,
-                                  suffixPressed: () {
-                                    AdminLoginCubit.get(context)
-                                        .changepasswordvisibility();
-                                  },
-                                  onSubmit: (value) {
-                                    if (formkey.currentState!.validate()) {
-                                      AdminLoginCubit.get(context).adminLogin(
-                                          email: emailController.text,
-                                          password: passwordController.text);
-                                    }
-                                  },
-                                ),
-                                SizedBox(height: h / 20),
-                                state is! AdminLoginLoadingState
-                                    ? defaultButton(
-                                  onPressed: () {
-                                    if (formkey.currentState!.validate()) {
-                                      AdminLoginCubit.get(context).adminLogin(
-                                          email: emailController.text,
-                                          password: passwordController.text);
-                                      navigateTo(context, StudentRegisterScreen());
-                                    }
-                                  },
-                                  text: 'LogIn',
-                                  width: w / 5,
-                                  height: h / 20,
-                                )
-                                    : Center(child: CircularProgressIndicator()),
-                              ],
-                            ),
+
+                child: Container(
+                  padding: EdgeInsets.all(40),
+                  width: w / 3.5,
+                  height: h - (h/4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/icons/E-School.png'),
+                        SizedBox(height: 20,),
+                        Form(
+                          key: formkey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              defaultFormField(
+                                controller: emailController,
+                                type: TextInputType.emailAddress,
+                                validate: (value) {
+                                  if (value.isEmpty)
+                                    return 'Please Enter Email Address';
+                                },
+                                label: 'Email Address',
+                                prefix: Icons.email_outlined,
+                              ),
+                              SizedBox(height: h / 20),
+                              defaultFormField(
+                                controller: passwordController,
+                                type: TextInputType.visiblePassword,
+                                validate: (value) {
+                                  if (value.isEmpty) return 'Password is too short';
+                                },
+                                label: 'Password',
+                                prefix: Icons.lock_outline,
+                                suffix: Icons.visibility,
+                                isPassword: AdminLoginCubit.get(context).ispassword,
+                                suffixPressed: () {
+                                  AdminLoginCubit.get(context)
+                                      .changepasswordvisibility();
+                                },
+                                onSubmit: (value) {
+                                  if (formkey.currentState!.validate()) {
+                                    AdminLoginCubit.get(context).adminLogin(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                  }
+                                },
+                              ),
+                              SizedBox(height: h / 20),
+                              state is! AdminLoginLoadingState
+                                  ? defaultButton(
+                                onPressed: () {
+                                  if (formkey.currentState!.validate()) {
+                                    AdminLoginCubit.get(context).adminLogin(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                    navigateTo(context, StudentRegisterScreen());
+                                  }
+                                },
+                                text: 'LogIn',
+                                width: w / 5,
+                                height: h / 20,
+                              )
+                                  : Center(child: CircularProgressIndicator()),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
+                ),
+
+              ),
+          ],
             ),
           );
         },

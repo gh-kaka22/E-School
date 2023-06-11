@@ -6,16 +6,11 @@ import 'package:untitled/shared/components/search_bar.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/styles/colors.dart';
 
-class AddAttendance extends StatefulWidget {
+class AddAttendance extends StatelessWidget {
   const AddAttendance({Key? key}) : super(key: key);
 
   @override
-  State<AddAttendance> createState() => _AddAttendanceState();
-}
 
-class _AddAttendanceState extends State<AddAttendance> with AutomaticKeepAliveClientMixin{
-  @override
-  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     double h=MediaQuery.of(context).size.height;

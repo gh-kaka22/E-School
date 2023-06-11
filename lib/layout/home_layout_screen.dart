@@ -18,6 +18,8 @@ import 'package:untitled/modules/subjects/show/show_subjects.dart';
 import 'package:untitled/modules/teachers/add/add_teacher.dart';
 import 'package:untitled/modules/teachers/update/update_screen.dart';
 
+import '../modules/admin/login/login_screen.dart';
+
 class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: MainScreen(),
+                            screen: LoginAdmin(),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',

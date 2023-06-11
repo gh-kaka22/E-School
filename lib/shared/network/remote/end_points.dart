@@ -12,3 +12,4 @@ const ADDCLASSROOM='create_classroom';
 const GETCLASSROOMS='classrooms/index';
 const ADDSCHOOLYEAR='create_schoolyear';
 const GETSCHOOLYEARS='schoolyears';
+const ATTENDANCE='storeattendance';
