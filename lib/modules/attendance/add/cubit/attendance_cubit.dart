@@ -18,15 +18,23 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   String? dropDownValueSection = 'A';
   bool? checkbox=false;
   int? ischeck;
+
+  List <dynamic>? IdStudents;
+
   changeCheck(val) {
     ischeck = val!;
     if (ischeck == false)
       ischeck = 0;
-    else
+    else {
       ischeck = 1;
+
+
+    }
     print('maysa ya maysa ${ischeck}');
 
     emit(CheckIsAbsentState());
+
+
   }
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(

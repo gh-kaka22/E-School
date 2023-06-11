@@ -6,9 +6,16 @@ import 'package:untitled/shared/components/search_bar.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/styles/colors.dart';
 
-class AddAttendance extends StatelessWidget {
+class AddAttendance extends StatefulWidget {
   const AddAttendance({Key? key}) : super(key: key);
 
+  @override
+  State<AddAttendance> createState() => _AddAttendanceState();
+}
+
+class _AddAttendanceState extends State<AddAttendance> with AutomaticKeepAliveClientMixin{
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
     double h=MediaQuery.of(context).size.height;
@@ -32,7 +39,7 @@ class AddAttendance extends StatelessWidget {
            children: [
              Expanded(
                child: DecoratedBox(
-                 
+
                  decoration: BoxDecoration(
                      color: Colors.white70,
                      border: Border.all(color: kDarkBlue2Color, width: 3),
