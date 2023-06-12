@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
 import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.dart';
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
@@ -10,6 +11,7 @@ import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 import 'package:untitled/modules/subjects/show/cubit/show_subjects_states.dart';
+import 'package:untitled/shared/components/constants.dart';
 
 import '../../styles/colors.dart';
 
@@ -195,7 +197,7 @@ Widget ShowStudentsItem(w, student, index, context) => Container(
             ),
             Expanded(child: Center(child: Text('${student.gradeId}'))),
             Expanded(
-              child: Center(child: Text('${student.gradeId}')),
+              child: Center(child: Text('${student.roomNumber}')),
             ),
             Expanded(
                 child: Center(
@@ -417,7 +419,7 @@ Widget ShowExamsItem(w, student, index, context) => Container(
       ),
     );
 
-Widget AddExamsItem(w, student, index, context, controller) => Container(
+Widget AddExamsItem(w,subject, student,type,year,date, index, context, controller,cubit) => Container(
       width: 4 / 5 * w,
       height: 50,
       decoration: BoxDecoration(
@@ -446,11 +448,11 @@ Widget AddExamsItem(w, student, index, context, controller) => Container(
             ),
             Expanded(child: Center(child: Text('${student.gradeId}'))),
             Expanded(
-              child: Center(child: Text('${student.gradeId}')),
+              child: Center(child: Text('${student.roomNumber}')),
             ),
             Expanded(
                 child: Center(
-              child: Text('Math',
+              child: Text('${subject}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
             Expanded(
@@ -470,7 +472,17 @@ Widget AddExamsItem(w, student, index, context, controller) => Container(
               child: Center(
                 child: defaultButton(
                   onPressed: () {
-                    navigateTo(context, StudentUpdateScreen());
+                    print(controller.text);
+                    print(student.studentId);
+                    cubit.AddExam(
+                        studentId: '${student.studentId}',
+                        typeId:type,
+                        subjectName:subject,
+                        mark:controller.text,
+                        schoolYear:year,
+                        date:'2023-06-12',
+                        token:token,
+                    );
                   },
                   height: 30,
                   text: 'Send',
@@ -596,14 +608,14 @@ Widget ShowExamsBuilder(w, students, context, state) => ConditionalBuilder(
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
-Widget AddExamsBuilder(w, students, context, state, controllers) =>
+Widget AddExamsBuilder(w,subject, students,type,year,date, context, state, controllers,cubit) =>
     ConditionalBuilder(
       condition: state is! AddExamsLoadingState && students != null,
       builder: (context) => ListView.separated(
           itemBuilder: (context, index) {
             controllers.add(TextEditingController());
             return AddExamsItem(
-                w, students[index], index, context, controllers[index]);
+                w,subject, students[index],type,year,date ,index, context, controllers[index],cubit);
           },
           separatorBuilder: (context, index) {
             return MyDivider();
@@ -611,4 +623,8 @@ Widget AddExamsBuilder(w, students, context, state, controllers) =>
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
+
+
+
+
 

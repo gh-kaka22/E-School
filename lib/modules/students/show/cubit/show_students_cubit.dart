@@ -69,7 +69,7 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
       showStudentsModel = ShowStudentsModel.fromJson(value?.data);
       print(showStudentsModel?.status);
       print(showStudentsModel?.message);
-      print(showStudentsModel?.data?[0].email);
+      print(showStudentsModel?.data?[0].address);
       students = showStudentsModel?.data;
       print(students?[1].religion);
       emit(ShowStudentsSuccessState(showStudentsModel!));
