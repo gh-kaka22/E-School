@@ -42,6 +42,7 @@ class Datum {
   DateTime dateOfBirth;
   String address;
   String details;
+  String roomNumber;
   int gradeId;
   int genderId;
   int parentId;
@@ -62,6 +63,7 @@ class Datum {
     required this.parentId,
     required this.createdAt,
     required this.updatedAt,
+    required this.roomNumber,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -69,6 +71,7 @@ class Datum {
         firstName: json["first_name"],
         lastName: json["last_name"],
         religion: json["religion"],
+    roomNumber: json["room_number"],
         email: json["email"],
         dateOfBirth: DateTime.parse(json["date_of_birth"]),
         address: json["address"],
@@ -86,6 +89,7 @@ class Datum {
         "last_name": lastName,
         "religion": religion,
         "email": email,
+    "room_number": roomNumber,
         "date_of_birth":
             "${dateOfBirth.year.toString().padLeft(4, '0')}-${dateOfBirth.month.toString().padLeft(2, '0')}-${dateOfBirth.day.toString().padLeft(2, '0')}",
         "address": address,

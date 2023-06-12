@@ -135,7 +135,7 @@ class StudentsShow extends StatelessWidget {
                               blurRadius: 20) //blur radius of shadow
                         ]),
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: padding),
+                      padding:  EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
                           Expanded(
