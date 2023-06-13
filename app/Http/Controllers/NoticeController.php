@@ -42,7 +42,7 @@ class NoticeController extends Controller
         return $this->apiResponse('success', $notice);
     }
 
-    public function showforparent(Request $request , $id)
+    public function showforparent($id)
     {
         $notice= Notice::query()->where('student_id' , '=' , $id)->get();
 

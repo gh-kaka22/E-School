@@ -15,13 +15,6 @@ Route::middleware(['auth:api', 'isOwner'])->group(function () {
 
 
 
-//Admin routes
-Route::middleware(['auth:api', 'isAdmin'])->group(function () {
-    Route::post('/student/register',[AuthController::class, 'StudentRegister']);
-    Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
-});
-
-
 //............................Login and Logout route...................................
 Route::post('login', [AuthController::class, 'login']);
 
@@ -47,14 +40,19 @@ Route::middleware(['auth:api', 'isAdmin'])->group(function () {
 
 //Admin or Owner routes
 Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
-    //Attendance routes
-        Route::Post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);
-        Route::get('/Ashowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforadmin']);
+    //registe routes
+    Route::post('/student/register',[AuthController::class, 'StudentRegister']);
+    Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
 
     //About Us Routes
         Route::post('/admin/create_school', [\App\Http\Controllers\SchoolController::class, 'store']);
         Route::get('/admin/show_school/{id}', [\App\Http\Controllers\SchoolController::class, 'show']);
         Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
+
+
+    //Attendance routes
+        Route::Post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);
+        Route::get('/Ashowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforadmin']);
 
 
     //Notices Routes
@@ -109,7 +107,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 //Parent routes
 Route::middleware(['auth:api', 'isParent'])->group(function () {
 
-    Route::get('/Pshowattrndence/{id}', [\App\Http\Controllers\NoticeController::class, 'showforparent']);
+    Route::get('/Pshownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforparent']);
     Route::get('/Pshowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforparent']);
 
 });

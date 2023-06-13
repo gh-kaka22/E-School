@@ -25,12 +25,13 @@ class AttendanceController extends Controller
 
 
         foreach ($student_ids as $student_id) {
-            $attend = Attendance::query()->Create([
+           Attendance::query()->Create([
                 'student_id' => $student_id,
                 'date' => $date,
             ]);
         }
 
+        $attend = Attendance::query()->where('date' , '=' , $date)->get();
 
         return $this->apiResponse('Attendance created successfully', $attend);
 
