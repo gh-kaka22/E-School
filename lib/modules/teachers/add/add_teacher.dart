@@ -18,8 +18,6 @@ class AddTeacher extends StatelessWidget {
 
       var TaddressController = TextEditingController();
 
-
-
       var TeacherDetailesController = TextEditingController();
 
 
@@ -33,6 +31,8 @@ class AddTeacher extends StatelessWidget {
           .of(context)
           .size
           .height;
+      double borderwidth = 1;
+      double padding= w/20;
       return BlocProvider(
         create: (context) => AddTeacherCubit(),
         child: BlocConsumer<AddTeacherCubit, AddTeacherState>(
@@ -117,10 +117,57 @@ class AddTeacher extends StatelessWidget {
                                       child: buildSForm(
                                           controller:TeacherDetailesController ,
                                           labeltext: ' Details')),
-                                  // SizedBox(
-                                  //   width: w / 30,
-                                  // ),
+
                                //todo: dropdown for sub and multi select for section
+
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+
+                                  SizedBox(
+                                    width: w / 30,
+                                  ),
+
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: kDarkBlue2Color,
+                                          width: borderwidth,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: DropdownButton<String>(
+                                        value: cubit.sub,
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: kGold1Color,
+                                        ),
+                                        iconSize: 24,
+                                        elevation: 40,
+                                        borderRadius: BorderRadius.circular(40),
+                                        underline: Container(),
+                                        hint: Padding(
+                                          padding:
+                                          EdgeInsets.only(left: padding,right: padding),
+                                          child: Text(
+                                            'Choose Subject',
+                                            style: TextStyle(
+                                                color: kDarkBlue2Color,
+                                                fontSize: 16),
+                                          ),
+                                        ),
+                                        onChanged: (newValue) {
+                                          cubit.changeDropDownButton(newValue!);
+                                        },
+                                        items: cubit.Subject,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),

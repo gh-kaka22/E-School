@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/attendance_model.dart';
-import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -13,29 +13,31 @@ part 'attendance_state.dart';
 
 class AttendanceCubit extends Cubit<AttendanceState> {
   AttendanceCubit() : super(AttendanceInitial());
+
   static AttendanceCubit get(context) => BlocProvider.of(context);
   String? dropDownValueClass = '7';
   String? dropDownValueSection = 'A';
-  bool? checkbox=false;
+  bool? checkbox = false;
   int? ischeck;
+  DateTime selectedDate = DateTime.now();
 
-  List <dynamic>? IdStudents;
+  List<int> idStudents = [];
 
-  changeCheck(val) {
-    ischeck = val!;
-    if (ischeck == false)
-      ischeck = 0;
-    else {
+  changeCheck(bool val, int studentID) {
+    ischeck = val ? 1 : 0;
+    if (val) {
       ischeck = 1;
-
-
+      idStudents.add(studentID);
+    } else {
+      ischeck = 0;
+      idStudents.remove(studentID);
     }
     print('maysa ya maysa ${ischeck}');
 
     emit(CheckIsAbsentState());
-
-
+    print(idStudents);
   }
+
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(
       value: '7',
@@ -43,41 +45,42 @@ class AttendanceCubit extends Cubit<AttendanceState> {
     ),
     DropdownMenuItem(
       value: '8',
-      child: DropText(name:'8'),
+      child: DropText(name: '8'),
     ),
     DropdownMenuItem(
       value: '9',
-      child: DropText(name:'9'),
+      child: DropText(name: '9'),
     ),
   ];
   List<DropdownMenuItem> menuItems2 = [
     DropdownMenuItem(
       value: 'A',
-      child: DropText(name:'A'),
+      child: DropText(name: 'A'),
     ),
     DropdownMenuItem(
       value: 'B',
-      child: DropText(name:'B'),
+      child: DropText(name: 'B'),
     ),
     DropdownMenuItem(
       value: 'C',
-      child: DropText(name:'C'),
+      child: DropText(name: 'C'),
     ),
   ];
-  void changeClassDropDownButton(String newValue)
-  {
+
+  void changeClassDropDownButton(String newValue) {
     dropDownValueClass = newValue;
     emit(ShowStudentsClassDropDownButtonState());
   }
-  void changeSectionDropDownButton(String newValue)
-  {
+
+  void changeSectionDropDownButton(String newValue) {
     dropDownValueSection = newValue;
     emit(ShowStudentsSectionDropDownButtonState());
   }
+
   AttendanceModel? attendanceModel;
   List<dynamic>? students;
-  void getStudentsByGrade(value)
-  {
+
+  void getStudentsByGrade(value) {
     emit(AttendanceLoadingState());
     DioHelper.getData(
       url: '${GETSTUDENTSBYGRADE}/${value}',
@@ -91,14 +94,13 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       students = attendanceModel?.data;
       print(students?[1].religion);
       emit(AttendanceSuccessState(attendanceModel!));
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(AttendanceErrorState(error.toString()));
     });
   }
 
-  void getStudents()
-  {
+  void getStudents() {
     emit(AttendanceLoadingState());
     DioHelper.getData(
       url: GETSTUDENTS,
@@ -112,11 +114,35 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       students = attendanceModel?.data;
       print(students?[1].religion);
       emit(AttendanceSuccessState(attendanceModel!));
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(AttendanceErrorState(error.toString()));
     });
   }
 
-
+  void StudentID({
+    required students_id,
+    required date,
+  }) {
+    emit(
+      AttendanceLoadingState(),
+    );
+    DioHelper.postData(
+      url: ATTENDANCE,
+      data: {
+        'student_id': students_id,
+        'date': DateFormat('yyyy/MM/dd').format(selectedDate),
+      },
+    )
+        .then((value) => {
+              attendanceModel = AttendanceModel.fromJson(value!.data),
+              emit(AttendanceSuccessState(attendanceModel!)),
+            })
+        .catchError((error) {
+      print("koko ${error}");
+      emit(
+        AttendanceErrorState(error.toString()),
+      );
+    });
+  }
 }

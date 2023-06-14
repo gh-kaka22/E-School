@@ -14,3 +14,4 @@ class AddTeacherError extends AddTeacherState{
   final String error;
   AddTeacherError(this.error);
 }
+class SubjectState extends AddTeacherState{}

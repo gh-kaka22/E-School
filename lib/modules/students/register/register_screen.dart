@@ -2,6 +2,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled/models/student_model.dart';
 import 'package:untitled/modules/students/register/register_cubit.dart';
 import 'package:untitled/shared/components/text_components.dart';
 
@@ -383,6 +384,13 @@ class StudentRegisterScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                SizedBox(
+                                  width: w / 30,
+                                ),
+                                // if(cubit.student!=null)
+                                // Container(
+                                //   child: Text('${cubit.student!.data!.email}'),
+                                // ),
                               ],
                             ),
                           ),
@@ -414,6 +422,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                 date_of_birth: cubit.selectedDate,
                                 father_national_id: nationalitycontroller.text,
                                 have_sib: cubit.ischeck,
+
 
                               );
                             })

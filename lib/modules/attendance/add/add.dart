@@ -158,11 +158,12 @@ class AddAttendance extends StatelessWidget {
     ),
         SizedBox(height: h/20,),
         Expanded(
-            child: ShowStudentsBuilder(
+            child: ShowStudentsAttendanceItem(
                 w,
                 cubit.attendanceModel?.data,
                 context,
-                state
+                state,
+
             )
         )
 

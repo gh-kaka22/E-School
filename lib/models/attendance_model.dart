@@ -82,7 +82,7 @@ class Datum {
     parentId: json["parent_id"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-      date:DateTime.parse(json["date"]),
+    date:DateTime.parse(json["date"]),
   );
 
   Map<String, dynamic> toJson() => {

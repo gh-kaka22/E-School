@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/teacher_model.dart';
 
@@ -11,6 +12,7 @@ part 'add_teacher_state.dart';
 class AddTeacherCubit extends Cubit<AddTeacherState> {
   AddTeacherCubit() : super(AddTeacherInitial());
   TeacherModel? teacher;
+  String? sub;
   static AddTeacherCubit get(context) => BlocProvider.of(context);
   void AddTeacher(
       {
@@ -54,4 +56,41 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
 
 
   }
+  List<DropdownMenuItem<String>> Subject = [
+    DropdownMenuItem(
+      value: 'Math',
+      child: Text('Math'),
+    ),
+    DropdownMenuItem(
+      value: 'Arabic',
+      child: Text('Arabic'),
+    ),
+    DropdownMenuItem(
+      value: 'Scince',
+      child: Text('Scince'),
+    ),
+    DropdownMenuItem(
+      value: 'Physics',
+      child: Text('Physics'),
+    ),
+    DropdownMenuItem(
+      value: 'Chemistry',
+      child: Text('Chemistry'),
+    ),
+    DropdownMenuItem(
+      value: 'English',
+      child: Text('English'),
+    ),
+    DropdownMenuItem(
+      value: 'French',
+      child: Text('French'),
+    ),
+
+  ];
+  void changeDropDownButton(String newValue) {
+    sub = newValue;
+    print('${Subject}');
+    emit(SubjectState());
+  }
 }
+
