@@ -60,6 +60,37 @@ class ExamController extends Controller
 
      }
 
+     public function showForAdmin(Request $request){
+         $request->validate([
+             'grade_id'=>['required','integer'],
+             'room_number'=>['required','string'],
+             'subject_name'=>['required','string'],
+             'type_id'=>['required','integer'],
+             'schoolyear'=>['required'],
+         ]);
+
+         $student_ids=DB::table('students_classrooms')
+             ->join('classrooms','students_classrooms.classroom_id','=','classrooms.classroom_id')
+             ->where('classrooms.grade_id','=',$request->grade_id)
+             ->where('classrooms.room_number','=',$request->room_number)
+             ->pluck('students_classrooms.student_id');
+
+         if ($student_ids->isEmpty())
+             return $this->apiResponse('No students in the classroom you entered',null,false);
+
+
+
+
+         $marks=DB::table('exams')
+             ->whereIn('student_id',$student_ids)
+             ->get();
+
+         if ($marks->isEmpty())
+             return $this->apiResponse('No marks for the following classroom',null,false);
+         return $this->apiResponse('success',$marks);
+
+     }
+
      public function showForStudent($id){
         $res= DB::table('exams')
              ->whereMonth('date','=',$id)

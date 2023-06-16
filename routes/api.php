@@ -63,6 +63,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     //Exams Routes
     Route::Post('/exams/store', [\App\Http\Controllers\ExamController::class, 'store']);
     Route::get('/exams/show/{id}', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
+    Route::Post('/exams/show_for_admin', [\App\Http\Controllers\ExamController::class, 'showForAdmin']);
 
 
 
