@@ -1,106 +1,51 @@
-// To parse this JSON data, do
-//
-//     final showStudentsModel = showStudentsModelFromJson(jsonString);
-
-import 'dart:convert';
-
-AttendanceModel AttendanceModelFromJson(String str) =>
-    AttendanceModel.fromJson(json.decode(str));
-
-String AttendanceModelToJson(AttendanceModel data) =>
-    json.encode(data.toJson());
 
 class AttendanceModel {
-  bool status;
-  String message;
-  List<Datum> data;
+  bool? status;
+  String? message;
+  List<Data>? data;
 
-  AttendanceModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
+  AttendanceModel({this.status, this.message, this.data});
 
-  factory AttendanceModel.fromJson(Map<String, dynamic> json) =>
-      AttendanceModel(
-        status: json["status"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+  AttendanceModel.fromJson(Map<String, dynamic> json) {
+    this.status = json["status"];
+    this.message = json["message"];
+    this.data = json["data"]==null ? null : (json["data"] as List).map((e)=>Data.fromJson(e)).toList();
+  }
 
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data["status"] = this.status;
+    data["message"] = this.message;
+    if(this.data != null)
+      data["data"] = this.data?.map((e)=>e.toJson()).toList();
+    return data;
+  }
 }
 
-class Datum {
-  int studentId;
-  String firstName;
-  String lastName;
-  String religion;
-  String email;
-  DateTime dateOfBirth;
-  String address;
-  String details;
-  int gradeId;
-  int genderId;
-  int parentId;
-  DateTime createdAt;
-  DateTime updatedAt;
-  DateTime date;
+class Data {
+  int? id;
+  int? studentId;
+  String? date;
+  String? createdAt;
+  String? updatedAt;
 
-  Datum({
-    required this.studentId,
-    required this.firstName,
-    required this.lastName,
-    required this.religion,
-    required this.email,
-    required this.dateOfBirth,
-    required this.address,
-    required this.details,
-    required this.gradeId,
-    required this.genderId,
-    required this.parentId,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.date,
-  });
+  Data({this.id, this.studentId, this.date, this.createdAt, this.updatedAt});
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    studentId: json["student_id"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    religion: json["religion"],
-    email: json["email"],
-    dateOfBirth: DateTime.parse(json["date_of_birth"]),
-    address: json["address"],
-    details: json["details"],
-    gradeId: json["grade_id"],
-    genderId: json["gender_id"],
-    parentId: json["parent_id"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    date:DateTime.parse(json["date"]),
-  );
+  Data.fromJson(Map<String, dynamic> json) {
+    this.id = json["id"];
+    this.studentId = json["student_id"];
+    this.date = json["date"];
+    this.createdAt = json["created_at"];
+    this.updatedAt = json["updated_at"];
+  }
 
-  Map<String, dynamic> toJson() => {
-    "student_id": studentId,
-    "first_name": firstName,
-    "last_name": lastName,
-    "religion": religion,
-    "email": email,
-    "date_of_birth":
-    "${dateOfBirth.year.toString().padLeft(4, '0')}-${dateOfBirth.month.toString().padLeft(2, '0')}-${dateOfBirth.day.toString().padLeft(2, '0')}",
-    "address": address,
-    "details": details,
-    "grade_id": gradeId,
-    "gender_id": genderId,
-    "parent_id": parentId,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "date":
-    "${dateOfBirth.year.toString().padLeft(4, '0')}-${dateOfBirth.month.toString().padLeft(2, '0')}-${dateOfBirth.day.toString().padLeft(2, '0')}",
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data["id"] = this.id;
+    data["student_id"] = this.studentId;
+    data["date"] = this.date;
+    data["created_at"] = this.createdAt;
+    data["updated_at"] = this.updatedAt;
+    return data;
+  }
 }

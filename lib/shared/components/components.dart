@@ -413,85 +413,7 @@ Widget ShowExamsItem(w, student, index, context) => Container(
       ),
     );
 
-Widget AddExamsItem(w, subject, student, type, year, date, index, context,
-        controller, cubit) =>
-    Container(
-      width: 4 / 5 * w,
-      height: 50,
-      decoration: BoxDecoration(
-          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.2),
-                blurRadius: 20) //blur radius of shadow
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: [
-            Expanded(
-                child: Center(
-              child: Text('${student.studentId}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-                child: Center(
-              child: Text('${student.firstName}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-              child: Center(child: Text('${student.lastName}')),
-            ),
-            Expanded(child: Center(child: Text('${student.gradeId}'))),
-            Expanded(
-              child: Center(child: Text('${student.roomNumber}')),
-            ),
-            Expanded(
-                child: Center(
-              child: Text('${subject}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-                child: Center(
-              child: TextFormField(
-                  controller: controller,
-                  keyboardType: TextInputType.number,
-                  validator: (value) {},
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(1),
-                      borderSide: BorderSide(color: kDarkBlue2Color),
-                    ),
-                  )),
-            )),
-            Expanded(
-              child: Center(
-                child: defaultButton(
-                  onPressed: () {
-                    print(controller.text);
-                    print(student.studentId);
-                    cubit.AddExam(
-                      studentId: '${student.studentId}',
-                      typeId: type,
-                      subjectName: subject,
-                      mark: controller.text,
-                      schoolYear: year,
-                      date: '2023-06-12',
-                      token: token,
-                    );
-                  },
-                  height: 30,
-                  text: 'Send',
-                  fontsize: 15,
-                  buttColor: kGold1Color,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+
 
 Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
       condition: state is! ShowStudentsLoadingState && students != null,
@@ -505,59 +427,7 @@ Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
-Widget ShowStudentsAttendanceItem(w, student, index, context) => Container(
-      width: 4 / 5 * w,
-      height: 50,
-      decoration: BoxDecoration(
-          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.2),
-                blurRadius: 20) //blur radius of shadow
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: [
-            Expanded(
-                child: Center(
-              child: Text('${student.studentId}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-                child: Center(
-              child: Text('${student.firstName}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-              child: Center(child: Text('${student.lastName}')),
-            ),
-            Expanded(child: Center(child: Text('${student.gradeId}'))),
-            Expanded(
-              child: Center(child: Text('${student.gradeId}')),
-            ),
-            Expanded(
-                child: Center(
-              child: Text('${student.email}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-              child: Center(
-                child: CheckboxListTile(
-                  checkColor: Colors.white,
-                  activeColor: kDarkBlue2Color,
-                  value: AttendanceCubit.get(context).checkbox,
-                  onChanged: (v) => AttendanceCubit.get(context).changeCheck(
-                    v!,
-                    student.studentId,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+
 
 Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
       condition: state is! ShowSubjectsLoadingState && subjects != null,
@@ -608,9 +478,85 @@ Widget ShowExamsBuilder(w, students, context, state) => ConditionalBuilder(
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
-
-Widget AddExamsBuilder(w, subject, students, type, year, date, context, state,
-        controllers, cubit) =>
+Widget AddExamsItem(w, subject, student, type, year, date, index, context, controller, cubit) =>
+    Container(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
+                  child: Text('${student.studentId}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
+            Expanded(
+                child: Center(
+                  child: Text('${student.firstName}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
+            Expanded(
+              child: Center(child: Text('${student.lastName}')),
+            ),
+            Expanded(child: Center(child: Text('${student.gradeId}'))),
+            Expanded(
+              child: Center(child: Text('${student.roomNumber}')),
+            ),
+            Expanded(
+                child: Center(
+                  child: Text('${subject}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
+            Expanded(
+                child: Center(
+                  child: TextFormField(
+                      controller: controller,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {},
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(1),
+                          borderSide: BorderSide(color: kDarkBlue2Color),
+                        ),
+                      )),
+                )),
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {
+                    print(controller.text);
+                    print(student.studentId);
+                    cubit.AddExam(
+                      studentId: '${student.studentId}',
+                      typeId: type,
+                      subjectName: subject,
+                      mark: controller.text,
+                      schoolYear: year,
+                      date: '2023-06-12',
+                      token: token,
+                    );
+                  },
+                  height: 30,
+                  text: 'Send',
+                  fontsize: 15,
+                  buttColor: kGold1Color,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+Widget AddExamsBuilder(w, subject, students, type, year, date, context, state, controllers, cubit) =>
     ConditionalBuilder(
       condition: state is! AddExamsLoadingState && students != null,
       builder: (context) => ListView.separated(
@@ -625,3 +571,72 @@ Widget AddExamsBuilder(w, subject, students, type, year, date, context, state,
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
+Widget AddAttendanceBuilder(w, students, date, context, state, cubit , studentIDs) =>
+    ConditionalBuilder(
+      condition: state is! AttendanceLoadingState && students != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) {
+            //students.add('maysa');
+            return AddAttendanceItem(w, students[index],  date,
+                 context, cubit,state , studentIDs);
+          },
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: students.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+
+Widget AddAttendanceItem(w, student,date,index, context, cubit , studentID ) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${student.studentId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${student.firstName}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(child: Text('${student.lastName}')),
+        ),
+        Expanded(child: Center(child: Text('${student.gradeId}'))),
+        Expanded(
+          child: Center(child: Text('${student.gradeId}')),
+        ),
+        Expanded(
+            child: Center(
+              child: Text('${student.email}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(
+            child: CheckboxListTile(
+              checkColor: Colors.white,
+              activeColor: kDarkBlue2Color,
+              value: AttendanceCubit.get(context).checkbox,
+              onChanged: (v) => AttendanceCubit.get(context).changeCheck(
+                v!,
+                student.studentId,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);

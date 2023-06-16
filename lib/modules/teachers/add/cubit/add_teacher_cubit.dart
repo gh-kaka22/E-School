@@ -3,6 +3,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/teacher_model.dart';
+import 'package:untitled/shared/components/constants.dart';
 
 import '../../../../shared/network/remote/dio_helper.dart';
 import '../../../../shared/network/remote/end_points.dart';
@@ -31,13 +32,14 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
     );
     DioHelper.postData(
       url: ADDTEACHER,
+      token: token,
       data: {
-        'first_name': first_name,
-        'last_name': last_name,
-        'phone_number': phone_number,
-        'address': address,
-        'subject_id': subject,
-        'details':details,
+        'first_name': 'first_name',
+        'last_name': 'last_name',
+        'phone_number': 'phone_number',
+        'address': 'address',
+        'subject_id': 1,
+        'details':'details',
 
       },
     ).then((value) {

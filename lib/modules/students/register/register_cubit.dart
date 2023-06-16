@@ -111,7 +111,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       child: Text('Christian'),
     ),
   ];
-
   List<DropdownMenuItem<String>> GenderItems = [
     DropdownMenuItem(
       value: "1",
@@ -160,6 +159,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
+
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2008, 1),

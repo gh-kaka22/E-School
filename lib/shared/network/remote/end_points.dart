@@ -1,7 +1,7 @@
 import 'package:untitled/modules/teachers/add/add_teacher.dart';
 
 const RegisterStudent='student/register';
-const AdminLogin='admin/login';
+const AdminLogin='login';
 const GETSTUDENTS='students/index';
 const GETSTUDENTSBYGRADE='show_by_grade';
 const UPDATETEACHER='update_teacher/2';

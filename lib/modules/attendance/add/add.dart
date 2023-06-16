@@ -10,15 +10,34 @@ class AddAttendance extends StatelessWidget {
   const AddAttendance({Key? key}) : super(key: key);
 
   @override
-
-  @override
   Widget build(BuildContext context) {
     double h=MediaQuery.of(context).size.height;
     double w=MediaQuery.of(context).size.width;
     return BlocProvider(
-  create: (context) => AttendanceCubit(),
+  create: (context) => AttendanceCubit()..getStudents(),
   child: BlocConsumer<AttendanceCubit, AttendanceState>(
   listener: (context, state) {
+    if (state is AttendanceSuccessState) {
+      if(state.attendanceModel.status ?? true) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.green,
+            content:
+            Center(
+              child: Text(
+                  '${state.attendanceModel.message}',
+                  style: TextStyle(color: Colors.white)),
+            )));
+      } else  {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Center(
+              child: Text(
+                '${state.attendanceModel.message}',
+                style: TextStyle(color: Colors.white),
+              ),
+            )));
+
+      }}
 
   },
   builder: (context, state) {
@@ -61,7 +80,29 @@ class AddAttendance extends StatelessWidget {
                    onChanged: (newValue) {
                      cubit.changeClassDropDownButton(newValue!);
                    },
-                   items: cubit.menuItems,
+                   items: cubit.menuItemsClass,
+                 ),
+               ),
+             ),
+             SizedBox(
+               width: 20,
+             ),
+             Expanded(
+               child: ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                   backgroundColor: Colors.white,
+                   foregroundColor: kGold1Color,
+                   side: BorderSide(
+                       width: 1, color: Colors.white),
+                   elevation: 0,
+                 ),
+                 onPressed: () =>
+                     cubit.selectDate(context),
+                 child: const Text(
+                   'Select date ',
+                   style: TextStyle(
+                     fontWeight: FontWeight.w400,
+                   ),
                  ),
                ),
              ),
@@ -96,7 +137,7 @@ class AddAttendance extends StatelessWidget {
                    onChanged: (newValue) {
                      cubit.changeSectionDropDownButton(newValue!);
                    },
-                   items: cubit.menuItems2,
+                   items: cubit.menuItemsSection,
                  ),
                ),
              ),
@@ -158,10 +199,14 @@ class AddAttendance extends StatelessWidget {
     ),
         SizedBox(height: h/20,),
         Expanded(
-            child: ShowStudentsAttendanceItem(
+            child: AddAttendanceBuilder(
                 w,
-                cubit.attendanceModel?.data,
+                cubit.addExamsModel?.data,
+                cubit.selectedDate,
+                 cubit.idStudents.toString(),
                 context,
+
+                cubit,
                 state,
 
             )

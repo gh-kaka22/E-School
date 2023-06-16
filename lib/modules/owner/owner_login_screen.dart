@@ -1,7 +1,6 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/styles/colors.dart';
 import '../students/register/register_screen.dart';
@@ -25,7 +24,7 @@ class LoginAdmin extends StatelessWidget {
           if (state is OwnerLoginSuccessState) {
             if (state.adminModel.status == true) {
               print(state.adminModel.status);
-              print(state.adminModel.data!.accessToken);
+              print('1111111111111111''${state.adminModel.data!.accessToken}');
               Fluttertoast.showToast(
                 msg: '$state.adminModel.message',
                 toastLength: Toast.LENGTH_LONG,
