@@ -13,7 +13,7 @@ class SchoolYearSeeder extends Seeder
     {
         DB::table('school_years')->insert([
             [
-                'name' => "2023/2022",
+                'name' => "2022/2023",
 
             ],
 

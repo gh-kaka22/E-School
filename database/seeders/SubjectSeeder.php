@@ -17,11 +17,11 @@ class SubjectSeeder extends Seeder
                 'max_mark'=>0
             ],
             [
-                'name' => "physics",
+                'name' => "Physics",
                 'max_mark'=>400
             ],
             [
-                'name' => "sport",
+                'name' => "Science",
                 'max_mark'=>200
             ]
 

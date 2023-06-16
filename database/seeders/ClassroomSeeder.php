@@ -14,18 +14,18 @@ class ClassroomSeeder extends Seeder
         DB::table('classrooms')->insert([
             [
                 'capacity' => 35,
-                'room_number' => "A5",
-                'grade_id'=>1,
+                'room_number' => "7A",
+                'grade_id'=>7,
             ],
             [
                 'capacity' => 35,
-                'room_number' => "A6",
-                'grade_id'=>1,
+                'room_number' => "8A",
+                'grade_id'=>8,
             ],
             [
                 'capacity' => 35,
-                'room_number' => "A7",
-                'grade_id'=>1,
+                'room_number' => "9A",
+                'grade_id'=>9,
             ],
 
 
