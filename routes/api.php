@@ -67,6 +67,13 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
 
+    //Schedule Routes
+    Route::post('/create_schedule', [\App\Http\Controllers\ScheduleController::class, 'create']);
+    Route::post('/show_schedule', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
+    Route::get('/index_schedule', [\App\Http\Controllers\ScheduleController::class, 'index']);
+
+
+
     //Subject Routes
     Route::get('/subjects', [\App\Http\Controllers\SubjectController::class, 'index']);
     Route::get('/subject/{id}', [\App\Http\Controllers\SubjectController::class, 'show']);
@@ -116,6 +123,9 @@ Route::middleware(['auth:api', 'isParent'])->group(function () {
 //Student routes
 Route::middleware(['auth:api', 'isStudent'])->group(function () {
     Route::get('/Sshowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforstudent']);
+
+    //Exams
+    Route::Post('/exams/show_for_student', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
 
 });
 
@@ -189,10 +199,7 @@ Route::post('/update_teacher/{id}', [\App\Http\Controllers\TeacherController::cl
 
 
 
-//Schedule Routes
-Route::post('/create_schedule', [\App\Http\Controllers\ScheduleController::class, 'create']);
-//Route::post('/show_schedule', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
-Route::get('/index_schedule', [\App\Http\Controllers\ScheduleController::class, 'index']);
+
 
 //Post Routes
 Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);

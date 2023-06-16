@@ -6,6 +6,7 @@ use App\Models\Exam;
 use App\Notifications\ExamResult;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ExamController extends Controller
@@ -82,7 +83,10 @@ class ExamController extends Controller
 
 
          $marks=DB::table('exams')
-             ->whereIn('student_id',$student_ids)
+             ->whereIn('exams.student_id',$student_ids)
+             ->join('students','students.student_id','=','exams.student_id')
+             ->join('subjects','subjects.subject_id','=','exams.subject_id')
+             ->select('exams.*','students.first_name', 'students.last_name','subjects.name','subjects.max_mark')
              ->get();
 
          if ($marks->isEmpty())
@@ -91,12 +95,27 @@ class ExamController extends Controller
 
      }
 
-     public function showForStudent($id){
-        $res= DB::table('exams')
-             ->whereMonth('date','=',$id)
-             ->first();
+     public function showForStudent(Request $request){
+         $request->validate([
+             'schoolyear'=>['required'],
+             'type_id'=>['required','integer'],
+         ]);
+         $student_id=DB::table('students')
+             ->where('user_id','=',Auth::id())
+             ->first()->student_id;
 
-         return $this->apiResponse('s',$res);
+         $exams=DB::table('exams')
+             ->where('student_id','=',$student_id)
+             ->where('schoolyear','=',$request->schoolyear)
+             ->where('type_id','=',$request->type_id)
+             ->join('subjects','subjects.subject_id','=','exams.subject_id')
+             ->select('subjects.name','subjects.max_mark','exams.*')
+             ->get();
+         if ($exams->isEmpty())
+             return $this->apiResponse('Students does not have any marks',null,false);
+
+         return $this->apiResponse('success',$exams);
+
 
      }
 
