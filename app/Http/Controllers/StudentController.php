@@ -127,6 +127,7 @@ class StudentController extends Controller
 
     public function showProfile(){
         $user_id=Auth::id();
+        $user=Auth::user();
 
 
 
@@ -155,8 +156,7 @@ class StudentController extends Controller
             $student->classroom=$classroom_name;
         }
 
-
-
+        $student->email=$user->email;
         $student->father_first_name=$parents->father_first_name;
         $student->father_phone_number=$parents->father_phone_number;
         $student->mother_first_name=$parents->mother_first_name;
