@@ -126,20 +126,22 @@ class StudentController extends Controller
 
 
     public function showProfile(){
-        $student_id=Auth::id();
-        if(!$student_id)
-            return $this->apiResponse('Student not found',null,false);
+        $user_id=Auth::id();
+
+
 
         $student=DB::table('students')
-            ->where('student_id','=',$student_id)
+            ->where('user_id','=',$user_id)
             ->first();
+
+
 
         $parents=DB::table('parents')
         ->where('parent_id','=',$student->parent_id)
         ->first();
 
         $classroom=DB::table('students_classrooms')
-            ->where('student_id','=',$student_id)
+            ->where('student_id','=',$student->student_id)
             ->first();
         if(!$classroom)
             $student->classroom='Not assigned';
@@ -169,14 +171,14 @@ class StudentController extends Controller
     }
 
     public function showHome(){
-        $student_id=Auth::id();
+        $user_id=Auth::id();
         $student=DB::table('students')
-            ->where('student_id','=',$student_id)
+            ->where('user_id','=',$user_id)
             ->first();
 
 
         $classroom=DB::table('students_classrooms')
-            ->where('student_id','=',$student_id)
+            ->where('student_id','=',$student->student_id)
             ->first();
         if(!$classroom)
             $student->classroom='Not assigned';

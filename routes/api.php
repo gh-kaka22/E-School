@@ -124,6 +124,8 @@ Route::middleware(['auth:api', 'isParent'])->group(function () {
 Route::middleware(['auth:api', 'isStudent'])->group(function () {
     Route::get('/Sshowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforstudent']);
 
+    Route::get('/student/profile', [\App\Http\Controllers\StudentController::class, 'showProfile']);
+    Route::get('/student/home', [\App\Http\Controllers\StudentController::class, 'showHome']);
     //Exams
     Route::Post('/exams/show_for_student', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
 
