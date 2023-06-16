@@ -230,7 +230,7 @@ class AddNotice extends StatelessWidget {
                   Expanded(
                       child: AddNoticeBuilder(
                           w,
-                          cubit.noticeModel?.data,
+                          cubit.addExamsModel?.data,
                           cubit.selectedDate,
                           cubit.dropDownValueType,
                           context,
