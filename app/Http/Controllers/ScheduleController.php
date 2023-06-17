@@ -49,14 +49,15 @@ class ScheduleController extends Controller
             //'classroom_id'=>'required',
             'day_number'=>'required',
         ]);
-        $student_id=Auth::id();
+        $user_id=Auth::id();
+
+        $student_id=DB::table('students')
+            ->where('user_id','=',$user_id)
+            ->first()->student_id;
 
         $classroom_id=DB::table('students_classrooms')
                      ->where('student_id','=',$student_id)
                      ->first()->classroom_id;
-
-
-
 
 
 
@@ -71,7 +72,7 @@ class ScheduleController extends Controller
         $data->first_subject=Subject::find($data->first_subject)->name;
         $data->second_subject=Subject::find($data->second_subject)->name;
         $data->third_subject=Subject::find($data->third_subject)->name;
-        $data->forth_subject=Subject::find($data->fourth_subject)->name;
+        $data->fourth_subject=Subject::find($data->fourth_subject)->name;
         $data->fifth_subject=Subject::find($data->fifth_subject)->name;
         $data->sixth_subject=Subject::find($data->sixth_subject)->name;
         $data->seventh_subject=Subject::find($data->seventh_subject)->name;
