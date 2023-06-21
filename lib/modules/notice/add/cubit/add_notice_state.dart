@@ -5,10 +5,10 @@ abstract class AddNoticeState {}
 
 class AddNoticeInitial extends AddNoticeState {}
 class AddNoticeLoadingState extends AddNoticeState {}
-class AddNoticeSuccessState extends AddNoticeState {
+class ShowExamSuccessState extends AddNoticeState {
   final AddExamsModel showExamsModel;
 
-  AddNoticeSuccessState(this.showExamsModel);
+  ShowExamSuccessState(this.showExamsModel);
 }
 class AddNoticeModelState extends AddNoticeState{
   final NoticeModel noticeModel;

@@ -111,7 +111,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                             cubit.SideBarItem(
                                 text: 'Notice',
-                                showScreen: StudentsShow(),
+                                showScreen: AddNotice(),
                                 addScreen: AddNotice(),
                             ),
                           cubit.SpecialSideBarItem(

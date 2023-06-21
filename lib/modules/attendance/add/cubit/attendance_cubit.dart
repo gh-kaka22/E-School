@@ -6,6 +6,8 @@ import 'package:meta/meta.dart';
 import 'package:untitled/models/add_exams_entered_model.dart';
 import 'package:untitled/models/add_exams_model.dart';
 import 'package:untitled/models/attendance_model.dart';
+import 'package:untitled/models/attendance_model.dart';
+import 'package:untitled/models/attendance_model.dart';
 import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/student_model.dart';
 import 'package:untitled/shared/components/constants.dart';
@@ -23,9 +25,10 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   bool? checkbox = false;
   int? ischeck;
   DateTime selectedDate = DateTime.now();
-  List<int> idStudents = [1];
+  List<int> idStudents = [];
 
   changeCheck(bool val, int studentID) {
+    print('Maysaaaaaaaaa : $val , $studentID');
     ischeck = val ? 1 : 0;
     if (val) {
       ischeck = 1;
@@ -35,7 +38,6 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       idStudents.remove(studentID);
     }
     print('maysa ya maysa ${ischeck}');
-
     emit(CheckIsAbsentState());
     print(idStudents);
   }
@@ -166,7 +168,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
     }
   }
 
-  AddExamsEnteredModel? addExamsEnteredModel;
+  AttendanceModel? attendanceModel;
   void AddAbsence({
     required students_id,
     required date,
@@ -179,12 +181,13 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       url: ATTENDANCE,
       data: {
         'student_id': students_id,
-        'date': DateFormat('yyyy/MM/dd').format(selectedDate),
+        'date': '2020-02-02',
+        //DateFormat('yyyy-MM-dd').format(selectedDate),
       },
     )
         .then((value) {
-      addExamsEnteredModel = AddExamsEnteredModel.fromJson(value?.data);
-      emit(AddExamsEnteredSuccessState(addExamsEnteredModel!));
+      attendanceModel = AttendanceModel.fromJson(value?.data);
+      emit(AttendanceSuccessState(attendanceModel!));
     })
         .catchError((error) {
       print("koko ${error}");

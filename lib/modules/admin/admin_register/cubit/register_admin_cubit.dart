@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/admin_models.dart';
+import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
 
@@ -23,6 +24,7 @@ class RegisterAdminCubit extends Cubit<RegisterAdminState> {
     emit(RegisterAdminLoadingState());
     DioHelper.postData(
         url: AdminLogin,
+        token: token,
         data: {
           'first_name':fname,
           'last_name':lname,

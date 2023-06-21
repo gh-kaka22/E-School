@@ -1,3 +1,11 @@
+
+import 'dart:convert';
+
+NoticeModel noticeModelFromJson(String str) => NoticeModel.fromJson(json.decode(str));
+
+String noticeModelToJson(NoticeModel data) => json.encode(data.toJson());
+
+
 class NoticeModel {
   bool? status;
   String? message;
@@ -5,21 +13,18 @@ class NoticeModel {
 
   NoticeModel({required this.status,required this.message,required this.data});
 
-  NoticeModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
+  factory NoticeModel.fromJson(Map<String, dynamic> json)=>NoticeModel(
+      status: json ["status"],
+      message: json ["message"],
+      data: json['data'] != null ? Data.fromJson(json['data']) : null
+  ) ;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
+
+  Map<String, dynamic> toJson() =>{
+    "status": status,
+    "message": message,
+    "data": data?.toJson(),
+  };
 }
 
 class Data {
@@ -37,19 +42,18 @@ class Data {
         required   this.type,
         required  this.content,
         required this.date,
-        required   this.updatedAt,
-        required   this.createdAt,
+          this.updatedAt,
+        this.createdAt,
         required  this.id});
 
-  Data.fromJson(Map<String, dynamic> json) {
-    studentId = json['student_id'];
-    type = json['type'];
-    content = json['content'];
-    date = json['date'];
-    updatedAt = json['updated_at'];
-    createdAt = json['created_at'];
-    id = json['id'];
-  }
+ factory Data.fromJson(Map<String, dynamic> json)=>Data(
+      studentId:json ['studentId'],
+      type:json ["type"],
+      content:json ["content"],
+      date:json ["date"],
+       id:json ["id"],
+
+ );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

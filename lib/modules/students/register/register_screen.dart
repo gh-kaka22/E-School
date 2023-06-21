@@ -41,7 +41,6 @@ class StudentRegisterScreen extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double padding=MediaQuery.of(context).size.width/20;
     double borderwidth = 1;
-    //dropdown padding
     double ddp = 20.0;
     return BlocProvider(
       create: (context) => RegisterCubit(),
@@ -68,30 +67,11 @@ class StudentRegisterScreen extends StatelessWidget {
           return Stack(
             children: 
             [
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/Background.jpg'),
-                      fit: BoxFit.cover,
-                      opacity: 0.6,
-                    )
-                ),
-              ),
-              Container(
-                height: h,
-                color: Colors.white.withOpacity(0.9),
 
-
-
-
-              ),
               Container(
               width: w - (w / 5) - 5,
               height: h,
-              // decoration: BoxDecoration(
-              //   color: Colors.white24,
-              //
-              // ),
+
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Center(

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/models/admin_models.dart';
 import 'package:untitled/modules/admin/login/cubit/login_state.dart';
+import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
 
@@ -21,6 +22,7 @@ class AdminLoginCubit extends Cubit<AdminLoginStates> {
     emit(AdminLoginLoadingState());
     DioHelper.postData(
         url: AdminLogin,
+        token: token,
         data: {
           'email':email,
           'password':password,

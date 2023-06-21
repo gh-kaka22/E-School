@@ -6,7 +6,7 @@ const GETSTUDENTS='students/index';
 const GETSTUDENTSBYGRADE='show_by_grade';
 const UPDATETEACHER='update_teacher/2';
 const ADDTEACHER='teacher/register';
-
+const ADDNOTICE='/storenotice';
 const ADDSUBJECT='create_subject';
 const GETSUBJECTS='subjects';
 

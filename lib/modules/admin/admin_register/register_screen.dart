@@ -30,14 +30,14 @@ class RegisterAdmin extends StatelessWidget {
       create: (context) => RegisterAdminCubit(),
       child: BlocConsumer<RegisterAdminCubit, RegisterAdminState>(
         listener: (context, state) {
-          if (state is AddTeacherError) {
+          if (state is RegisterAdminErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
                 content:
                 Text(state.toString(),
                     style: TextStyle(color: Colors.white))));
           }
-          if (state is AddTeacherSuccess) {
+          if (state is RegisterAdminSuccessgState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.green,
                 content: Text(

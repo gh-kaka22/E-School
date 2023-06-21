@@ -7,6 +7,7 @@ import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
 import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.dart';
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
 import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
+import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
 import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
@@ -28,9 +29,9 @@ Widget defaultFormField({
   ValueChanged? onSubmit,
   ValueChanged? onChange,
   VoidCallback? suffixPressed,
-  required FormFieldValidator validate,
+   FormFieldValidator? validate,
   required String label,
-  required IconData prefix,
+   IconData? prefix,
   IconData? suffix,
   bool isPassword = false,
 }) =>
@@ -105,10 +106,12 @@ TextFormField buildSForm({
   double borderwidth = 1,
 }) {
   return TextFormField(
+
     decoration: InputDecoration(
       enabled: true,
       filled: true,
-      fillColor: Colors.white30,
+
+      fillColor: Colors.white24,
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           width: borderwidth,
@@ -510,11 +513,7 @@ Widget AddExamsItem(w, subject, student, type, year, date, index, context, contr
             Expanded(
               child: Center(child: Text('${student.roomNumber}')),
             ),
-            Expanded(
-                child: Center(
-                  child: Text('${subject}',
-                      style: TextStyle(overflow: TextOverflow.ellipsis)),
-                )),
+
             Expanded(
                 child: Center(
                   child: TextFormField(
@@ -534,6 +533,7 @@ Widget AddExamsItem(w, subject, student, type, year, date, index, context, contr
                   onPressed: () {
                     print(controller.text);
                     print(student.studentId);
+
                     cubit.AddExam(
                       studentId: '${student.studentId}',
                       typeId: type,
@@ -571,14 +571,16 @@ Widget AddExamsBuilder(w, subject, students, type, year, date, context, state, c
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
-Widget AddAttendanceBuilder(w, students, date, context, state, cubit , studentIDs) =>
+
+
+
+Widget AddAttendanceBuilder(w, students, date, cubit ,controllers, context, state) =>
     ConditionalBuilder(
       condition: state is! AttendanceLoadingState && students != null,
       builder: (context) => ListView.separated(
           itemBuilder: (context, index) {
-            //students.add('maysa');
-            return AddAttendanceItem(w, students[index],  date,
-                 context, cubit,state , studentIDs);
+            return AddAttendanceItem(w, students[index],  date, cubit,controllers ,
+                context,index);
           },
           separatorBuilder: (context, index) {
             return MyDivider();
@@ -587,11 +589,11 @@ Widget AddAttendanceBuilder(w, students, date, context, state, cubit , studentID
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
-Widget AddAttendanceItem(w, student,date,index, context, cubit , studentID ) => Container(
+Widget AddAttendanceItem(w, student,date, cubit , controller, context, int index ) => Container(
   width: 4 / 5 * w,
   height: 50,
   decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+     color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
       boxShadow: <BoxShadow>[
         BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.2),
@@ -625,10 +627,10 @@ Widget AddAttendanceItem(w, student,date,index, context, cubit , studentID ) => 
             )),
         Expanded(
           child: Center(
-            child: CheckboxListTile(
+            child: Checkbox(
               checkColor: Colors.white,
               activeColor: kDarkBlue2Color,
-              value: AttendanceCubit.get(context).checkbox,
+              value: AttendanceCubit.get(context).idStudents.contains(student.studentId),
               onChanged: (v) => AttendanceCubit.get(context).changeCheck(
                 v!,
                 student.studentId,
@@ -640,3 +642,8 @@ Widget AddAttendanceItem(w, student,date,index, context, cubit , studentID ) => 
     ),
   ),
 );
+
+
+
+
+
