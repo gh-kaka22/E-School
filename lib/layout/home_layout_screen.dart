@@ -6,7 +6,6 @@ import 'package:untitled/modules/attendance/add/add.dart';
 import 'package:untitled/modules/books/add/add_books.dart';
 import 'package:untitled/modules/classrooms/add/add_classroom.dart';
 import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
-import 'package:untitled/modules/dashboard/dashboard.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/notice/add/add_notice.dart';

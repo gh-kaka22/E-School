@@ -30,6 +30,10 @@ class StudentRegisterScreen extends StatelessWidget {
 
   var addressController = TextEditingController();
 
+  var email=TextEditingController();
+
+  var password=TextEditingController();
+
   List<String> YN = ['Don\'t have siblings'];
 
   var formkey = GlobalKey<FormState>();
@@ -42,16 +46,27 @@ class StudentRegisterScreen extends StatelessWidget {
     double padding=MediaQuery.of(context).size.width/20;
     double borderwidth = 1;
     double ddp = 20.0;
+    // email.text=RegisterCubit.get(context).student!.data!.email!;
+    // password.text=RegisterCubit.get(context).student!.data!.passwordDecoded.toString();
+    // FnameController.text=RegisterCubit.get(context).student!.data!.firstName!;
     return BlocProvider(
       create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          if (state is RegisterError) {
+          if (state is RegisterError)
+          {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
                 content:
                     Text(state.error, style: TextStyle(color: Colors.white))));
+
+
+
+
+
+
           }
+
           if (state is RegisterSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.green,
