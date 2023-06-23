@@ -9,6 +9,7 @@ import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/notice/add/add_notice.dart';
+import 'package:untitled/modules/owner/owner_login_screen.dart';
 import 'package:untitled/modules/schoolYears/add/add_school_year.dart';
 import 'package:untitled/modules/schoolYears/show/show_school_year.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
@@ -51,7 +52,7 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: LoginAdmin(),
+                            screen: OwnerLogin(),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',

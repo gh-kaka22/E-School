@@ -3,6 +3,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:untitled/models/add_admin_model.dart';
 import 'package:untitled/models/admin_models.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -13,7 +14,7 @@ part 'register_admin_state.dart';
 class RegisterAdminCubit extends Cubit<RegisterAdminState> {
   RegisterAdminCubit() : super(RegisterAdminInitial());
   static RegisterAdminCubit get(context)=> BlocProvider.of(context);
-  AdminModel ?admin;
+  AddAdminModel ?addAdminModel;
   void adminRegister(
       {
         required String fname,
@@ -23,7 +24,7 @@ class RegisterAdminCubit extends Cubit<RegisterAdminState> {
   {
     emit(RegisterAdminLoadingState());
     DioHelper.postData(
-        url: AdminLogin,
+        url: ADDADMIN,
         token: token,
         data: {
           'first_name':fname,
@@ -31,13 +32,14 @@ class RegisterAdminCubit extends Cubit<RegisterAdminState> {
         }).then((value) {
 
       print(value?.data);
-      admin= AdminModel.fromJson(value?.data);
-      print(admin!.data!.accessToken);
-      print(admin!.data!.password);
+      addAdminModel= AddAdminModel.fromJson(value?.data);
+      print(addAdminModel!.data!.token);
+      print(addAdminModel!.data!.passwordDecoded);
 
-      emit(RegisterAdminSuccessgState(admin!));
+      emit(RegisterAdminSuccessgState(addAdminModel!));
 
     }).catchError((error){
+      print('mmmmmmmmmmmmmmmm${error}');
       print(error.toString());
       emit(RegisterAdminErrorState(error.toString()));
     });

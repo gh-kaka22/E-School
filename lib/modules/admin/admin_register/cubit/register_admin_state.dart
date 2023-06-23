@@ -6,8 +6,8 @@ abstract class RegisterAdminState {}
 class RegisterAdminInitial extends RegisterAdminState {}
 class RegisterAdminLoadingState extends RegisterAdminState{}
 class RegisterAdminSuccessgState extends RegisterAdminState{
-  final AdminModel adminModel;
-  RegisterAdminSuccessgState(this.adminModel);
+  final AddAdminModel addAdminModel;
+  RegisterAdminSuccessgState(this.addAdminModel);
 }
 class RegisterAdminErrorState extends RegisterAdminState{
   final String error;

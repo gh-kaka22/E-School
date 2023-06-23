@@ -4,12 +4,12 @@ const RegisterStudent='student/register';
 const AdminLogin='login';
 const GETSTUDENTS='students/index';
 const GETSTUDENTSBYGRADE='show_by_grade';
-const UPDATETEACHER='update_teacher/2';
+const UPDATETEACHER='update_teacher/';
 const ADDTEACHER='teacher/register';
 const ADDNOTICE='/storenotice';
 const ADDSUBJECT='create_subject';
 const GETSUBJECTS='subjects';
-
+const ADDADMIN='admin/register';
 const ADDCLASSROOM='create_classroom';
 const GETCLASSROOMS='classrooms/index';
 

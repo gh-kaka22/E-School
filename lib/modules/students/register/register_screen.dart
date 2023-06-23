@@ -46,8 +46,8 @@ class StudentRegisterScreen extends StatelessWidget {
     double padding=MediaQuery.of(context).size.width/20;
     double borderwidth = 1;
     double ddp = 20.0;
-    // email.text=RegisterCubit.get(context).student!.data!.email!;
-    // password.text=RegisterCubit.get(context).student!.data!.passwordDecoded.toString();
+     //email.text=RegisterCubit.get(context).student!.data!.email!;
+  //  password.text=RegisterCubit.get(context).student!.data!.passwordDecoded.toString();
     // FnameController.text=RegisterCubit.get(context).student!.data!.firstName!;
     return BlocProvider(
       create: (context) => RegisterCubit(),
@@ -59,9 +59,6 @@ class StudentRegisterScreen extends StatelessWidget {
                 backgroundColor: Colors.red,
                 content:
                     Text(state.error, style: TextStyle(color: Colors.white))));
-
-
-
 
 
 
@@ -439,7 +436,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                     genderr: cubit.gender,
                                     grade_number: cubit.gradenumber,
                                     date_of_birth: cubit.selectedDate,
-                                    father_national_id: nationalitycontroller.text,
+                                    father_national_id: '121',
                                     have_sib: cubit.ischeck,
 
 

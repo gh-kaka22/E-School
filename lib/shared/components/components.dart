@@ -24,7 +24,7 @@ void navigateTo(context, widget) => Navigator.push(
     );
 
 Widget defaultFormField({
-  required TextEditingController controller,
+   TextEditingController? controller,
   required TextInputType type,
   ValueChanged? onSubmit,
   ValueChanged? onChange,

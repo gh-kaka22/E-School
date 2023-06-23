@@ -13,8 +13,8 @@ import 'login_owner_state.dart';
 class OwnerLoginCubit extends Cubit<OwnerLoginStates> {
   OwnerLoginCubit() : super(OwnerLoginInitialState());
   static OwnerLoginCubit get(context)=>BlocProvider.of(context);
-  AdminModel ?admin;
-  void adminLogin(
+  AdminModel ?owner;
+  void ownerLogin(
   {
    required String email,
     required String password,
@@ -31,11 +31,11 @@ class OwnerLoginCubit extends Cubit<OwnerLoginStates> {
         }).then((value) {
 
           print(value?.data);
-         admin= AdminModel.fromJson(value?.data);
-         print(admin!.data!.accessToken);
-         print(admin!.data!.password);
+          owner= AdminModel.fromJson(value?.data);
+         print(owner!.data!.accessToken);
+         print(owner!.data!.password);
 
-          emit(OwnerLoginSuccessState(admin!));
+          emit(OwnerLoginSuccessState(owner!));
 
     }).catchError((error){
       print(error.toString());

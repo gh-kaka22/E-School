@@ -1,6 +1,7 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/models/add_admin_model.dart';
 import 'package:untitled/modules/admin/admin_register/cubit/register_admin_cubit.dart';
 import 'package:untitled/modules/teachers/add/cubit/add_teacher_cubit.dart';
 import 'package:untitled/shared/components/text_components.dart';
@@ -15,6 +16,8 @@ class RegisterAdmin extends StatelessWidget {
     var FirstnameController = TextEditingController();
 
     var LastnameController = TextEditingController();
+    var email=TextEditingController();
+    var password=TextEditingController();
 
 
     var formkey = GlobalKey<FormState>();
@@ -43,7 +46,76 @@ class RegisterAdmin extends StatelessWidget {
                 content: Text(
                   'Registered Successfully',
                   style: TextStyle(color: Colors.white),
-                )));
+                ))
+            );
+            showDialog(
+                context: context,
+                builder: (ctx) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AlertDialog(
+
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.all(
+                              Radius.circular(10.0))),
+
+                      title: MyText(name: "Email & Password", size: 25),
+                      content: Container(
+                        width: w/4,height: h/4,
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                           Container(
+                             width: w/4,height: h/15,
+                             child: Center(child: Text('${RegisterAdminCubit.get(context).addAdminModel!.data!.email!}')),
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(20),
+                               border: Border.all(
+                                 color: kDarkBlue2Color,
+                                 width: 2,
+                               ),
+                             ),
+                           ),
+                            SizedBox(height: h/80,),
+                            Container(
+                              width: w/4,height: h/15,
+                              child: Center(child: Text('${RegisterAdminCubit.get(context).addAdminModel!.data!.passwordDecoded!}')),
+
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: h/80,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text('OK'),
+
+
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      actions: [
+
+                      ],
+                    ),
+                  ],
+                ));
             //todo: Navigate to home
           }
         },
