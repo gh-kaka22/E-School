@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/models/show_Attendance_model.dart';
 import 'package:untitled/models/show_students_model.dart';
-import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
+import 'package:untitled/modules/attendance/show/cubit/show_attendance_state.dart';
+import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/constants.dart';
+import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
 
-class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
-  ShowStudentsCubit() : super(ShowStudentsInitialState());
+class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
+  ShowAttendanceCubit() : super(ShowAttendanceInitialState());
 
-  static ShowStudentsCubit get(context) => BlocProvider.of(context);
+  static ShowAttendanceCubit get(context) => BlocProvider.of(context);
 
   String? dropDownValueClass = '7';
   String? dropDownValueSection = 'A';
@@ -53,16 +56,17 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
     emit(ShowStudentsSectionDropDownButtonState());
   }
 
+  ShowAttendanceModel? showAttendanceModel;
   ShowStudentsModel? showStudentsModel;
 
   List<dynamic>? students;
 
   void getStudents()
   {
-    emit(ShowStudentsLoadingState());
+    emit(ShowAttendanceLoadingState());
     DioHelper.getData(
-        url: GETSTUDENTS,
-        token: token,
+      url: GETSTUDENTS,
+      token: token,
     ).then((value) {
       print(value?.data);
       showStudentsModel = ShowStudentsModel.fromJson(value?.data);
@@ -99,9 +103,47 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
     });
   }
 
+  void ShowAbsence({
+    required students_id,
+  }) {
+    emit(
+      ShowAttendanceLoadingState(),
+    );
+    DioHelper.postData(
+      token: token,
+      url: SHOWATTENDANCE,
+      data: {
+        'student_id': students_id,
+      },
+    )
+        .then((value) {
+      showAttendanceModel = ShowAttendanceModel.fromJson(value?.data);
+      emit(ShowAttendanceSuccessState(showAttendanceModel!));
+    })
+        .catchError((error) {
+      print("koko ${error}");
+      emit(
+        ShowAttendanceErrorState(error.toString()),
+      );
+    });
+  }
 
 
 
+
+  void showAttendanceDialog({
+    required BuildContext context,
+    required studentId,
+
+  }) {
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: MyText(name: "Attendance", size: 25),
+
+        ),
+        );
+  }
 
 
 }

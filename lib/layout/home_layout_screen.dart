@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
 import 'package:untitled/modules/admin/admin_register/register_screen.dart';
 import 'package:untitled/modules/attendance/add/add.dart';
+import 'package:untitled/modules/attendance/show/show_attendance.dart';
 import 'package:untitled/modules/books/add/add_books.dart';
 import 'package:untitled/modules/classrooms/add/add_classroom.dart';
 import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
@@ -96,7 +97,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                           cubit.SideBarItem(
                               text: 'Attendance',
-                              showScreen: StudentsShow(),
+                              showScreen: ShowAttendance(),
                               addScreen: AddAttendance()
                           ),
                             cubit.SideBarItem(

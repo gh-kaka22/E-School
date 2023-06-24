@@ -39,7 +39,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
         'phone_number': 'phone_number',
         'address': 'address',
         'subject_id': 1,
-        'details':'details',
+        'details':details,
 
       },
     ).then((value) {

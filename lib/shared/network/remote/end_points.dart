@@ -16,5 +16,5 @@ const GETCLASSROOMS='classrooms/index';
 const ADDSCHOOLYEAR='create_schoolyear';
 const GETSCHOOLYEARS='schoolyears';
 const ATTENDANCE='storeattendance';
-
+const SHOWATTENDANCE='Ashowattendance';
 const ADDEXAM='exams/store';
