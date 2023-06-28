@@ -113,19 +113,28 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 //Parent routes
 Route::middleware(['auth:api', 'isParent'])->group(function () {
-
-    Route::get('/Pshownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforparent']);
+    //show attendence
     Route::get('/Pshowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforparent']);
+
+    //show notices
+    Route::get('/Pshownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforparent']);
 
 });
 
 //Student routes
 Route::middleware(['auth:api', 'isStudent'])->group(function () {
-    Route::get('/Sshowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforstudent']);
+
+    //show attendence
+    Route::get('/Sshowattendance', [\App\Http\Controllers\AttendanceController::class, 'showforstudent']);
+
+    //show notices
+    Route::get('/Sshownotices', [\App\Http\Controllers\NoticeController::class, 'showforstudent']);
+
 
     Route::get('/student/profile', [\App\Http\Controllers\StudentController::class, 'showProfile']);
     Route::get('/student/home', [\App\Http\Controllers\StudentController::class, 'showHome']);
     Route::post('/show_schedule', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
+
     //Exams
     Route::Post('/exams/show_for_student', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
 
