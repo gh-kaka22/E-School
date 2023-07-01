@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,15 +65,16 @@ class AttendanceController extends Controller
         return $this->apiResponse('success', $attend);
     }
 
-    public function showforstudent($id)
+    public function showforstudent()
     {
-        $student_id=Auth::id();
-        $attend= Attendance::query()->where('student_id' , '=' , $id)->get();;
+        $student_id = Student::query()->where('user_id' , '=' , Auth::id())->first()->student_id;
+        $attend= Attendance::query()->where('student_id' , '=' , $student_id)->get();
         if ($attend->isEmpty())
             return $this->apiResponse('You did not absent',null,false);
 
         return $this->apiResponse('success', $attend);
     }
+
 
     public function showforparent($id)
     {

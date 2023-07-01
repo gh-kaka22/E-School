@@ -357,7 +357,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-
             if($user->role==0)
                 return $this->OwnerLogin($request);
             else if($user->role==1)
