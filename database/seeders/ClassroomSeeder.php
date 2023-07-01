@@ -15,7 +15,7 @@ class ClassroomSeeder extends Seeder
             [
                 'capacity' => 0,
                 'room_number' => "none",
-                'grade_id'=>1,
+                'grade_id'=>0,
             ],
             [
                 'capacity' => 35,
