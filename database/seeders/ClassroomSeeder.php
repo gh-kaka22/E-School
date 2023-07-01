@@ -13,6 +13,11 @@ class ClassroomSeeder extends Seeder
     {
         DB::table('classrooms')->insert([
             [
+                'capacity' => 0,
+                'room_number' => "none",
+                'grade_id'=>0,
+            ],
+            [
                 'capacity' => 35,
                 'room_number' => "7A",
                 'grade_id'=>7,

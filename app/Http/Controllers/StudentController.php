@@ -227,6 +227,9 @@ class StudentController extends Controller
                 ->join('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
                 ->select('students.*', 'users.email', 'classrooms.room_number')
                 ->get();
+
+
+
             return $this->apiResponse('success',$students);
 
 
