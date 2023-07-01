@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 //Owner routes
 Route::middleware(['auth:api', 'isOwner'])->group(function () {
     Route::post('/admin/register',[AuthController::class, 'AdminRegister']);
+    Route::get('/admin/index',[\App\Http\Controllers\AdminController::class, 'index']);
+    Route::get('/admin/show/{id}',[\App\Http\Controllers\AdminController::class, 'show']);
+
 });
 
 
@@ -43,6 +46,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     //registe routes
     Route::post('/student/register',[AuthController::class, 'StudentRegister']);
     Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
+
 
     //About Us Routes
         Route::post('/admin/create_school', [\App\Http\Controllers\SchoolController::class, 'store']);
