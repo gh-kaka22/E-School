@@ -7,6 +7,7 @@ import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
 import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.dart';
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
 import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
+import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
 import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
@@ -23,14 +24,14 @@ void navigateTo(context, widget) => Navigator.push(
     );
 
 Widget defaultFormField({
-  required TextEditingController controller,
+   TextEditingController? controller,
   required TextInputType type,
   ValueChanged? onSubmit,
   ValueChanged? onChange,
   VoidCallback? suffixPressed,
-  required FormFieldValidator validate,
+   FormFieldValidator? validate,
   required String label,
-  required IconData prefix,
+   IconData? prefix,
   IconData? suffix,
   bool isPassword = false,
 }) =>
@@ -105,10 +106,12 @@ TextFormField buildSForm({
   double borderwidth = 1,
 }) {
   return TextFormField(
+
     decoration: InputDecoration(
       enabled: true,
       filled: true,
-      fillColor: Colors.white30,
+
+      fillColor: Colors.white24,
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           width: borderwidth,
@@ -223,139 +226,133 @@ Widget ShowStudentsItem(w, student, index, context) => Container(
     );
 
 Widget ShowSubjectsItem(w, subject, index, context) => Container(
-  width: 4 / 5 * w,
-  height: 50,
-  decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.2),
-            blurRadius: 20) //blur radius of shadow
-      ]),
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: Row(
-      children: [
-        Expanded(
-            child: Center(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
               child: Text('${subject.subjectId}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-            child: Center(
+            Expanded(
+                child: Center(
               child: Text('${subject.name}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-          child: Center(child: Text('${subject.max_mark}')),
-        ),
-        Expanded(
-          child: Center(
-            child: defaultButton(
-              onPressed: () {
-
-              },
-              height: 30,
-              text: 'Edit',
-              fontsize: 15,
-              fontWeight: FontWeight.w300,
+            Expanded(
+              child: Center(child: Text('${subject.max_mark}')),
             ),
-          ),
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {},
+                  height: 30,
+                  text: 'Edit',
+                  fontsize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
 Widget ShowSchoolYearsItem(w, schoolYear, index, context) => Container(
-  width: 4 / 5 * w,
-  height: 50,
-  decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.2),
-            blurRadius: 20) //blur radius of shadow
-      ]),
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: Row(
-      children: [
-        Expanded(
-            child: Center(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
               child: Text('${schoolYear.id}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-            child: Center(
+            Expanded(
+                child: Center(
               child: Text('${schoolYear.name}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-          child: Center(
-            child: defaultButton(
-              onPressed: () {
-
-              },
-              height: 30,
-              text: 'Edit',
-              fontsize: 15,
-              fontWeight: FontWeight.w300,
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {},
+                  height: 30,
+                  text: 'Edit',
+                  fontsize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
 Widget ShowClassroomsItem(w, classroom, index, context) => Container(
-  width: 4 / 5 * w,
-  height: 50,
-  decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.2),
-            blurRadius: 20) //blur radius of shadow
-      ]),
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: Row(
-      children: [
-        Expanded(
-            child: Center(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
               child: Text('${classroom.classroomId}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-            child: Center(
+            Expanded(
+                child: Center(
               child: Text('${classroom.roomNumber}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-          child: Center(child: Text('${classroom.gradeId}')),
-        ),
-        Expanded(
-          child: Center(child: Text('${classroom.capacity}')),
-        ),
-        Expanded(
-          child: Center(
-            child: defaultButton(
-              onPressed: () {
-
-              },
-              height: 30,
-              text: 'Edit',
-              fontsize: 15,
-              fontWeight: FontWeight.w300,
+            Expanded(
+              child: Center(child: Text('${classroom.gradeId}')),
             ),
-          ),
+            Expanded(
+              child: Center(child: Text('${classroom.capacity}')),
+            ),
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {},
+                  height: 30,
+                  text: 'Edit',
+                  fontsize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  ),
-);
+      ),
+    );
 
 Widget ShowExamsItem(w, student, index, context,cubit) => Container(
       width: 4 / 5 * w,
@@ -430,7 +427,73 @@ Widget ShowExamsItem(w, student, index, context,cubit) => Container(
       ),
     );
 
-Widget AddExamsItem(w,subject, student,type,year,date, index, context, controller,cubit) => Container(
+
+
+Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
+      condition: state is! ShowStudentsLoadingState && students != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowStudentsItem(w, students[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: students.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+
+
+
+Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
+      condition: state is! ShowSubjectsLoadingState && subjects != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowSubjectsItem(w, subjects[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: subjects.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+
+Widget ShowSchoolYearsBuilder(w, schoolYears, context, state) =>
+    ConditionalBuilder(
+      condition: state is! ShowSchoolYearLoadingState && schoolYears != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowSchoolYearsItem(w, schoolYears[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: schoolYears.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+
+Widget ShowClassroomsBuilder(w, classrooms, context, state) =>
+    ConditionalBuilder(
+      condition: state is! ShowClassroomsLoadingState && classrooms != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowClassroomsItem(w, classrooms[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: classrooms.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+
+Widget ShowExamsBuilder(w, students, context, state) => ConditionalBuilder(
+      condition: state is! ShowExamsLoadingState && students != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowExamsItem(w, students[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: students.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+Widget AddExamsItem(w, subject, student, type, year, date, index, context, controller, cubit) =>
+    Container(
       width: 4 / 5 * w,
       height: 50,
       decoration: BoxDecoration(
@@ -446,14 +509,14 @@ Widget AddExamsItem(w,subject, student,type,year,date, index, context, controlle
           children: [
             Expanded(
                 child: Center(
-              child: Text('${student.studentId}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
+                  child: Text('${student.studentId}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
             Expanded(
                 child: Center(
-              child: Text('${student.firstName}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
+                  child: Text('${student.firstName}',
+                      style: TextStyle(overflow: TextOverflow.ellipsis)),
+                )),
             Expanded(
               child: Center(child: Text('${student.lastName}')),
             ),
@@ -461,38 +524,35 @@ Widget AddExamsItem(w,subject, student,type,year,date, index, context, controlle
             Expanded(
               child: Center(child: Text('${student.roomNumber}')),
             ),
+
             Expanded(
                 child: Center(
-              child: Text('${subject}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-                child: Center(
-              child: TextFormField(
-                  controller: controller,
-                  keyboardType: TextInputType.number,
-                  validator: (value) {},
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(1),
-                      borderSide: BorderSide(color: kDarkBlue2Color),
-                    ),
-                  )),
-            )),
+                  child: TextFormField(
+                      controller: controller,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {},
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(1),
+                          borderSide: BorderSide(color: kDarkBlue2Color),
+                        ),
+                      )),
+                )),
             Expanded(
               child: Center(
                 child: defaultButton(
                   onPressed: () {
                     print(controller.text);
                     print(student.studentId);
+
                     cubit.AddExam(
-                        studentId: '${student.studentId}',
-                        typeId:type,
-                        subjectName:subject,
-                        mark:controller.text,
-                        schoolYear:year,
-                        date:'2023-06-12',
-                        token:token,
+                      studentId: '${student.studentId}',
+                      typeId: type,
+                      subjectName: subject,
+                      mark: controller.text,
+                      schoolYear: year,
+                      date: '2023-06-12',
+                      token: token,
                     );
                   },
                   height: 30,
@@ -507,12 +567,15 @@ Widget AddExamsItem(w,subject, student,type,year,date, index, context, controlle
         ),
       ),
     );
-
-Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
-      condition: state is! ShowStudentsLoadingState && students != null,
+Widget AddExamsBuilder(w, subject, students, type, year, date, context, state, controllers, cubit) =>
+    ConditionalBuilder(
+      condition: state is! AddExamsLoadingState && students != null,
       builder: (context) => ListView.separated(
-          itemBuilder: (context, index) =>
-              ShowStudentsItem(w, students[index], index, context),
+          itemBuilder: (context, index) {
+            controllers.add(TextEditingController());
+            return AddExamsItem(w, subject, students[index], type, year, date,
+                index, context, controllers[index], cubit);
+          },
           separatorBuilder: (context, index) {
             return MyDivider();
           },
@@ -520,11 +583,28 @@ Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
-Widget ShowStudentsAttendanceItem(w, student, index, context) => Container(
+
+
+Widget AddAttendanceBuilder(w, students, date, cubit ,controllers, context, state) =>
+    ConditionalBuilder(
+      condition: state is! AttendanceLoadingState && students != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) {
+            return AddAttendanceItem(w, students[index],  date, cubit,controllers ,
+                context,index);
+          },
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: students.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
+    );
+
+Widget AddAttendanceItem(w, student,date, cubit , controller, context, int index ) => Container(
   width: 4 / 5 * w,
   height: 50,
   decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+     color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
       boxShadow: <BoxShadow>[
         BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.2),
@@ -558,11 +638,14 @@ Widget ShowStudentsAttendanceItem(w, student, index, context) => Container(
             )),
         Expanded(
           child: Center(
-            child: CheckboxListTile(
+            child: Checkbox(
               checkColor: Colors.white,
               activeColor: kDarkBlue2Color,
-              value: AttendanceCubit.get(context).checkbox,
-              onChanged: AttendanceCubit.get(context).changeCheck,
+              value: AttendanceCubit.get(context).idStudents.contains(student.studentId),
+              onChanged: (v) => AttendanceCubit.get(context).changeCheck(
+                v!,
+                student.studentId,
+              ),
             ),
           ),
         ),

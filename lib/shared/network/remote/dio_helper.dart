@@ -38,7 +38,9 @@ class DioHelper
       'lang':lang,
       'Authorization': 'Bearer $token',
     };
-
+    print("%%%%% url : ${dio.options.baseUrl+url}");
+    print("%%%%% token : ${dio.options.headers}");
+    print("%%%%% data : $data");
     return dio.post(
       url,
       queryParameters: query,

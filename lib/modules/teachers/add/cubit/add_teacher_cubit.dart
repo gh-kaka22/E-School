@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/teacher_model.dart';
+import 'package:untitled/shared/components/constants.dart';
 
 import '../../../../shared/network/remote/dio_helper.dart';
 import '../../../../shared/network/remote/end_points.dart';
@@ -11,6 +13,7 @@ part 'add_teacher_state.dart';
 class AddTeacherCubit extends Cubit<AddTeacherState> {
   AddTeacherCubit() : super(AddTeacherInitial());
   TeacherModel? teacher;
+  String? sub;
   static AddTeacherCubit get(context) => BlocProvider.of(context);
   void AddTeacher(
       {
@@ -29,12 +32,13 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
     );
     DioHelper.postData(
       url: ADDTEACHER,
+      token: token,
       data: {
-        'first_name': first_name,
-        'last_name': last_name,
-        'phone_number': phone_number,
-        'address': address,
-        'subject_id': subject,
+        'first_name': 'first_name',
+        'last_name': 'last_name',
+        'phone_number': 'phone_number',
+        'address': 'address',
+        'subject_id': 1,
         'details':details,
 
       },
@@ -54,4 +58,41 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
 
 
   }
+  List<DropdownMenuItem<String>> Subject = [
+    DropdownMenuItem(
+      value: 'Math',
+      child: Text('Math'),
+    ),
+    DropdownMenuItem(
+      value: 'Arabic',
+      child: Text('Arabic'),
+    ),
+    DropdownMenuItem(
+      value: 'Scince',
+      child: Text('Scince'),
+    ),
+    DropdownMenuItem(
+      value: 'Physics',
+      child: Text('Physics'),
+    ),
+    DropdownMenuItem(
+      value: 'Chemistry',
+      child: Text('Chemistry'),
+    ),
+    DropdownMenuItem(
+      value: 'English',
+      child: Text('English'),
+    ),
+    DropdownMenuItem(
+      value: 'French',
+      child: Text('French'),
+    ),
+
+  ];
+  void changeDropDownButton(String newValue) {
+    sub = newValue;
+    print('${Subject}');
+    emit(SubjectState());
+  }
 }
+

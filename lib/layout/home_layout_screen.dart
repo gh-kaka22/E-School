@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
+import 'package:untitled/modules/admin/admin_register/register_screen.dart';
 import 'package:untitled/modules/attendance/add/add.dart';
+import 'package:untitled/modules/attendance/show/show_attendance.dart';
 import 'package:untitled/modules/books/add/add_books.dart';
 import 'package:untitled/modules/classrooms/add/add_classroom.dart';
 import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
-import 'package:untitled/modules/dashboard/dashboard.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
+import 'package:untitled/modules/notice/add/add_notice.dart';
+import 'package:untitled/modules/owner/owner_login_screen.dart';
 import 'package:untitled/modules/schoolYears/add/add_school_year.dart';
 import 'package:untitled/modules/schoolYears/show/show_school_year.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
@@ -16,6 +19,9 @@ import 'package:untitled/modules/subjects/add/add_subject.dart';
 import 'package:untitled/modules/subjects/show/show_subjects.dart';
 import 'package:untitled/modules/teachers/add/add_teacher.dart';
 import 'package:untitled/modules/timetable/add/add_timetable.dart';
+import 'package:untitled/modules/teachers/update/update_screen.dart';
+
+import '../modules/admin/login/login_screen.dart';
 
 class HomeLayout extends StatelessWidget {
   @override
@@ -29,7 +35,8 @@ class HomeLayout extends StatelessWidget {
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
           return Scaffold(
-            body: Row(children: [
+            body: Row(
+                children: [
               Container(
                 height: h,
                 width: w / 5,
@@ -47,8 +54,13 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: MainScreen(),
+                            screen: OwnerLogin(),
                           ),
+                            cubit.SideBarItem(
+                                text: 'Admins',
+                                showScreen: RegisterAdmin(),
+                                addScreen: RegisterAdmin()
+                            ),
                           cubit.SideBarItem(
                               text: 'Students',
                               showScreen: StudentsShow(),
@@ -56,7 +68,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                           cubit.SideBarItem(
                               text: 'Teachers',
-                              showScreen: StudentsShow(),
+                              showScreen: UpdateTeacher(),
                               addScreen: AddTeacher()
                           ),
                           cubit.SideBarItem(
@@ -86,7 +98,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                           cubit.SideBarItem(
                               text: 'Attendance',
-                              showScreen: StudentsShow(),
+                              showScreen: ShowAttendance(),
                               addScreen: AddAttendance()
                           ),
                             cubit.SideBarItem(
@@ -99,6 +111,11 @@ class HomeLayout extends StatelessWidget {
                               showScreen: StudentsShow(),
                               addScreen: StudentRegisterScreen()
                           ),
+                            cubit.SideBarItem(
+                                text: 'Notice',
+                                showScreen: AddNotice(),
+                                addScreen: AddNotice(),
+                            ),
                           cubit.SpecialSideBarItem(
                             text: 'Settings',
                             screen: StudentsShow(),

@@ -7,13 +7,8 @@ import 'package:untitled/models/add_exams_model.dart';
 import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/school_year_model.dart';
 import 'package:untitled/models/subject_model.dart';
-
-
-
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
-
 import 'package:untitled/shared/components/constants.dart';
-
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
 
@@ -124,6 +119,8 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
 
   //bringing students by grade
   void getStudentsByGrade(value)
+
+  void getExamsByGrade(value)
   {
     emit(AddExamsLoadingState());
     DioHelper.getData(
@@ -316,7 +313,8 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
       addExamsEnteredModel = AddExamsEnteredModel.fromJson(value?.data);
       emit(AddExamsEnteredSuccessState(addExamsEnteredModel!));
     })
-        .catchError((error) {
+        .catchError((error)
+    {
           print(error);
       emit(
         AddExamsErrorState(error.toString()),

@@ -3,25 +3,23 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/models/admin_models.dart';
+import 'package:untitled/modules/admin/login/cubit/login_state.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
-import '../../../shared/network/remote/end_points.dart';
-import 'login_owner_state.dart';
+import 'package:untitled/shared/network/remote/end_points.dart';
 
+class AdminLoginCubit extends Cubit<AdminLoginStates> {
+  AdminLoginCubit() : super(AdminLoginInitialState());
+  static AdminLoginCubit get(context)=>BlocProvider.of(context);
+  AdminModel ?admin;
+  void adminLogin(
+      {
+        required String email,
+        required String password,
 
-
-class OwnerLoginCubit extends Cubit<OwnerLoginStates> {
-  OwnerLoginCubit() : super(OwnerLoginInitialState());
-  static OwnerLoginCubit get(context)=>BlocProvider.of(context);
-  AdminModel ?owner;
-  void ownerLogin(
+      })
   {
-   required String email,
-    required String password,
-
-})
-  {
-    emit(OwnerLoginLoadingState());
+    emit(AdminLoginLoadingState());
     DioHelper.postData(
         url: AdminLogin,
         token: token,
@@ -30,16 +28,16 @@ class OwnerLoginCubit extends Cubit<OwnerLoginStates> {
           'password':password,
         }).then((value) {
 
-          print(value?.data);
-          owner= AdminModel.fromJson(value?.data);
-         print(owner!.data!.accessToken);
-         print(owner!.data!.password);
+      print(value?.data);
+      admin= AdminModel.fromJson(value?.data);
+      print(admin!.data!.accessToken);
+      print(admin!.data!.password);
 
-          emit(OwnerLoginSuccessState(owner!));
+      emit(AdminLoginSuccessState(admin!));
 
     }).catchError((error){
       print(error.toString());
-      emit(OwnerLoginErrorState(error.toString()));
+      emit(AdminLoginErrorState(error.toString()));
     });
 
   }
@@ -49,7 +47,7 @@ class OwnerLoginCubit extends Cubit<OwnerLoginStates> {
 
     ispassword=!ispassword;
     suffix=ispassword? Icons.visibility_off : Icons.visibility;
-    emit(OwnerLoginChangePasswordVisibilityState());
+    emit(AdminLoginChangePasswordVisibilityState());
 
   }
 }

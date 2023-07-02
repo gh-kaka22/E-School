@@ -10,9 +10,9 @@ class OwnerLoginLoadingState extends OwnerLoginStates{
 }
 
 class OwnerLoginSuccessState extends OwnerLoginStates{
-  final AdminModel adminModel;
+  final AdminModel owner;
 
-  OwnerLoginSuccessState(this.adminModel);
+  OwnerLoginSuccessState(this.owner);
 }
 
 class OwnerLoginErrorState extends OwnerLoginStates{

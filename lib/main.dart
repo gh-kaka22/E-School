@@ -1,9 +1,7 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/shared/bloc_observer.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
-import 'layout/eschool_cubit/home_cubit.dart';
 import 'layout/home_layout_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
