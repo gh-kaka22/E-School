@@ -24,6 +24,7 @@ class AddExamsErrorState extends AddExamsStates{
   final String error;
   AddExamsErrorState(this.error);
 }
+//dropdowns
 class AddExamsClassDropDownButtonState extends AddExamsStates{}
 class AddExamsSectionDropDownButtonState extends AddExamsStates{}
 class AddExamsSubjectDropDownButtonState extends AddExamsStates{}
@@ -32,7 +33,7 @@ class AddExamsYearDropDownButtonState extends AddExamsStates{}
 
 
 
-
+//classrooms
 
 
 
@@ -48,7 +49,7 @@ class ShowClassroomsXErrorState extends AddExamsStates{
 
 
 
-
+//subjects
 
 
 class ShowSubjectsXLoadingState extends AddExamsStates{}
@@ -62,7 +63,7 @@ class ShowSubjectsXErrorState extends AddExamsStates{
 }
 
 
-
+//schoolyears
 
 class ShowSchoolYearXLoadingState extends AddExamsStates{}
 class ShowSchoolYearXSuccessState extends AddExamsStates{
@@ -75,5 +76,5 @@ class ShowSchoolYearXErrorState extends AddExamsStates{
   ShowSchoolYearXErrorState(this.error);
 }
 
-
+//date
 class DateState extends AddExamsStates{}

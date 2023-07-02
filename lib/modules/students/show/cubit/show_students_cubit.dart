@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/shared/components/constants.dart';
@@ -13,7 +14,7 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
   static ShowStudentsCubit get(context) => BlocProvider.of(context);
 
   String? dropDownValueClass = '7';
-  String? dropDownValueSection = 'A';
+  String? dropDownValueSection;
 
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(
@@ -29,23 +30,16 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
       child: Text('9'),
     ),
   ];
-  List<DropdownMenuItem> menuItems2 = [
-    DropdownMenuItem(
-      value: 'A',
-      child: Text('A'),
-    ),
-    DropdownMenuItem(
-      value: 'B',
-      child: Text('B'),
-    ),
-    DropdownMenuItem(
-      value: 'C',
-      child: Text('C'),
-    ),
-  ];
+  List<DropdownMenuItem> menuItems2= [];
+
+
+
+  // drop down buttons changing method
   void changeClassDropDownButton(String newValue)
   {
     dropDownValueClass = newValue;
+    dropDownValueSection='none';
+    getClassrooms(dropDownValueClass);
     emit(ShowStudentsClassDropDownButtonState());
   }
   void changeSectionDropDownButton(String newValue)
@@ -55,9 +49,7 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
   }
 
   ShowStudentsModel? showStudentsModel;
-
   List<dynamic>? students;
-
   void getStudents()
   {
     emit(ShowStudentsLoadingState());
@@ -78,7 +70,6 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
       emit(ShowStudentsErrorState(error.toString()));
     });
   }
-
   void getStudentsByGrade(value)
   {
     emit(ShowStudentsLoadingState());
@@ -97,6 +88,60 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
     }).catchError((error){
       print(error.toString());
       emit(ShowStudentsErrorState(error.toString()));
+    });
+  }
+  void getStudentsByGradeAndClassroom(grade,classroom)
+  {
+    emit(ShowStudentsLoadingState());
+    DioHelper.postData(
+      url: GETSTUDENTSBYGRADEANDCLASSROOM,
+      data:{
+        'grade_id': grade,
+        'room_number': classroom,
+      },
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      print(showStudentsModel?.data?[0]);
+      students = showStudentsModel?.data;
+      print(students?[1].religion);
+      emit(ShowStudentsSuccessState(showStudentsModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowStudentsErrorState(error.toString()));
+    });
+  }
+
+  // bringing classrooms and putting them in their drop down button
+  ClassroomModel? classroomModel;
+  List<dynamic>? classrooms;
+  void getClassrooms(value)
+  {
+    emit(ShowClassroomsSLoadingState());
+    DioHelper.getData(
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      classroomModel = ClassroomModel.fromJson(value?.data);
+      print(classroomModel?.status);
+      print(classroomModel?.message);
+      print(classroomModel?.data?[0].capacity);
+      classrooms = classroomModel?.data;
+      print(classrooms?[1].roomNumber);
+      menuItems2 = classrooms!.map((classroom) {
+        return DropdownMenuItem<dynamic>(
+          value: classroom.roomNumber,
+          child: Text(classroom.roomNumber),
+        );
+      }).toList();
+      emit(ShowClassroomsSSuccessState(classroomModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowClassroomsSErrorState(error.toString()));
     });
   }
 
