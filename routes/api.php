@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
+Route::get('/show_file/{fileName}',[\App\Http\Controllers\FileController::class, 'show']);
 //............................registe routes.............................................
 //Owner routes
 Route::middleware(['auth:api', 'isOwner'])->group(function () {
@@ -39,6 +39,8 @@ Route::middleware(['auth:api', 'isAdmin'])->group(function () {
 
 
 });
+
+
 
 
 //Admin or Owner routes
@@ -107,6 +109,9 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/classrooms/index', [\App\Http\Controllers\ClassroomController::class, 'index']);
     Route::get('/classrooms/showByGrade/{grade_id}', [\App\Http\Controllers\ClassroomController::class, 'showByGrade']);
     Route::post('/createOneStudent', [\App\Http\Controllers\StudentClassroomController::class, 'create']);
+
+    //files Routes
+    Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);
 
 
 
