@@ -191,6 +191,7 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
     required BuildContext context,
     required studentId,
     required type,
+
   }) {
     showDialog(
         context: context,
@@ -210,7 +211,9 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
                         studentId: '$studentId',
                         typeId: type,
                         contentt: notes.text,
-                        date: '2020-02-02',
+                        date: '2020-02-10',
+
+                        //todo: عم يعطي error وقت حط dateTime
                       );
                       notes.clear();
                       Navigator.pop(ctx);

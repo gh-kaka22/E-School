@@ -95,6 +95,7 @@ class Data {
     data['accessToken'] = this.accessToken;
     data['father_id'] = this.fatherId;
     data['mother_id'] = this.motherId;
+
     return data;
   }
 }

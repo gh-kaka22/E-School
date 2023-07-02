@@ -47,7 +47,7 @@ class StudentUpdateScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
                 content:
-                Text(state.error, style: TextStyle(color: Colors.white))));
+                    Text(state.error, style: TextStyle(color: Colors.white))));
           }
           if (state is RegisterSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -86,7 +86,6 @@ class StudentUpdateScreen extends StatelessWidget {
                                   child: buildSForm(
                                     controller: FnameController,
                                     labeltext: 'First Name',
-
                                   ),
                                 ),
                                 SizedBox(
@@ -122,9 +121,9 @@ class StudentUpdateScreen extends StatelessWidget {
                                     ),
                                     child: Row(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text("${cubit.selectedDate}"
                                             .split(' ')[0]),
@@ -274,8 +273,8 @@ class StudentUpdateScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(40),
                                       underline: Container(),
                                       hint: Padding(
-                                        padding:
-                                        const EdgeInsets.only(left: 20,right: 150),
+                                        padding: const EdgeInsets.only(
+                                            left: 20, right: 150),
                                         child: Text(
                                           'Choose Religion',
                                           style: TextStyle(
@@ -316,8 +315,10 @@ class StudentUpdateScreen extends StatelessWidget {
                                       underline: Container(),
 
                                       hint: Padding(
-                                        padding:
-                                        const EdgeInsets.only(left: 20.0, right: 150,),
+                                        padding: const EdgeInsets.only(
+                                          left: 20.0,
+                                          right: 150,
+                                        ),
                                         child: Text(
                                           'Choose Gender',
                                           style: TextStyle(
@@ -389,31 +390,32 @@ class StudentUpdateScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                     ),
-                    state is! RegisterLoading
-                        ? defaultButton(
-                        text: 'insert',
-                        width: w / 5,
-                        height: h / 20,
-                        onPressed: () {
-                          RegisterCubit.get(context).StudentRegister(
-                            first_name: FnameController.text,
-                            father_name: FnameController.text,
-                            last_name: LnameController.text,
-                            father_phone: fatherPhoneController.text,
-                            first_mother_name: FmotherController.text,
-                            last_mother_name: LmotherController.text,
-                            mother_phone: motherPhoneController.text,
-                            address: addressController.text,
-                            detailes: detailsController.text,
-                            religion: cubit.dropDownValue,
-                            genderr: cubit.gender,
-                            grade_number: cubit.gradenumber,
-                            date_of_birth: cubit.selectedDate,
-                            father_national_id: nationalitycontroller.text,
-                            have_sib: cubit.ischeck,
-                          );
-                        })
-                        : Center(child: CircularProgressIndicator()),
+                    // state is! RegisterLoading
+                    //     ? defaultButton(
+                    //         text: 'insert',
+                    //         width: w / 5,
+                    //         height: h / 20,
+                    //         onPressed: () {
+                    //           RegisterCubit.get(context).StudentRegister(
+                    //             first_name: FnameController.text,
+                    //             father_name: FnameController.text,
+                    //             last_name: LnameController.text,
+                    //             father_phone: fatherPhoneController.text,
+                    //             first_mother_name: FmotherController.text,
+                    //             last_mother_name: LmotherController.text,
+                    //             mother_phone: motherPhoneController.text,
+                    //             address: addressController.text,
+                    //             detailes: detailsController.text,
+                    //             religion: cubit.dropDownValue,
+                    //             genderr: cubit.gender,
+                    //             grade_number: cubit.gradenumber,
+                    //             date_of_birth: cubit.selectedDate,
+                    //             national_id: addressController.text,
+                    //             have_sib: cubit.ischeck,
+                    //           );
+                    //         })
+                    //     : Center(child: CircularProgressIndicator()),
+                    //
                   ],
                 ),
               ),

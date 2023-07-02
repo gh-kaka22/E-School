@@ -16,8 +16,9 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
   void getTeacherData()
   {
     emit(TeacherDataLoading());
-    DioHelper.getData(url:UPDATETEACHER,
-    token:token ,
+    DioHelper.getData(
+      url:GETSTUDENTS,
+      token:token ,
     ).
     then((value) {
       teacherModel = TeacherModel.fromJson(value!.data);

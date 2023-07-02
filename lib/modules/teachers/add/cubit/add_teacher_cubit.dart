@@ -21,8 +21,8 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
         required String last_name,
         required String phone_number,
         required String address,
-         String? details,
         required int subject,
+        required roomnumber,
 
       }
       )
@@ -34,13 +34,14 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
       url: ADDTEACHER,
       token: token,
       data: {
-        'first_name': 'first_name',
-        'last_name': 'last_name',
-        'phone_number': 'phone_number',
+        'first_name': first_name,
+        'last_name': last_name,
+        'phone_number': phone_number,
         'address': 'address',
-        'subject_id': 1,
-        'details':details,
+        'subject_id': subID,
+        'address':'address',
 
+        'classrooms[0]':1,
       },
     ).then((value) {
       teacher = TeacherModel.fromJson(value?.data);
@@ -48,7 +49,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
       emit(AddTeacherSuccess(teacher!));
     })
         .catchError((error) {
-      print("momo ${error.response.data}");
+      print("momo ${error.toString()}");
       emit(
         AddTeacherError(error.toString()),
 
@@ -89,9 +90,25 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
     ),
 
   ];
+  int? subID;
   void changeDropDownButton(String newValue) {
     sub = newValue;
     print('${Subject}');
+    if(sub=='Math')
+      subID=1;
+    if(sub=='Arabic')
+      subID=2;
+    if(sub=='Scince')
+      subID=3;
+    if(sub=='Physics')
+      subID=4;
+    if(sub=='Chemistry')
+      subID=5;
+    if(sub=='English')
+      subID=6;
+    if(sub=='French')
+      subID=7;
+
     emit(SubjectState());
   }
 }

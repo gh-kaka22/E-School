@@ -1,6 +1,6 @@
 import 'package:untitled/modules/teachers/add/add_teacher.dart';
 
-const RegisterStudent='student/register';
+const RegisterStudent='/student/register';
 const AdminLogin='login';
 const GETSTUDENTS='students/index';
 const GETSTUDENTSBYGRADE='show_by_grade';
@@ -12,9 +12,9 @@ const GETSUBJECTS='subjects';
 const ADDADMIN='admin/register';
 const ADDCLASSROOM='create_classroom';
 const GETCLASSROOMS='classrooms/index';
-
+const SHOWADMINS='/admin/index';
 const ADDSCHOOLYEAR='create_schoolyear';
 const GETSCHOOLYEARS='schoolyears';
 const ATTENDANCE='storeattendance';
-const SHOWATTENDANCE='Ashowattendance';
+const SHOWATTENDANCE='/Ashowattendance/{id}';
 const ADDEXAM='exams/store';

@@ -1,17 +1,19 @@
-
 class TeacherModel {
+  bool? status;
   String? message;
-  TeacherData? data;
+  Data? data;
 
-  TeacherModel({this.message, this.data});
+ TeacherModel({this.status, this.message, this.data});
 
   TeacherModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new TeacherData.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
     data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
@@ -20,38 +22,47 @@ class TeacherModel {
   }
 }
 
-class TeacherData {
+class Data {
   String? firstName;
   String? lastName;
   String? phoneNumber;
   String? address;
-  String? details;
-  int? subjectId;
+  String? subjectId;
+  int? userId;
   String? updatedAt;
   String? createdAt;
   int? teacherId;
+  String? email;
+  String? passwordDecoded;
+  String? token;
 
-  TeacherData(
+  Data(
       {this.firstName,
-      this.lastName,
-      this.phoneNumber,
-      this.address,
-      this.subjectId,
-      this.updatedAt,
-      this.createdAt,
-      this.teacherId,
-      this.details,});
+        this.lastName,
+        this.phoneNumber,
+        this.address,
+        this.subjectId,
+        this.userId,
+        this.updatedAt,
+        this.createdAt,
+        this.teacherId,
+        this.email,
+        this.passwordDecoded,
+        this.token});
 
-  TeacherData.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
     lastName = json['last_name'];
     phoneNumber = json['phone_number'];
     address = json['address'];
     subjectId = json['subject_id'];
+    userId = json['user_id'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
     teacherId = json['teacher_id'];
-    details=json['details'];
+    email = json['email'];
+    passwordDecoded = json['password_decoded'];
+    token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -61,10 +72,13 @@ class TeacherData {
     data['phone_number'] = this.phoneNumber;
     data['address'] = this.address;
     data['subject_id'] = this.subjectId;
+    data['user_id'] = this.userId;
     data['updated_at'] = this.updatedAt;
     data['created_at'] = this.createdAt;
     data['teacher_id'] = this.teacherId;
-    data['details']=this.details;
+    data['email'] = this.email;
+    data['password_decoded'] = this.passwordDecoded;
+    data['token'] = this.token;
     return data;
   }
 }

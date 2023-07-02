@@ -115,10 +115,10 @@ class AddTeacher extends StatelessWidget {
                                   ),
                                   Expanded(
                                       child: buildSForm(
-                                          controller:TeacherDetailesController ,
-                                          labeltext: ' Details')),
+                                          controller:TphoneNumberController ,
+                                          labeltext: ' Phone Number')),
 
-                               //todo: dropdown for sub and multi select for section
+                               //todo: multi select for section
 
                                 ],
                               ),
@@ -127,11 +127,6 @@ class AddTeacher extends StatelessWidget {
                               padding: const EdgeInsets.all(16.0),
                               child: Row(
                                 children: [
-
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-
                                   Expanded(
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -191,8 +186,8 @@ class AddTeacher extends StatelessWidget {
                               last_name: TLastnameController.text,
                               phone_number: TphoneNumberController.text,
                               address: TaddressController.text,
-                              subject: 1,
-                              details: TeacherDetailesController.text,
+                              subject: cubit.subID!,
+                              roomnumber: 1,
                             );
                           })
                           : Center(child: CircularProgressIndicator()),

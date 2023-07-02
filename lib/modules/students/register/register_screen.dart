@@ -60,8 +60,6 @@ class StudentRegisterScreen extends StatelessWidget {
                 content:
                     Text(state.error, style: TextStyle(color: Colors.white))));
 
-
-
           }
 
           if (state is RegisterSuccess) {
@@ -403,10 +401,6 @@ class StudentRegisterScreen extends StatelessWidget {
                                       ),
                                     ),
 
-                                    // if(cubit.student!=null)
-                                    // Container(
-                                    //   child: Text('${cubit.student!.data!.email}'),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -422,10 +416,11 @@ class StudentRegisterScreen extends StatelessWidget {
                                 width: w / 5,
                                 height: h / 20,
                                 onPressed: () {
-                                  RegisterCubit.get(context).StudentRegister(
+
+                                cubit.StudentRegister(
                                     first_name: FnameController.text,
-                                    father_name: FnameController.text,
                                     last_name: LnameController.text,
+                                    father_name: FatherController.text,
                                     father_phone: fatherPhoneController.text,
                                     first_mother_name: FmotherController.text,
                                     last_mother_name: LmotherController.text,
@@ -434,10 +429,11 @@ class StudentRegisterScreen extends StatelessWidget {
                                     detailes: detailsController.text,
                                     religion: cubit.dropDownValue,
                                     genderr: cubit.gender,
-                                    grade_number: cubit.gradenumber,
-                                    date_of_birth: cubit.selectedDate,
-                                    father_national_id: '121',
+                                    grade_number: cubit.gradeID!,
                                     have_sib: cubit.ischeck,
+                                    date_of_birth: cubit.selectedDate,
+                                    national_id: nationalitycontroller.text,
+
 
 
                                   );
