@@ -5,8 +5,7 @@ const AdminLogin='login';
 const GETSTUDENTS='students/index';
 const GETSTUDENTSBYGRADE='show_by_grade';
 const GETSTUDENTSBYGRADEANDCLASSROOM='show_by_classroomAndGrade';
-const UPDATETEACHER='';
-const ADDTEACHER='';
+
 
 const UPDATETEACHER='update_teacher/';
 const ADDTEACHER='teacher/register';

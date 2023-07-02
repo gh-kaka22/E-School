@@ -20,8 +20,6 @@ class ExamsAdd extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     return BlocProvider(
       create: (BuildContext context) => AddExamsCubit()..getStudents()..getClassrooms(7)..getSubjects()..getSchoolYear(),
-      create: (BuildContext context) => AddExamsCubit()..getStudents()
-        ..getClassrooms()..getSubjects()..getSchoolYear(),
       child: BlocConsumer<AddExamsCubit, AddExamsStates>(
         listener: (context, state) {
           if (state is AddExamsEnteredSuccessState) {

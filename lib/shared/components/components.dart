@@ -428,7 +428,6 @@ Widget ShowExamsItem(w, student, index, context,cubit) => Container(
     );
 
 
-
 Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
       condition: state is! ShowStudentsLoadingState && students != null,
       builder: (context) => ListView.separated(
@@ -481,17 +480,18 @@ Widget ShowClassroomsBuilder(w, classrooms, context, state) =>
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
-Widget ShowExamsBuilder(w, students, context, state) => ConditionalBuilder(
+Widget ShowExamsBuilder(w, students, context, state,cubit) => ConditionalBuilder(
       condition: state is! ShowExamsLoadingState && students != null,
       builder: (context) => ListView.separated(
           itemBuilder: (context, index) =>
-              ShowExamsItem(w, students[index], index, context),
+              ShowExamsItem(w, students[index], index, context,cubit),
           separatorBuilder: (context, index) {
             return MyDivider();
           },
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
+
 Widget AddExamsItem(w, subject, student, type, year, date, index, context, controller, cubit) =>
     Container(
       width: 4 / 5 * w,
@@ -520,9 +520,13 @@ Widget AddExamsItem(w, subject, student, type, year, date, index, context, contr
             Expanded(
               child: Center(child: Text('${student.lastName}')),
             ),
-            Expanded(child: Center(child: Text('${student.gradeId}'))),
+            Expanded(child: Center(child: Text('${student.gradeId}'))
+            ),
             Expanded(
               child: Center(child: Text('${student.roomNumber}')),
+            ),
+            Expanded(
+              child: Center(child: Text('${cubit.dropDownValueSubject}')),
             ),
 
             Expanded(
@@ -653,71 +657,6 @@ Widget AddAttendanceItem(w, student,date, cubit , controller, context, int index
     ),
   ),
 );
-
-Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
-  condition: state is! ShowSubjectsLoadingState && subjects != null,
-  builder: (context) => ListView.separated(
-      itemBuilder: (context, index) =>
-          ShowSubjectsItem(w, subjects[index], index, context),
-      separatorBuilder: (context, index) {
-        return MyDivider();
-      },
-      itemCount: subjects.length),
-  fallback: (context) => Center(child: LinearProgressIndicator()),
-);
-
-Widget ShowSchoolYearsBuilder(w, schoolYears, context, state) => ConditionalBuilder(
-  condition: state is! ShowSchoolYearLoadingState && schoolYears != null,
-  builder: (context) => ListView.separated(
-      itemBuilder: (context, index) =>
-          ShowSchoolYearsItem(w, schoolYears[index], index, context),
-      separatorBuilder: (context, index) {
-        return MyDivider();
-      },
-      itemCount: schoolYears.length),
-  fallback: (context) => Center(child: LinearProgressIndicator()),
-);
-
-Widget ShowClassroomsBuilder(w, classrooms, context, state) => ConditionalBuilder(
-  condition: state is! ShowClassroomsLoadingState && classrooms != null,
-  builder: (context) => ListView.separated(
-      itemBuilder: (context, index) =>
-          ShowClassroomsItem(w, classrooms[index], index, context),
-      separatorBuilder: (context, index) {
-        return MyDivider();
-      },
-      itemCount: classrooms.length),
-  fallback: (context) => Center(child: LinearProgressIndicator()),
-);
-
-Widget ShowExamsBuilder(w, students, context, state,cubit) => ConditionalBuilder(
-      condition: state is! ShowExamsLoadingState && students != null,
-      builder: (context) => ListView.separated(
-          itemBuilder: (context, index) =>
-              ShowExamsItem(w, students[index], index, context,cubit),
-          separatorBuilder: (context, index) {
-            return MyDivider();
-          },
-          itemCount: students.length),
-      fallback: (context) => Center(child: LinearProgressIndicator()),
-    );
-
-Widget AddExamsBuilder(w,subject, students,type,year,date, context, state, controllers,cubit) =>
-    ConditionalBuilder(
-      condition: state is! AddExamsLoadingState && students != null,
-      builder: (context) => ListView.separated(
-          itemBuilder: (context, index) {
-            controllers.add(TextEditingController());
-            return AddExamsItem(
-                w,subject, students[index],type,year,date ,index, context, controllers[index],cubit);
-          },
-          separatorBuilder: (context, index) {
-            return MyDivider();
-          },
-          itemCount: students.length),
-      fallback: (context) => Center(child: LinearProgressIndicator()),
-    );
-
 
 
 

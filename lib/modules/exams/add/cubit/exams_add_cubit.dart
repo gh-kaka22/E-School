@@ -118,9 +118,9 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
 
 
   //bringing students by grade
-  void getStudentsByGrade(value)
 
-  void getExamsByGrade(value)
+
+  void getStudentsByGrade(value)
   {
     emit(AddExamsLoadingState());
     DioHelper.getData(
