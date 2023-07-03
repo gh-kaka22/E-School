@@ -7,6 +7,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/show_file/{fileName}',[\App\Http\Controllers\FileController::class, 'show']);
+
+
+
+//Post Routes
+Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
+Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
+Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
+Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
+Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
 //............................registe routes.............................................
 //Owner routes
 Route::middleware(['auth:api', 'isOwner'])->group(function () {
@@ -23,6 +32,14 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'Logout']);
+
+    //Likes and Comments Routes
+    Route::get('/like/{post_id}',[\App\Http\Controllers\LikeController::class, 'store']);
+    Route::get('/show_all_likes/{post_id}',[\App\Http\Controllers\LikeController::class, 'index']);
+    Route::get('/show_all_comments/{post_id}',[\App\Http\Controllers\CommentController::class, 'index']);
+    Route::get('/delete_comment/{comment_id}',[\App\Http\Controllers\CommentController::class, 'destroy']);
+    Route::post('/create_comment',[\App\Http\Controllers\CommentController::class, 'store']);
+    Route::post('/update_comment',[\App\Http\Controllers\CommentController::class, 'update']);
 });
 
 //.....................................................................................
@@ -221,12 +238,7 @@ Route::post('/update_teacher/{id}', [\App\Http\Controllers\TeacherController::cl
 
 
 
-//Post Routes
-Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
-Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
-Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
-Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
-Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
+
 
 
 //Parent Routes

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([ClassroomSeeder::class]);
         $this->call([ExamTypeSeeder::class]);
         $this->call([SchoolYearSeeder::class]);
-        //$this->call([PostTypeSeeder::class]);
+        $this->call([PostTypeSeeder::class]);
 
 
     }

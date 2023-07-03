@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('posts_destination', function (Blueprint $table) {
             $table->id();
-            $table->unsignedbigInteger('student_id');
-            $table->foreign('student_id')->references('student_id')->on('students')
+            $table->unsignedbigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade');
             $table->unsignedbigInteger('post_id');
             $table->foreign('post_id')->references('post_id')->on('posts')

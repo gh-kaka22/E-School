@@ -19,9 +19,9 @@ class PostDestination extends Model
 
     public $timestamps = false;
 
-    public function student() : BelongsTo
+    public function user() : BelongsTo
     {
-        return $this->belongsTo(Student::class,'student_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function post() : BelongsTo

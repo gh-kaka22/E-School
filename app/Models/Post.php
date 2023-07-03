@@ -32,39 +32,16 @@ class Post extends Model
 
     }
 
-    public function studentLike() : HasMany
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(StudentLike::class,'post_id');
+        return $this->hasMany(Comment::class,'post_id');}
 
+    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Like::class,'post_id');
     }
 
-    public function studentComment() : HasMany
-    {
-        return $this->hasMany(StudentComment::class,'post_id');
+    public $withCount = ['comments' , 'likes'];
 
-    }
 
-    public function parentLike() : HasMany
-    {
-        return $this->hasMany(ParentLike::class,'post_id');
-
-    }
-
-    public function parentComment() : HasMany
-    {
-        return $this->hasMany(ParentComment::class,'post_id');
-
-    }
-
-    public function teacherLike() : HasMany
-    {
-        return $this->hasMany(TeacherLike::class,'post_id');
-
-    }
-
-    public function teacherComment() : HasMany
-    {
-        return $this->hasMany(TeacherComment::class,'post_id');
-
-    }
 }
