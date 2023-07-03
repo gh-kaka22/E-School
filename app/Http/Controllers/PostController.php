@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\PostDestination;
 use App\Models\Student;
 use App\Models\Student_classroom;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,11 @@ class PostController extends Controller
             'student_id'=>['required']
         ]);
 
+        $student=Student::find($request->student_id);
+        if(!$student)
+            return $this->apiResponse('Student not found',null,false);
+        $user_id=$student->user_id;
+
 
             $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
 
@@ -35,7 +41,7 @@ class PostController extends Controller
 
 
             $postDestenation=PostDestination::create([
-                'student_id'=>$request->student_id,
+                'user_id'=>$user_id,
                 'post_id'=>$post->post_id
             ]);
 
@@ -64,29 +70,22 @@ class PostController extends Controller
                 'date'=>$currentDateTimeString
             ]);
 
-            $students = Student_classroom::query()
-                ->where('classroom_id','=',$request->classroom_id)
-                ->get();
 
-            $student_ids = array();
-            foreach ($students as $som) {
-                $student_ids[] = $som->student_id;
-            }
+           $user_ids= DB::table('students_classrooms')
+                ->join('students','students.student_id','=','students_classrooms.student_id')
+                ->where('students_classrooms.classroom_id','=',$request->classroom_id)
+                ->pluck('students.user_id');
 
-            foreach($student_ids as $student_id){
+
+            foreach($user_ids as $id){
                 $data = [
-                    ['student_id'=>$student_id, 'post_id'=>$post->post_id],
+                    ['user_id'=>$id, 'post_id'=>$post->post_id],
 
                 ];
                 $res=PostDestination::insert($data);
             }
 
             return $this->apiResponse('success',$post);
-
-
-
-
-
 
     }
 
@@ -97,8 +96,6 @@ class PostController extends Controller
             'grade_id'=>['required']
         ]);
 
-
-
             $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
 
             $post=Post::create([
@@ -107,27 +104,22 @@ class PostController extends Controller
                 'date'=>$currentDateTimeString
             ]);
 
-            $students = Student::query()
-                ->where('grade_id','=',$request->grade_id)
-                ->get();
 
-            $student_ids = array();
-            foreach ($students as $som) {
-                $student_ids[] = $som->student_id;
-            }
 
-            foreach($student_ids as $student_id){
+        $students = DB::table('students')
+            ->where('grade_id','=',$request->grade_id)
+            ->pluck('user_id');
+
+
+            foreach($students as $id){
                 $data = [
-                    ['student_id'=>$student_id, 'post_id'=>$post->post_id],
+                    ['user_id'=>$id, 'post_id'=>$post->post_id],
 
                 ];
                 $res=PostDestination::insert($data);
             }
 
             return $this->apiResponse('success',$post);
-
-
-
 
     }
 
@@ -137,7 +129,6 @@ class PostController extends Controller
             'type_id'=>['required'],
         ]);
 
-
             $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
 
             $post=Post::create([
@@ -146,17 +137,16 @@ class PostController extends Controller
                 'date'=>$currentDateTimeString
             ]);
 
-            $students = Student::query()
-                ->get();
+             $user_ids = DB::table('users')
+              ->pluck('id');
 
-            $student_ids = array();
-            foreach ($students as $som) {
-                $student_ids[] = $som->student_id;
-            }
+              //return $this->apiResponse('s',$users);
 
-            foreach($student_ids as $student_id){
+
+
+            foreach($user_ids as $id){
                 $data = [
-                    ['student_id'=>$student_id, 'post_id'=>$post->post_id],
+                    ['user_id'=>$id, 'post_id'=>$post->post_id],
 
                 ];
                 $res=PostDestination::insert($data);
@@ -172,19 +162,36 @@ class PostController extends Controller
             'type_id'=>['required','integer']
         ]);
 
-        $student_id=$request->id;
+        $user_id=Auth::id();
         $type_id=$request->type_id;
 
 
 
         $posts = DB::table('posts_destination')
             ->join('posts', 'posts.post_id', '=', 'posts_destination.post_id')
-            ->where('posts_destination.student_id', $student_id)
-            ->where('posts.type_id', $type_id)
+            ->where('posts_destination.user_id','=', $user_id)
+            ->where('posts.type_id','=', $type_id)
             ->get();
             //->pluck('body');
 
         return $this->apiResponse('success',$posts);
+
+
+
+    }
+
+    public function deletePost($post_id){
+
+        try {
+            $res=DB::table('posts')
+                ->where('post_id','=',$post_id)
+                ->delete();
+            return $this->apiResponse('Deleted',$res);
+
+        }catch (\Exception $e){
+            return $this->apiResponse('Post not found');
+        }
+
 
 
 

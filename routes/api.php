@@ -10,12 +10,13 @@ Route::get('/show_file/{fileName}',[\App\Http\Controllers\FileController::class,
 
 
 
+
+
+
 //Post Routes
-Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
 Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
-Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
-Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
-Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
+Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
+
 //............................registe routes.............................................
 //Owner routes
 Route::middleware(['auth:api', 'isOwner'])->group(function () {
@@ -33,6 +34,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'Logout']);
 
+
     //Likes and Comments Routes
     Route::get('/like/{post_id}',[\App\Http\Controllers\LikeController::class, 'store']);
     Route::get('/show_all_likes/{post_id}',[\App\Http\Controllers\LikeController::class, 'index']);
@@ -40,6 +42,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/delete_comment/{comment_id}',[\App\Http\Controllers\CommentController::class, 'destroy']);
     Route::post('/create_comment',[\App\Http\Controllers\CommentController::class, 'store']);
     Route::post('/update_comment',[\App\Http\Controllers\CommentController::class, 'update']);
+
+    //Posts
+    Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
 });
 
 //.....................................................................................
@@ -129,6 +134,11 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
     //files Routes
     Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);
+
+    //Posts Routes
+    Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
+    Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
+    Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
 
 
 

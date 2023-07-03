@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedbigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->unsignedbigInteger('post_id');
             $table->foreign('post_id')->references('post_id')->on('posts')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             //$table->timestamps();
         });

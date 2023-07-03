@@ -22,13 +22,15 @@ class LikeController extends Controller
         if($post->likes()->where('user_id',Auth::id())->exists())
         {
             $post->likes()->where('user_id',Auth::id())->delete();
+            return $this->apiResponse('unlike',$post->likes);
         }
         else
         {
 
             $post->likes()->create(['user_id'=>Auth::id()]);
+            return $this->apiResponse('like',$post->likes);
         }
 
-        return $this->apiResponse('success');
+
     }
 }
