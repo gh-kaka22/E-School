@@ -18,7 +18,7 @@ class ShowAdminCubit extends Cubit<ShowAdminState> {
   {
     emit(ShowAdminLoadingState());
     DioHelper.getData(
-        url: SHOWADMINS,
+      url: SHOWADMINS,
       token: token,
     ).then((value) {
       print(value?.data);

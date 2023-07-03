@@ -6,8 +6,8 @@ abstract class RegisterState {}
 class RegisterInitial extends RegisterState {}
 class RegisterLoading extends RegisterState{}
 class RegisterSuccess extends RegisterState{
-  final StudentModel student;
-  RegisterSuccess(this.student);
+  final StudentModel studentModel;
+  RegisterSuccess(this.studentModel);
 }
 class RegisterError extends RegisterState{
   final String error;
@@ -22,5 +22,5 @@ class GenderInitialState extends RegisterState{}
 class GenderchangeDropDownButton extends RegisterState{}
 class GradeInitialState extends RegisterState{}
 class GradechangeDropDownButton extends RegisterState{}
-class CheckBox extends RegisterState{}
+class CheckBoxState extends RegisterState{}
 class DateOfBirth extends RegisterState{}

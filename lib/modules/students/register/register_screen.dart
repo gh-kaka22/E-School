@@ -427,11 +427,11 @@ class StudentRegisterScreen extends StatelessWidget {
                                     mother_phone: motherPhoneController.text,
                                     address: addressController.text,
                                     detailes: detailsController.text,
-                                    religion: cubit.dropDownValue,
-                                    genderr: cubit.gender,
-                                    grade_number: cubit.gradeID!,
-                                    have_sib: cubit.ischeck,
-                                    date_of_birth: cubit.selectedDate,
+                                    religion: cubit.dropDownValue.toString(),
+                                    genderr: cubit.gender.toString(),
+                                    grade_number: cubit.gradeID,
+                                    have_kids: cubit.ischeck,
+                                    date_of_birth: cubit.selectedDate.toString(),
                                     national_id: nationalitycontroller.text,
 
 
