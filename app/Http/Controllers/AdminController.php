@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -14,6 +15,12 @@ class AdminController extends Controller
     {
         $admins = Admin::all();
         return $this->apiResponse('success',$admins);
+    }
+
+    public function getAdminCount()
+    {
+        $adminCount = DB::table('admins')->count();
+        return $adminCount;
     }
 
     public function show(Request $request)

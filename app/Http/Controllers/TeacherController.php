@@ -83,6 +83,13 @@ class TeacherController extends Controller
         return $this->apiResponse('success',$teacher);
     }
 
+
+    public function getTeacherCount()
+    {
+        $teacherCount = DB::table('teachers')->count();
+        return $teacherCount;
+    }
+
     public function subjectTeacher($id){
         $teachers = DB::table('teachers')
           ->where('subject_id','=',$id)

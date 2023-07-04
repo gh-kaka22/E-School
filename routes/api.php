@@ -88,6 +88,13 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/Ashownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforadmin']);
 
 
+
+    //get numbers of students,teachers,Admins to show it in the dashboard
+    Route::get('/admin/getnumber',[\App\Http\Controllers\AdminController::class, 'getAdminCount']);
+    Route::get('/student/getnumber',[\App\Http\Controllers\StudentController::class, 'getStudentCount']);
+    Route::get('/teacher/getnumber',[\App\Http\Controllers\TeacherController::class, 'getTeacherCount']);
+
+
     //Exams Routes
     Route::Post('/exams/store', [\App\Http\Controllers\ExamController::class, 'store']);
     Route::get('/exams/show/{id}', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
