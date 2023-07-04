@@ -4,8 +4,7 @@
 
 import 'dart:convert';
 
-ShowExamsModel showExamsModelFromJson(String str) =>
-    ShowExamsModel.fromJson(json.decode(str));
+ShowExamsModel showExamsModelFromJson(String str) => ShowExamsModel.fromJson(json.decode(str));
 
 String showExamsModelToJson(ShowExamsModel data) => json.encode(data.toJson());
 
@@ -21,79 +20,70 @@ class ShowExamsModel {
   });
 
   factory ShowExamsModel.fromJson(Map<String, dynamic> json) => ShowExamsModel(
-        status: json["status"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+    status: json["status"],
+    message: json["message"],
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+    "status": status,
+    "message": message,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
 class Datum {
+  int id;
   int studentId;
+  int subjectId;
+  int typeId;
+  int mark;
+  DateTime date;
+  String schoolyear;
   String firstName;
   String lastName;
-  String religion;
-  String email;
-  DateTime dateOfBirth;
-  String address;
-  String details;
-  int gradeId;
-  int genderId;
-  int parentId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String name;
+  int maxMark;
 
   Datum({
+    required this.id,
     required this.studentId,
+    required this.subjectId,
+    required this.typeId,
+    required this.mark,
+    required this.date,
+    required this.schoolyear,
     required this.firstName,
     required this.lastName,
-    required this.religion,
-    required this.email,
-    required this.dateOfBirth,
-    required this.address,
-    required this.details,
-    required this.gradeId,
-    required this.genderId,
-    required this.parentId,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.name,
+    required this.maxMark,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        studentId: json["student_id"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        religion: json["religion"],
-        email: json["email"],
-        dateOfBirth: DateTime.parse(json["date_of_birth"]),
-        address: json["address"],
-        details: json["details"],
-        gradeId: json["grade_id"],
-        genderId: json["gender_id"],
-        parentId: json["parent_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-      );
+    id: json["id"],
+    studentId: json["student_id"],
+    subjectId: json["subject_id"],
+    typeId: json["type_id"],
+    mark: json["mark"],
+    date: DateTime.parse(json["date"]),
+    schoolyear: json["schoolyear"],
+    firstName: json["first_name"],
+    lastName: json["last_name"],
+    name: json["name"],
+    maxMark: json["max_mark"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "student_id": studentId,
-        "first_name": firstName,
-        "last_name": lastName,
-        "religion": religion,
-        "email": email,
-        "date_of_birth":
-            "${dateOfBirth.year.toString().padLeft(4, '0')}-${dateOfBirth.month.toString().padLeft(2, '0')}-${dateOfBirth.day.toString().padLeft(2, '0')}",
-        "address": address,
-        "details": details,
-        "grade_id": gradeId,
-        "gender_id": genderId,
-        "parent_id": parentId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
+    "id": id,
+    "student_id": studentId,
+    "subject_id": subjectId,
+    "type_id": typeId,
+    "mark": mark,
+    "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+    "schoolyear": schoolyear,
+    "first_name": firstName,
+    "last_name": lastName,
+    "name": name,
+    "max_mark": maxMark,
+  };
 }

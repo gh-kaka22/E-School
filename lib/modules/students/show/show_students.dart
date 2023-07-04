@@ -16,7 +16,7 @@ class StudentsShow extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double padding=MediaQuery.of(context).size.width/20;
     return BlocProvider(
-      create: (BuildContext context) => ShowStudentsCubit()..getStudents(),
+      create: (BuildContext context) => ShowStudentsCubit()..getClassrooms(7)..getStudents(),
       child: BlocConsumer<ShowStudentsCubit, ShowStudentsStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -163,7 +163,7 @@ class StudentsShow extends StatelessWidget {
                           Expanded(
                             child: defaultButton(
                               onPressed: () {
-                                cubit.getStudentsByGrade(cubit.dropDownValueClass);
+                                cubit.getStudentsByGradeAndClassroom(cubit.dropDownValueClass, cubit.dropDownValueSection);
                               },
                               height: 30,
                               text: 'Refresh',

@@ -18,11 +18,11 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   static AddExamsCubit get(context) => BlocProvider.of(context);
 
   String? dropDownValueClass = '7';
-  String? dropDownValueSection = '1';
-  String? dropDownValueSubject = 'none';
-  String? dropDownValueType = '1';
-  String? dropDownValueYear = '2023/2024';
-
+  String? dropDownValueSection;
+  String? dropDownValueSubject='none';
+  String? dropDownValueType;
+  String? dropDownValueYear='2022/2023';
+// drop down buttons' lists
   List<DropdownMenuItem> menuItemsClass = [
     DropdownMenuItem(
       value: '7',
@@ -59,10 +59,12 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   ];
   List<DropdownMenuItem> menuItemsYear = [];
 
-
+// drop down buttons changing method
   void changeClassDropDownButton(String newValue)
   {
     dropDownValueClass = newValue;
+    dropDownValueSection='none';
+    getClassrooms(dropDownValueClass);
     emit(AddExamsClassDropDownButtonState());
   }
   void changeSectionDropDownButton(String newValue)
@@ -86,9 +88,11 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
     emit(AddExamsYearDropDownButtonState());
   }
 
+
+  //making an empty list for controllers that will be generated in builder
   List<TextEditingController> controllers = [];
 
-
+//bringing Students
   AddExamsModel? addExamsModel;
   List<dynamic>? students;
   void getStudents()
@@ -113,7 +117,10 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   }
 
 
-  void getExamsByGrade(value)
+  //bringing students by grade
+
+
+  void getStudentsByGrade(value)
   {
     emit(AddExamsLoadingState());
     DioHelper.getData(
@@ -133,17 +140,41 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
       emit(AddExamsErrorState(error.toString()));
     });
   }
+//bringing students by grade and classroom
+  void getStudentsByGradeAndClassroom(grade,classroom)
+  {
+    emit(AddExamsLoadingState());
+    DioHelper.postData(
+      url: GETSTUDENTSBYGRADEANDCLASSROOM,
+      data:{
+        'grade_id': grade,
+        'room_number': classroom,
+      },
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      addExamsModel = AddExamsModel.fromJson(value?.data);
+      print(addExamsModel?.status);
+      print(addExamsModel?.message);
+      print(addExamsModel?.data?[0].email);
+      students = addExamsModel?.data;
+      print(students?[1].religion);
+      emit(AddExamsSuccessState(addExamsModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(AddExamsErrorState(error.toString()));
+    });
+  }
 
 
-
-
+// bringing classrooms and putting them in their drop down button
   ClassroomModel? classroomModel;
   List<dynamic>? classrooms;
-  void getClassrooms()
+  void getClassrooms(value)
   {
     emit(ShowClassroomsXLoadingState());
     DioHelper.getData(
-      url: GETCLASSROOMS,
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
       token: token,
     ).then((value) {
       print(value?.data);
@@ -167,7 +198,7 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   }
 
 
-
+// bringing subjects and putting them in their drop down button
   SubjectModel? subjectModel;
   List<dynamic>? subjects;
   void getSubjects()
@@ -199,7 +230,7 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
 
 
 
-
+// bringing schoolyears and putting them in their drop down button
   SchoolYearModel? schoolYearModel;
   List<dynamic>? schoolYears;
   void getSchoolYear()
@@ -216,12 +247,14 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
       print(schoolYearModel?.data?[0].name);
       schoolYears = schoolYearModel?.data;
       print(schoolYears?[1].name);
+
       menuItemsYear = schoolYears!.map((year) {
         return DropdownMenuItem<dynamic>(
           value: year.name,
           child: Text(year.name),
         );
       }).toList();
+      print('schoolYears?[1].name');
       emit(ShowSchoolYearXSuccessState(schoolYearModel!));
     }).catchError((error){
       print(error.toString());
@@ -230,7 +263,7 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   }
 
 
-
+// choosing date
   DateTime selectedDate = DateTime.now();
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -247,7 +280,7 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   }
 
 
-
+// method for sending the mark
   AddExamsEnteredModel? addExamsEnteredModel;
   void AddExam(
       {

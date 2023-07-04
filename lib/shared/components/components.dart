@@ -354,7 +354,7 @@ Widget ShowClassroomsItem(w, classroom, index, context) => Container(
       ),
     );
 
-Widget ShowExamsItem(w, student, index, context) => Container(
+Widget ShowExamsItem(w, student, index, context,cubit) => Container(
       width: 4 / 5 * w,
       height: 50,
       decoration: BoxDecoration(
@@ -381,23 +381,34 @@ Widget ShowExamsItem(w, student, index, context) => Container(
             Expanded(
               child: Center(child: Text('${student.lastName}')),
             ),
-            Expanded(child: Center(child: Text('${student.gradeId}'))),
+            Expanded(child: Center(child: Text('${cubit.dropDownValueClass}'))),
             Expanded(
-              child: Center(child: Text('${student.gradeId}')),
+              child: Center(child: Text('${cubit.dropDownValueSection}')),
             ),
             Expanded(
                 child: Center(
-              child: Text('Math',
+              child: Text('${student.name}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
             Expanded(
                 child: Center(
-              child: Text('${35}',
+                  child: Text('${student.date}',
+                      style: TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        color: Colors.grey,
+                      )),
+                )),
+            Expanded(
+                child: Center(
+              child: Text('${student.mark}',
                   style: TextStyle(
                     overflow: TextOverflow.ellipsis,
-                    color: Colors.green,
+                    color: student.mark > student.maxMark / 2
+                           ? Colors.green
+                           : Colors.red,
+                  ),
                   )),
-            )),
+            ),
             Expanded(
               child: Center(
                 child: defaultButton(
@@ -415,7 +426,6 @@ Widget ShowExamsItem(w, student, index, context) => Container(
         ),
       ),
     );
-
 
 
 Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
@@ -470,17 +480,18 @@ Widget ShowClassroomsBuilder(w, classrooms, context, state) =>
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
-Widget ShowExamsBuilder(w, students, context, state) => ConditionalBuilder(
+Widget ShowExamsBuilder(w, students, context, state,cubit) => ConditionalBuilder(
       condition: state is! ShowExamsLoadingState && students != null,
       builder: (context) => ListView.separated(
           itemBuilder: (context, index) =>
-              ShowExamsItem(w, students[index], index, context),
+              ShowExamsItem(w, students[index], index, context,cubit),
           separatorBuilder: (context, index) {
             return MyDivider();
           },
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
+
 Widget AddExamsItem(w, subject, student, type, year, date, index, context, controller, cubit) =>
     Container(
       width: 4 / 5 * w,
@@ -509,9 +520,13 @@ Widget AddExamsItem(w, subject, student, type, year, date, index, context, contr
             Expanded(
               child: Center(child: Text('${student.lastName}')),
             ),
-            Expanded(child: Center(child: Text('${student.gradeId}'))),
+            Expanded(child: Center(child: Text('${student.gradeId}'))
+            ),
             Expanded(
               child: Center(child: Text('${student.roomNumber}')),
+            ),
+            Expanded(
+              child: Center(child: Text('${cubit.dropDownValueSubject}')),
             ),
 
             Expanded(
@@ -642,7 +657,6 @@ Widget AddAttendanceItem(w, student,date, cubit , controller, context, int index
     ),
   ),
 );
-
 
 
 

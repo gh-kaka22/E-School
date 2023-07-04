@@ -15,7 +15,7 @@ class ExamsShow extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (BuildContext context) => ShowExamsCubit()..getStudents(),
+      create: (BuildContext context) => ShowExamsCubit()..getClassrooms(7)..getSubjects()..getSchoolYear(),
       child: BlocConsumer<ShowExamsCubit, ShowExamsStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -29,7 +29,7 @@ class ExamsShow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'EXAMS:',
+                    'EXAMS',
                     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -194,6 +194,51 @@ class ExamsShow extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: kDarkBlue2Color,
+                              border: Border.all(color: kGold1Color, width: 3),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.57),
+                                    //shadow for button
+                                    blurRadius: 5) //blur radius of shadow
+                              ]),
+                          child: Center(
+                            child: DropdownButton<dynamic>(
+                              underline: const SizedBox(),
+                              value: cubit.dropDownValueYear,
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: kGold1Color,
+                              ),
+                              iconSize: 24,
+                              elevation: 40,
+                              hint: Text('Choose Year'),
+                              style:
+                              TextStyle(color: kGold1Color, fontSize: 16),
+                              onChanged: (newValue) {
+                                cubit.changeClassDropDownButton(newValue!);
+                              },
+                              items: cubit.menuItemsYear,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Container(
                     width: 4 / 5 * w,
                     height: 50,
@@ -221,7 +266,9 @@ class ExamsShow extends StatelessWidget {
                           Expanded(
                             child: Center(child: Text('Last Name')),
                           ),
-                          Expanded(child: Center(child: Text('Grade'))),
+                          Expanded(
+                              child: Center(child: Text('Grade'))
+                          ),
                           Expanded(
                             child: Center(child: Text('Section')),
                           ),
@@ -232,13 +279,18 @@ class ExamsShow extends StatelessWidget {
                               )),
                           Expanded(
                               child: Center(
+                                child: Text('Date',
+                                    style: TextStyle(overflow: TextOverflow.ellipsis)),
+                              )),
+                          Expanded(
+                              child: Center(
                                 child: Text('Mark',
                                     style: TextStyle(overflow: TextOverflow.ellipsis)),
                               )),
                           Expanded(
                             child: defaultButton(
                               onPressed: () {
-                                cubit.getExamsByGrade(cubit.dropDownValueClass);
+                                cubit.getStudentsMarks(cubit.dropDownValueClass,cubit.dropDownValueSection,cubit.dropDownValueSubject,cubit.dropDownValueType,cubit.dropDownValueYear);
                               },
                               height: 30,
                               text: 'Refresh',
@@ -256,7 +308,8 @@ class ExamsShow extends StatelessWidget {
                           w,
                           cubit.showExamsModel?.data,
                           context,
-                          state
+                          state,
+                        cubit
                       )
                   )
                 ],

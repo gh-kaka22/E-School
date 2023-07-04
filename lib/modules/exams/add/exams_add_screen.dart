@@ -19,8 +19,7 @@ class ExamsAdd extends StatelessWidget {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (BuildContext context) => AddExamsCubit()..getStudents()
-        ..getClassrooms()..getSubjects()..getSchoolYear(),
+      create: (BuildContext context) => AddExamsCubit()..getStudents()..getClassrooms(7)..getSubjects()..getSchoolYear(),
       child: BlocConsumer<AddExamsCubit, AddExamsStates>(
         listener: (context, state) {
           if (state is AddExamsEnteredSuccessState) {
@@ -331,7 +330,7 @@ class ExamsAdd extends StatelessWidget {
                           Expanded(
                             child: defaultButton(
                               onPressed: () {
-                                cubit.getExamsByGrade(cubit.dropDownValueClass);
+                                cubit.getStudentsByGradeAndClassroom(cubit.dropDownValueClass,cubit.dropDownValueSection);
                               },
                               height: 30,
                               text: 'Refresh',
