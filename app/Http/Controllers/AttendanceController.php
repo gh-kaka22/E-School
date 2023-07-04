@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AttendanceEvent;
 use App\Models\Attendance;
+use App\Models\Parentt;
 use App\Models\Student;
+use App\Notifications\Attendance_Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class AttendanceController extends Controller
 {
@@ -30,11 +34,33 @@ class AttendanceController extends Controller
                 'student_id' => $student_id,
                 'date' => $date,
             ]);
+
+        }
+
+        foreach ($student_ids as $student_id) {
+
+            $student = Student::query()
+                ->where('student_id', '=', $student_id)
+                ->first();
+
+            $parent = Parentt::query()
+                ->where('parent_id' , '=',$student->parent_id)
+                ->first();
+
+            Notification::send($student, new Attendance_Notification(
+                    $request->date,
+                    $student->first_name,
+                    $student->last_name
+                )
+            );
+
+            event(new AttendanceEvent($student,$parent));
         }
 
         $attend = Attendance::query()->where('date' , '=' , $date)->get();
 
         return $this->apiResponse('Attendance created successfully', $attend);
+
 
 
     }
