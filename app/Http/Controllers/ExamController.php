@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
-//ali ali
+
 class ExamController extends Controller
 {
     use ApiResponseTrait;
@@ -38,14 +38,14 @@ class ExamController extends Controller
 //         $dateString = $request->date;
 //         $date = Carbon::createFromFormat('Y-m-d', $dateString);
 //         $monthNumber = $date->format('m');
-//         $examExists = DB::table('exams')
-//             ->where('student_id', $request->student_id)
-//             ->where('subject_id', $subject_id)
-//             ->where('type_id','=',$request->type_id)
-//             ->exists();
-//
-//         if($examExists)
-//             return $this->apiResponse('The student already have an exam with this subject and type registerd',null,false);
+         $examExists = DB::table('exams')
+             ->where('student_id', $request->student_id)
+             ->where('subject_id', $subject_id)
+             ->where('type_id','=',$request->type_id)
+             ->exists();
+
+         if($examExists)
+             return $this->apiResponse('The student already have an exam with this subject and type registered',null,false);
 
          $exam=Exam::create([
              'student_id'=>$request->student_id,

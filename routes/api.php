@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/show_file/{fileName}',[\App\Http\Controllers\FileController::class, 'show']);
+
 
 
 
@@ -141,6 +141,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
     //files Routes
     Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);
+    Route::post('/show_files_classroom',[\App\Http\Controllers\FileController::class, 'showForClassroom']);
 
     //Posts Routes
     Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);

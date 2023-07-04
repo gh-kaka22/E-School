@@ -28,7 +28,8 @@ class Student extends Authenticatable
         'grade_id',
         'gender_id',
         'parent_id',
-        'user_id'
+        'user_id',
+        'status',
 
     ];
 
