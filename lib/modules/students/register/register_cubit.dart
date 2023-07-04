@@ -15,7 +15,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   static RegisterCubit get(context) => BlocProvider.of(context);
 
   StudentModel? studentModel;
-  bool isChecked = false ;
+  bool isChecked = false;
   String currText = 'Don\'t have siblings';
   String? dropDownValue;
   String? gender;
@@ -33,8 +33,6 @@ class RegisterCubit extends Cubit<RegisterState> {
 
     emit(CheckBoxState());
   }
-
-
 
   void StudentRegister({
     required first_name,
@@ -59,14 +57,14 @@ class RegisterCubit extends Cubit<RegisterState> {
       'last_name': last_name,
       'date_of_birth': '2002-06-05',
       //DateFormat('yyyy-MM-dd').format(selectedDate).toString(),
-      if(ischeck==0)'father_first_name': father_name,
-      if(ischeck==0)  'father_phone_number': father_phone,
-      if(ischeck==0)   'mother_first_name': first_mother_name,
-      if(ischeck==0)  'mother_last_name': last_mother_name,
-      if(ischeck==0)  'mother_phone_number': mother_phone,
-   'address': address,
-     'details': detailes,
-     'religion': dropDownValue.toString(),
+      if (ischeck == 0) 'father_first_name': father_name,
+      if (ischeck == 0) 'father_phone_number': father_phone,
+      if (ischeck == 0) 'mother_first_name': first_mother_name,
+      if (ischeck == 0) 'mother_last_name': last_mother_name,
+      if (ischeck == 0) 'mother_phone_number': mother_phone,
+      'address': address,
+      'details': detailes,
+      'religion': dropDownValue.toString(),
       'gender_id': gender.toString(),
       'grade_number': gradeID.toString(),
       "have_kids": ischeck,
@@ -74,20 +72,20 @@ class RegisterCubit extends Cubit<RegisterState> {
       'national_id': national_id.toString(),
     };
 
-   print('body= $body');
+    print('body= $body');
     DioHelper.postData(
       url: RegisterStudent,
       token: token,
-      data:body,
-     ).then((value) {
+      data: body,
+    ).then((value) {
       print(value?.data);
-       if (value!.data['status']) {
+      if (value!.data['status']) {
         studentModel = StudentModel.fromJson(value?.data);
         print(studentModel?.data);
         emit(RegisterSuccess(studentModel!));
-       } else {
+      } else {
         emit(RegisterError(value.data['message']));
-       }
+      }
     }).catchError((error) {
       print("koko ${(error)}");
       emit(
