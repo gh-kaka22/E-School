@@ -44,7 +44,7 @@ class TimetableScreen extends StatelessWidget {
                                   blurRadius: 8) //blur radius of shadow
                             ]),
                         child: Center(child: Text(
-                          'Class- ${loginModel?.data?.grade_id} A',
+                          'Class- ${homeModel?.data?.grade_id} ${homeModel?.data?.classroom}',
                           style: TextStyle(fontSize: 18),
                         )),
                       ),
@@ -92,7 +92,7 @@ class TimetableScreen extends StatelessWidget {
                       Expanded(
                         child: ConditionalBuilder(
                             condition: state is! TimeTableLoadingState,
-                            builder: (context)=>timetableBuilder(cubit.periodsList,context),
+                            builder: (context)=>timetableBuilder(cubit.periodsList,cubit.currentIndex+1,context),
                             fallback: (context)=>Center(child: CircularProgressIndicator())),
                       ),
                     ],
