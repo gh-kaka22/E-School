@@ -15,7 +15,6 @@ class ScheduleController extends Controller
     use ApiResponseTrait;
     public function create(Request $request){
         $validatedData = $request->validate([
-            'classroom_id' => ['required','integer'],
             'day_number' => ['required','integer'],
             'first_subject'=>['required','integer'],
             'second_subject'=>['required','integer'],
@@ -25,9 +24,25 @@ class ScheduleController extends Controller
             'sixth_subject'=>['required','integer'],
             'seventh_subject'=>['nullable','integer'],
         ]);
+        $request->validate([
+            'room_number'=>['required'],
+            'grade_id'=>['required','integer'],
+        ]);
+
+
+        $classroom = DB::table('classrooms')
+            ->where('room_number','=',$request->room_number)
+            ->where('grade_id','=',$request->grade_id)
+            ->first();
+        if(!$classroom)
+            return $this->apiResponse('classroom not found',null,false);
+        $classroom_id=$classroom->classroom_id;
+
+        $validatedData['classroom_id']=$classroom_id;
+
 
         $scheduleExists = DB::table('schedules')
-            ->where('classroom_id', $request->classroom_id)
+            ->where('classroom_id', $classroom_id)
             ->where('day_number', $request->day_number)
             ->exists();
 
