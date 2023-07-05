@@ -26,3 +26,5 @@ const ADDEXAM='exams/store';
 const SHOWEXAMS='exams/show_for_admin';
 
 const ADDTIMETABLE='create_schedule';
+const ADDSCHOOL='admin/create_school';
+const SHOWSCHOOL='';

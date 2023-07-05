@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/teacher_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 
@@ -12,18 +13,64 @@ part 'add_teacher_state.dart';
 
 class AddTeacherCubit extends Cubit<AddTeacherState> {
   AddTeacherCubit() : super(AddTeacherInitial());
+  static AddTeacherCubit get(context) => BlocProvider.of(context);
   TeacherModel? teacher;
   String? sub;
-  static AddTeacherCubit get(context) => BlocProvider.of(context);
+  bool? checkBox=false;
+  int? ischeck;
+  List<dynamic>? classRoom=[];
+  List<dynamic>? classId=[];
+  ClassroomModel? classroomModel;
+
+
+
+
+
+  void getClassRoom(){
+    emit(AddTeacherLoading());
+    DioHelper.getData(
+      url: GETCLASSROOMS,
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      classroomModel = ClassroomModel.fromJson(value?.data);
+      print(classroomModel?.status);
+      print(classroomModel?.message);
+      print(classroomModel?.data?[0].roomNumber);
+      classRoom = classroomModel?.data;
+      print(classRoom?[1]);
+      emit(ClassRoomSuccessState(classroomModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ClassroomsErrorState(error.toString()));
+    });
+
+  }
+
+  changeCheck(bool val, int classroomId) {
+    print('Maysaaaaaaaaa : $val , $classroomId');
+    ischeck = val ? 1 : 0;
+    if (val) {
+      ischeck = 1;
+      classId!.add(classroomId);
+    } else {
+      ischeck = 0;
+      classId?.remove(classroomId);
+    }
+    print('ischeck= ${ischeck}');
+    emit(CheckClassRoomState());
+    print(classroomId);
+  }
+
   void AddTeacher(
       {
         required String first_name,
         required String last_name,
         required String phone_number,
+        required String urgent_phone_number,
         required String address,
-        required int subject,
-        required roomnumber,
-
+        required subject,
+        required classroom,
       }
       )
   {
@@ -31,22 +78,27 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
       AddTeacherLoading(),
     );
     DioHelper.postData(
-      url: ADDTEACHER,
+      url: 'teacher/register',
       token: token,
       data: {
         'first_name': first_name,
         'last_name': last_name,
         'phone_number': phone_number,
-        'address': 'address',
-        'subject_id': subID,
-        'address':'address',
-
-        'classrooms[0]':1,
+        'address': address,
+        'subject_id': subID.toString(),
+        'urgent_phone_number':urgent_phone_number,
+        'classrooms':[1],
       },
     ).then((value) {
+      if (value!.data['status']) {
+
       teacher = TeacherModel.fromJson(value?.data);
       print(teacher?.data);
       emit(AddTeacherSuccess(teacher!));
+      }
+      else {
+        emit(AddTeacherError(value.data['message']));
+      }
     })
         .catchError((error) {
       print("momo ${error.toString()}");
@@ -108,6 +160,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
       subID=6;
     if(sub=='French')
       subID=7;
+    print(subID);
 
     emit(SubjectState());
   }

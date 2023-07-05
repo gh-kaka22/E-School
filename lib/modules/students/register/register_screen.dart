@@ -76,7 +76,6 @@ class StudentRegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     AlertDialog(
-
                       shape: RoundedRectangleBorder(
                           borderRadius:
                           BorderRadius.all(
@@ -160,9 +159,6 @@ class StudentRegisterScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      actions: [
-
-                      ],
                     ),
                   ],
                 ));
