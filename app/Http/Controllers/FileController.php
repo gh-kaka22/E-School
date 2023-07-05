@@ -39,7 +39,7 @@ class FileController extends Controller
 
             $insertedData = File::create([
                 'name' => $fileName,
-                'path' => "http://127.0.0.1/files/{$fileName}",
+                'path' => "http://127.0.0.1:8000/files/{$fileName}",
                 'classroom_id' =>$classroom_id
 
             ]);

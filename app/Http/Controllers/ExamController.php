@@ -90,7 +90,7 @@ class ExamController extends Controller
 
 
 
-//
+
          $marks=DB::table('exams')
              ->whereIn('exams.student_id',$student_ids)
              ->join('students','students.student_id','=','exams.student_id')

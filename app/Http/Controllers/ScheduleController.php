@@ -124,11 +124,25 @@ class ScheduleController extends Controller
 
 
 
-        $res=DB::table('schedules')
+        $data=DB::table('schedules')
             ->where('classroom_id','=',$classroom_id)
             ->where('day_number','=',$request->day_number)
-            ->get();
+            ->first();
 
-        return $this->apiResponse('success',$res);
+        if(!$data)
+            return $this->apiResponse('data not found',null,false);
+
+        $data->first_subject=Subject::find($data->first_subject)->name;
+        $data->second_subject=Subject::find($data->second_subject)->name;
+        $data->third_subject=Subject::find($data->third_subject)->name;
+        $data->fourth_subject=Subject::find($data->fourth_subject)->name;
+        $data->fifth_subject=Subject::find($data->fifth_subject)->name;
+        $data->sixth_subject=Subject::find($data->sixth_subject)->name;
+        $data->seventh_subject=Subject::find($data->seventh_subject)->name;
+
+
+
+
+        return $this->apiResponse('success',$data);
     }
 }
