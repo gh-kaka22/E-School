@@ -100,6 +100,75 @@ class ScheduleController extends Controller
 
     }
 
+
+    public function showTeachersSchedule(){
+//
+        $user_id=Auth::id();
+
+        $teacher=DB::table('teachers')
+            ->where('user_id','=',$user_id)
+            ->first();
+
+
+        $data = DB::table('schedules as s')
+            ->select('s.classroom_id', 's.day_number',
+                DB::raw('CONCAT_WS(", ",
+            CASE WHEN s.first_subject = t.subject_id THEN "First Subject" ELSE NULL END,
+            CASE WHEN s.second_subject = t.subject_id THEN "Second Subject" ELSE NULL END,
+            CASE WHEN s.third_subject = t.subject_id THEN "Third Subject" ELSE NULL END
+            CASE WHEN s.fourth_subject = t.subject_id THEN "First Subject" ELSE NULL END,
+            CASE WHEN s.fifth_subject = t.subject_id THEN "Second Subject" ELSE NULL END,
+            CASE WHEN s.sixth_subject = t.subject_id THEN "Third Subject" ELSE NULL END,
+             CASE WHEN s.seventh_subject = t.subject_id THEN "Third Subject" ELSE NULL END
+            -- Add more clauses for additional subject columns
+        ) AS matching_subjects')
+            )
+            ->join('classrooms as c', 's.classroom_id', '=', 'c.classroom_id')
+            ->join('teachers_classrooms as tc', 'c.classroom_id', '=', 'tc.classroom_id')
+            ->join('teachers as t', function ($join) use ($teacher) {
+                $join->where('s.first_subject', '=', $teacher->subject_id)
+                    ->orWhere('s.second_subject', '=', $teacher->subject_id)
+                    ->orWhere('s.third_subject', '=', $teacher->subject_id)
+                    ->orWhere('s.fourth_subject', '=', $teacher->subject_id)
+                    ->orWhere('s.fifth_subject', '=', $teacher->subject_id)
+                    ->orWhere('s.sixth_subject', '=', $teacher->subject_id)
+                    ->orWhere('s.seventh_subject', '=', $teacher->subject_id);
+                // Add more clauses for additional subject columns
+            })
+            ->get();
+
+
+// Map the day of week numbers to their corresponding names
+//        $days = [
+//            1 => 'Monday',
+//            2 => 'Tuesday',
+//            3 => 'Wednesday',
+//            4 => 'Thursday',
+//            5 => 'Friday',
+//            6 => 'Saturday',
+//            7 => 'Sunday'
+//        ];
+
+// Add the day of week names to the schedule data
+//        foreach ($data as $item) {
+//            $item->day_name = $days[$item->day_of_week];
+//        }
+
+
+
+        if(!$data)
+            return $this->apiResponse('data not found',null,false);
+
+
+
+        return $this->apiResponse('success',$data);
+
+
+
+    }
+
+
+
     public function index(){
         $teachers = Schedule::all();
         return $this->apiResponse('success',$teachers);
