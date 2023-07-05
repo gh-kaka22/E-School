@@ -23,6 +23,7 @@ import 'package:untitled/modules/subjects/show/show_subjects.dart';
 import 'package:untitled/modules/teachers/add/add_teacher.dart';
 import 'package:untitled/modules/timetable/add/add_timetable.dart';
 import 'package:untitled/modules/teachers/update/update_screen.dart';
+import 'package:untitled/modules/timetable/show/show_timetable.dart';
 
 import '../modules/admin/login/login_screen.dart';
 import '../test.dart';
@@ -87,7 +88,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                           cubit.SideBarItem(
                               text: 'Timetables',
-                              showScreen: StudentsShow(),
+                              showScreen: TimetableShow(),
                               addScreen: TimetableAdd()
                           ),
                           cubit.SideBarItem(
