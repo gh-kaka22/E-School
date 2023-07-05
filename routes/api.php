@@ -104,6 +104,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
     //Schedule Routes
     Route::post('/create_schedule', [\App\Http\Controllers\ScheduleController::class, 'create']);
+    Route::post('/show_schedule_classroom', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
     Route::get('/index_schedule', [\App\Http\Controllers\ScheduleController::class, 'index']);
 
 
@@ -177,7 +178,7 @@ Route::middleware(['auth:api', 'isStudent'])->group(function () {
 
     Route::get('/student/profile', [\App\Http\Controllers\StudentController::class, 'showProfile']);
     Route::get('/student/home', [\App\Http\Controllers\StudentController::class, 'showHome']);
-    Route::post('/show_schedule', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
+    Route::post('/show_schedule', [\App\Http\Controllers\ScheduleController::class, 'showClassroomScheduleStudent']);
 
     //Exams
     Route::Post('/exams/show_for_student', [\App\Http\Controllers\ExamController::class, 'showForStudent']);

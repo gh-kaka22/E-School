@@ -81,6 +81,13 @@ class ExamController extends Controller
          if ($student_ids->isEmpty())
              return $this->apiResponse('No students in the classroom you entered',null,false);
 
+         $subject=DB::table('subjects')
+             ->where('name','=',$request->subject_name)
+             ->first();
+
+         if(!$subject)
+             return $this->apiResponse('subject not found',null,false);
+
 
 
 
@@ -88,6 +95,8 @@ class ExamController extends Controller
              ->whereIn('exams.student_id',$student_ids)
              ->join('students','students.student_id','=','exams.student_id')
              ->join('subjects','subjects.subject_id','=','exams.subject_id')
+             ->where('exams.type_id','=',$request->type_id)
+             ->where('exams.subject_id','=',$subject->subject_id)
              ->select('exams.*','students.first_name', 'students.last_name','subjects.name','subjects.max_mark')
              ->get();
 
