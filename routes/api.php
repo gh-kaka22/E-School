@@ -10,6 +10,7 @@ Route::get('/show_file/{fileName}',[\App\Http\Controllers\FileController::class,
 
 
 
+
 //Post Routes
 Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
 Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
@@ -88,6 +89,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/admin/getnumber',[\App\Http\Controllers\AdminController::class, 'getAdminCount']);
     Route::get('/student/getnumber',[\App\Http\Controllers\StudentController::class, 'getStudentCount']);
     Route::get('/teacher/getnumber',[\App\Http\Controllers\TeacherController::class, 'getTeacherCount']);
+
 
 
     //Exams Routes
@@ -180,6 +182,9 @@ Route::middleware(['auth:api', 'isStudentOrParent'])->group(function () {
 
 //Teacher routes
 Route::middleware(['auth:api', 'isTeacher'])->group(function () {
+    //get Schedules
+    Route::get('/teacher/getschedule',[\App\Http\Controllers\ScheduleController::class, 'showTeachersSchedule']);
+
 
 });
 
