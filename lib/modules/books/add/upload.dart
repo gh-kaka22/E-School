@@ -41,6 +41,26 @@ class _FileUploadState extends State<FileUpload> {
     }
   }
 
+
+
+
+  Future<void> uploadFile() async {
+    String url = "http://your-server.com/api/upload-file";
+    FormData formData = FormData.fromMap({
+      "file": await MultipartFile.fromFile(_selectedFile!.path),
+    });
+    try {
+      Response response = await Dio().post(url, data: formData);
+      if (response.statusCode == 200) {
+        print('File uploaded successfully!');
+      } else {
+        print('Failed to upload file.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

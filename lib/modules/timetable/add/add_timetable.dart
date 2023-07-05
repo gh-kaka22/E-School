@@ -14,6 +14,7 @@ import 'package:untitled/modules/timetable/add/cubit/add_timetable_states.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/components/search_bar.dart';
+import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/styles/colors.dart';
 
 class TimetableAdd extends StatelessWidget {
@@ -26,7 +27,7 @@ class TimetableAdd extends StatelessWidget {
       child: BlocConsumer<AddTimetableCubit, AddTimetableStates>(
         listener: (context, state) {
           if (state is AddTimetableSuccessState) {
-            if(state.addTimetableModel.status ?? true) {
+            if(state.addTimetableModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:
@@ -35,7 +36,7 @@ class TimetableAdd extends StatelessWidget {
                         '${state.addTimetableModel.message}',
                         style: TextStyle(color: Colors.white)),
                   )));
-            } else  {
+            } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.red,
                   content: Center(
@@ -57,10 +58,7 @@ class TimetableAdd extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Timetable',
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                  ),
+                  MyText(name:'Timetable'),
                   SizedBox(
                     height: 30,
                   ),
@@ -460,7 +458,8 @@ class TimetableAdd extends StatelessWidget {
                           height: h / 20,
                           onPressed: () {
                             cubit.AddTimetable(
-                                classroom_id: cubit.dropDownValueSection,
+                                roomNumber: cubit.dropDownValueSection,
+                                grade_id: cubit.dropDownValueClass,
                                 day_id: cubit.dropDownValueDay,
                                 first: cubit.dropDownValueSubject1,
                                 second: cubit.dropDownValueSubject2,
@@ -468,6 +467,7 @@ class TimetableAdd extends StatelessWidget {
                                 fourth: cubit.dropDownValueSubject4,
                                 fifth: cubit.dropDownValueSubject5,
                                 sixth: cubit.dropDownValueSubject6,
+                                seventh: cubit.dropDownValueDay == '5' ? cubit.dropDownValueSubject7 : 1,
                                 token: token
                             );
 

@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
+import 'package:untitled/modules/books/show/cubit/show_files_states.dart';
 import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.dart';
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
 import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
@@ -171,6 +177,8 @@ Widget MyDivider() => Padding(
       ),
     );
 
+//Lists Items & Builders
+//Students
 Widget ShowStudentsItem(w, student, index, context) => Container(
       width: 4 / 5 * w,
       height: 50,
@@ -224,6 +232,19 @@ Widget ShowStudentsItem(w, student, index, context) => Container(
         ),
       ),
     );
+Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
+  condition: state is! ShowStudentsLoadingState && students != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          ShowStudentsItem(w, students[index], index, context),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: students.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
+
+//Subjects
 
 Widget ShowSubjectsItem(w, subject, index, context) => Container(
       width: 4 / 5 * w,
@@ -267,7 +288,77 @@ Widget ShowSubjectsItem(w, subject, index, context) => Container(
         ),
       ),
     );
+Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
+  condition: state is! ShowSubjectsLoadingState && subjects != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          ShowSubjectsItem(w, subjects[index], index, context),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: subjects.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
 
+//Classrooms
+Widget ShowClassroomsItem(w, classroom, index, context) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${classroom.classroomId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${classroom.roomNumber}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(child: Text('${classroom.gradeId}')),
+        ),
+        Expanded(
+          child: Center(child: Text('${classroom.capacity}')),
+        ),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () {},
+              height: 30,
+              text: 'Edit',
+              fontsize: 15,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+Widget ShowClassroomsBuilder(w, classrooms, context, state) => ConditionalBuilder(
+  condition: state is! ShowClassroomsLoadingState && classrooms != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          ShowClassroomsItem(w, classrooms[index], index, context),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: classrooms.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
+
+//Schoolyears
 Widget ShowSchoolYearsItem(w, schoolYear, index, context) => Container(
       width: 4 / 5 * w,
       height: 50,
@@ -307,53 +398,101 @@ Widget ShowSchoolYearsItem(w, schoolYear, index, context) => Container(
         ),
       ),
     );
-
-Widget ShowClassroomsItem(w, classroom, index, context) => Container(
-      width: 4 / 5 * w,
-      height: 50,
-      decoration: BoxDecoration(
-          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.2),
-                blurRadius: 20) //blur radius of shadow
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: [
-            Expanded(
-                child: Center(
-              child: Text('${classroom.classroomId}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-                child: Center(
-              child: Text('${classroom.roomNumber}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-            Expanded(
-              child: Center(child: Text('${classroom.gradeId}')),
-            ),
-            Expanded(
-              child: Center(child: Text('${classroom.capacity}')),
-            ),
-            Expanded(
-              child: Center(
-                child: defaultButton(
-                  onPressed: () {},
-                  height: 30,
-                  text: 'Edit',
-                  fontsize: 15,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+Widget ShowSchoolYearsBuilder(w, schoolYears, context, state) =>
+    ConditionalBuilder(
+      condition: state is! ShowSchoolYearLoadingState && schoolYears != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              ShowSchoolYearsItem(w, schoolYears[index], index, context),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: schoolYears.length),
+      fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
+//Files
+
+Widget ShowFilesItem(w, file, index, context) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${file.id}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${file.name}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () {
+                downloadFile(
+                  '${file.path}',
+                  file.name
+                );
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    backgroundColor: Colors.green,
+                    content:
+                    Center(
+                      child: Text(
+                          'DOWNLOADED',
+                          style: TextStyle(color: Colors.white)),
+                    )));
+
+              },
+              height: 30,
+              text: 'Download',
+              fontsize: 15,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () =>openFile(
+                url: '${file.path}',
+              ),
+              height: 30,
+              text: 'Open',
+              fontsize: 15,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+Widget ShowFilesBuilder(w, files, context, state) => ConditionalBuilder(
+  condition: state is! ShowFilesLoadingState && files != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          ShowFilesItem(w, files[index], index, context),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: files.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
+
+
+//Exams
 Widget ShowExamsItem(w, student, index, context,cubit) => Container(
       width: 4 / 5 * w,
       height: 50,
@@ -426,74 +565,19 @@ Widget ShowExamsItem(w, student, index, context,cubit) => Container(
         ),
       ),
     );
-
-
-Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
-      condition: state is! ShowStudentsLoadingState && students != null,
-      builder: (context) => ListView.separated(
-          itemBuilder: (context, index) =>
-              ShowStudentsItem(w, students[index], index, context),
-          separatorBuilder: (context, index) {
-            return MyDivider();
-          },
-          itemCount: students.length),
-      fallback: (context) => Center(child: LinearProgressIndicator()),
-    );
-
-
-
-Widget ShowSubjectsBuilder(w, subjects, context, state) => ConditionalBuilder(
-      condition: state is! ShowSubjectsLoadingState && subjects != null,
-      builder: (context) => ListView.separated(
-          itemBuilder: (context, index) =>
-              ShowSubjectsItem(w, subjects[index], index, context),
-          separatorBuilder: (context, index) {
-            return MyDivider();
-          },
-          itemCount: subjects.length),
-      fallback: (context) => Center(child: LinearProgressIndicator()),
-    );
-
-Widget ShowSchoolYearsBuilder(w, schoolYears, context, state) =>
-    ConditionalBuilder(
-      condition: state is! ShowSchoolYearLoadingState && schoolYears != null,
-      builder: (context) => ListView.separated(
-          itemBuilder: (context, index) =>
-              ShowSchoolYearsItem(w, schoolYears[index], index, context),
-          separatorBuilder: (context, index) {
-            return MyDivider();
-          },
-          itemCount: schoolYears.length),
-      fallback: (context) => Center(child: LinearProgressIndicator()),
-    );
-
-Widget ShowClassroomsBuilder(w, classrooms, context, state) =>
-    ConditionalBuilder(
-      condition: state is! ShowClassroomsLoadingState && classrooms != null,
-      builder: (context) => ListView.separated(
-          itemBuilder: (context, index) =>
-              ShowClassroomsItem(w, classrooms[index], index, context),
-          separatorBuilder: (context, index) {
-            return MyDivider();
-          },
-          itemCount: classrooms.length),
-      fallback: (context) => Center(child: LinearProgressIndicator()),
-    );
-
 Widget ShowExamsBuilder(w, students, context, state,cubit) => ConditionalBuilder(
-      condition: state is! ShowExamsLoadingState && students != null,
-      builder: (context) => ListView.separated(
-          itemBuilder: (context, index) =>
-              ShowExamsItem(w, students[index], index, context,cubit),
-          separatorBuilder: (context, index) {
-            return MyDivider();
-          },
-          itemCount: students.length),
-      fallback: (context) => Center(child: LinearProgressIndicator()),
-    );
+  condition: state is! ShowExamsLoadingState && students != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          ShowExamsItem(w, students[index], index, context,cubit),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: students.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
 
-Widget AddExamsItem(w, subject, student, type, year, date, index, context, controller, cubit) =>
-    Container(
+Widget AddExamsItem(w, subject, student, type, year, date, index, context, controller, cubit) => Container(
       width: 4 / 5 * w,
       height: 50,
       decoration: BoxDecoration(
@@ -571,8 +655,7 @@ Widget AddExamsItem(w, subject, student, type, year, date, index, context, contr
         ),
       ),
     );
-Widget AddExamsBuilder(w, subject, students, type, year, date, context, state, controllers, cubit) =>
-    ConditionalBuilder(
+Widget AddExamsBuilder(w, subject, students, type, year, date, context, state, controllers, cubit) => ConditionalBuilder(
       condition: state is! AddExamsLoadingState && students != null,
       builder: (context) => ListView.separated(
           itemBuilder: (context, index) {
@@ -587,7 +670,7 @@ Widget AddExamsBuilder(w, subject, students, type, year, date, context, state, c
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
 
-
+//Attendance
 
 Widget AddAttendanceBuilder(w, students, date, cubit ,controllers, context, state) =>
     ConditionalBuilder(
@@ -608,7 +691,7 @@ Widget AddAttendanceItem(w, student,date, cubit , controller, context, int index
   width: 4 / 5 * w,
   height: 50,
   decoration: BoxDecoration(
-     color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
       boxShadow: <BoxShadow>[
         BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.2),
@@ -657,6 +740,41 @@ Widget AddAttendanceItem(w, student,date, cubit , controller, context, int index
     ),
   ),
 );
+
+
+///open file
+Future openFile ({required String url , String? fileName})async{
+  final name = fileName ?? url.split('/').last;
+  final file = await downloadFile(url,name);
+  if (file== null)  return;
+  print('path : ${file.path}');
+  OpenFile.open(file.path);
+}
+
+///download file
+Future<File?> downloadFile(String url,String name)async{
+  final appStorage = await getApplicationDocumentsDirectory();
+  final file =File('${appStorage.path}/$name');
+  try {
+    final response = await Dio().get(
+        url,
+        options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+
+        )
+    );
+    final raf = file.openSync(mode: FileMode.write);
+    raf.writeFromSync(response.data);
+    await raf.close();
+    return file;
+  }catch(e){
+    return null;
+  }
+}
+
+
+
 
 
 

@@ -25,3 +25,6 @@ const ADDEXAM='exams/store';
 const SHOWEXAMS='exams/show_for_admin';
 
 const ADDTIMETABLE='create_schedule';
+
+const ADDFILE='upload_file';
+const SHOWFILE ='show_files_classroom';

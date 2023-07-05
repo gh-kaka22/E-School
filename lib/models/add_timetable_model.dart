@@ -11,7 +11,7 @@ String addTimetableModelToJson(AddTimetableModel data) => json.encode(data.toJso
 class AddTimetableModel {
   bool status;
   String message;
-  Data data;
+  Data? data;
 
   AddTimetableModel({
     required this.status,
@@ -22,18 +22,17 @@ class AddTimetableModel {
   factory AddTimetableModel.fromJson(Map<String, dynamic> json) => AddTimetableModel(
     status: json["status"],
     message: json["message"],
-    data: Data.fromJson(json["data"]),
+    data: json['data'] != null ? Data.fromJson(json["data"]) : null
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data.toJson(),
+    "data": data?.toJson(),
   };
 }
 
 class Data {
-  String classroomId;
   String dayNumber;
   String firstSubject;
   String secondSubject;
@@ -41,12 +40,12 @@ class Data {
   String fourthSubject;
   String fifthSubject;
   String sixthSubject;
+  int classroomId;
   DateTime updatedAt;
   DateTime createdAt;
   int id;
 
   Data({
-    required this.classroomId,
     required this.dayNumber,
     required this.firstSubject,
     required this.secondSubject,
@@ -54,13 +53,13 @@ class Data {
     required this.fourthSubject,
     required this.fifthSubject,
     required this.sixthSubject,
+    required this.classroomId,
     required this.updatedAt,
     required this.createdAt,
     required this.id,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    classroomId: json["classroom_id"],
     dayNumber: json["day_number"],
     firstSubject: json["first_subject"],
     secondSubject: json["second_subject"],
@@ -68,13 +67,13 @@ class Data {
     fourthSubject: json["fourth_subject"],
     fifthSubject: json["fifth_subject"],
     sixthSubject: json["sixth_subject"],
+    classroomId: json["classroom_id"],
     updatedAt: DateTime.parse(json["updated_at"]),
     createdAt: DateTime.parse(json["created_at"]),
     id: json["id"],
   );
 
   Map<String, dynamic> toJson() => {
-    "classroom_id": classroomId,
     "day_number": dayNumber,
     "first_subject": firstSubject,
     "second_subject": secondSubject,
@@ -82,6 +81,7 @@ class Data {
     "fourth_subject": fourthSubject,
     "fifth_subject": fifthSubject,
     "sixth_subject": sixthSubject,
+    "classroom_id": classroomId,
     "updated_at": updatedAt.toIso8601String(),
     "created_at": createdAt.toIso8601String(),
     "id": id,

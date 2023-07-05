@@ -82,7 +82,7 @@ class AddTimetableCubit extends Cubit<AddTimetableStates> {
   void changeClassDropDownButton(String newValue)
   {
     dropDownValueClass = newValue;
-    dropDownValueSection='8';
+    dropDownValueSection='none';
     getClassrooms(dropDownValueClass);
     emit(AddTimetableClassDropDownButtonState());
   }
@@ -152,7 +152,7 @@ class AddTimetableCubit extends Cubit<AddTimetableStates> {
       print(classrooms?[1].roomNumber);
       menuItemsSection = classrooms!.map((classroom) {
         return DropdownMenuItem<dynamic>(
-          value: '${classroom.classroomId}',
+          value: classroom.roomNumber,
           child: Text(classroom.roomNumber),
         );
       }).toList();
@@ -233,7 +233,8 @@ class AddTimetableCubit extends Cubit<AddTimetableStates> {
   AddTimetableModel? addTimetableModel;
   void AddTimetable(
       {
-        required  classroom_id,
+        required  roomNumber,
+        required  grade_id,
         required  day_id,
         required  first,
         required  second,
@@ -241,6 +242,7 @@ class AddTimetableCubit extends Cubit<AddTimetableStates> {
         required  fourth,
         required  fifth,
         required  sixth,
+        seventh,
         required  token,
       }
       )
@@ -252,7 +254,8 @@ class AddTimetableCubit extends Cubit<AddTimetableStates> {
       token: token,
       url: ADDTIMETABLE,
       data: {
-        'classroom_id': classroom_id,
+        'room_number': roomNumber,
+        'grade_id': grade_id,
         'day_number': day_id,
         'first_subject': first,
         'second_subject': second,
@@ -260,13 +263,14 @@ class AddTimetableCubit extends Cubit<AddTimetableStates> {
         'fourth_subject': fourth,
         'fifth_subject': fifth,
         'sixth_subject': sixth,
+        'seventh_subject':seventh,
       },
     ).then((value) {
       print(value?.data);
       addTimetableModel = AddTimetableModel.fromJson(value?.data);
+      print(addTimetableModel!.data?.dayNumber);
       emit(AddTimetableSuccessState(addTimetableModel!));
-    })
-        .catchError((error) {
+    }).catchError((error) {
       print("momo ${error.response.data}");
       emit(
         AddTimetableErrorState(error.toString()),
