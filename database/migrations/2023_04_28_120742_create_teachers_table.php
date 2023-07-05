@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone_number');
            // $table->string('urgent_phone_number');
-            //$table->string('email')->unique();
+            //$table->string('email')->unique();//
             //$table->string('password')->nullable();
             $table->text('address');
             $table->text('details')->default('none');

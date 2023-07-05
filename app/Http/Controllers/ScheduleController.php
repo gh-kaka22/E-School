@@ -102,7 +102,7 @@ class ScheduleController extends Controller
 
 
     public function showTeachersSchedule(){
-
+//
         $user_id=Auth::id();
 
         $teacher=DB::table('teachers')

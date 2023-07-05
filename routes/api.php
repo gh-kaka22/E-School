@@ -195,6 +195,7 @@ Route::middleware(['auth:api', 'isStudentOrParent'])->group(function () {
 //Teacher routes
 Route::middleware(['auth:api', 'isTeacher'])->group(function () {
     //get Schedules
+    ///
     Route::get('/teacher/getschedule',[\App\Http\Controllers\ScheduleController::class, 'showTeachersSchedule']);
 
 
