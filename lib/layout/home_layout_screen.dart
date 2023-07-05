@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
+import 'package:untitled/modules/about_us/add/add_information.dart';
 import 'package:untitled/modules/admin/admin_register/register_screen.dart';
 import 'package:untitled/modules/attendance/add/add.dart';
 import 'package:untitled/modules/attendance/show/show_attendance.dart';
@@ -24,6 +25,7 @@ import 'package:untitled/modules/timetable/add/add_timetable.dart';
 import 'package:untitled/modules/teachers/update/update_screen.dart';
 
 import '../modules/admin/login/login_screen.dart';
+import '../test.dart';
 
 class HomeLayout extends StatelessWidget {
   @override
@@ -117,6 +119,11 @@ class HomeLayout extends StatelessWidget {
                                 text: 'Notice',
                                 showScreen: AddNotice(),
                                 addScreen: AddNotice(),
+                            ),
+                            cubit.SideBarItem(
+                              text: 'About Us',
+                              showScreen: AddSchool(),
+                              addScreen: AddSchool(),
                             ),
                           cubit.SpecialSideBarItem(
                             text: 'Settings',

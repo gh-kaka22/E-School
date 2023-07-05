@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/models/show_Attendance_model.dart';
 import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/modules/attendance/show/cubit/show_attendance_state.dart';
+import 'package:untitled/shared/components/attendance.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/components/text_components.dart';
@@ -60,6 +61,7 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
   ShowStudentsModel? showStudentsModel;
 
   List<dynamic>? students;
+  List<dynamic>? itemAbsence;
 
   void getStudents()
   {
@@ -103,32 +105,51 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
     });
   }
 
-  void ShowAbsence({
-    required students_id,
-  }) {
-    emit(
-      ShowAttendanceLoadingState(),
-    );
-    DioHelper.postData(
-      token: token,
+  // void ShowAbsence({
+  //   required students_id,
+  // }) {
+  //   emit(
+  //     ShowAttendanceLoadingState(),
+  //   );
+  //   DioHelper.postData(
+  //     token: token,
+  //     url: SHOWATTENDANCE,
+  //     data: {
+  //       'student_id': students_id,
+  //     },
+  //   )
+  //       .then((value) {
+  //     showAttendanceModel = ShowAttendanceModel.fromJson(value?.data);
+  //     emit(ShowAttendanceSuccessState(showAttendanceModel!));
+  //   })
+  //       .catchError((error) {
+  //     print("koko ${error}");
+  //     emit(
+  //       ShowAttendanceErrorState(error.toString()),
+  //     );
+  //   });
+  // }
+
+  void getAttenadnce()
+  {
+    emit(ShowAttendanceLoadingState());
+    DioHelper.getData(
       url: SHOWATTENDANCE,
-      data: {
-        'student_id': students_id,
-      },
-    )
-        .then((value) {
+      token: token,
+    ).then((value) {
+      print(value?.data);
       showAttendanceModel = ShowAttendanceModel.fromJson(value?.data);
+      print(showAttendanceModel?.status);
+      print(showAttendanceModel?.message);
+      print(showAttendanceModel?.data?[0]);
+      itemAbsence = showAttendanceModel?.data;
+      print(itemAbsence?[1]);
       emit(ShowAttendanceSuccessState(showAttendanceModel!));
-    })
-        .catchError((error) {
-      print("koko ${error}");
-      emit(
-        ShowAttendanceErrorState(error.toString()),
-      );
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowAttendanceErrorState(error.toString()));
     });
   }
-
-
 
 
   void showAttendanceDialog({
@@ -140,8 +161,15 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: MyText(name: "Attendance", size: 25),
+          content: ShowAbsentBuilder(
+              50,
+              getAttenadnce,
+              context,
+              state)
 
         ),
+
+
         );
   }
 

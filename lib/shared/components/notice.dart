@@ -190,3 +190,4 @@ Widget AddNoticeBuilder(
           itemCount: students.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),
     );
+//todo: search and showNotes and showAttendance

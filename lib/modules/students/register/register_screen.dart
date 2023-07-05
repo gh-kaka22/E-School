@@ -60,8 +60,6 @@ class StudentRegisterScreen extends StatelessWidget {
                 content:
                     Text(state.error, style: TextStyle(color: Colors.white))));
 
-
-
           }
 
           if (state is RegisterSuccess) {
@@ -71,6 +69,99 @@ class StudentRegisterScreen extends StatelessWidget {
                   'Registered Successfully',
                   style: TextStyle(color: Colors.white),
                 )));
+            showDialog(
+                context: context,
+                builder: (ctx) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.all(
+                              Radius.circular(10.0))),
+
+                      title: MyText(name: "Email & Password", size: 25),
+                      content: Container(
+                        width: w/4,height: h/2,
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyText(name: 'Student\'s Email',size: 20 ),
+                            Container(
+                              width: w/4,height: h/15,
+                              child: Center(child: Text('${RegisterCubit.get(context).studentModel!.data!.studentEmail!}')),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: h/80,),
+                            MyText(name: 'Student\'s Password',size: 20 ),
+                            Container(
+                              width: w/4,height: h/15,
+                              child: Center(child: Text('${RegisterCubit.get(context).studentModel!.data!.studentPasswordDecoded!}')),
+
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: h/80,),
+                            MyText(name: 'Parent\'s Email', size: 20 ),
+                            Container(
+                              width: w/4,height: h/15,
+                              child: Center(child: Text('${RegisterCubit.get(context).studentModel!.data!.parentEmail!}')),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: h/80,),
+                            MyText(name: 'Parent\'s Password',size: 20 ),
+                            Container(
+                              width: w/4,height: h/15,
+                              child: Center(child: Text('${RegisterCubit.get(context).studentModel!.data!.parentPasswordDecoded!}')),
+
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: h/80,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text('OK'),
+
+
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ));
             //todo: Navigate to home
           }
         },
@@ -403,10 +494,6 @@ class StudentRegisterScreen extends StatelessWidget {
                                       ),
                                     ),
 
-                                    // if(cubit.student!=null)
-                                    // Container(
-                                    //   child: Text('${cubit.student!.data!.email}'),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -422,22 +509,24 @@ class StudentRegisterScreen extends StatelessWidget {
                                 width: w / 5,
                                 height: h / 20,
                                 onPressed: () {
-                                  RegisterCubit.get(context).StudentRegister(
+
+                                cubit.StudentRegister(
                                     first_name: FnameController.text,
-                                    father_name: FnameController.text,
                                     last_name: LnameController.text,
+                                    father_name: FatherController.text,
                                     father_phone: fatherPhoneController.text,
                                     first_mother_name: FmotherController.text,
                                     last_mother_name: LmotherController.text,
                                     mother_phone: motherPhoneController.text,
                                     address: addressController.text,
                                     detailes: detailsController.text,
-                                    religion: cubit.dropDownValue,
-                                    genderr: cubit.gender,
-                                    grade_number: cubit.gradenumber,
-                                    date_of_birth: cubit.selectedDate,
-                                    father_national_id: '121',
-                                    have_sib: cubit.ischeck,
+                                    religion: cubit.dropDownValue.toString(),
+                                    genderr: cubit.gender.toString(),
+                                    grade_number: cubit.gradeID,
+                                    have_kids: cubit.ischeck,
+                                    date_of_birth: cubit.selectedDate.toString(),
+                                    national_id: nationalitycontroller.text,
+
 
 
                                   );

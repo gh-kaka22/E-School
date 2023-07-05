@@ -22,7 +22,50 @@ class SearchBar extends StatelessWidget {
             child: Center(
               child: TextField(
                 decoration: InputDecoration.collapsed(
-                  hintText: 'Search for students...',
+                  hintText:'Search for students...',
+                ),
+              ),
+            ),
+          ),
+          MaterialButton(
+            height: 50,
+            onPressed: () {
+            },
+            color: kDarkBlue2Color,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 15,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Icon(Icons.search,color: Colors.white,),
+          ),
+        ],
+      ),
+    );
+  }
+}
+class ASearchBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width/3,
+      height: MediaQuery.of(context).size.height/20,
+      child: Row(
+        children: <Widget>[
+          Container(
+            height:50 ,
+            width: MediaQuery.of(context).size.width/5,
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            decoration: BoxDecoration(
+              color: kSearchBackgroundColor,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Center(
+              child: TextField(
+                decoration: InputDecoration.collapsed(
+                  hintText:'Search for Admins...',
                 ),
               ),
             ),

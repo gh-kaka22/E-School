@@ -176,7 +176,8 @@ class ShowAttendance extends StatelessWidget {
                           cubit.showStudentsModel?.data,
                           context,
                           state,
-                        cubit
+                          cubit,
+
                       ),
                   ),
                 ],

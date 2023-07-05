@@ -15,3 +15,12 @@ class AddTeacherError extends AddTeacherState{
   AddTeacherError(this.error);
 }
 class SubjectState extends AddTeacherState{}
+class CheckClassRoomState extends AddTeacherState{}
+class ClassRoomSuccessState extends AddTeacherState{
+  final ClassroomModel classroomModel;
+  ClassRoomSuccessState(this.classroomModel);
+}
+class ClassroomsErrorState extends AddTeacherState{
+  final String error;
+  ClassroomsErrorState(this.error);
+}

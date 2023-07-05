@@ -15,6 +15,7 @@ const GETSUBJECTS='subjects';
 const ADDADMIN='admin/register';
 const ADDCLASSROOM='create_classroom';
 const GETCLASSROOMS='classrooms/index';
+const SHOWADMINS='/admin/index';
 const GETCLASSROOMSOFAGRADE='classrooms/showByGrade';
 
 const ADDSCHOOLYEAR='create_schoolyear';
@@ -25,6 +26,8 @@ const ADDEXAM='exams/store';
 const SHOWEXAMS='exams/show_for_admin';
 
 const ADDTIMETABLE='create_schedule';
+const ADDSCHOOL='admin/create_school';
+const SHOWSCHOOL='';
 
 const ADDFILE='upload_file';
 const SHOWFILE ='show_files_classroom';

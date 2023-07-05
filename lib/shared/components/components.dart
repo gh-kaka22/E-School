@@ -14,6 +14,7 @@ import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.da
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
 import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
 import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
+import 'package:untitled/modules/notice/show/show_notes.dart';
 import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
@@ -219,7 +220,7 @@ Widget ShowStudentsItem(w, student, index, context) => Container(
               child: Center(
                 child: defaultButton(
                   onPressed: () {
-                    navigateTo(context, StudentUpdateScreen());
+                    navigateTo(context, StudentsShow());
                   },
                   height: 30,
                   text: 'Edit',
@@ -552,7 +553,7 @@ Widget ShowExamsItem(w, student, index, context,cubit) => Container(
               child: Center(
                 child: defaultButton(
                   onPressed: () {
-                    navigateTo(context, StudentUpdateScreen());
+                    navigateTo(context, StudentsShow());
                   },
                   height: 30,
                   text: 'Edit',
