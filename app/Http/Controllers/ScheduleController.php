@@ -113,116 +113,39 @@ class ScheduleController extends Controller
 
 
         $data = DB::table('schedules as s')
-            ->where(function ($query) use ($day_number){
-               $query->where('s.day_number', '=', $day_number);
-            })
-            ->select('s.classroom_id', 's.day_number', 't.subject_id',
-                DB::raw('CONCAT_WS(", ",
-            CASE WHEN s.first_subject = ' . $teacher->subject_id . ' THEN "First Period" ELSE NULL END,
-            CASE WHEN s.second_subject = ' . $teacher->subject_id . ' THEN "Second Period" ELSE NULL END,
-            CASE WHEN s.third_subject = ' . $teacher->subject_id . ' THEN "Third Period" ELSE NULL END,
-            CASE WHEN s.fourth_subject = ' . $teacher->subject_id . ' THEN "Fourth Period" ELSE NULL END,
-            CASE WHEN s.fifth_subject = ' . $teacher->subject_id . ' THEN "Fifth Period" ELSE NULL END,
-            CASE WHEN s.sixth_subject = ' . $teacher->subject_id . ' THEN "Sixth Period" ELSE NULL END,
-            CASE WHEN s.seventh_subject = ' . $teacher->subject_id . ' THEN "Seventh Period" ELSE NULL END
-            -- Add more clauses for additional subject columns
-        ) AS matching_subjects')
-            )
+            ->where('s.day_number', '=', $day_number)
+            ->select('s.day_number')
+            ->addSelect(DB::raw('
+        MAX(CASE WHEN s.first_subject = ' . $teacher->subject_id . ' THEN c.room_number END) AS `First Period`,
+        MAX(CASE WHEN s.second_subject = ' . $teacher->subject_id . ' THEN c.room_number END) AS `Second Period`,
+        MAX(CASE WHEN s.third_subject = ' . $teacher->subject_id . ' THEN c.room_number END) AS `Third Period`,
+        MAX(CASE WHEN s.fourth_subject = ' . $teacher->subject_id . ' THEN c.room_number END) AS `Forth Period`,
+        MAX(CASE WHEN s.fifth_subject = ' . $teacher->subject_id . ' THEN c.room_number END) AS `Fifth Period`,
+        MAX(CASE WHEN s.sixth_subject = ' . $teacher->subject_id . ' THEN c.room_number END) AS `Sixth Period`,
+        MAX(CASE WHEN s.seventh_subject = ' . $teacher->subject_id . ' THEN c.room_number END) AS `Seventh Period`
+    '))
             ->join('classrooms as c', 's.classroom_id', '=', 'c.classroom_id')
             ->join('teachers_classrooms as tc', 'c.classroom_id', '=', 'tc.classroom_id')
             ->join('teachers as t', function ($join) use ($teacher) {
-                $join->where('s.first_subject', '=', $teacher->subject_id)
+                $join
+                    ->where('s.first_subject', '=', $teacher->subject_id)
                     ->orWhere('s.second_subject', '=', $teacher->subject_id)
                     ->orWhere('s.third_subject', '=', $teacher->subject_id)
                     ->orWhere('s.fourth_subject', '=', $teacher->subject_id)
                     ->orWhere('s.fifth_subject', '=', $teacher->subject_id)
                     ->orWhere('s.sixth_subject', '=', $teacher->subject_id)
                     ->orWhere('s.seventh_subject', '=', $teacher->subject_id);
-                // Add more clauses for additional subject columns
             })
-            ->where(function ($query) use ($teacher){
-                $query->where('t.subject_id', '=',  $teacher->subject_id);
-            })
-            ->orderBy('s.classroom_id')
-            ->groupBy('s.classroom_id', 's.day_number',
-                's.first_subject', 's.second_subject', 's.third_subject','s.fourth_subject','s.fifth_subject','s.sixth_subject','s.seventh_subject',
-                't.subject_id')
+            ->where('t.subject_id', '=', $teacher->subject_id)
+            ->groupBy('s.day_number', 't.subject_id')
             ->get();
 
 
 
+        $schedule = $data->first();
 
 
 
-
-
-
-//        $data = DB::table('schedules as s')
-//            ->where(function ($query) use ($day_number){
-//                $query->where('s.day_number', '=', $day_number);
-//            })
-//            ->join('teachers as t', 't.teacher_id' , '=' ,$teacher->teacher_id )
-//            ->select('s.classroom_id', 's.day_number',
-//                DB::raw(
-//                    'CONCAT_WS(", ",
-//            CASE WHEN s.first_subject = t.subject_id THEN "First Period" ELSE NULL END,
-//            CASE WHEN s.second_subject = t.subject_id THEN "Second Period" ELSE NULL END,
-//            CASE WHEN s.third_subject = t.subject_id THEN "Third Period" ELSE NULL END,
-//            CASE WHEN s.fourth_subject = t.subject_id THEN "Forth Period" ELSE NULL END,
-//            CASE WHEN s.fifth_subject = t.subject_id THEN "Fifth Period" ELSE NULL END,
-//            CASE WHEN s.sixth_subject = t.subject_id THEN "Sixth Period" ELSE NULL END,
-//             CASE WHEN s.seventh_subject = t.subject_id THEN "Seventh Period" ELSE NULL END
-//             ) AS matching_subjects')
-//
-//            )
-//            ->join('classrooms as c', 's.classroom_id', '=', 'c.classroom_id')
-//            ->join('teachers_classrooms as tc', 'c.classroom_id', '=', 'tc.classroom_id')
-////            ->join('teachers as t', function ($join) use ($teacher) {
-////                $join->where('s.first_subject', '=', $teacher->subject_id)
-////                    ->orWhere('s.second_subject', '=', $teacher->subject_id)
-////                    ->orWhere('s.third_subject', '=', $teacher->subject_id)
-////                    ->orWhere('s.fourth_subject', '=', $teacher->subject_id)
-////                    ->orWhere('s.fifth_subject', '=', $teacher->subject_id)
-////                    ->orWhere('s.sixth_subject', '=', $teacher->subject_id)
-////                    ->orWhere('s.seventh_subject', '=', $teacher->subject_id);
-//
-//            ->where(function ($query) use ($teacher) {
-//                $query->where('s.first_subject', '=', $teacher->subject_id)
-//                    ->orWhere('s.second_subject', '=', $teacher->subject_id)
-//                    ->orWhere('s.third_subject', '=', $teacher->subject_id)
-//                    ->orWhere('s.fourth_subject', '=', $teacher->subject_id)
-//                    ->orWhere('s.fifth_subject', '=', $teacher->subject_id)
-//                    ->orWhere('s.sixth_subject', '=', $teacher->subject_id)
-//                    ->orWhere('s.seventh_subject', '=', $teacher->subject_id);
-//                // Add more clauses for additional subject columns
-//            })
-//            ->get();
-
-
-
-
-
-
-
-
-
-
-
-// Map the day of week numbers to their corresponding names
-//        $days = [
-//            1 => 'Monday',
-//            2 => 'Tuesday',
-//            3 => 'Wednesday',
-//            4 => 'Thursday',
-//            5 => 'Friday',
-//            6 => 'Saturday',
-//            7 => 'Sunday'
-//        ];
-
-// Add the day of week names to the schedule data
-//        foreach ($data as $item) {
-//            $item->day_name = $days[$item->day_of_week];
-//        }
 
 
 
@@ -231,7 +154,7 @@ class ScheduleController extends Controller
 
 
 
-        return $this->apiResponse('success',$data);
+        return $this->apiResponse('success',$schedule);
 
 
 
