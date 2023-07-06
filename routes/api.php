@@ -128,7 +128,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //Student Routes
-    Route::put('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
+    Route::post('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
     Route::get('/students/index', [\App\Http\Controllers\StudentController::class, 'index']);
     Route::delete('delete_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'destroy']);
     Route::get('/show_by_grade/{grade_id}', [\App\Http\Controllers\StudentController::class, 'showByGrade']);

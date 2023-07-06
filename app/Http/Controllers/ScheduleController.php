@@ -103,11 +103,11 @@ class ScheduleController extends Controller
 
     public function showTeachersSchedule(){
 //
-        $user_id=Auth::id();
 
-        $teacher=DB::table('teachers')
-            ->where('user_id','=',$user_id)
-            ->first();
+        $teacher = Teacher::query()->where('teacher_id' , '=' , 1)->first();
+
+
+
 
 
         $data = DB::table('schedules as s')
@@ -115,7 +115,7 @@ class ScheduleController extends Controller
                 DB::raw('CONCAT_WS(", ",
             CASE WHEN s.first_subject = t.subject_id THEN "First Subject" ELSE NULL END,
             CASE WHEN s.second_subject = t.subject_id THEN "Second Subject" ELSE NULL END,
-            CASE WHEN s.third_subject = t.subject_id THEN "Third Subject" ELSE NULL END
+            CASE WHEN s.third_subject = t.subject_id THEN "Third Subject" ELSE NULL END,
             CASE WHEN s.fourth_subject = t.subject_id THEN "First Subject" ELSE NULL END,
             CASE WHEN s.fifth_subject = t.subject_id THEN "Second Subject" ELSE NULL END,
             CASE WHEN s.sixth_subject = t.subject_id THEN "Third Subject" ELSE NULL END,
