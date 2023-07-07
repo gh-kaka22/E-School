@@ -2,7 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:untitled/models/classroom_model.dart';
+import 'package:untitled/models/subject_model.dart';
 import 'package:untitled/models/teacher_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 
@@ -18,16 +20,28 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
   String? sub;
   bool? checkBox=false;
   int? ischeck;
+  String? dropDownValueSubject='none';
+  List<DropdownMenuItem> menuItemsSubject = [];
   List<dynamic>? classRoom=[];
   List<dynamic>? classId=[];
-  List<DropdownMenuItem> menuItemsSection = [];
+
+
+  void changeSubjectDropDownButton(String newValue)
+  {
+    dropDownValueSubject = newValue;
+    emit(SubjectDropDownButtonState());
+  }
+
+  ///bringing classrooms and putting them in a multi select dialog
+  List<MultiSelectItem<dynamic>> items = [];
+
   ClassroomModel? classroomModel;
   List<dynamic>? classrooms;
-  void getClassrooms(value)
+  void getClassrooms()
   {
     emit(ClassRoomLoadingState());
     DioHelper.getData(
-      url: '${GETCLASSROOMSOFAGRADE}/${value}',
+      url: GETCLASSROOMS,
       token: token,
     ).then((value) {
       print(value?.data);
@@ -37,16 +51,43 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
       print(classroomModel?.data?[0].capacity);
       classrooms = classroomModel?.data;
       print(classrooms?[1].roomNumber);
-      menuItemsSection = classrooms!.map((classroom) {
-        return DropdownMenuItem<dynamic>(
-          value: classroom.roomNumber,
-          child: Text(classroom.roomNumber),
-        );
+      items = classrooms!.map((classroom) {
+        return MultiSelectItem(classroom, classroom.roomNumber);
       }).toList();
       emit(ClassRoomSuccessState(classroomModel!));
     }).catchError((error){
       print(error.toString());
       emit(ClassroomsErrorState(error.toString()));
+    });
+  }
+
+  /// bringing subjects and putting them in their drop down button
+  SubjectModel? subjectModel;
+  List<dynamic>? subjects;
+  void getSubjects()
+  {
+    emit(ShowSubjectsTRLoadingState());
+    DioHelper.getData(
+      url: GETSUBJECTS,
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      subjectModel = SubjectModel.fromJson(value?.data);
+      print(subjectModel?.status);
+      print(subjectModel?.message);
+      print(subjectModel?.data?[0].name);
+      subjects = subjectModel?.data;
+      print(subjects?[1].name);
+      menuItemsSubject = subjects!.map((subject) {
+        return DropdownMenuItem<dynamic>(
+          value: subject.name,
+          child: Text(subject.name),
+        );
+      }).toList();
+      emit(ShowSubjectsTRSuccessState(subjectModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowSubjectsTRErrorState(error.toString()));
     });
   }
 
@@ -138,6 +179,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
 
 
   }
+
   List<DropdownMenuItem<String>> Subject = [
     DropdownMenuItem(
       value: 'Math',

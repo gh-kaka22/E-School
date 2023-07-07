@@ -1,6 +1,7 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/modules/teachers/add/cubit/add_teacher_cubit.dart';
 import 'package:untitled/shared/components/teacher.dart';
@@ -28,7 +29,7 @@ class AddTeacher extends StatelessWidget {
     double borderwidth = 1;
     double padding = w / 20;
     return BlocProvider(
-      create: (context) => AddTeacherCubit()..getClassrooms(7),
+      create: (context) => AddTeacherCubit()..getClassrooms()..getSubjects(),
       child: BlocConsumer<AddTeacherCubit, AddTeacherState>(
         listener: (context, state) {
           if (state is AddTeacherError) {
@@ -132,30 +133,32 @@ class AddTeacher extends StatelessWidget {
                                       ),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: DropdownButton<String>(
-                                      value: cubit.sub,
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: kGold1Color,
-                                      ),
-                                      iconSize: 24,
-                                      elevation: 40,
-                                      borderRadius: BorderRadius.circular(40),
-                                      underline: Container(),
-                                      hint: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: padding, right: padding),
-                                        child: Text(
-                                          'Choose Subject',
-                                          style: TextStyle(
-                                              color: kDarkBlue2Color,
-                                              fontSize: 16),
+                                    child: Center(
+                                      child: DropdownButton<dynamic>(
+                                        value: cubit.dropDownValueSubject,
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: kGold1Color,
                                         ),
+                                        iconSize: 24,
+                                        elevation: 40,
+                                        borderRadius: BorderRadius.circular(40),
+                                        underline: Container(),
+                                        hint: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: padding, right: padding),
+                                          child: Text(
+                                            'Choose Subject',
+                                            style: TextStyle(
+                                                color: kDarkBlue2Color,
+                                                fontSize: 16),
+                                          ),
+                                        ),
+                                        onChanged: (newValue) {
+                                          cubit.changeSubjectDropDownButton(newValue!);
+                                        },
+                                        items: cubit.menuItemsSubject,
                                       ),
-                                      onChanged: (newValue) {
-                                        cubit.changeDropDownButton(newValue!);
-                                      },
-                                      items: cubit.Subject,
                                     ),
                                   ),
                                 ),
@@ -163,6 +166,36 @@ class AddTeacher extends StatelessWidget {
                               ],
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: MultiSelectDialogField(
+                              items: cubit.items,
+                              title: Text("CLASSROOMS"),
+                              selectedColor: kGold1Color,
+                              decoration: BoxDecoration(
+                                color: kWhiteColor,
+                                borderRadius: BorderRadius.all(Radius.circular(40)),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 1,
+                                ),
+                              ),
+                              buttonIcon: Icon(
+                                Icons.class_,
+                                color: kGold1Color,
+                              ),
+                              buttonText: Text(
+                                "Choose Classrooms:",
+                                style: TextStyle(
+                                  color: kGold1Color,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              onConfirm: (results) {
+                                //_selectedAnimals = results;
+                              },
+                            ),
+                          )
 
 
 
