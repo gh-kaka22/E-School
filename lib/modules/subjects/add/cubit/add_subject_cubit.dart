@@ -1,7 +1,4 @@
 
-
-
-
 import 'package:untitled/models/add_subject_model.dart';
 import 'package:untitled/models/subject_model.dart';
 import 'package:untitled/modules/subjects/add/cubit/add_subject_states.dart';
@@ -35,6 +32,7 @@ class AddSubjectCubit extends Cubit<AddSubjectStates> {
     ).then((value) {
       print(value?.data);
       addSubjectModel = AddSubjectModel.fromJson(value?.data);
+      if(value!.data['massege'])
       emit(AddSubjectSuccessState(addSubjectModel!));
     })
         .catchError((error) {

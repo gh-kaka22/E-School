@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
 import 'package:untitled/modules/about_us/add/add_information.dart';
 import 'package:untitled/modules/admin/admin_register/register_screen.dart';
+import 'package:untitled/modules/admin/show_admins/show_admins.dart';
 import 'package:untitled/modules/attendance/add/add.dart';
 import 'package:untitled/modules/attendance/show/show_attendance.dart';
 import 'package:untitled/modules/books/add/add_files.dart';
@@ -63,7 +64,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',
-                                showScreen: RegisterAdmin(),
+                                showScreen: ShowAdmins(),
                                 addScreen: RegisterAdmin()
                             ),
                           cubit.SideBarItem(

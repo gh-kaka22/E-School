@@ -15,23 +15,23 @@ class AddTeacher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var TFirstnameController = TextEditingController();
-
     var TLastnameController = TextEditingController();
-
     var TphoneNumberController = TextEditingController();
     var TUphoneNumberController = TextEditingController();
-
     var TaddressController = TextEditingController();
-
     var formkey = GlobalKey<FormState>();
+    List<dynamic> selectedItem=[];
+
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     double borderwidth = 1;
     double padding = w / 20;
+
     return BlocProvider(
       create: (context) => AddTeacherCubit()..getClassrooms()..getSubjects(),
       child: BlocConsumer<AddTeacherCubit, AddTeacherState>(
         listener: (context, state) {
+
           if (state is AddTeacherError) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
@@ -168,32 +168,40 @@ class AddTeacher extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: MultiSelectDialogField(
-                              items: cubit.items,
-                              title: Text("CLASSROOMS"),
-                              selectedColor: kGold1Color,
-                              decoration: BoxDecoration(
-                                color: kWhiteColor,
-                                borderRadius: BorderRadius.all(Radius.circular(40)),
-                                border: Border.all(
-                                  color: kDarkBlue2Color,
-                                  width: 1,
+                            child: Center(
+                              child: Container(
+                                width: w/3,
+                                color: Colors.white24,
+                                child: MultiSelectDialogField(
+                                  items: cubit.items,
+                                  dialogWidth: w/3,
+                                  title: Text("CLASSROOMS"),
+                                  selectedColor: kGold1Color,
+                                  decoration: BoxDecoration(
+                                    color: null,
+                                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                                    border: Border.all(
+                                      color: kDarkBlue2Color,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  buttonIcon: Icon(
+                                    Icons.class_outlined,
+                                    color: kGold1Color,
+                                  ),
+                                  buttonText: Text(
+                                    "Choose Classrooms:",
+                                    style: TextStyle(
+                                      color: kGold1Color,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+
+                                  onConfirm: (results) {
+                                     selectedItem = results;
+                                  },
                                 ),
                               ),
-                              buttonIcon: Icon(
-                                Icons.class_,
-                                color: kGold1Color,
-                              ),
-                              buttonText: Text(
-                                "Choose Classrooms:",
-                                style: TextStyle(
-                                  color: kGold1Color,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              onConfirm: (results) {
-                                //_selectedAnimals = results;
-                              },
                             ),
                           )
 
@@ -218,10 +226,9 @@ class AddTeacher extends StatelessWidget {
                                 last_name: TLastnameController.text,
                                 phone_number: TphoneNumberController.text,
                                 address: TaddressController.text,
-                                subject: cubit.subID.toString(),
-                                classroom: 1,
-                                urgent_phone_number:
-                                    TUphoneNumberController.text,
+                                subjectId: '1',
+                                classrooms: selectedItem.toString(),
+                                urgent_phone_number: TUphoneNumberController.text,
                               );
                             })
                         : Center(child: CircularProgressIndicator()),
