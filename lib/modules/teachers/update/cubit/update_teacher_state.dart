@@ -7,7 +7,6 @@ class UpdateTeacherInitial extends UpdateTeacherState {}
 class TeacherDataLoading extends UpdateTeacherState{}
 class TeacherDataSuccess extends UpdateTeacherState{
   final TeacherModel teacherModel;
-
   TeacherDataSuccess(this.teacherModel);
 
 }

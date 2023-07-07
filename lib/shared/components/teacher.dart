@@ -98,20 +98,20 @@ Widget ShowClassRoomItem(w, classroom , cubit , controller, context, int index )
               child: Text('${classroom.roomnumber}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        Expanded(
-          child: Center(
-            child: Checkbox(
-              checkColor: Colors.white,
-              activeColor: kDarkBlue2Color,
-              value: AddTeacherCubit.get(context).classId?.contains(classroom.classroomId),
-              onChanged: (v) => AddTeacherCubit.get(context).changeCheck(
-                v!,
-                classroom.classId,
-              ),
-            ),
-          ),
-        ),
-      ],
+        // Expanded(
+          // child: Center(
+          //   child: Checkbox(
+          //     checkColor: Colors.white,
+          //     activeColor: kDarkBlue2Color,
+          //     value: AddTeacherCubit.get(context).classId?.contains(classroom.classroomId),
+          //     onChanged: (v) => AddTeacherCubit.get(context).changeCheck(
+          //       v!,
+          //       classroom.classId,
+          //     ),
+          //   ),
+          // ),
+
+  ]
     ),
   ),
 );

@@ -20,47 +20,74 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
   int? ischeck;
   List<dynamic>? classRoom=[];
   List<dynamic>? classId=[];
+  List<DropdownMenuItem> menuItemsSection = [];
   ClassroomModel? classroomModel;
-
-
-
-
-
-  void getClassRoom(){
-    emit(AddTeacherLoading());
+  List<dynamic>? classrooms;
+  void getClassrooms(value)
+  {
+    emit(ClassRoomLoadingState());
     DioHelper.getData(
-      url: GETCLASSROOMS,
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
       token: token,
     ).then((value) {
       print(value?.data);
       classroomModel = ClassroomModel.fromJson(value?.data);
       print(classroomModel?.status);
       print(classroomModel?.message);
-      print(classroomModel?.data?[0].roomNumber);
-      classRoom = classroomModel?.data;
-      print(classRoom?[1]);
+      print(classroomModel?.data?[0].capacity);
+      classrooms = classroomModel?.data;
+      print(classrooms?[1].roomNumber);
+      menuItemsSection = classrooms!.map((classroom) {
+        return DropdownMenuItem<dynamic>(
+          value: classroom.roomNumber,
+          child: Text(classroom.roomNumber),
+        );
+      }).toList();
       emit(ClassRoomSuccessState(classroomModel!));
     }).catchError((error){
       print(error.toString());
       emit(ClassroomsErrorState(error.toString()));
     });
-
   }
 
-  changeCheck(bool val, int classroomId) {
-    print('Maysaaaaaaaaa : $val , $classroomId');
-    ischeck = val ? 1 : 0;
-    if (val) {
-      ischeck = 1;
-      classId!.add(classroomId);
-    } else {
-      ischeck = 0;
-      classId?.remove(classroomId);
-    }
-    print('ischeck= ${ischeck}');
-    emit(CheckClassRoomState());
-    print(classroomId);
-  }
+
+
+
+  // void getClassRoom(){
+  //   emit(AddTeacherLoading());
+  //   DioHelper.getData(
+  //     url: GETCLASSROOMS,
+  //     token: token,
+  //   ).then((value) {
+  //     print(value?.data);
+  //     classroomModel = ClassroomModel.fromJson(value?.data);
+  //     print(classroomModel?.status);
+  //     print(classroomModel?.message);
+  //     print(classroomModel?.data?[0].roomNumber);
+  //     classRoom = classroomModel?.data;
+  //     print(classRoom?[1]);
+  //     emit(ClassRoomSuccessState(classroomModel!));
+  //   }).catchError((error){
+  //     print(error.toString());
+  //     emit(ClassroomsErrorState(error.toString()));
+  //   });
+  //
+  // }
+
+  // changeCheck(bool val, int classroomId) {
+  //   print('Maysaaaaaaaaa : $val , $classroomId');
+  //   ischeck = val ? 1 : 0;
+  //   if (val) {
+  //     ischeck = 1;
+  //     classId!.add(classroomId);
+  //   } else {
+  //     ischeck = 0;
+  //     classId?.remove(classroomId);
+  //   }
+  //   print('ischeck= ${ischeck}');
+  //   emit(CheckClassRoomState());
+  //   print(classroomId);
+  // }
 
   void AddTeacher(
       {

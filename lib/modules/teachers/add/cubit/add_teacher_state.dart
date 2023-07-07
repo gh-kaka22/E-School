@@ -20,6 +20,8 @@ class ClassRoomSuccessState extends AddTeacherState{
   final ClassroomModel classroomModel;
   ClassRoomSuccessState(this.classroomModel);
 }
+class ClassRoomLoadingState extends AddTeacherState{
+}
 class ClassroomsErrorState extends AddTeacherState{
   final String error;
   ClassroomsErrorState(this.error);

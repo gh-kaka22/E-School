@@ -40,14 +40,14 @@ const SHOWATTENDANCE='Ashowattendance';
 ///EXAMS
 const ADDEXAM='exams/store';
 const SHOWEXAMS='exams/show_for_admin';
-
+const GETSTEUDENTBYINDEX ='update_student';
 ///TIMETABLES
 const ADDTIMETABLE='create_schedule';
 const SHOWTIMETABLE= 'show_schedule_classroom';
 
 ///ABOUT
 const ADDSCHOOL='admin/create_school';
-const SHOWSCHOOL='';
+const UPDATESTUDENT='update_studen';
 
 ///FILES
 const ADDFILE='upload_file';
