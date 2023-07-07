@@ -6,16 +6,18 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/show_file/{fileName}',[\App\Http\Controllers\FileController::class, 'show']);
+
+
+
+
+
 
 
 
 //Post Routes
-Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
 Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
-Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
-Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
-Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
+Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
+
 //............................registe routes.............................................
 //Owner routes
 Route::middleware(['auth:api', 'isOwner'])->group(function () {
@@ -33,6 +35,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'Logout']);
 
+
     //Likes and Comments Routes
     Route::get('/like/{post_id}',[\App\Http\Controllers\LikeController::class, 'store']);
     Route::get('/show_all_likes/{post_id}',[\App\Http\Controllers\LikeController::class, 'index']);
@@ -40,6 +43,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/delete_comment/{comment_id}',[\App\Http\Controllers\CommentController::class, 'destroy']);
     Route::post('/create_comment',[\App\Http\Controllers\CommentController::class, 'store']);
     Route::post('/update_comment',[\App\Http\Controllers\CommentController::class, 'update']);
+
+    //Posts
+    Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
 });
 
 //.....................................................................................
@@ -90,6 +96,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/teacher/getnumber',[\App\Http\Controllers\TeacherController::class, 'getTeacherCount']);
 
 
+
     //Exams Routes
     Route::Post('/exams/store', [\App\Http\Controllers\ExamController::class, 'store']);
     Route::get('/exams/show/{id}', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
@@ -99,6 +106,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
     //Schedule Routes
     Route::post('/create_schedule', [\App\Http\Controllers\ScheduleController::class, 'create']);
+    Route::post('/show_schedule_classroom', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
     Route::get('/index_schedule', [\App\Http\Controllers\ScheduleController::class, 'index']);
 
 
@@ -120,7 +128,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //Student Routes
-    Route::put('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
+    Route::post('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
     Route::get('/students/index', [\App\Http\Controllers\StudentController::class, 'index']);
     Route::delete('delete_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'destroy']);
     Route::get('/show_by_grade/{grade_id}', [\App\Http\Controllers\StudentController::class, 'showByGrade']);
@@ -136,6 +144,12 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
     //files Routes
     Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);
+    Route::post('/show_files_classroom',[\App\Http\Controllers\FileController::class, 'showForClassroom']);
+
+    //Posts Routes
+    Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
+    Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
+    Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
 
 
 
@@ -166,7 +180,7 @@ Route::middleware(['auth:api', 'isStudent'])->group(function () {
 
     Route::get('/student/profile', [\App\Http\Controllers\StudentController::class, 'showProfile']);
     Route::get('/student/home', [\App\Http\Controllers\StudentController::class, 'showHome']);
-    Route::post('/show_schedule', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
+    Route::post('/show_schedule', [\App\Http\Controllers\ScheduleController::class, 'showClassroomScheduleStudent']);
 
     //Exams
     Route::Post('/exams/show_for_student', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
@@ -180,6 +194,10 @@ Route::middleware(['auth:api', 'isStudentOrParent'])->group(function () {
 
 //Teacher routes
 Route::middleware(['auth:api', 'isTeacher'])->group(function () {
+    //get Schedules
+    ///
+    Route::get('/teacher/getschedule/{day_number}',[\App\Http\Controllers\ScheduleController::class, 'showTeachersSchedule']);
+
 
 });
 

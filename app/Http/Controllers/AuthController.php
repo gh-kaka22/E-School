@@ -172,7 +172,8 @@ class AuthController extends Controller
 //                'password'=>$input['student_password'],
                 'gender_id'=>$request->gender_id,
                 'parent_id'=>$parent_id,
-                'user_id'=>$student_user->id
+                'user_id'=>$student_user->id,
+                'status'=>'active'
             ]
         );
         if($request->have_kids==0)

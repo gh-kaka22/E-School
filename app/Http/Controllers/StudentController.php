@@ -39,7 +39,7 @@ class StudentController extends Controller
 
     public function update(Request $request,$student_id)
     {
-
+//
         $data=$request->all();
         $student=Student::find($student_id);
 
@@ -49,32 +49,51 @@ class StudentController extends Controller
         $student->update($data);
         return $this->apiResponse('success',$student);
 
-
-
-
-
-//        $student = Student::find($id);
-//        $student = Student::query()->where('id', '=', $id)->update(
+        ///عمرين اذا بقى بتعمل شي راوت put لا تلوم الا حالك وقد أعذر من أنذر
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+//
+//        $request->validate([
+//            'first_name' => [ 'max:55', 'string' ,'nullable'],
+//            'last_name' => [ 'max:55', 'string','nullable'],
+//            'date_of_birth'=>[ 'date','date_format:Y-m-d','nullable'],
+//            'religion' => [ 'max:55', 'string','nullable'],
+//            'address'=>[ 'string','nullable'],
+//            //'grade_number'=>['required', 'max:12', 'integer'],
+//            //'status' => $request->has('status') ? $request['status'] : $student['status'],
+//            'details' => ['nullable'],
+//            'parent_id'=>['nullable','integer'],
+//            'gender_id'=>['integer'],
+//
+//        ]);
+//
+//
+//
+//
+//        $student = Student::find($student_id);
+//
+//        $student= Student::query()->find($student_id)->update(
 //            [
 //                'first_name' => $request->has('first_name') ? $request['first_name'] : $student['first_name'],
 //                'last_name' => $request->has('last_name') ? $request['last_name'] : $student['last_name'],
 //                'date_of_birth' => $request->has('date_of_birth') ? $request['date_of_birth'] : $student['date_of_birth'],
-//                'father_name' => $request->has('father_name') ? $request['father_name'] : $student['father_name'],
-//                'father_phone_number' => $request->has('father_phone_number') ? $request['father_phone_number'] : $student['father_phone_number'],
-//                'mother_first_name' => $request->has('mother_first_name') ? $request['mother_first_name'] : $student['mother_first_name'],
-//                'mother_last_name' => $request->has('mother_last_name') ? $request['mother_last_name'] : $student['mother_last_name'],
-//                'mother_phone_number' => $request->has('mother_phone_number') ? $request['mother_phone_number'] : $student['mother_phone_number'],
 //                'religion' => $request->has('religion') ? $request['religion'] : $student['religion'],
 //                'address' => $request->has('address') ? $request['address'] : $student['address'],
-//                'grade_number' => $request->has('grade_number') ? $request['grade_number'] : $student['grade_number'],
+//                //'grade_id' => $request->has('grade_number') ? $request['grade_number'] : $student['grade_number'],
 //                'details' => $request->has('details') ? $request['details'] : $student['details'],
-//                'have_kids' => $request->has('have_kids') ? $request['have_kids'] : $student['have_kids'],
-//                'father_id' => $request->has('father_id') ? $request['father_id'] : $student['father_id'],
-//                'mother_id' => $request->has('mother_id') ? $request['mother_id'] : $student['mother_id'],
+//                'parent_id' => $request->has('parent_id') ? $request['parent_id'] : $student['parent_id'],
+//                //'status' => $request->has('status') ? $request['status'] : $student['status'],
 //                'gender_id' => $request->has('gender_id') ? $request['gender_id'] : $student['gender_id'],
 //
 //            ]);
-//        //$school = School::query()->get();
+//
+//
+//        $student = Student::query()->where('student_id', '=', $student_id)->first();
+//
 //        if (!$student)
 //            return $this->apiResponse('Student not found',null,false);
 //        return $this->apiResponse('Student updated successfully', $student);

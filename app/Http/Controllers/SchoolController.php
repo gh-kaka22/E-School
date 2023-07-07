@@ -55,6 +55,8 @@ class SchoolController extends Controller
     {
         //
 
+
+
         $school = School::find($id);
         $school = School::query()->where('id', '=', $id )->update(
             [
