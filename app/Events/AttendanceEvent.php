@@ -14,7 +14,7 @@ use Illuminate\Queue\SerializesModels;
 class AttendanceEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-//
+//////
 
     public $student;
     public $parent;

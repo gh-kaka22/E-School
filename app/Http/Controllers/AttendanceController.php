@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Notification;
 
 class AttendanceController extends Controller
 {
-    ////
+    //////
     use ApiResponseTrait;
     public function store(Request $request)
     {
