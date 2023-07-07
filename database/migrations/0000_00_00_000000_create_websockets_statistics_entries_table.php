@@ -11,6 +11,7 @@ class CreateWebSocketsStatisticsEntriesTable extends Migration
      *
      * @return void
      */
+    //
     public function up()
     {
         Schema::create('websockets_statistics_entries', function (Blueprint $table) {
