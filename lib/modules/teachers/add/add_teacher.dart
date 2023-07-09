@@ -226,8 +226,8 @@ class AddTeacher extends StatelessWidget {
                                 last_name: TLastnameController.text,
                                 phone_number: TphoneNumberController.text,
                                 address: TaddressController.text,
-                                subjectId: '1',
-                                classrooms: selectedItem.toString(),
+                                subjectId: "2",
+                                classrooms: selectedItem,
                                 urgent_phone_number: TUphoneNumberController.text,
                               );
                             })

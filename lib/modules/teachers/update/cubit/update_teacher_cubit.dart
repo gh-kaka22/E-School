@@ -33,11 +33,12 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
 
   }
   void UpdateTeacherData({
-    required String firstname,
-    required String lastname,
-    required String phonenumber,
-    required String address,
-    required String subjectId,
+      firstname,
+      lastname,
+      phonenumber,
+      address,
+    urgent_phone_number,
+
 
 
 }){
@@ -51,7 +52,7 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
         'lastename':lastname,
         'phonenumber':phonenumber,
         'address':address,
-        'subjectId':subjectId,
+      '  urgent_phone_number':urgent_phone_number,
       },
     ).
     then((value) {

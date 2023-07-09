@@ -55,8 +55,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     Map<String, dynamic> body = {
       'first_name': first_name,
       'last_name': last_name,
-      'date_of_birth': '2002-06-05',
-      //DateFormat('yyyy-MM-dd').format(selectedDate).toString(),
+      'date_of_birth': DateFormat('yyyy-MM-dd').format(selectedDate).toString(),
       if (ischeck == 0) 'father_first_name': father_name,
       if (ischeck == 0) 'father_phone_number': father_phone,
       if (ischeck == 0) 'mother_first_name': first_mother_name,
@@ -68,7 +67,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       'gender_id': gender.toString(),
       'grade_number': gradeID.toString(),
       "have_kids": ischeck,
-
       'national_id': national_id.toString(),
     };
 

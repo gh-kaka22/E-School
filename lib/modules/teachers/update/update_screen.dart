@@ -20,9 +20,9 @@ class UpdateTeacher extends StatelessWidget {
 
     var TaddressController = TextEditingController();
 
-    var SubjectController = TextEditingController();
 
     var TeacherIdController = TextEditingController();
+    var TUphoneNumberController = TextEditingController();
 
 
     var formkey = GlobalKey<FormState>();
@@ -46,7 +46,6 @@ class UpdateTeacher extends StatelessWidget {
           TFirstnameController.text=model!.data!.firstName!;
           TLastnameController.text=model!.data!.lastName!;
           TphoneNumberController.text=model!.data!.phoneNumber!;
-          SubjectController.text=model!.data!.subjectId.toString();
           TaddressController.text=model!.data!.address!;
           TeacherIdController.text=model!.data!.teacherId.toString();
 
@@ -104,8 +103,30 @@ class UpdateTeacher extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: buildSForm(
+                                          controller:TphoneNumberController ,
+                                          labeltext: 'Phone Number')),
+                                  SizedBox(
+                                    width: w / 30,
+                                  ),
+                                  Expanded(
+                                      child: buildSForm(
                                           controller: TaddressController,
                                           labeltext: 'Address')),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: buildSForm(
+                                          controller: TUphoneNumberController  ,
+                                          labeltext: 'Urgent Phone Number')),
+                                  SizedBox(
+                                    width: w / 30,
+                                  ),
+
                                 ],
                               ),
                             ),
@@ -130,7 +151,7 @@ class UpdateTeacher extends StatelessWidget {
                                  lastname: TLastnameController.text,
                                  phonenumber: TphoneNumberController.text,
                                  address: TaddressController.text,
-                                 subjectId: TeacherIdController.text
+                                 urgent_phone_number: TUphoneNumberController.text,
                              ); }
 
                           })

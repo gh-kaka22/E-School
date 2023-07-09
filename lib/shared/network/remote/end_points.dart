@@ -40,7 +40,7 @@ const SHOWATTENDANCE='Ashowattendance';
 ///EXAMS
 const ADDEXAM='exams/store';
 const SHOWEXAMS='exams/show_for_admin';
-const GETSTEUDENTBYINDEX ='update_student';
+const GETSTEUDENTBYINDEX ='students/index';
 ///TIMETABLES
 const ADDTIMETABLE='create_schedule';
 const SHOWTIMETABLE= 'show_schedule_classroom';

@@ -26,6 +26,7 @@ class UpdateStudent extends StatelessWidget {
     var detailsController = TextEditingController();
 
     var addressController = TextEditingController();
+    var nationalityController = TextEditingController();
     var formkey = GlobalKey<FormState>();
     double w = MediaQuery
         .of(context)
@@ -38,7 +39,7 @@ class UpdateStudent extends StatelessWidget {
 
 
     return BlocProvider(
-      create: (context) => UpdateStudentsCubit(),
+      create: (context) => UpdateStudentsCubit()..getStudentData(1),
       child: BlocConsumer<UpdateStudentsCubit, UpdateStudentsState>(
         listener: (context, state) {
 
@@ -46,15 +47,17 @@ class UpdateStudent extends StatelessWidget {
         builder: (context, state) {
           var cubit = UpdateStudentsCubit.get(context);
           var model=UpdateStudentsCubit.get(context).studentModel;
-          FnameController.text=model!.data!.firstName!;
-          LnameController.text=model!.data!.lastName!;
-          fatherPhoneController.text=model!.data!.fatherPhoneNumber!;
-          motherPhoneController.text=model!.data!.motherPhoneNumber!;
-          addressController.text=model!.data!.address!;
-          FatherController.text=model!.data!.fatherName!;
-          FmotherController.text=model!.data!.motherFirstName!;
-          LmotherController.text=model!.data!.motherLastName!;
-         return ConditionalBuilder(
+          if (model != null && model.data != null) {
+            FnameController.text = model!.data!.firstName! ?? '';
+            LnameController.text = model!.data!.lastName! ?? '';
+            fatherPhoneController.text = model!.data!.fatherPhoneNumber! ?? '';
+            motherPhoneController.text = model!.data!.motherPhoneNumber! ?? '';
+            addressController.text = model!.data!.address! ?? '';
+            FatherController.text = model!.data!.fatherName! ?? '';
+            FmotherController.text = model!.data!.motherFirstName! ?? '';
+            LmotherController.text = model!.data!.motherLastName! ?? '';
+          }
+          return ConditionalBuilder(
             condition: UpdateStudentsCubit.get(context).studentModel!=null,
             builder: (context)=>Container(
               width: w - (w / 5) - 5,
@@ -119,20 +122,32 @@ class UpdateStudent extends StatelessWidget {
                         ),
                       ),
 
-                      // Padding(
-                      //   padding: const EdgeInsets.all(16.0),
-                      // ),
-                      // state is! UpdateStudentsLoading
-                      //     ? defaultButton(
-                      //     text: 'Update',
-                      //     width: w / 5,
-                      //     height: h / 20,
-                      //     onPressed: () {
-                      //       if(formkey.currentState!.validate()){
-                      //         UpdateStudentsCubit.get(context). }
-                      //
-                      //     })
-                      //     : Center(child: LinearProgressIndicator(color: kDarkBlue2Color,)),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                      ),
+                      state is! UpdateStudentsLoading
+                          ? defaultButton(
+                          text: 'Update',
+                          width: w / 5,
+                          height: h / 20,
+                          onPressed: () {
+                            if(formkey.currentState!.validate()){
+                              UpdateStudentsCubit.get(context).UpdateStudentData(
+                                  id: '1',
+                                  firstname: FnameController.text,
+                                  lastname: LnameController.text,
+                                  firstFatherName: FatherController.text,
+                                  firstMotherName: FmotherController.text,
+                                  lastMotherName: LmotherController.text,
+                                  fatherPhoneNumber:fatherPhoneController.text ,
+                                  motherPhoneNumber: motherPhoneController.text,
+                                  address: addressController.text,
+                                  details: detailsController.text,
+                                  nationalId:nationalityController.text,
+                              ); }
+
+                          })
+                          : Center(child: LinearProgressIndicator(color: kDarkBlue2Color,)),
 
                     ],
                   ),

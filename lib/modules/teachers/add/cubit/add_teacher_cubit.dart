@@ -17,7 +17,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
   AddTeacherCubit() : super(AddTeacherInitial());
   static AddTeacherCubit get(context) => BlocProvider.of(context);
   TeacherModel? teacher;
-  String? dropDownValueSubject='Subjects';
+  String? dropDownValueSubject='';
   List<DropdownMenuItem> menuItemsSubject = [];
   List<dynamic>? classRoom=[];
   List<dynamic>? classId=[];
