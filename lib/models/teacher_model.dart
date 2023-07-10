@@ -3,7 +3,7 @@ class TeacherModel {
   String? message;
   Data? data;
 
- TeacherModel({this.status, this.message, this.data});
+  TeacherModel({this.status, this.message, this.data});
 
   TeacherModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -19,6 +19,11 @@ class TeacherModel {
       data['data'] = this.data!.toJson();
     }
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'TeacherModel{status: $status, message: $message, data: $data}';
   }
 }
 
@@ -38,17 +43,17 @@ class Data {
 
   Data(
       {this.firstName,
-        this.lastName,
-        this.phoneNumber,
-        this.address,
-        this.subjectId,
-        this.userId,
-        this.updatedAt,
-        this.createdAt,
-        this.teacherId,
-        this.email,
-        this.passwordDecoded,
-        this.token});
+      this.lastName,
+      this.phoneNumber,
+      this.address,
+      this.subjectId,
+      this.userId,
+      this.updatedAt,
+      this.createdAt,
+      this.teacherId,
+      this.email,
+      this.passwordDecoded,
+      this.token});
 
   Data.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
@@ -80,5 +85,10 @@ class Data {
     data['password_decoded'] = this.passwordDecoded;
     data['token'] = this.token;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Data{firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, address: $address, subjectId: $subjectId, userId: $userId, updatedAt: $updatedAt, createdAt: $createdAt, teacherId: $teacherId, email: $email, passwordDecoded: $passwordDecoded, token: $token}';
   }
 }

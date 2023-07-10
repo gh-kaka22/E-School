@@ -46,6 +46,71 @@ class AddTeacher extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 )));
             //todo: Navigate to home
+            showDialog(
+                context: context,
+                builder: (ctx) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.all(
+                              Radius.circular(10.0))),
+
+                      title: MyText(name: "Email & Password", size: 25),
+                      content: Container(
+                        width: w/4,height: h/3,
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MyText(name: 'Teacher\'s Email',size: 20 ),
+                            Container(
+                              width: w/4,height: h/15,
+                              child: Center(child: Text('${AddTeacherCubit.get(context).teacher!.data!.email!}')),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: h/80,),
+                            MyText(name: 'Teacher\'s Password',size: 20 ),
+                            Container(
+                              width: w/4,height: h/15,
+                              child: Center(child: Text('${AddTeacherCubit.get(context).teacher!.data!.passwordDecoded!}')),
+
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: kDarkBlue2Color,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: h/80,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text('OK'),
+
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ));
           }
         },
         builder: (context, state) {
