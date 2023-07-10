@@ -23,6 +23,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   String? gradenumber;
   int? ischeck;
 
+
   changeCheck(val) {
     isChecked = val!;
     if (isChecked)

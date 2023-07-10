@@ -17,16 +17,21 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
   AddTeacherCubit() : super(AddTeacherInitial());
   static AddTeacherCubit get(context) => BlocProvider.of(context);
   TeacherModel? teacher;
-  String? dropDownValueSubject='';
+  String? dropDownValueSubject='none';
   List<DropdownMenuItem> menuItemsSubject = [];
   List<dynamic>? classRoom=[];
   List<dynamic>? classId=[];
+  int? subjectId;
+  
 
 
   void changeSubjectDropDownButton(String newValue)
   {
     dropDownValueSubject = newValue;
+    subjectId = menuItemsSubject.indexWhere((item) => item.value == newValue);
     emit(SubjectDropDownButtonState());
+
+
   }
 
   ///bringing classrooms and putting them in a multi select dialog
@@ -105,7 +110,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
       AddTeacherLoading(),
     );
     DioHelper.postData(
-      url: 'teacher/register',
+      url: ADDTEACHER,
       token: token,
       data: {
         'first_name': first_name,
@@ -119,7 +124,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
     ).then((value) {
       if (value!.data['status']) {
 
-      teacher = TeacherModel.fromJson(value?.data);
+      teacher = TeacherModel.fromJson(value.data);
       print(teacher?.data);
       emit(AddTeacherSuccess(teacher!));
       }

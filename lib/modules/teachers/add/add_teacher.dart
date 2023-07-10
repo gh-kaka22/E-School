@@ -32,13 +32,13 @@ class AddTeacher extends StatelessWidget {
       child: BlocConsumer<AddTeacherCubit, AddTeacherState>(
         listener: (context, state) {
 
-          if (state is AddTeacherError) {
+          if (state is AddTeacherError?) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
                 content: Text(state.toString(),
                     style: TextStyle(color: Colors.white))));
           }
-          if (state is AddTeacherSuccess) {
+          if (state is AddTeacherSuccess?) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.green,
                 content: Text(
@@ -226,7 +226,7 @@ class AddTeacher extends StatelessWidget {
                                 last_name: TLastnameController.text,
                                 phone_number: TphoneNumberController.text,
                                 address: TaddressController.text,
-                                subjectId: "2",
+                                subjectId: cubit.subjectId.toString(),
                                 classrooms: selectedItem,
                                 urgent_phone_number: TUphoneNumberController.text,
                               );
