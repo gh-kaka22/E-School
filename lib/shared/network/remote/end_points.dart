@@ -12,6 +12,7 @@ const GETSTUDENTSBYGRADEANDCLASSROOM='show_by_classroomAndGrade';
 ///TEACHER
 const UPDATETEACHER='update_teacher/';
 const ADDTEACHER='teacher/register';
+const SHOWTEACHERS='teacher';
 
 ///NOTICES
 const ADDNOTICE='/storenotice';

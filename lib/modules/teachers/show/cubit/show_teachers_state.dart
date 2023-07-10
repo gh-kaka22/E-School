@@ -6,7 +6,8 @@ abstract class ShowTeachersState {}
 class ShowTeachersInitial extends ShowTeachersState {}
 class ShowTeachersLoadingState extends ShowTeachersState {}
 class ShowTeachersSuccessState extends ShowTeachersState {
-  //todo: teacherMoel
+  TeacherModel teacherModel;
+  ShowTeachersSuccessState(this.teacherModel);
 }
 class ShowTeachersErrorState extends ShowTeachersState {
   final String error;

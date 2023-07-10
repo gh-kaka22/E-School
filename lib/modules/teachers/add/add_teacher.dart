@@ -182,10 +182,41 @@ class AddTeacher extends StatelessWidget {
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
                               children: [
+                                // Expanded(
+                                //     child: buildSForm(
+                                //         controller: TUphoneNumberController,
+                                //         labeltext: ' Urgent Phone Number')),
                                 Expanded(
-                                    child: buildSForm(
-                                        controller: TUphoneNumberController,
-                                        labeltext: ' Urgent Phone Number')),
+                                  child: MultiSelectDialogField(
+                                    items: cubit.items,
+                                    dialogWidth: w/3,
+                                    title: Text("CLASSROOMS"),
+                                    selectedColor: kGold1Color,
+                                    decoration: BoxDecoration(
+                                      color: null,
+                                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                                      border: Border.all(
+                                        color: kDarkBlue2Color,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    buttonIcon: Icon(
+                                      Icons.class_outlined,
+                                      color: kGold1Color,
+                                    ),
+                                    buttonText: Text(
+                                      "Choose Classrooms:",
+                                      style: TextStyle(
+                                        color: kGold1Color,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+
+                                    onConfirm: (results) {
+                                      selectedItem = results;
+                                    },
+                                  ),
+                                ),
                                 SizedBox(
                                   width: w / 30,
                                 ),
@@ -231,44 +262,7 @@ class AddTeacher extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Center(
-                              child: Container(
-                                width: w/3,
-                                color: Colors.white24,
-                                child: MultiSelectDialogField(
-                                  items: cubit.items,
-                                  dialogWidth: w/3,
-                                  title: Text("CLASSROOMS"),
-                                  selectedColor: kGold1Color,
-                                  decoration: BoxDecoration(
-                                    color: null,
-                                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                                    border: Border.all(
-                                      color: kDarkBlue2Color,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  buttonIcon: Icon(
-                                    Icons.class_outlined,
-                                    color: kGold1Color,
-                                  ),
-                                  buttonText: Text(
-                                    "Choose Classrooms:",
-                                    style: TextStyle(
-                                      color: kGold1Color,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-
-                                  onConfirm: (results) {
-                                     selectedItem = results;
-                                  },
-                                ),
-                              ),
-                            ),
-                          )
+                         
 
 
 
@@ -293,7 +287,7 @@ class AddTeacher extends StatelessWidget {
                                 address: TaddressController.text,
                                 subjectId: cubit.subjectId.toString(),
                                 classrooms: selectedItem,
-                                urgent_phone_number: TUphoneNumberController.text,
+                               // urgent_phone_number: TUphoneNumberController.text,
                               );
                             })
                         : Center(child: CircularProgressIndicator()),

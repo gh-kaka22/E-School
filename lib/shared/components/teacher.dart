@@ -24,7 +24,7 @@ Widget ShowTeachersItem(w, teacher, index, context) => Container(
           children: [
             Expanded(
                 child: Center(
-              child: Text('${teacher.teacherId}',
+              child: Text('${teacher.userId}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
             Expanded(
@@ -35,15 +35,10 @@ Widget ShowTeachersItem(w, teacher, index, context) => Container(
             Expanded(
               child: Center(child: Text('${teacher.lastName}')),
             ),
-            Expanded(child: Center(child: Text('${teacher.gradeId}'))),
+            Expanded(child: Center(child: Text('${teacher.address}'))),
             Expanded(
-              child: Center(child: Text('${teacher.roomNumber}')),
+              child: Center(child: Text('${teacher.email}')),
             ),
-            Expanded(
-                child: Center(
-              child: Text('${teacher.email}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
             Expanded(
               child: Center(
                 child: defaultButton(

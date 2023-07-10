@@ -59,6 +59,9 @@ dependencies:
   open_file: ^3.2.1
   shared_preferences:
   intl:
+  charts_flutter:
+  circular_chart_flutter:
+  syncfusion_flutter_charts:
 
 
 

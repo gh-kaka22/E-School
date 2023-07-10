@@ -83,7 +83,7 @@ class StudentRegisterScreen extends StatelessWidget {
 
                       title: MyText(name: "Email & Password", size: 25),
                       content: Container(
-                        width: w/4,height: h/2,
+                        width: w/4,height: h/2+h/8,
 
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,

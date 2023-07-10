@@ -59,18 +59,20 @@ class ShowTeachers extends StatelessWidget {
                           ),
                           Expanded(child: Center(child: ShowText(name:'Subject'))),
                           Expanded(
-                            child: Center(child: ShowText(name:'Section')),
-                          ),
-                          Expanded(
                               child: Center(
-                                child: ShowText(name:'E-Mail',
+                                child: ShowText(name:'address',
                                 ),
                               )),
-                          Expanded(
-                              child: Center(
-                                child: ShowText(name:'Refreach',
-                                ),
-                              )),
+                       Expanded(
+                  child: Center(
+                    child: ShowText(name:'E-Mail',
+                    ),
+                  )),
+                       Expanded(
+                  child: Center(
+                    child: ShowText(name:'Edit',
+                    ),
+                  )),
 
 
                         ],
@@ -80,7 +82,7 @@ class ShowTeachers extends StatelessWidget {
                   Expanded(
                       child: ShowTeachersBuilder(
                           w,
-                          cubit,
+                          cubit.teacherModel?.data,
                           context,
                           state
                       )

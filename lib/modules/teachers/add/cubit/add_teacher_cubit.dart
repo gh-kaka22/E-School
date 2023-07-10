@@ -99,7 +99,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
         required String first_name,
         required String last_name,
         required String phone_number,
-        required String urgent_phone_number,
+       // required String urgent_phone_number,
         required String address,
         required subjectId,
         required classrooms,
@@ -118,7 +118,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
         'phone_number': phone_number,
         'address': address,
         'subject_id': subjectId,
-        'urgent_phone_number':urgent_phone_number,
+        //'urgent_phone_number':urgent_phone_number,
         'classrooms':classrooms,
       },
     ).then((value) {

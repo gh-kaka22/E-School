@@ -22,6 +22,7 @@ import 'package:untitled/modules/students/show/show_students.dart';
 import 'package:untitled/modules/subjects/add/add_subject.dart';
 import 'package:untitled/modules/subjects/show/show_subjects.dart';
 import 'package:untitled/modules/teachers/add/add_teacher.dart';
+import 'package:untitled/modules/teachers/show/show_teachers.dart';
 import 'package:untitled/modules/timetable/add/add_timetable.dart';
 import 'package:untitled/modules/teachers/update/update_screen.dart';
 import 'package:untitled/modules/timetable/show/show_timetable.dart';
@@ -75,7 +76,7 @@ class HomeLayout extends StatelessWidget {
                           ),
                           cubit.SideBarItem(
                               text: 'Teachers',
-                              showScreen: UpdateTeacher(),
+                              showScreen: ShowTeachers(),
                               addScreen: AddTeacher(),
                           ),
                           cubit.SideBarItem(
