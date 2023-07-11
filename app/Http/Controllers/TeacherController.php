@@ -16,6 +16,7 @@ class TeacherController extends Controller
     public function index()
     {
         $teachers = Teacher::all();
+
         return $this->apiResponse('success',$teachers);
     }
 
@@ -50,6 +51,18 @@ class TeacherController extends Controller
         $teacher = Teacher::find($request->id);
          if(!$teacher)
              return $this->apiResponse('Teacher not found',null,false);
+
+        $teacher['subject_name'] = DB::table('subjects')
+            ->where('subject_id', '=', $teacher->subject_id)
+            ->first()->name;
+
+        $classrooms = DB::table('teachers_classrooms')
+            ->where('teacher_id', '=', $teacher->teacher_id)
+            ->get();
+
+
+        $teacher['classrooms'] = collect($classrooms)->pluck('classroom_id')->toArray();
+
         return $this->apiResponse('success',$teacher);
 
     }
@@ -110,6 +123,9 @@ class TeacherController extends Controller
             ->get();
         return $this->apiResponse('success',$teachers);
     }
+
+
+
 
 
 

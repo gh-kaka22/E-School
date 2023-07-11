@@ -88,6 +88,12 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::post('/teacher/register', [\App\Http\Controllers\AuthController::class, 'TeacherRegister']);
     Route::post('/update_teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'update']);
 
+
+    //teachers classrooms routes
+    Route::get('/teachers_of_classrooms', [\App\Http\Controllers\TeacherClassroomController::class, 'index']);
+
+
+
     //Attendance routes
         Route::Post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);
         Route::get('/Ashowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforadmin']);
