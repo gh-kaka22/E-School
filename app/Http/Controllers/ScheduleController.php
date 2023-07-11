@@ -109,8 +109,12 @@ class ScheduleController extends Controller
             ->where('user_id','=',$user_id)
             ->first();
 
-
-
+//        $teacherclassroom = DB::table('teachers_classrooms')
+//            ->where('teacher_id','=',$teacher->teacher_id)
+//            ->get();
+//
+//        $classroomIds = collect($teacherclassroom)->pluck('classroom_id')->toArray();
+//        return $classroomIds;
 
         $data = DB::table('schedules as s')
             ->where('s.day_number', '=', $day_number)
@@ -126,6 +130,8 @@ class ScheduleController extends Controller
     '))
             ->join('classrooms as c', 's.classroom_id', '=', 'c.classroom_id')
             ->join('teachers_classrooms as tc', 'c.classroom_id', '=', 'tc.classroom_id')
+            ->where('tc.teacher_id', '=', $teacher->teacher_id)
+
             ->join('teachers as t', function ($join) use ($teacher) {
                 $join
                     ->where('s.first_subject', '=', $teacher->subject_id)

@@ -79,6 +79,15 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
         Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
 
 
+//Teacher Routes
+    Route::get('/teachers', [\App\Http\Controllers\TeacherController::class, 'index']);
+    Route::get('/teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'show']);
+    Route::get('/delete_teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'destroy']);
+    Route::get('/subject_teachers/{id}', [\App\Http\Controllers\TeacherController::class, 'subjectTeacher']);
+    Route::get('/search_teacher', [\App\Http\Controllers\TeacherController::class, 'searchByName']);
+    Route::post('/teacher/register', [\App\Http\Controllers\AuthController::class, 'TeacherRegister']);
+    Route::post('/update_teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'update']);
+
     //Attendance routes
         Route::Post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);
         Route::get('/Ashowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforadmin']);
