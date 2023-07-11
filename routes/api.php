@@ -79,7 +79,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
         Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
 
 
-//Teacher Routes
+//Teacher  Routes
     Route::get('/teachers', [\App\Http\Controllers\TeacherController::class, 'index']);
     Route::get('/teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'show']);
     Route::get('/delete_teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'destroy']);

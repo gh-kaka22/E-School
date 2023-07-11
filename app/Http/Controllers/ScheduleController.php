@@ -109,7 +109,7 @@ class ScheduleController extends Controller
             ->where('user_id','=',$user_id)
             ->first();
 
-//        $teacherclassroom = DB::table('teachers_classrooms')
+//         $teacherclassroom = DB::table('teachers_classrooms')
 //            ->where('teacher_id','=',$teacher->teacher_id)
 //            ->get();
 //
