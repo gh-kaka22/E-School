@@ -26,6 +26,7 @@ class HomeCubit extends Cubit<HomeStates>{
   void getHomeData()
   {
     emit(HomeLoadingState());
+    print(token);
     DioHelper.getData(
         url: HOME,
       token: token

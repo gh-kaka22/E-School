@@ -28,12 +28,12 @@ class SchoolLoginScreen extends StatelessWidget {
             if (state is SchoolLoginSuccessState) {
               if (state.loginModel.status ?? true) {
                 print(state.loginModel.message);
-                print(state.loginModel.data?.token);
                 showToast(
                     text: state.loginModel.message,
                     state: ToastStates.SUCCESS
                 );
                 CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value) {
+                  print(state.loginModel.data?.token);
                   navigateAndFinish(context, HomeLayout());
                 });
 
