@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
-{//
+{
     use ApiResponseTrait;
 
     public function createForStudent(Request $request){
