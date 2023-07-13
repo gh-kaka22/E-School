@@ -25,10 +25,6 @@ class ProfileStudent extends StatelessWidget {
               "text": "${cubit.profileModel?.data?.email}",
             },
             {
-              "desc":"Password :",
-              "text": "${cubit.profileModel?.data?.password}",
-            },
-            {
               "desc":"Grade :",
               "text": "${cubit.profileModel?.data?.grade_id}",
             },
