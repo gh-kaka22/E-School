@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\PostDestination;
 use App\Models\Student;
 use App\Models\Student_classroom;
+use App\Models\Teacher;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,9 +22,10 @@ class PostController extends Controller
 
         $data = $request->validate([
             'body'=>['required'],
-            'type_id'=>['required'],
+            //'type_id'=>['required'],
             'student_id'=>['required']
         ]);
+        $creator_id=Auth::id();
 
         $student=Student::find($request->student_id);
         if(!$student)
@@ -35,8 +37,9 @@ class PostController extends Controller
 
             $post=Post::create([
                 'body'=>$request->body,
-                'type_id'=>$request->type_id,
-                'date'=>$currentDateTimeString
+                //'type_id'=>$request->type_id,
+                'date'=>$currentDateTimeString,
+                'user_id'=>$creator_id
             ]);
 
 
@@ -57,17 +60,20 @@ class PostController extends Controller
 
         $request->validate([
             'body'=>['required'],
-            'type_id'=>['required'],
+            //'type_id'=>['required'],
             'classroom_id'=>['required']
         ]);
+
+        $creator_id=Auth::id();
 
 
             $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
 
             $post=Post::create([
                 'body'=>$request->body,
-                'type_id'=>$request->type_id,
-                'date'=>$currentDateTimeString
+                //'type_id'=>$request->type_id,
+                'date'=>$currentDateTimeString,
+                'user_id'=>$creator_id
             ]);
 
 
@@ -92,16 +98,19 @@ class PostController extends Controller
     public function createForGrade(Request $request){
         $request->validate([
             'body'=>['required'],
-            'type_id'=>['required'],
+            //'type_id'=>['required'],
             'grade_id'=>['required']
         ]);
+
+        $creator_id=Auth::id();
 
             $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
 
             $post=Post::create([
                 'body'=>$request->body,
-                'type_id'=>$request->type_id,
-                'date'=>$currentDateTimeString
+                //'type_id'=>$request->type_id,
+                'date'=>$currentDateTimeString,
+                'user_id'=>$creator_id
             ]);
 
 
@@ -126,15 +135,18 @@ class PostController extends Controller
     public function createForSchool(Request $request){
         $request->validate([
             'body'=>['required'],
-            'type_id'=>['required'],
+            //'type_id'=>['required'],
         ]);
+
+        $creator_id=Auth::id();
 
             $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
 
             $post=Post::create([
                 'body'=>$request->body,
-                'type_id'=>$request->type_id,
-                'date'=>$currentDateTimeString
+                //'type_id'=>$request->type_id,
+                'date'=>$currentDateTimeString,
+                'user_id'=>$creator_id
             ]);
 
              $user_ids = DB::table('users')
@@ -158,23 +170,43 @@ class PostController extends Controller
     }
 
     public function getPosts(Request $request){
-        $request->validate([
-            'type_id'=>['required','integer']
-        ]);
-
-        $user_id=Auth::id();
-        $type_id=$request->type_id;
-
+//        $request->validate([
+//            'type_id'=>['required','integer']
+//        ]);
+        $user=Auth::user();
 
 
         $posts = DB::table('posts_destination')
             ->join('posts', 'posts.post_id', '=', 'posts_destination.post_id')
-            ->where('posts_destination.user_id','=', $user_id)
-            ->where('posts.type_id','=', $type_id)
+            ->join('users','users.id','=','posts.user_id')
+            ->where('posts_destination.user_id','=', $user->id)
+            ->select('posts.post_id','posts.body','posts.date','posts.updated_at','posts.user_id','role')
             ->get();
             //->pluck('body');
 
-        return $this->apiResponse('success',$posts);
+        $res=array();
+
+        foreach($posts as $post) {
+            $post->likes_count=$this->likes($post->post_id);
+            $post->coments_count=$this->comments($post->post_id);
+            if ($post->role == 4)
+            {
+                $teacher=DB::table('teachers')
+                ->where('user_id','=',$post->user_id)
+                ->first();
+                $post->publisher=$teacher->first_name . " " . $teacher->last_name;
+                array_push($res,$post);
+            }
+            else{
+                $post->publisher='school';
+                array_push($res,$post);
+
+            }
+        }
+
+
+
+        return $this->apiResponse('success',$res);
 
 
 
@@ -195,6 +227,18 @@ class PostController extends Controller
 
 
 
+    }
+
+    public function  likes($post_id){
+        $post = Post::find($post_id);
+        $likes = $post->likes()->get();
+        return count($likes);
+    }
+
+    public function comments($post_id){
+        $post = Post::find($post_id);
+        $comments = $post->comments;
+        return count($comments);
     }
 
 }

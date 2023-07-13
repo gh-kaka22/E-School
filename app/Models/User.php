@@ -72,4 +72,10 @@ class User extends Authenticatable
         return $this->hasMany(Admin::class);
 
     }
+
+    public function posts() : HasMany
+    {
+        return $this->hasMany(PostDestination::class);
+
+    }
 }

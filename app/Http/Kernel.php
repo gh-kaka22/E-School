@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\CheckAdminMiddleware;
+use App\Http\Middleware\CheckAdminOwnerTeacherMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -72,6 +73,7 @@ class Kernel extends HttpKernel
         'isStudentOrParent' => \App\Http\Middleware\CheckStudentOrParentMiddleware::class,
         'isTeacher' => \App\Http\Middleware\CheckTeacherMiddleware::class,
         'isStudentOrParentOrTeacher' => \App\Http\Middleware\CheckStudentOrParentOrTeacherMiddleware::class,
+        'isAdminOrOwnerOrTeacher' => \App\Http\Middleware\CheckAdminOwnerTeacherMiddleware::class
 
     ];
 }

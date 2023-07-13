@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //Post Routes
-Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
+
 Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
 
 //............................registe routes.............................................
@@ -218,6 +218,13 @@ Route::middleware(['auth:api', 'isTeacher'])->group(function () {
 
 //Student or Parent or Teacher routes
 Route::middleware(['auth:api', 'isStudentOrParentOrTeacher'])->group(function () {
+
+});
+
+
+//Owner or Admin or Teacher routes
+Route::middleware(['auth:api', 'isAdminOrOwnerOrTeacher'])->group(function () {
+    Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
 
 });
 
