@@ -15,7 +15,7 @@ return new class extends Migration
             //$table->id();
             $table->bigIncrements('post_id');
             $table->longText('body');
-            $table->dateTime('date');
+            $table->string('date');
             $table->unsignedbigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                ->onUpdate('cascade');

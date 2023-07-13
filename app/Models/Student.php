@@ -95,6 +95,12 @@ class Student extends Authenticatable
 
     }
 
+    public function parents() : BelongsTo
+    {
+        return $this->belongsTo(Parentt::class,'parent_id');
+
+    }
+
 
 }
 

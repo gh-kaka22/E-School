@@ -33,7 +33,7 @@ class PostController extends Controller
         $user_id=$student->user_id;
 
 
-            $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
+            $currentDateTimeString = Carbon::now()->format('d F Y');;
 
             $post=Post::create([
                 'body'=>$request->body,
@@ -67,7 +67,7 @@ class PostController extends Controller
         $creator_id=Auth::id();
 
 
-            $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
+            $currentDateTimeString = Carbon::now()->format('d F Y');;
 
             $post=Post::create([
                 'body'=>$request->body,
@@ -104,7 +104,7 @@ class PostController extends Controller
 
         $creator_id=Auth::id();
 
-            $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
+            $currentDateTimeString = Carbon::now()->format('d F Y');;
 
             $post=Post::create([
                 'body'=>$request->body,
@@ -140,7 +140,7 @@ class PostController extends Controller
 
         $creator_id=Auth::id();
 
-            $currentDateTimeString = Carbon::now()->format('Y-m-d H:i:s');
+            $currentDateTimeString = Carbon::now()->format('d F Y');;
 
             $post=Post::create([
                 'body'=>$request->body,
@@ -189,6 +189,7 @@ class PostController extends Controller
         foreach($posts as $post) {
             $post->likes_count=$this->likes($post->post_id);
             $post->coments_count=$this->comments($post->post_id);
+            $post->is_liked=$this->isLiked($post->post_id,$user->id);
             if ($post->role == 4)
             {
                 $teacher=DB::table('teachers')
@@ -198,7 +199,7 @@ class PostController extends Controller
                 array_push($res,$post);
             }
             else{
-                $post->publisher='school';
+                $post->publisher='E-School';
                 array_push($res,$post);
 
             }
@@ -239,6 +240,13 @@ class PostController extends Controller
         $post = Post::find($post_id);
         $comments = $post->comments;
         return count($comments);
+    }
+
+    public function isLiked($post_id,$user_id){
+        $post = Post::find($post_id);
+        if($post->likes()->where('user_id',$user_id)->exists())
+            return true;
+        return false;
     }
 
 }

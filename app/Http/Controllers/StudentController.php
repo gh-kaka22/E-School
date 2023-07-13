@@ -30,9 +30,19 @@ class StudentController extends Controller
 
     public function show($student_id)
     {
-        $student = Student::find($student_id);
-        if (!$student)
-            return $this->apiResponse('Student not found',null,false);
+
+
+        $student = DB::table('students')
+            ->join('parents', 'students.parent_id', '=', 'parents.parent_id')
+            ->where('students.student_id','=',$student_id)
+            ->select('students.*', 'parents.*')
+            ->first();
+
+        if(!$student)
+            return $this->apiResponse('student not found',null,false);
+
+
+
         return $this->apiResponse('success', $student);
     }
 
