@@ -3,7 +3,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:untitled/models/student_model.dart';
+import 'package:untitled/models/update_student_model.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import '../../../../shared/components/constants.dart';
 import '../../../../shared/network/remote/end_points.dart';
@@ -14,7 +14,7 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   UpdateStudentsCubit() : super(UpdateStudentsInitial());
 
   static UpdateStudentsCubit get(context) => BlocProvider.of(context);
-  StudentModel? studentModel;
+  UpdateStudentModel? updateStudentModel;
   String? grade;
   String? dropDownValue;
   int? gradeID;
@@ -83,9 +83,9 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
       url: '${SHOWSTUDENTBYID}/${1}',
       token: token,
     ).then((value) {
-      studentModel = StudentModel.fromJson(value!.data);
-      print(studentModel!.data!.firstName);
-      emit(ShowStudentInfoSuccess(studentModel!));
+      updateStudentModel = UpdateStudentModel.fromJson(value!.data);
+      print(updateStudentModel!.data!.firstName);
+      emit(ShowStudentInfoSuccess(updateStudentModel!));
     }).catchError((error) {
       print(error.toString());
       emit(ShowStudentInfoError(error));
@@ -108,8 +108,8 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
     religion,
   }) {
     emit(UpdateStudentsLoading());
-    DioHelper.postData(
-      url: '${UPDATESTUDENT}',
+    DioHelper.puttData(
+      url: '${UPDATESTUDENT}/1',
       token: token,
       data: {
         'first_name': firstname,
@@ -127,9 +127,9 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
     ).then((value) {
       print(value?.data);
       if (value!.data['status']) {
-        studentModel = StudentModel.fromJson(value.data);
-        print(studentModel?.data);
-        emit(UpdateStudentsSuccess(studentModel!));
+        updateStudentModel = UpdateStudentModel.fromJson(value.data);
+        print(updateStudentModel?.data);
+        emit(UpdateStudentsSuccess(updateStudentModel!));
       } else {
         emit(UpdateStudentsError(value.data['message']));
       }

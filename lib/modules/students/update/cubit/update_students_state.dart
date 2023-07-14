@@ -6,8 +6,8 @@ abstract class UpdateStudentsState {}
 class UpdateStudentsInitial extends UpdateStudentsState {}
 class UpdateStudentsLoading  extends UpdateStudentsState {}
 class UpdateStudentsSuccess extends UpdateStudentsState {
-  final StudentModel studentModel;
-  UpdateStudentsSuccess(this.studentModel);
+  final UpdateStudentModel updateStudentModel;
+  UpdateStudentsSuccess(this.updateStudentModel);
 }
 class UpdateStudentsError extends UpdateStudentsState {
   final String error;
@@ -17,8 +17,8 @@ class UpdateStudentsError extends UpdateStudentsState {
 
 class ShowStudentInfoLoading  extends UpdateStudentsState {}
 class ShowStudentInfoSuccess extends UpdateStudentsState {
-  final StudentModel studentModel;
-  ShowStudentInfoSuccess(this.studentModel);
+  final UpdateStudentModel updateStudentModel;
+  ShowStudentInfoSuccess(this.updateStudentModel);
 }
 class ShowStudentInfoError extends UpdateStudentsState {
   final String error;
