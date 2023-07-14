@@ -84,13 +84,12 @@ class StudentController extends Controller
     public function searchByName(Request $request)
     {
         $attributes = $request->validate([
-            'first_name' => ['required', 'max:55', 'string'],
-            'last_name' => ['required', 'max:55', 'string'],
+            'name' => ['required', 'max:55', 'string'],
         ]);
 
         $student = DB::table('students')
-            ->where('first_name', '=', $request->first_name)
-            ->orWhere('last_name', '=', $request->last_name)
+            ->where('first_name', '=', $request->name)
+            ->orWhere('last_name', '=', $request->name)
             ->get();
 
 
