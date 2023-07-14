@@ -20,7 +20,7 @@ class CommentController extends Controller
         if(!$post)
             return $this->apiResponse('no post found',null,false);
         $comments = $post->comments;
-        $res=array();
+
 
         foreach($comments as $comment){
             $commentDate = Carbon::parse($comment->created_at);
@@ -28,36 +28,32 @@ class CommentController extends Controller
             $comment->date = $timeAgo;
             $user = User::find($comment->user_id);
             $role = $user->role;
-            if($role == 0){
-            $comment->publisher = "E-School";
-            array_push($res,$comment);
-            }
 
-            if($role == 1){
+            if($role == 0)
+                 $comment->publisher = "E-School";
+
+
+            if($role == 1)
                 $comment->publisher = "E-School";
-                array_push($res,$comment);
-            }
+
 
             if($role == 2){
                 $student = DB::table('students')->where('user_id','=',$user->id)->first();
                 $comment->publisher = $student->first_name . " " . $student->last_name;
-                array_push($res,$comment);
             }
 
             if($role == 3){
                 $parent = DB::table('parents')->where('user_id','=',$user->id)->first();
                 $comment->publisher = $parent->father_first_name . " " . $parent->father_last_name;
-                array_push($res,$comment);
             }
 
             if($role == 4){
                 $teacher = DB::table('teachers')->where('user_id','=',$user->id)->first();
                 $comment->publisher = $teacher->first_name . " " . $teacher->last_name;
-                array_push($res,$comment);
             }
 
         }
-        return $this->apiResponse('success',$res);
+        return $this->apiResponse('success',$comments);
     }
 
     public function store(Request $request)
