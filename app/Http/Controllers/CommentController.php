@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -22,6 +23,9 @@ class CommentController extends Controller
         $res=array();
 
         foreach($comments as $comment){
+            $commentDate = Carbon::parse($comment->created_at);
+            $timeAgo = $commentDate->diffForHumans();
+            $comment->date = $timeAgo;
             $user = User::find($comment->user_id);
             $role = $user->role;
             if($role == 0){
