@@ -49,7 +49,7 @@ class StudentController extends Controller
 
     public function update(Request $request,$student_id)
     {
-//
+
         $data=$request->all();
         $student=Student::find($student_id);
 
@@ -59,54 +59,6 @@ class StudentController extends Controller
         $student->update($data);
         return $this->apiResponse('success',$student);
 
-        ///عمرين اذا بقى بتعمل شي راوت put لا تلوم الا حالك وقد أعذر من أنذر
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-//
-//        $request->validate([
-//            'first_name' => [ 'max:55', 'string' ,'nullable'],
-//            'last_name' => [ 'max:55', 'string','nullable'],
-//            'date_of_birth'=>[ 'date','date_format:Y-m-d','nullable'],
-//            'religion' => [ 'max:55', 'string','nullable'],
-//            'address'=>[ 'string','nullable'],
-//            //'grade_number'=>['required', 'max:12', 'integer'],
-//            //'status' => $request->has('status') ? $request['status'] : $student['status'],
-//            'details' => ['nullable'],
-//            'parent_id'=>['nullable','integer'],
-//            'gender_id'=>['integer'],
-//
-//        ]);
-//
-//
-//
-//
-//        $student = Student::find($student_id);
-//
-//        $student= Student::query()->find($student_id)->update(
-//            [
-//                'first_name' => $request->has('first_name') ? $request['first_name'] : $student['first_name'],
-//                'last_name' => $request->has('last_name') ? $request['last_name'] : $student['last_name'],
-//                'date_of_birth' => $request->has('date_of_birth') ? $request['date_of_birth'] : $student['date_of_birth'],
-//                'religion' => $request->has('religion') ? $request['religion'] : $student['religion'],
-//                'address' => $request->has('address') ? $request['address'] : $student['address'],
-//                //'grade_id' => $request->has('grade_number') ? $request['grade_number'] : $student['grade_number'],
-//                'details' => $request->has('details') ? $request['details'] : $student['details'],
-//                'parent_id' => $request->has('parent_id') ? $request['parent_id'] : $student['parent_id'],
-//                //'status' => $request->has('status') ? $request['status'] : $student['status'],
-//                'gender_id' => $request->has('gender_id') ? $request['gender_id'] : $student['gender_id'],
-//
-//            ]);
-//
-//
-//        $student = Student::query()->where('student_id', '=', $student_id)->first();
-//
-//        if (!$student)
-//            return $this->apiResponse('Student not found',null,false);
-//        return $this->apiResponse('Student updated successfully', $student);
 
     }
 
