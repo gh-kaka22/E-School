@@ -6,9 +6,9 @@ abstract class UpdateTeacherState {}
 class UpdateTeacherInitial extends UpdateTeacherState {}
 class UpdateTeacherDataLoading extends UpdateTeacherState{}
 class UpdateTeacherDataSuccess extends UpdateTeacherState{
-  final TeacherModel teacherModel;
+  final UpdateTeacherModel updateTeacherModel;
 
-  UpdateTeacherDataSuccess(this.teacherModel);
+  UpdateTeacherDataSuccess(this.updateTeacherModel);
 
 
 }
@@ -19,8 +19,8 @@ class UpdateTeacherDataError extends UpdateTeacherState{
 
 class ShowTeacherDataLoading extends UpdateTeacherState{}
 class ShowTeacherDataSuccess extends UpdateTeacherState{
-  final TeacherModel teacherModel;
-  ShowTeacherDataSuccess(this.teacherModel);
+  final UpdateTeacherModel updateTeacherModel;
+  ShowTeacherDataSuccess(this.updateTeacherModel);
 
 }
 class ShowTeacherDataError extends UpdateTeacherState{

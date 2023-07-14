@@ -46,7 +46,7 @@ class UpdateTeacher extends StatelessWidget {
         },
         builder: (context, state) {
           var cubit = UpdateTeacherCubit.get(context);
-          var model = UpdateTeacherCubit.get(context).teacherModel;
+          var model = UpdateTeacherCubit.get(context).updateTeacherModel;
           if (model != null && model.data != null) {
             TFirstnameController.text = model.data!.firstName!;
             TLastnameController.text = model.data!.lastName!;
@@ -54,7 +54,7 @@ class UpdateTeacher extends StatelessWidget {
             TaddressController.text = model.data!.address!;
           }
           return ConditionalBuilder(
-            condition: UpdateTeacherCubit.get(context).teacherModel != null,
+            condition: UpdateTeacherCubit.get(context).updateTeacherModel != null,
             builder: (context) => Container(
               width: w - (w / 5) - 5,
               decoration: BoxDecoration(

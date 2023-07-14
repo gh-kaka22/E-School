@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
 import 'package:meta/meta.dart';
-import 'package:untitled/models/teacher_model.dart';
+import 'package:untitled/models/update_teacher_model.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 
 import '../../../../shared/components/constants.dart';
@@ -12,7 +12,7 @@ part 'update_teacher_state.dart';
 class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
   UpdateTeacherCubit() : super(UpdateTeacherInitial());
   static UpdateTeacherCubit get(context) => BlocProvider.of(context);
-  TeacherModel? teacherModel;
+  UpdateTeacherModel? updateTeacherModel;
   void getTeacherData(value)
   {
     emit(ShowTeacherDataLoading());
@@ -20,10 +20,10 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
       url:'teacher/${1}',
       token:token ,
     ).then((value) {
-      teacherModel = TeacherModel.fromJson(value!.data);
-      print(teacherModel!.data!.firstName);
-      print(teacherModel!.data!.phoneNumber);
-      emit(ShowTeacherDataSuccess(teacherModel!));
+      updateTeacherModel = UpdateTeacherModel.fromJson(value!.data);
+      print(updateTeacherModel!.data!.firstName);
+      print(updateTeacherModel!.data!.phoneNumber);
+      emit(ShowTeacherDataSuccess(updateTeacherModel!));
 
     }
     ).catchError((error){
@@ -55,9 +55,9 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
     ).then((value) {
       print(value?.data);
       if (value!.data['status']) {
-        teacherModel = TeacherModel.fromJson(value.data);
-        print(teacherModel!.data!.firstName);
-        emit(UpdateTeacherDataSuccess(teacherModel!));
+        updateTeacherModel = UpdateTeacherModel.fromJson(value.data);
+        print(updateTeacherModel!.data!.firstName);
+        emit(UpdateTeacherDataSuccess(updateTeacherModel!));
       }else{
         emit(UpdateTeacherDataError(value.data['message']));
       }

@@ -62,7 +62,7 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: UpdateStudent(id: 1),
+                            screen: UpdateTeacher(id: 1),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',
