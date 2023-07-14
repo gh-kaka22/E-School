@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:untitled/models/show_teacher_model.dart';
 import 'package:untitled/models/teacher_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -11,7 +12,7 @@ part 'show_teachers_state.dart';
 class ShowTeachersCubit extends Cubit<ShowTeachersState> {
   ShowTeachersCubit() : super(ShowTeachersInitial());
   static ShowTeachersCubit get(context) => BlocProvider.of(context);
-  TeacherModel? teacherModel;
+  ShowTeacherModel? showTeacherModel;
   List<dynamic>? teachers;
   void getTeachers()
   {
@@ -21,13 +22,11 @@ class ShowTeachersCubit extends Cubit<ShowTeachersState> {
       token: token,
     ).then((value) {
       print(value?.data);
-      teacherModel = TeacherModel.fromJson(value?.data);
-      print(teacherModel?.status);
-      print(teacherModel?.message);
-      print(teacherModel?.data?.address);
-      teachers = teacherModel?.data as List;
-      print(teachers?[1].religion);
-      emit(ShowTeachersSuccessState(teacherModel!));
+      showTeacherModel = ShowTeacherModel.fromJson(value?.data);
+      print(showTeacherModel?.status);
+      print(showTeacherModel?.message);
+      teachers = showTeacherModel?.data;
+      emit(ShowTeachersSuccessState(showTeacherModel!));
     }).catchError((error){
       print(error.toString());
       emit(ShowTeachersErrorState(error.toString()));

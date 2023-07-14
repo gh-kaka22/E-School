@@ -6,8 +6,8 @@ abstract class ShowTeachersState {}
 class ShowTeachersInitial extends ShowTeachersState {}
 class ShowTeachersLoadingState extends ShowTeachersState {}
 class ShowTeachersSuccessState extends ShowTeachersState {
-  TeacherModel teacherModel;
-  ShowTeachersSuccessState(this.teacherModel);
+  ShowTeacherModel showTeacherModel;
+  ShowTeachersSuccessState(this.showTeacherModel);
 }
 class ShowTeachersErrorState extends ShowTeachersState {
   final String error;

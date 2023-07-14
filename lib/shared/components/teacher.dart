@@ -24,7 +24,7 @@ Widget ShowTeachersItem(w, teacher, index, context) => Container(
           children: [
             Expanded(
                 child: Center(
-              child: Text('${teacher.userId}',
+              child: Text('${teacher.teacherId}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
             Expanded(
@@ -35,15 +35,18 @@ Widget ShowTeachersItem(w, teacher, index, context) => Container(
             Expanded(
               child: Center(child: Text('${teacher.lastName}')),
             ),
+            Expanded(
+              child: Center(child: Text('${teacher.subjectId}')),
+            ),
             Expanded(child: Center(child: Text('${teacher.address}'))),
             Expanded(
-              child: Center(child: Text('${teacher.email}')),
+              child: Center(child: Text('${teacher.details}')),
             ),
             Expanded(
               child: Center(
                 child: defaultButton(
                   onPressed: () {
-                    navigateTo(context, UpdateTeacher());
+                    navigateTo(context, UpdateTeacher(id: teacher.id,));
                   },
                   height: 30,
                   text: 'Edit',
@@ -61,7 +64,7 @@ Widget ShowTeachersBuilder(w, teachers, context, state) => ConditionalBuilder(
       condition: state is! ShowTeachersLoadingState && teachers != null,
       builder: (context) => ListView.separated(
           itemBuilder: (context, index) =>
-              ShowStudentsItem(w, teachers[index], index, context),
+              ShowTeachersItem(w, teachers[index], index, context),
           separatorBuilder: (context, index) {
             return MyDivider();
           },

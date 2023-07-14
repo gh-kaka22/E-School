@@ -1,22 +1,21 @@
 
 import 'dart:convert';
 
-ShowAdminsModel showAdminssModelFromJson(String str) => ShowAdminsModel.fromJson(json.decode(str));
+ShowTeacherModel showTeacherModelFromJson(String str) => ShowTeacherModel.fromJson(json.decode(str));
 
-String showAdminsModelToJson(ShowAdminsModel data) => json.encode(data.toJson());
+String showTeacherModelToJson(ShowTeacherModel data) => json.encode(data.toJson());
 
-class ShowAdminsModel {
-  bool status;
-  String message;
+
+class ShowTeacherModel {
+  bool? status;
+  String? message;
   List<Data> data;
-
-  ShowAdminsModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
-
-  factory ShowAdminsModel.fromJson(Map<String, dynamic> json) => ShowAdminsModel(
+ShowTeacherModel({
+   required this.status,
+  required this.message,
+  required this.data,
+});
+  factory ShowTeacherModel.fromJson(Map<String, dynamic> json) => ShowTeacherModel(
     status: json["status"],
     message: json["message"],
     data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
@@ -28,29 +27,38 @@ class ShowAdminsModel {
     "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }
-
-
-
 class Data {
-  int? id;
+  int? teacherId;
   String? firstName;
   String? lastName;
+  String? phoneNumber;
+  String? address;
+  String? details;
+  int? subjectId;
   int? userId;
   String? createdAt;
   String? updatedAt;
 
   Data(
-      {this.id,
+      {this.teacherId,
         this.firstName,
         this.lastName,
+        this.phoneNumber,
+        this.address,
+        this.details,
+        this.subjectId,
         this.userId,
         this.createdAt,
         this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    teacherId = json['teacher_id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
+    phoneNumber = json['phone_number'];
+    address = json['address'];
+    details = json['details'];
+    subjectId = json['subject_id'];
     userId = json['user_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -58,9 +66,13 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['teacher_id'] = this.teacherId;
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
+    data['phone_number'] = this.phoneNumber;
+    data['address'] = this.address;
+    data['details'] = this.details;
+    data['subject_id'] = this.subjectId;
     data['user_id'] = this.userId;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;

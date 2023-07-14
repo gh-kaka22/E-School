@@ -2,56 +2,60 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/modules/teachers/add/cubit/add_teacher_cubit.dart';
+import 'package:untitled/modules/teachers/show/show_teachers.dart';
 import 'package:untitled/styles/colors.dart';
 import '../../../shared/components/components.dart';
 import 'cubit/update_teacher_cubit.dart';
 
 class UpdateTeacher extends StatelessWidget {
-  const UpdateTeacher({Key? key}) : super(key: key);
+  var TFirstnameController = TextEditingController();
+
+  var TLastnameController = TextEditingController();
+
+  var TphoneNumberController = TextEditingController();
+
+  var TaddressController = TextEditingController();
+  UpdateTeacher({super.key, required id});
 
   @override
   Widget build(BuildContext context) {
-    var TFirstnameController = TextEditingController();
-
-    var TLastnameController = TextEditingController();
-
-    var TphoneNumberController = TextEditingController();
-
-    var TaddressController = TextEditingController();
-
-
-    var TeacherIdController = TextEditingController();
-    var TUphoneNumberController = TextEditingController();
-
-
     var formkey = GlobalKey<FormState>();
-    double w = MediaQuery
-        .of(context)
-        .size
-        .width;
-    double h = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (context) => UpdateTeacherCubit(),
+      create: (context) => UpdateTeacherCubit()..getTeacherData(1),
       child: BlocConsumer<UpdateTeacherCubit, UpdateTeacherState>(
         listener: (context, state) {
+          if (state is UpdateTeacherDataError) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.red,
+                content:
+                    Text(state.error, style: TextStyle(color: Colors.white))));
+          }
 
+          if (state is UpdateTeacherDataSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.green,
+                content: Text(
+                  'Update Successfully',
+                  style: TextStyle(color: Colors.white),
+                )));
+
+            navigateTo(context, ShowTeachers());
+          }
         },
         builder: (context, state) {
           var cubit = UpdateTeacherCubit.get(context);
-          var model=UpdateTeacherCubit.get(context).teacherModel;
-          TFirstnameController.text=model!.data!.firstName!;
-          TLastnameController.text=model!.data!.lastName!;
-          TphoneNumberController.text=model!.data!.phoneNumber!;
-          TaddressController.text=model!.data!.address!;
-          TeacherIdController.text=model!.data!.teacherId.toString();
-
+          var model = UpdateTeacherCubit.get(context).teacherModel;
+          if (model != null && model.data != null) {
+            TFirstnameController.text = model.data!.firstName!;
+            TLastnameController.text = model.data!.lastName!;
+            TphoneNumberController.text = model.data!.phoneNumber!;
+            TaddressController.text = model.data!.address!;
+          }
           return ConditionalBuilder(
-            condition: UpdateTeacherCubit.get(context).teacherModel!=null,
-            builder: (context)=>Container(
+            condition: UpdateTeacherCubit.get(context).teacherModel != null,
+            builder: (context) => Container(
               width: w - (w / 5) - 5,
               decoration: BoxDecoration(
                 color: Colors.white24,
@@ -65,9 +69,8 @@ class UpdateTeacher extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Enter Teacher Data : ",
-                          style: Theme
-                              .of(context)
+                          "Update Teacher Data : ",
+                          style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
                               .copyWith(color: kDarkBlue2Color),
@@ -103,7 +106,7 @@ class UpdateTeacher extends StatelessWidget {
                                 children: [
                                   Expanded(
                                       child: buildSForm(
-                                          controller:TphoneNumberController ,
+                                          controller: TphoneNumberController,
                                           labeltext: 'Phone Number')),
                                   SizedBox(
                                     width: w / 30,
@@ -115,60 +118,40 @@ class UpdateTeacher extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: TUphoneNumberController  ,
-                                          labeltext: 'Urgent Phone Number')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                       ),
                       state is! UpdateTeacherDataLoading
                           ? defaultButton(
-                          text: 'Update',
-                          width: w / 5,
-                          height: h / 20,
-                          onPressed: () {
-                           if(formkey.currentState!.validate()){
-                             UpdateTeacherCubit.get(context).UpdateTeacherData(
-                                 firstname:TFirstnameController.text ,
-                                 lastname: TLastnameController.text,
-                                 phonenumber: TphoneNumberController.text,
-                                 address: TaddressController.text,
-                                 urgent_phone_number: TUphoneNumberController.text,
-                             ); }
-
-                          })
-                          : Center(child: LinearProgressIndicator(color: kDarkBlue2Color,)),
-
+                              text: 'Update',
+                              width: w / 5,
+                              height: h / 20,
+                              onPressed: () {
+                                if (formkey.currentState!.validate()) {
+                                  cubit.UpdateTeacherData(
+                                    firstname: TFirstnameController.text,
+                                    lastname: TLastnameController.text,
+                                    phonenumber: TphoneNumberController.text,
+                                    address: TaddressController.text,
+                                  );
+                                }
+                              })
+                          : Center(
+                              child: LinearProgressIndicator(
+                              color: kDarkBlue2Color,
+                            )),
                     ],
                   ),
                 ),
               ),
-            ), fallback: (context)=>Center(child: CircularProgressIndicator()),
-
-             );
+            ),
+            fallback: (context) => Center(child: CircularProgressIndicator()),
+          );
         },
       ),
     );
   }
 }
-
-
-

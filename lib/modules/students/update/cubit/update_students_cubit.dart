@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/student_model.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -10,25 +12,87 @@ part 'update_students_state.dart';
 
 class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   UpdateStudentsCubit() : super(UpdateStudentsInitial());
+
   static UpdateStudentsCubit get(context) => BlocProvider.of(context);
   StudentModel? studentModel;
-  void getStudentData(id) {
-    emit(UpdateStudentsLoading());
+  String? grade;
+  String? dropDownValue;
+  int? gradeID;
+  List<DropdownMenuItem<String>> ReligionItems = [
+    DropdownMenuItem(
+      value: 'muslim',
+      child: Text('Muslim'),
+    ),
+    DropdownMenuItem(
+      value: 'christian',
+      child: Text('Christian'),
+    ),
+  ];
+  List<DropdownMenuItem<String>> GradeItems = [
+    DropdownMenuItem(
+      value: 'Seventh',
+      child: Text('Seventh'),
+    ),
+    DropdownMenuItem(
+      value: 'Eighth',
+      child: Text('Eighth'),
+    ),
+    DropdownMenuItem(
+      value: 'Ninth',
+      child: Text('Ninth'),
+    ),
+  ];
+
+  void changeDropDownButton(String newValue) {
+    dropDownValue = newValue;
+    print('${dropDownValue}');
+    emit(ReligionState());
+  }
+
+  void changeGradeDropDownButton(String gr) {
+    print('gggg $gr');
+    grade = gr;
+    if (grade == 'Seventh') gradeID = 7;
+
+    if (grade == 'Eighth') gradeID = 8;
+
+    if (grade == 'Ninth') gradeID = 9;
+
+    emit(GradeState());
+    print('grade: ${grade}');
+    print('grade Id: ${gradeID}');
+  }
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate:selectedDate,
+        firstDate: DateTime(2008, 1),
+        lastDate: DateTime(2101));
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      print('date:  ${selectedDate}');
+      emit(DateOfBirth());
+    }
+  }
+  void getStudentData(student_id) {
+    emit(ShowStudentInfoLoading());
     DioHelper.getData(
-      url: '${GETSTEUDENTBYINDEX}/${id}',
+      url: '${SHOWSTUDENTBYID}/${1}',
       token: token,
     ).then((value) {
       studentModel = StudentModel.fromJson(value!.data);
       print(studentModel!.data!.firstName);
-      emit(UpdateStudentsSuccess(studentModel!));
+      emit(ShowStudentInfoSuccess(studentModel!));
     }).catchError((error) {
       print(error.toString());
-      emit(UpdateStudentsError(error.message));
+      emit(ShowStudentInfoError(error));
     });
   }
 
   void UpdateStudentData({
-    id,
     firstname,
     lastname,
     firstFatherName,
@@ -39,13 +103,15 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
     address,
     details,
     nationalId,
+    grade_number,
+    date_of_birth,
+    religion,
   }) {
     emit(UpdateStudentsLoading());
     DioHelper.postData(
       url: '${UPDATESTUDENT}',
       token: token,
       data: {
-        'student_id': id,
         'first_name': firstname,
         'address': address,
         'details': details,
@@ -55,7 +121,23 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
         'mother_last_name': lastMotherName,
         'mother_phone_number': motherPhoneNumber,
         'national_id': nationalId,
+        'religion': dropDownValue.toString(),
+        'date_of_birth': DateFormat('yyyy-MM-dd').format(selectedDate).toString(),
       },
-    );
+    ).then((value) {
+      print(value?.data);
+      if (value!.data['status']) {
+        studentModel = StudentModel.fromJson(value.data);
+        print(studentModel?.data);
+        emit(UpdateStudentsSuccess(studentModel!));
+      } else {
+        emit(UpdateStudentsError(value.data['message']));
+      }
+    }).catchError((error) {
+      print("koko ${(error)}");
+      emit(
+        UpdateStudentsError(error.toString()),
+      );
+    });
   }
 }

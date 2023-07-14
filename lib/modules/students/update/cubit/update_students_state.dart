@@ -13,3 +13,17 @@ class UpdateStudentsError extends UpdateStudentsState {
   final String error;
   UpdateStudentsError(this.error);
 }
+
+
+class ShowStudentInfoLoading  extends UpdateStudentsState {}
+class ShowStudentInfoSuccess extends UpdateStudentsState {
+  final StudentModel studentModel;
+  ShowStudentInfoSuccess(this.studentModel);
+}
+class ShowStudentInfoError extends UpdateStudentsState {
+  final String error;
+  ShowStudentInfoError(this.error);
+}
+class ReligionState extends UpdateStudentsState{}
+class GradeState extends UpdateStudentsState{}
+class DateOfBirth extends UpdateStudentsState{}

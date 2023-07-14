@@ -8,11 +8,11 @@ const AdminLogin='login';
 const GETSTUDENTS='students/index';
 const GETSTUDENTSBYGRADE='show_by_grade';
 const GETSTUDENTSBYGRADEANDCLASSROOM='show_by_classroomAndGrade';
-
+const SHOWSTUDENTBYID='show_student';
 ///TEACHER
 const UPDATETEACHER='update_teacher/';
 const ADDTEACHER='teacher/register';
-const SHOWTEACHERS='teacher';
+const SHOWTEACHERS='teachers';
 
 ///NOTICES
 const ADDNOTICE='/storenotice';
@@ -48,7 +48,7 @@ const SHOWTIMETABLE= 'show_schedule_classroom';
 
 ///ABOUT
 const ADDSCHOOL='admin/create_school';
-const UPDATESTUDENT='update_studen';
+const UPDATESTUDENT='update_student/1';
 
 ///FILES
 const ADDFILE='upload_file';

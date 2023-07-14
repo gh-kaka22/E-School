@@ -13,22 +13,22 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
   UpdateTeacherCubit() : super(UpdateTeacherInitial());
   static UpdateTeacherCubit get(context) => BlocProvider.of(context);
   TeacherModel? teacherModel;
-  void getTeacherData()
+  void getTeacherData(value)
   {
-    emit(TeacherDataLoading());
+    emit(ShowTeacherDataLoading());
     DioHelper.getData(
-      url:GETSTUDENTS,
+      url:'teacher/${1}',
       token:token ,
-    ).
-    then((value) {
+    ).then((value) {
       teacherModel = TeacherModel.fromJson(value!.data);
       print(teacherModel!.data!.firstName);
-      emit(TeacherDataSuccess(teacherModel!));
+      print(teacherModel!.data!.phoneNumber);
+      emit(ShowTeacherDataSuccess(teacherModel!));
 
     }
     ).catchError((error){
       print(error.toString());
-      emit(TeacherDataError());
+      emit(ShowTeacherDataError(error.toString()));
     });
 
   }
@@ -37,14 +37,12 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
       lastname,
       phonenumber,
       address,
-    urgent_phone_number,
-
-
-
-}){
+      subject,
+      section,
+  }){
     emit(UpdateTeacherDataLoading());
     DioHelper.postData(
-      url:UPDATETEACHER,
+      url: '${UPDATETEACHER}/${1}',
       token:token ,
       data:
       {
@@ -52,18 +50,21 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
         'lastename':lastname,
         'phonenumber':phonenumber,
         'address':address,
-      '  urgent_phone_number':urgent_phone_number,
+   //todo: add section and subject
       },
-    ).
-    then((value) {
-      teacherModel = TeacherModel.fromJson(value!.data);
-      print(teacherModel!.data!.firstName);
-      emit(UpdateTeacherDataSuccess(teacherModel!));
-
+    ).then((value) {
+      print(value?.data);
+      if (value!.data['status']) {
+        teacherModel = TeacherModel.fromJson(value.data);
+        print(teacherModel!.data!.firstName);
+        emit(UpdateTeacherDataSuccess(teacherModel!));
+      }else{
+        emit(UpdateTeacherDataError(value.data['message']));
+      }
     }
     ).catchError((error){
       print(error.toString());
-      emit(UpdateTeacherDataError());
+      emit(UpdateTeacherDataError(error.toString()));
     });
 
   }

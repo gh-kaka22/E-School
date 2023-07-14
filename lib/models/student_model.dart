@@ -76,8 +76,8 @@ class Data {
     dateOfBirth = json['date_of_birth'];
     religion = json['religion'];
     address = json['address'];
-    gradeId = json['grade_id'];
-    genderId = json['gender_id'];
+    gradeId = json['grade_id'].toString();
+    genderId = json['gender_id'].toString();
     parentId = json['parent_id'];
     userId = json['user_id'];
     updatedAt = json['updated_at'];

@@ -220,7 +220,7 @@ Widget ShowStudentsItem(w, student, index, context) => Container(
               child: Center(
                 child: defaultButton(
                   onPressed: () {
-                    navigateTo(context, StudentsShow());
+                    navigateTo(context, UpdateStudent(id:student.studentId,));
                   },
                   height: 30,
                   text: 'Edit',

@@ -1,6 +1,7 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/teachers/show/cubit/show_teachers_cubit.dart';
+import 'package:untitled/shared/components/search_bar.dart';
 import 'package:untitled/shared/components/teacher.dart';
 import 'package:untitled/shared/components/text_components.dart';
 class ShowTeachers extends StatelessWidget {
@@ -12,7 +13,7 @@ class ShowTeachers extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double padding=MediaQuery.of(context).size.width/20;
     return BlocProvider(
-      create: (BuildContext context) => ShowTeachersCubit(),
+      create: (BuildContext context) => ShowTeachersCubit()..getTeachers(),
       child: BlocConsumer<ShowTeachersCubit, ShowTeachersState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -29,6 +30,21 @@ class ShowTeachers extends StatelessWidget {
                     height: 30,
                   ),
                   MyText(name: 'Teachers'),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TSearchBar(
+
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Container(
 
                     width: 4 / 5 * w,
@@ -65,7 +81,7 @@ class ShowTeachers extends StatelessWidget {
                               )),
                        Expanded(
                   child: Center(
-                    child: ShowText(name:'E-Mail',
+                    child: ShowText(name:'details',
                     ),
                   )),
                        Expanded(
@@ -82,7 +98,7 @@ class ShowTeachers extends StatelessWidget {
                   Expanded(
                       child: ShowTeachersBuilder(
                           w,
-                          cubit.teacherModel?.data,
+                          cubit.showTeacherModel?.data,
                           context,
                           state
                       )

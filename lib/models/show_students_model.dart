@@ -31,7 +31,6 @@ class ShowStudentsModel {
     "data": List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
-
 class Datum {
   int studentId;
   String firstName;
