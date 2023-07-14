@@ -7,18 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
-
-
-
-
-
-
-//Post Routes
-
-Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
-
-//............................registe routes.............................................
+//............................register routes.............................................
 //Owner routes
 Route::middleware(['auth:api', 'isOwner'])->group(function () {
     Route::post('/admin/register',[AuthController::class, 'AdminRegister']);
@@ -46,6 +35,8 @@ Route::middleware('auth:api')->group(function () {
 
     //Posts
     Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
+    Route::post('/edit_post/{post_id}',[\App\Http\Controllers\PostController::class, 'updatePost']);
+
 });
 
 //.....................................................................................
@@ -167,6 +158,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
     Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
     Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
+    Route::get('/posts', [\App\Http\Controllers\PostController::class, 'getAllPosts']);
 
 
 
@@ -227,6 +219,7 @@ Route::middleware(['auth:api', 'isStudentOrParentOrTeacher'])->group(function ()
 //Owner or Admin or Teacher routes
 Route::middleware(['auth:api', 'isAdminOrOwnerOrTeacher'])->group(function () {
     Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
+    Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
 
 });
 
@@ -271,23 +264,6 @@ Route::post('/create_gender', [\App\Http\Controllers\GenderController::class, 's
 Route::get('genders/{id}', [\App\Http\Controllers\GenderController::class, 'show']);
 Route::put('genders/{id}', [\App\Http\Controllers\GenderController::class, 'update']);
 Route::delete('genders/{id}', [\App\Http\Controllers\GenderController::class, 'destroy']);
-
-//Teacher Routes
-Route::get('/teachers', [\App\Http\Controllers\TeacherController::class, 'index']);
-Route::get('/teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'show']);
-Route::get('/delete_teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'destroy']);
-Route::get('/subject_teachers/{id}', [\App\Http\Controllers\TeacherController::class, 'subjectTeacher']);
-Route::get('/search_teacher', [\App\Http\Controllers\TeacherController::class, 'searchByName']);
-Route::post('/teacher/register', [\App\Http\Controllers\AuthController::class, 'TeacherRegister']);
-Route::post('/update_teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'update']);
-
-
-
-
-
-
-
-
 
 
 //Parent Routes

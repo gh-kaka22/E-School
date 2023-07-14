@@ -215,6 +215,21 @@ class PostController extends Controller
 
     public function deletePost($post_id){
 
+        $user=Auth::user();
+
+        if($user->role==4){
+            $post = Post::find($post_id);
+            if($post && $post->user_id == $user->id){
+                $res=DB::table('posts')
+                    ->where('post_id','=',$post_id)
+                    ->delete();
+                return $this->apiResponse('Deleted',$res);
+            }
+                else{
+                    return $this->apiResponse('not possible',null,false);}
+
+        }
+
         try {
             $res=DB::table('posts')
                 ->where('post_id','=',$post_id)
@@ -222,11 +237,32 @@ class PostController extends Controller
             return $this->apiResponse('Deleted',$res);
 
         }catch (\Exception $e){
-            return $this->apiResponse('Post not found');
+            return $this->apiResponse('not possible');
         }
 
+    }
+
+    public function updatePost(Request $request,$post_id){
+        $data = $request->validate([
+            'body'=>['required'],
+        ]);
+        $user = Auth::user();
+        $post = Post::find($post_id);
+        if($post && $post->user_id == $user->id){
+            $post->update($data);
+            return $this->apiResponse('success',$post);
+
+        }
+            return $this->apiResponse('not possible',null , false);
 
 
+
+
+    }
+
+    public function getAllPosts(){
+        $posts = Post::all();
+        return $this->apiResponse('success',$posts);
 
     }
 
