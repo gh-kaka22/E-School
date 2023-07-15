@@ -140,7 +140,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/show_by_grade/{grade_id}', [\App\Http\Controllers\StudentController::class, 'showByGrade']);
     Route::get('/show_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'show']);
     Route::post('/show_by_classroomAndGrade', [\App\Http\Controllers\StudentController::class, 'showByClassroom']);
-    Route::post('/search_student', [\App\Http\Controllers\StudentController::class, 'searchByName']);
+    Route::get('/search_student', [\App\Http\Controllers\StudentController::class, 'searchByName']);
 
 
 

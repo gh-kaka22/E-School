@@ -17,11 +17,11 @@ class StudentController extends Controller
 
     public function index()
     {
-        //$students = Student::all();
+
         $students = DB::table('students')
             ->join('users', 'students.user_id', '=', 'users.id')
-            ->join('students_classrooms', 'students.student_id', '=', 'students_classrooms.student_id')
-            ->join('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
+            ->leftJoin('students_classrooms', 'students.student_id', '=', 'students_classrooms.student_id')
+            ->leftJoin('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
             ->select('students.*', 'users.email', 'classrooms.room_number')
             ->get();
         return $this->apiResponse('success', $students);
@@ -83,32 +83,29 @@ class StudentController extends Controller
 
     public function searchByName(Request $request)
     {
-        $attributes = $request->validate([
-            'name' => ['required', 'max:55', 'string'],
-        ]);
+        $name = $request->name;
 
-        $student = DB::table('students')
-            ->where('first_name', '=', $request->name)
-            ->orWhere('last_name', '=', $request->name)
+
+        $students = DB::table('students')
+            ->where('students.first_name', 'LIKE', "$name%")
+            ->orWhere('students.last_name', 'LIKE', "$name%")
             ->get();
-
-
-        return $this->apiResponse('success', $student);
+        return $this->apiResponse('success',$students);
 
 
     }
 
 
-    public function showByGrade($grade_id){
-        $students=DB::table('students')
-            ->where('students.grade_id','=',$grade_id)
+    public function showByGrade($grade_id) {
+        $students = DB::table('students')
+            ->where('students.grade_id', '=', $grade_id)
             ->join('users', 'students.user_id', '=', 'users.id')
-            ->join('students_classrooms', 'students.student_id', '=', 'students_classrooms.student_id')
-            ->join('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
+            ->leftJoin('students_classrooms', 'students.student_id', '=', 'students_classrooms.student_id')
+            ->leftJoin('classrooms', 'students_classrooms.classroom_id', '=', 'classrooms.classroom_id')
             ->select('students.*', 'users.email', 'classrooms.room_number')
             ->get();
 
-        return $this->apiResponse('success',$students);
+        return $this->apiResponse('success', $students);
     }
 
 
