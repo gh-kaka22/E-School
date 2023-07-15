@@ -261,7 +261,34 @@ class PostController extends Controller
     }
 
     public function getAllPosts(){
-        $posts = Post::all();
+        $user=Auth::user();
+
+
+        $posts = DB::table('posts')
+            ->join('users','users.id','=','posts.user_id')
+            ->select('posts.post_id','posts.body','posts.date','posts.updated_at','posts.user_id','role')
+            ->get();
+
+
+
+        foreach($posts as $post) {
+            $post->likes_count=$this->likes($post->post_id);
+            $post->coments_count=$this->comments($post->post_id);
+            $post->is_liked=$this->isLiked($post->post_id,$user->id);
+            if ($post->role == 4) {
+                $teacher=DB::table('teachers')
+                    ->where('user_id','=',$post->user_id)
+                    ->first();
+                $post->publisher=$teacher->first_name . " " . $teacher->last_name;
+
+            }
+            else{
+                $post->publisher='E-School';
+            }
+        }
+
+
+
         return $this->apiResponse('success',$posts);
 
     }

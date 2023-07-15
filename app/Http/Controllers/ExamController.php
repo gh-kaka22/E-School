@@ -42,6 +42,7 @@ class ExamController extends Controller
              ->where('student_id', $request->student_id)
              ->where('subject_id', $subject_id)
              ->where('type_id','=',$request->type_id)
+             ->where('schoolyear','=',$request->schoolyear)
              ->exists();
 
          if($examExists)

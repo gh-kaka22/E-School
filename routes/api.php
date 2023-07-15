@@ -160,6 +160,10 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
     Route::get('/posts', [\App\Http\Controllers\PostController::class, 'getAllPosts']);
 
+    //Results Routes
+    Route::get('/calcResult/{grade_id}', [\App\Http\Controllers\ResultController::class, 'calcResForGrade']);
+
+
 
 
 
