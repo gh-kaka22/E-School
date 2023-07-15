@@ -171,11 +171,12 @@ class ShowAttendance extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child:  ShowAbsentBuilder(
+                      child:  ShowAttendanceBuilder(
                           100,
-                          cubit.showAttendanceModel?.data,
+                          cubit.showStudentsModel?.data,
                           context,
-                          state
+                          state,
+                        cubit
                       ),
                   ),
                 ],

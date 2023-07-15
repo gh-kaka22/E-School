@@ -80,7 +80,7 @@ Widget ShowAttendanceBuilder(w, students, context, state,cubit) => ConditionalBu
 
 Widget ShowAbsentItem(w, absent, index, context) => Container(
   width: 100,
-  height: 30,
+  height: 50,
   decoration: BoxDecoration(
       color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
       boxShadow: <BoxShadow>[

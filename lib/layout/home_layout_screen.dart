@@ -33,6 +33,7 @@ import 'package:untitled/modules/timetable/show/show_timetable.dart';
 import 'package:untitled/shared/components/search_bar.dart';
 
 import '../modules/admin/login/login_screen.dart';
+import '../modules/attendance/show/Showww.dart';
 import '../modules/students/update/update_students_screen.dart';
 import '../shared/components/notice.dart';
 import '../test.dart';
@@ -68,7 +69,7 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: UpdateStudent(id: 1),
+                            screen: Showwwwww(),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',

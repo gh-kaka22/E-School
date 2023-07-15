@@ -6,10 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:untitled/models/add_exams_entered_model.dart';
 import 'package:untitled/models/add_exams_model.dart';
 import 'package:untitled/models/attendance_model.dart';
-import 'package:untitled/models/attendance_model.dart';
-import 'package:untitled/models/attendance_model.dart';
 import 'package:untitled/models/classroom_model.dart';
-import 'package:untitled/models/student_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -181,8 +178,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       url: ATTENDANCE,
       data: {
         'student_id': students_id,
-        'date': '2020-02-02',
-        //DateFormat('yyyy-MM-dd').format(selectedDate),
+        'date': DateFormat('yyyy-MM-dd').format(selectedDate),
       },
     )
         .then((value) {
