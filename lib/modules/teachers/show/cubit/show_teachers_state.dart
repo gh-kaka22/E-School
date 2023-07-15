@@ -13,3 +13,11 @@ class ShowTeachersErrorState extends ShowTeachersState {
   final String error;
   ShowTeachersErrorState(this.error);
 }
+
+
+class SearchTeachersLoadingState extends ShowTeachersState {}
+class SearchTeachersSuccessState extends ShowTeachersState {}
+class SearchTeachersErrorState extends ShowTeachersState {
+  final String error;
+  SearchTeachersErrorState(this.error);
+}

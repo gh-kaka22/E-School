@@ -2,7 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/modules/teachers/show/show_teachers.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:untitled/styles/colors.dart';
 import '../../../shared/components/components.dart';
 import 'cubit/update_teacher_cubit.dart';
@@ -15,6 +15,7 @@ class UpdateTeacher extends StatelessWidget {
   var TphoneNumberController = TextEditingController();
 
   var TaddressController = TextEditingController();
+  List<dynamic> selectedItem=[];
   UpdateTeacher({super.key, required id});
 
   @override
@@ -22,8 +23,10 @@ class UpdateTeacher extends StatelessWidget {
     var formkey = GlobalKey<FormState>();
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    double borderwidth = 1;
+    double padding = w / 20;
     return BlocProvider(
-      create: (context) => UpdateTeacherCubit()..getTeacherData(1),
+      create: (context) => UpdateTeacherCubit()..getTeacherData(1)..getClassrooms(),
       child: BlocConsumer<UpdateTeacherCubit, UpdateTeacherState>(
         listener: (context, state) {
           if (state is UpdateTeacherDataError) {
@@ -32,7 +35,6 @@ class UpdateTeacher extends StatelessWidget {
                 content:
                     Text(state.error, style: TextStyle(color: Colors.white))));
           }
-
           if (state is UpdateTeacherDataSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.green,
@@ -41,7 +43,7 @@ class UpdateTeacher extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 )));
 
-            navigateTo(context, ShowTeachers());
+            //navigateTo(context, ShowTeachers());
           }
         },
         builder: (context, state) {
@@ -115,6 +117,87 @@ class UpdateTeacher extends StatelessWidget {
                                       child: buildSForm(
                                           controller: TaddressController,
                                           labeltext: 'Address')),
+
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: MultiSelectDialogField(
+                                      items: cubit.items,
+                                      dialogWidth: w/3,
+                                      title: Text("CLASSROOMS"),
+                                      selectedColor: kGold1Color,
+                                      decoration: BoxDecoration(
+                                        color: null,
+                                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                                        border: Border.all(
+                                          color: kDarkBlue2Color,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      buttonIcon: Icon(
+                                        Icons.class_outlined,
+                                        color: kGold1Color,
+                                      ),
+                                      buttonText: Text(
+                                        "Choose Classrooms:",
+                                        style: TextStyle(
+                                          color: kGold1Color,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+
+                                      onConfirm: (results) {
+                                        selectedItem = results;
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: w / 30,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: kDarkBlue2Color,
+                                          width: borderwidth,
+                                        ),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Center(
+                                        child: DropdownButton<dynamic>(
+                                          value: cubit.dropDownValueSubject,
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down,
+                                            color: kGold1Color,
+                                          ),
+                                          iconSize: 24,
+                                          elevation: 40,
+                                          borderRadius: BorderRadius.circular(40),
+                                          underline: Container(),
+                                          hint: Padding(
+                                            padding: EdgeInsets.only(
+                                                left: padding, right: padding),
+                                            child: Text(
+                                              cubit.updateTeacherModel!.data!.subjectId.toString(),
+                                              style: TextStyle(
+                                                  color: kDarkBlue2Color,
+                                                  fontSize: 16),
+                                            ),
+                                          ),
+                                          onChanged: (newValue) {
+                                            cubit.changeSubjectDropDownButton(newValue!);
+                                          },
+                                          items: cubit.menuItemsSubject,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
                                 ],
                               ),
                             ),
@@ -136,6 +219,8 @@ class UpdateTeacher extends StatelessWidget {
                                     lastname: TLastnameController.text,
                                     phonenumber: TphoneNumberController.text,
                                     address: TaddressController.text,
+                                    subject: cubit.subjectId.toString(),
+                                    classroom: selectedItem,
                                   );
                                 }
                               })

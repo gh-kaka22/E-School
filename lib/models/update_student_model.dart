@@ -45,6 +45,7 @@ class Data {
   String? motherPhoneNumber;
   String? nationalId;
 
+
   Data(
       {this.studentId,
         this.firstName,

@@ -30,3 +30,12 @@ class ShowClassroomsSErrorState extends ShowStudentsStates{
   final String error;
   ShowClassroomsSErrorState(this.error);
 }
+
+
+
+class SearchStudentsLoadingState extends ShowStudentsStates {}
+class SearchStudentsSuccessState extends ShowStudentsStates {}
+class SearchStudentsErrorState extends ShowStudentsStates {
+  final String error;
+  SearchStudentsErrorState(this.error);
+}

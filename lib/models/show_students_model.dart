@@ -9,14 +9,14 @@ ShowStudentsModel showStudentsModelFromJson(String str) => ShowStudentsModel.fro
 String showStudentsModelToJson(ShowStudentsModel data) => json.encode(data.toJson());
 
 class ShowStudentsModel {
-  bool status;
-  String message;
-  List<Datum> data;
+  bool? status;
+  String? message;
+  List<Datum>? data;
 
   ShowStudentsModel({
-    required this.status,
-    required this.message,
-    required this.data,
+    this.status,
+  this.message,
+    this.data,
   });
 
   factory ShowStudentsModel.fromJson(Map<String, dynamic> json) => ShowStudentsModel(
@@ -28,7 +28,7 @@ class ShowStudentsModel {
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }
 class Datum {

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:untitled/modules/attendance/show/cubit/show_attendance_cubit.dart';
 import 'package:untitled/modules/attendance/show/cubit/show_attendance_state.dart';
 import 'package:untitled/styles/colors.dart';
-
 import 'components.dart';
 
 
@@ -48,7 +47,8 @@ Widget ShowAttendanceItem(w, student, index, context,ShowAttendanceCubit cubit,s
           child: Center(
             child: defaultButton(
               onPressed: () {
-               cubit.showAttendanceDialog;
+                cubit.getAttenadnce();
+               cubit.showAbcenceDialog(context: context);
 
               },
               height: 30,
@@ -65,8 +65,6 @@ Widget ShowAttendanceItem(w, student, index, context,ShowAttendanceCubit cubit,s
     ),
   ),
 );
-
-
 Widget ShowAttendanceBuilder(w, students, context, state,cubit) => ConditionalBuilder(
   condition: state is! ShowAttendanceLoadingState && students != null,
   builder: (context) => ListView.separated(
@@ -81,8 +79,8 @@ Widget ShowAttendanceBuilder(w, students, context, state,cubit) => ConditionalBu
 
 
 Widget ShowAbsentItem(w, absent, index, context) => Container(
-  width: w/5,
-  height: 50,
+  width: 100,
+  height: 30,
   decoration: BoxDecoration(
       color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
       boxShadow: <BoxShadow>[
@@ -119,6 +117,6 @@ Widget ShowAbsentBuilder(w, absence, context, state) => ConditionalBuilder(
       separatorBuilder: (context, index) {
         return MyDivider();
       },
-      itemCount: absence.length),
+      itemCount: absence.length ?? 0),
   fallback: (context) => Center(child: LinearProgressIndicator()),
 );

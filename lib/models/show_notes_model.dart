@@ -1,3 +1,13 @@
+
+
+import 'dart:convert';
+
+ShowNotesModel showNotesModelFromJson(String str) => ShowNotesModel.fromJson(json.decode(str));
+
+String showNotesModelToJson(ShowNotesModel data) => json.encode(data.toJson());
+
+
+
 class ShowNotesModel {
   bool? status;
   String? message;
@@ -8,20 +18,15 @@ class ShowNotesModel {
   ShowNotesModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    this.data = (json["data"]==null ? null : (json["data"] as List).map((e)=>Data.fromJson(e)).toList());
+    data = (json["data"]==null ? null : (json["data"] as List).map((e)=>Data.fromJson(e)).toList());
 
     }
-  }
-
-//   Map<String, dynamic> toJson() {
-//   final Map<String, dynamic> data = new Map<String, dynamic>();
-//   data['status'] = this.status;
-//   data['message'] = this.message;
-//   if (this.data != null) {
-//     data['data'] = this.data!.map((v) => v.toJson()).toList();
-//   }
-//   return data;
-// }
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "message": message,
+    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+  };
+}
 
 
 class Data {

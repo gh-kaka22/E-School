@@ -144,7 +144,31 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
     });
   }
 
+  List<dynamic> search = [];
+  void getSearch(String value) {
+    emit(SearchStudentsLoadingState());
+    DioHelper.getData(
+        url: 'search_student',
+        token: token,
+        query: {
+          'name':'$value',
+        }
+    ).then((value) {
 
+      print(value?.data);
+      if (value?.data is List) {
+        search = value?.data;
+      }
+      else if (value?.data is Map) {
+        final model = ShowStudentsModel.fromJson(value?.data);
+        search = model.data!;
+      }
+      emit(SearchStudentsSuccessState());
+    }).catchError((error){
+      print(error.toString());
+      emit(SearchStudentsErrorState(error));
+    });
+  }
 
 
 

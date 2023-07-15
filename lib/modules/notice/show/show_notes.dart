@@ -1,13 +1,15 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/modules/notice/show/cubit/show_notice_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/shared/components/components.dart';
+import 'package:untitled/shared/components/notice.dart';
 import 'package:untitled/shared/components/search_bar.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/styles/colors.dart';
 
-class StudentsShow extends StatelessWidget {
+class ShowNotes extends StatelessWidget {
   var searchController = TextEditingController();
 
   @override
@@ -16,11 +18,11 @@ class StudentsShow extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double padding=MediaQuery.of(context).size.width/20;
     return BlocProvider(
-      create: (BuildContext context) => ShowStudentsCubit()..getStudents(),
-      child: BlocConsumer<ShowStudentsCubit, ShowStudentsStates>(
+      create: (BuildContext context) => ShowNoticeCubit()..getStudents(),
+      child: BlocConsumer<ShowNoticeCubit, ShowNoticeState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var cubit = ShowStudentsCubit.get(context);
+          var cubit = ShowNoticeCubit.get(context);
           return Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
@@ -32,7 +34,7 @@ class StudentsShow extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  MyText(name: 'Students'),
+                  MyText(name: 'Show Notes Of Students'),
                   SizedBox(
                     height: 30,
                   ),
@@ -114,10 +116,7 @@ class StudentsShow extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      SearchBar(),
+
                     ],
                   ),
                   SizedBox(
@@ -161,6 +160,11 @@ class StudentsShow extends StatelessWidget {
                                 ),
                               )),
                           Expanded(
+                              child: Center(
+                                child: ShowText(name:'Notes',
+                                ),
+                              )),
+                          Expanded(
                             child: defaultButton(
                               onPressed: () {
                                 cubit.getStudentsByGrade(cubit.dropDownValueClass);
@@ -177,11 +181,14 @@ class StudentsShow extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child: ShowStudentsBuilder(
-                          w,
-                          cubit.showStudentsModel?.data,
+                      child: ShowNotesScreenBuilder(
+                          100,
+                          cubit.addExamsModel?.data,
                           context,
-                          state
+                          state,
+                        cubit,
+
+
                       )
                   )
                 ],

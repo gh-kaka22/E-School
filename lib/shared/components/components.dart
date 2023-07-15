@@ -17,6 +17,7 @@ import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
 import 'package:untitled/modules/notice/show/show_notes.dart';
 import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
+import 'package:untitled/modules/students/show/show_students.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 import 'package:untitled/modules/subjects/show/cubit/show_subjects_states.dart';
 import 'package:untitled/shared/components/constants.dart';

@@ -9,6 +9,7 @@ import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
+import 'package:untitled/styles/colors.dart';
 
 class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
   ShowAttendanceCubit() : super(ShowAttendanceInitialState());
@@ -46,13 +47,12 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
       child: Text('C'),
     ),
   ];
-  void changeClassDropDownButton(String newValue)
-  {
+  void changeClassDropDownButton(String newValue) {
     dropDownValueClass = newValue;
     emit(ShowStudentsClassDropDownButtonState());
   }
-  void changeSectionDropDownButton(String newValue)
-  {
+
+  void changeSectionDropDownButton(String newValue) {
     dropDownValueSection = newValue;
     emit(ShowStudentsSectionDropDownButtonState());
   }
@@ -61,10 +61,9 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
   ShowStudentsModel? showStudentsModel;
 
   List<dynamic>? students;
-  List<dynamic>? itemAbsence;
+  List<dynamic>? absence;
 
-  void getStudents()
-  {
+  void getStudents() {
     emit(ShowAttendanceLoadingState());
     DioHelper.getData(
       url: GETSTUDENTS,
@@ -78,60 +77,34 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
       students = showStudentsModel?.data;
       print(students?[1].religion);
       emit(ShowStudentsSuccessState(showStudentsModel!));
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(ShowStudentsErrorState(error.toString()));
     });
   }
 
-  void getStudentsByGrade(value)
-  {
-    emit(ShowStudentsLoadingState());
-    DioHelper.getData(
-      url: '${GETSTUDENTSBYGRADE}/${value}',
-      token: token,
-    ).then((value) {
-      print(value?.data);
-      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
-      print(showStudentsModel?.status);
-      print(showStudentsModel?.message);
-      print(showStudentsModel?.data?[0].email);
-      students = showStudentsModel?.data;
-      print(students?[1].religion);
-      emit(ShowStudentsSuccessState(showStudentsModel!));
-    }).catchError((error){
-      print(error.toString());
-      emit(ShowStudentsErrorState(error.toString()));
-    });
-  }
-
-  // void ShowAbsence({
-  //   required students_id,
-  // }) {
-  //   emit(
-  //     ShowAttendanceLoadingState(),
-  //   );
-  //   DioHelper.postData(
+  // void getStudentsByGrade(value)
+  // {
+  //   emit(ShowStudentsLoadingState());
+  //   DioHelper.getData(
+  //     url: '${GETSTUDENTSBYGRADE}/${value}',
   //     token: token,
-  //     url: SHOWATTENDANCE,
-  //     data: {
-  //       'student_id': students_id,
-  //     },
-  //   )
-  //       .then((value) {
-  //     showAttendanceModel = ShowAttendanceModel.fromJson(value?.data);
-  //     emit(ShowAttendanceSuccessState(showAttendanceModel!));
-  //   })
-  //       .catchError((error) {
-  //     print("koko ${error}");
-  //     emit(
-  //       ShowAttendanceErrorState(error.toString()),
-  //     );
+  //   ).then((value) {
+  //     print(value?.data);
+  //     showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+  //     print(showStudentsModel?.status);
+  //     print(showStudentsModel?.message);
+  //     print(showStudentsModel?.data?[0].email);
+  //     students = showStudentsModel?.data;
+  //     print(students?[1].religion);
+  //     emit(ShowStudentsSuccessState(showStudentsModel!));
+  //   }).catchError((error){
+  //     print(error.toString());
+  //     emit(ShowStudentsErrorState(error.toString()));
   //   });
   // }
 
-  void getAttenadnce()
-  {
+  void getAttenadnce() {
     emit(ShowAttendanceLoadingState());
     DioHelper.getData(
       url: SHOWATTENDANCE,
@@ -142,37 +115,52 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
       print(showAttendanceModel?.status);
       print(showAttendanceModel?.message);
       print(showAttendanceModel?.data?[0]);
-      itemAbsence = showAttendanceModel?.data;
-      print(itemAbsence?[1]);
+      absence = showAttendanceModel?.data ;
+      print(showAttendanceModel?.data![0].date);
       emit(ShowAttendanceSuccessState(showAttendanceModel!));
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(ShowAttendanceErrorState(error.toString()));
     });
   }
 
-
-  void showAttendanceDialog({
+  void showAbcenceDialog({
     required BuildContext context,
-    required studentId,
-
+    Function? getAttenadnce,
   }) {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: MyText(name: "Attendance", size: 25),
-          content: ShowAbsentBuilder(
-              50,
-              getAttenadnce,
-              context,
-              state)
+              title: MyText(name: "Absences", size: 25),
+              content:
+              // Text('${showAttendanceModel!.data?[0].date}'),
+              ShowAbsentBuilder(
+                  100,
+                  showAttendanceModel?.data,
+                  context,
+                  state
+              ),
 
-        ),
+              actions: [
+                ElevatedButton(
 
-
-        );
+      onPressed: () {
+        if (getAttenadnce != null) { // check if getAttenadnce is not null
+          getAttenadnce(); // call the function
+        }
+                  },
+                  child: Text("OK"),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor:
+                        Colors.white, //change background color of button
+                    backgroundColor: kGold1Color, //change text color of button
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    elevation: 15.0,
+                  ),
+                ),
+              ],
+            ));
   }
-
-
 }
-

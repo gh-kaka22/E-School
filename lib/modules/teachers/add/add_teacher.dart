@@ -20,7 +20,7 @@ class AddTeacher extends StatelessWidget {
     var TUphoneNumberController = TextEditingController();
     var TaddressController = TextEditingController();
     var formkey = GlobalKey<FormState>();
-    List<dynamic> selectedItem=[];
+    List<dynamic> selectedItem = [];
 
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
@@ -28,10 +28,11 @@ class AddTeacher extends StatelessWidget {
     double padding = w / 20;
 
     return BlocProvider(
-      create: (context) => AddTeacherCubit()..getClassrooms()..getSubjects(),
+      create: (context) => AddTeacherCubit()
+        ..getClassrooms()
+        ..getSubjects(),
       child: BlocConsumer<AddTeacherCubit, AddTeacherState>(
         listener: (context, state) {
-
           if (state is AddTeacherError?) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
@@ -49,68 +50,74 @@ class AddTeacher extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: (ctx) => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.all(
-                              Radius.circular(10.0))),
-
-                      title: MyText(name: "Email & Password", size: 25),
-                      content: Container(
-                        width: w/4,height: h/3,
-
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyText(name: 'Teacher\'s Email',size: 20 ),
-                            Container(
-                              width: w/4,height: h/15,
-                              child: Center(child: Text('${AddTeacherCubit.get(context).teacher!.data!.email!}')),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: kDarkBlue2Color,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: h/80,),
-                            MyText(name: 'Teacher\'s Password',size: 20 ),
-                            Container(
-                              width: w/4,height: h/15,
-                              child: Center(child: Text('${AddTeacherCubit.get(context).teacher!.data!.passwordDecoded!}')),
-
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: kDarkBlue2Color,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: h/80,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0))),
+                          title: MyText(name: "Email & Password", size: 25),
+                          content: Container(
+                            width: w / 4,
+                            height: h / 3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(ctx);
-                                  },
-                                  child: Text('OK'),
-
+                                MyText(name: 'Teacher\'s Email', size: 20),
+                                Container(
+                                  width: w / 4,
+                                  height: h / 15,
+                                  child: Center(
+                                      child: Text(
+                                          '${AddTeacherCubit.get(context).teacher!.data!.email!}')),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: kDarkBlue2Color,
+                                      width: 2,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: h / 80,
+                                ),
+                                MyText(name: 'Teacher\'s Password', size: 20),
+                                Container(
+                                  width: w / 4,
+                                  height: h / 15,
+                                  child: Center(
+                                      child: Text(
+                                          '${AddTeacherCubit.get(context).teacher!.data!.passwordDecoded!}')),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: kDarkBlue2Color,
+                                      width: 2,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: h / 80,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ));
+                      ],
+                    ));
           }
         },
         builder: (context, state) {
@@ -189,12 +196,13 @@ class AddTeacher extends StatelessWidget {
                                 Expanded(
                                   child: MultiSelectDialogField(
                                     items: cubit.items,
-                                    dialogWidth: w/3,
+                                    dialogWidth: w / 3,
                                     title: Text("CLASSROOMS"),
                                     selectedColor: kGold1Color,
                                     decoration: BoxDecoration(
                                       color: null,
-                                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(40)),
                                       border: Border.all(
                                         color: kDarkBlue2Color,
                                         width: 1,
@@ -211,7 +219,6 @@ class AddTeacher extends StatelessWidget {
                                         fontSize: 16,
                                       ),
                                     ),
-
                                     onConfirm: (results) {
                                       selectedItem = results;
                                     },
@@ -251,23 +258,17 @@ class AddTeacher extends StatelessWidget {
                                           ),
                                         ),
                                         onChanged: (newValue) {
-                                          cubit.changeSubjectDropDownButton(newValue!);
+                                          cubit.changeSubjectDropDownButton(
+                                              newValue!);
                                         },
                                         items: cubit.menuItemsSubject,
                                       ),
                                     ),
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
-                         
-
-
-
-
-
                         ],
                       ),
                     ),
@@ -287,7 +288,7 @@ class AddTeacher extends StatelessWidget {
                                 address: TaddressController.text,
                                 subjectId: cubit.subjectId.toString(),
                                 classrooms: selectedItem,
-                               // urgent_phone_number: TUphoneNumberController.text,
+                                // urgent_phone_number: TUphoneNumberController.text,
                               );
                             })
                         : Center(child: CircularProgressIndicator()),

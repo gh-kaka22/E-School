@@ -215,26 +215,33 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
 
                         //todo: عم يعطي error وقت حط dateTime
                       );
+
                       notes.clear();
                       Navigator.pop(ctx);
                     },
-                    // style: ElevatedButton.styleFrom(
-                    //     backgroundColor: kDarkBlue1Color,
-                    //     side: BorderSide(
-                    //       width: 1,
-                    //       color: kGold1Color,
-                    //     )),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor:
+                      Colors.white, //change background color of button
+                      backgroundColor: kDarkBlue1Color, //change text color of button
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 15.0,
+                    ),
                     child: Text("Send")),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.pop(ctx);
                     },
-                    // style: ElevatedButton.styleFrom(
-                    //     backgroundColor: kDarkBlue1Color,
-                    //     side: BorderSide(
-                    //       width: 1,
-                    //       color: kGold1Color,
-                    //     )),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor:
+                      Colors.white, //change background color of button
+                      backgroundColor: kDarkBlue1Color, //change text color of button
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 15.0,
+                    ),
                     child: Text("Cancel")),
               ],
             ));

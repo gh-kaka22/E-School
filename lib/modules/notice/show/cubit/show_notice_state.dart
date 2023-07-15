@@ -6,7 +6,8 @@ abstract class ShowNoticeState {}
 class ShowNoticeInitial extends ShowNoticeState {}
 class ShowNoticeLoadingState extends ShowNoticeState {}
 class ShowNoticeSuccessState extends ShowNoticeState {
-  //todo:showmodel
+  ShowNotesModel showNotesModel;
+  ShowNoticeSuccessState(this.showNotesModel);
 
 }
 class ShowNoticeErrorState extends ShowNoticeState {
@@ -23,3 +24,8 @@ class ShowExamSuccessState extends ShowNoticeState {
 
   ShowExamSuccessState(this.showExamsModel);
 }
+class ShowExamErrorState extends ShowNoticeState {
+  final String error;
+  ShowExamErrorState(this.error);
+}
+class ShowExamLoadingState extends ShowNoticeState {}

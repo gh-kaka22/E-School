@@ -59,12 +59,73 @@ Widget ShowTeachersItem(w, teacher, index, context) => Container(
         ),
       ),
     );
-
-Widget ShowTeachersBuilder(w, teachers, context, state) => ConditionalBuilder(
+Widget SearchTeachersItem(w, teacher, index, context) => Container(
+      width: 4 / 5 * w,
+      height: 50,
+      decoration: BoxDecoration(
+          color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.2),
+                blurRadius: 20) //blur radius of shadow
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
+              child: Text('${teacher.teacherId}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+            Expanded(
+                child: Center(
+              child: Text('${teacher.firstName}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+            Expanded(
+              child: Center(child: Text('${teacher.lastName}')),
+            ),
+            Expanded(
+              child: Center(child: Text('${teacher.subjectId}')),
+            ),
+            Expanded(child: Center(child: Text('${teacher.address}'))),
+            Expanded(
+              child: Center(child: Text('${teacher.details}')),
+            ),
+            Expanded(
+              child: Center(
+                child: defaultButton(
+                  onPressed: () {
+                    navigateTo(context, UpdateTeacher(id: teacher.id,));
+                  },
+                  height: 30,
+                  text: 'Edit',
+                  fontsize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+Widget SearchTeachersBuilder(w, searchs,context, state) => ConditionalBuilder(
+      condition: state is! ShowTeachersLoadingState && searchs != null,
+      builder: (context) => ListView.separated(
+          itemBuilder: (context, index) =>
+              SearchTeachersItem(w, searchs[index],index, context,),
+          separatorBuilder: (context, index) {
+            return MyDivider();
+          },
+          itemCount: searchs.length),
+      fallback: (context) =>  Center(child: LinearProgressIndicator()),
+    );
+Widget ShowTeachersBuilder(w, teachers,context, state) => ConditionalBuilder(
       condition: state is! ShowTeachersLoadingState && teachers != null,
       builder: (context) => ListView.separated(
           itemBuilder: (context, index) =>
-              ShowTeachersItem(w, teachers[index], index, context),
+              ShowTeachersItem(w, teachers[index],index, context),
           separatorBuilder: (context, index) {
             return MyDivider();
           },

@@ -19,12 +19,8 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
   TeacherModel? teacher;
   String? dropDownValueSubject='none';
   List<DropdownMenuItem> menuItemsSubject = [];
-  List<dynamic>? classRoom=[];
-  List<dynamic>? classId=[];
   int? subjectId;
   
-
-
   void changeSubjectDropDownButton(String newValue)
   {
     dropDownValueSubject = newValue;

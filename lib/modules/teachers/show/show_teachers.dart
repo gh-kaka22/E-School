@@ -1,7 +1,9 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/teachers/show/cubit/show_teachers_cubit.dart';
-import 'package:untitled/shared/components/search_bar.dart';
+import 'package:untitled/modules/teachers/show/search_teacher.dart';
+import 'package:untitled/modules/teachers/update/update_screen.dart';
+import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/teacher.dart';
 import 'package:untitled/shared/components/text_components.dart';
 class ShowTeachers extends StatelessWidget {
@@ -18,11 +20,12 @@ class ShowTeachers extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ShowTeachersCubit.get(context);
+          var list= ShowTeachersCubit.get(context).search;
           return Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
               height: h,
-              width: 4 / 5 * w,
+               width: 4 / 5 * w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -33,15 +36,26 @@ class ShowTeachers extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TSearchBar(
+                  GestureDetector(
+                    onTap: (){
+                      navigateTo(context, TSearchBar());
+                    },
 
-                      ),
-                    ],
+                    child: Container(
+                      width: w/4,
+                      child:MyText(name:'Search For Teachers',size: 20),
+
+                      // defaultFormField(
+                      //     controller: searchController,
+                      //     type: TextInputType.text,
+                      //     onChange: (value){
+                      //
+                      //       ShowTeachersCubit.get(context).getSearch(value);
+                      //     },
+                      //     label: 'Search For Teachers'),
+                    ),
                   ),
+
                   SizedBox(
                     height: 30,
                   ),
@@ -97,12 +111,20 @@ class ShowTeachers extends StatelessWidget {
                   ),
                   Expanded(
                       child: ShowTeachersBuilder(
-                          w,
+                         w,
                           cubit.showTeacherModel?.data,
                           context,
                           state
                       )
-                  )
+                  ),
+
+                  // Expanded(child: SearchTeachersBuilder(
+                  //     w,
+                  //     cubit.showTeacherModel?.data,
+                  //     cubit.search,
+                  //     context,
+                  //     state)),
+
                 ],
               ),
             ),
