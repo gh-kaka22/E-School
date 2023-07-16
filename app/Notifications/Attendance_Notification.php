@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use BeyondCode\LaravelWebSockets\WebSockets\Channels\PrivateChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -86,9 +87,24 @@ class Attendance_Notification extends Notification implements ShouldQueue
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
-            'data' => 'my first notification'
+            'first name'=>$this->first_name,
+            'last name'=>$this->last_name,
+            'text'=>'is absent today',
+            'date'=>$this->date,
         ]);
     }
+
+    /*public function broadcastAs()
+    {
+        return 'my-notification-name';
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'were absent today'
+        ];
+    }*/
 
 
     /*public function toDatabase(object $notifiable): array

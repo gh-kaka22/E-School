@@ -50,10 +50,19 @@ class AttendanceEvent implements ShouldBroadcast
     }
 
 
-    public function broadcastWith()
+    /*public function broadcastWith()
     {
         return [
             'were absent today'
+        ];
+    }*/
+
+    public function broadcastWith()
+    {
+        return [
+            'message' => 'The attendees were absent today.',
+            'student' => $this->student,
+            'parent' => $this->parent,
         ];
     }
 

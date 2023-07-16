@@ -56,9 +56,8 @@ class EmployeeController extends Controller
     public function show(Request $request)
     {
         $employee = Employee::find($request->id);
-        if(!$employee){
-            return $this->apiResponse('employee not found');
-        }
+        if(!$employee)
+            return $this->apiResponse('employee not found',null,false);
         return $this->apiResponse('success',$employee);
 
     }
@@ -71,7 +70,7 @@ class EmployeeController extends Controller
         $validatedData = $request->validate([
             'first_name' => ['nullable','string','max:255'],
             'last_name' => ['nullable','string','max:255'],
-            'job'=> ['nullable','string','max=255'],
+            'job'=> ['string','max:25'],
             'phone_number' => ['nullable','string','min:10','max:10'],
             'address' => ['nullable','string','max:255'],
             'details' => 'nullable',

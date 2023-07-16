@@ -14,6 +14,7 @@ return new class extends Migration
             $table->unsignedbigInteger('student_id');
             $table->foreign('student_id')->references('student_id')->on('students');
             $table->date('date');
+            $table->string('day');
 
 
             $table->timestamps();

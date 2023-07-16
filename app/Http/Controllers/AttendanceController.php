@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Validation\Rule;
 
 class AttendanceController extends Controller
 {
@@ -19,21 +20,34 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         //
+        //$student = Student::query()
 
         $validatedData = $request->validate([
             'student_id' => 'required|array',
             'date' => 'required|date',
+            'day' => 'required'
         ]);
+
 
         $student_ids = $validatedData['student_id'];
         $date = $validatedData['date'];
+        $day = $validatedData['day'];
 
 
         foreach ($student_ids as $student_id) {
-           Attendance::query()->Create([
-                'student_id' => $student_id,
-                'date' => $date,
-            ]);
+            if(DB::table('attendances')
+                ->where('student_id', $student_id)
+                ->where('date', $date)->
+                exists()){
+                return $this->apiResponse('you have already entered that this student was absent today');
+            } else {
+                Attendance::query()->Create([
+                    'student_id' => $student_id,
+                    'date' => $date,
+                    'day' => $day
+
+                ]);
+            }
 
         }
 
@@ -54,7 +68,14 @@ class AttendanceController extends Controller
                 )
             );
 
-            event(new AttendanceEvent($student,$parent));
+            Notification::send($parent, new Attendance_Notification(
+                    $request->date,
+                    $student->first_name,
+                    $student->last_name
+                )
+            );
+
+            //event(new AttendanceEvent($student,$parent));
         }
 
         $attend = Attendance::query()->where('date' , '=' , $date)->get();

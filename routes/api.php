@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\AttendanceEvent;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,8 +16,6 @@ Route::middleware(['auth:api', 'isOwner'])->group(function () {
     Route::get('/admin/show/{id}',[\App\Http\Controllers\AdminController::class, 'show']);
 
 });
-
-
 
 //............................Login and Logout route...................................
 Route::post('login', [AuthController::class, 'login']);
@@ -86,8 +85,12 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //Attendance routes
-        Route::Post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);
-        Route::get('/Ashowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforadmin']);
+        /*Route::Post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store'],function(){
+            event(new AttendanceEvent(['message' => 'Hello world']));;
+        });*/
+
+    Route::post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);
+    Route::get('/Ashowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforadmin']);
 
 
     //Notices Routes
@@ -114,6 +117,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::post('/create_schedule', [\App\Http\Controllers\ScheduleController::class, 'create']);
     Route::post('/show_schedule_classroom', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
     Route::get('/index_schedule', [\App\Http\Controllers\ScheduleController::class, 'index']);
+
 
 
 
@@ -164,6 +168,13 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/calcResult/{grade_id}', [\App\Http\Controllers\ResultController::class, 'calcResForGrade']);
 
 
+    //employee
+    Route::get('/employee/index', [\App\Http\Controllers\EmployeeController::class, 'index']);
+    Route::get('/employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'show']);
+    Route::get('/delete_employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'destroy']);
+    Route::post('/create_employee', [\App\Http\Controllers\EmployeeController::class, 'store']);
+    Route::post('/update_employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'update']);
+    Route::post('/delete_employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'update']);
 
 
 
