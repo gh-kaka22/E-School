@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
+use App\Models\StudentHistory;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Models\Subject;
@@ -56,7 +57,32 @@ class StudentController extends Controller
         if(!$student)
          return $this->apiResponse('Student not found',null,false);
 
+        $room_number='not assigned';
+        $room = DB::table('students_classrooms')
+            ->where('student_id',$student->student_id)
+            ->join('classrooms','classrooms.classroom_id','=','students_classrooms.classroom_id')
+            ->exists();
+        if($room){
+            $room_number = DB::table('students_classrooms')
+                ->where('student_id',$student->student_id)
+                ->join('classrooms','classrooms.classroom_id','=','students_classrooms.classroom_id')
+                ->first()->room_number;
+
+        }
+
+        $student_history = StudentHistory::create([
+            'student_id'=>$student->student_id,
+            'address'=>$student->address,
+            'details'=>$student->details,
+            'grade_id'=>$student->grade_id,
+            'status'=>$student->status,
+            'room_number'=>$room_number
+        ]);
+
         $student->update($data);
+
+
+
         return $this->apiResponse('success',$student);
 
 

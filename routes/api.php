@@ -64,12 +64,12 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //About Us Routes
-        Route::post('/admin/create_school', [\App\Http\Controllers\SchoolController::class, 'store']);
-        Route::get('/admin/show_school/{id}', [\App\Http\Controllers\SchoolController::class, 'show']);
-        Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
+    Route::post('/admin/create_school', [\App\Http\Controllers\SchoolController::class, 'store']);
+    Route::get('/admin/show_school/{id}', [\App\Http\Controllers\SchoolController::class, 'show']);
+    Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
 
 
-//Teacher  Routes
+    //Teacher  Routes
     Route::get('/teachers', [\App\Http\Controllers\TeacherController::class, 'index']);
     Route::get('/teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'show']);
     Route::get('/delete_teacher/{id}', [\App\Http\Controllers\TeacherController::class, 'destroy']);
@@ -165,7 +165,13 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/posts', [\App\Http\Controllers\PostController::class, 'getAllPosts']);
 
     //Results Routes
-    Route::get('/calcResult/{grade_id}', [\App\Http\Controllers\ResultController::class, 'calcResForGrade']);
+    Route::post('/calcResult', [\App\Http\Controllers\ResultController::class, 'calcResForGrade']);
+    Route::post('/upgrade_students', [\App\Http\Controllers\ResultController::class, 'upgradeStudents']);
+    Route::get('/show_result/{student_id}', [\App\Http\Controllers\ResultController::class, 'showResultStudent']);
+    Route::post('/show_students_results', [\App\Http\Controllers\ResultController::class, 'showStudents']);
+
+    //Student history
+    Route::get('/show_history/{student_id}', [\App\Http\Controllers\StudentHistoryController::class, 'showStudentHistory']);
 
 
     //employee
@@ -239,61 +245,3 @@ Route::middleware(['auth:api', 'isAdminOrOwnerOrTeacher'])->group(function () {
 });
 
 
-
-
-
-
-//old admin routes.............................................................................
-
-/*
- *
-
-Route::post('admin/login', [AuthController::class, 'AdminLogin']);
-
-
-
-
-
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api', 'scopes:admin']], function () {
-    // authenticated staff routes here
-//    Route::post('/student/register',[AuthController::class, 'StudentRegister']);
-//    Route::post('logout',[AuthController::class, 'AdminLogout']);
-
-
-
-
-
-
-});
-
-
-
-
-
-
-
-//Gender Routes
-Route::get('genders', [\App\Http\Controllers\GenderController::class, 'index']);
-Route::post('/create_gender', [\App\Http\Controllers\GenderController::class, 'store']);
-Route::get('genders/{id}', [\App\Http\Controllers\GenderController::class, 'show']);
-Route::put('genders/{id}', [\App\Http\Controllers\GenderController::class, 'update']);
-Route::delete('genders/{id}', [\App\Http\Controllers\GenderController::class, 'destroy']);
-
-
-//Parent Routes
-Route::get('/search_parent', [\App\Http\Controllers\ParenttController::class, 'search']);
-
-
-//employee
-Route::get('/employees', [\App\Http\Controllers\EmployeeController::class, 'index']);
-Route::get('/employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'show']);
-Route::get('/delete_employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'destroy']);
-Route::post('/create_employee', [\App\Http\Controllers\EmployeeController::class, 'store']);
-Route::post('/update_employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'update']);
-
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-
-
- *
- */
