@@ -54,3 +54,9 @@ const CREATCLASSONESTUDENT='createOneStudent';
 ///FILES
 const ADDFILE='upload_file';
 const SHOWFILE ='show_files_classroom';
+
+///Employee
+const ADDEMPLOYEE='create_employee';
+const SHOWEMPLOYEE='employee/index';
+const GETEMPLOYEE='/employee/1';
+const EDITEMPLOYEE='update_employee/1';

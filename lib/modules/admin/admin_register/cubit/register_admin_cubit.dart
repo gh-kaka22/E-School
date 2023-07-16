@@ -45,13 +45,6 @@ class RegisterAdminCubit extends Cubit<RegisterAdminState> {
     });
 
   }
-  IconData suffix= Icons.visibility;
-  bool ispassword=true;
-  void changepasswordvisibility(){
 
-    ispassword=!ispassword;
-    suffix=ispassword? Icons.visibility_off : Icons.visibility;
-    emit(RegisterChangePasswordVisibilityState());
 
-  }
 }

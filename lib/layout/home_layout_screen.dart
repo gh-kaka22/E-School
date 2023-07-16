@@ -11,6 +11,9 @@ import 'package:untitled/modules/books/add/upload.dart';
 import 'package:untitled/modules/books/show/show_files.dart';
 import 'package:untitled/modules/classrooms/add/add_classroom.dart';
 import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
+import 'package:untitled/modules/employee/add/add_employee_screen.dart';
+import 'package:untitled/modules/employee/show/show_employee.dart';
+import 'package:untitled/modules/employee/update/UpdateEmployee.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/notice/add/add_notice.dart';
@@ -69,12 +72,17 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: Showwwwww(),
+                            screen: UpdateEmployee(),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',
                                 showScreen: ShowAdmins(),
                                 addScreen: RegisterAdmin()
+                            ),
+                            cubit.SideBarItem(
+                                text: 'Employee',
+                                showScreen: ShowEmployee(),
+                                addScreen: AddEmployee()
                             ),
                           cubit.SideBarItem(
                               text: 'Students',

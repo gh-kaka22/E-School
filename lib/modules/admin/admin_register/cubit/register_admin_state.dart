@@ -14,5 +14,3 @@ class RegisterAdminErrorState extends RegisterAdminState{
   RegisterAdminErrorState(this.error);
 
 }
-class RegisterChangePasswordVisibilityState extends RegisterAdminState{}
-
