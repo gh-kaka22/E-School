@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notification;
 class Attendance_Notification extends Notification implements ShouldQueue
 {
     use Queueable;
-//////
+//////////
     /**
      * The name of the student.
      *

@@ -15,7 +15,7 @@ use Illuminate\Validation\Rule;
 
 class AttendanceController extends Controller
 {
-    //////
+    ////////
     use ApiResponseTrait;
     public function store(Request $request)
     {

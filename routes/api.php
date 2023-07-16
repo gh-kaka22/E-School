@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-
+//
 
 //............................register routes.............................................
 //Owner routes
