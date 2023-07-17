@@ -35,7 +35,7 @@ class ClassroomController extends Controller
             return $this->apiResponse('The classroom for this grade already exist',null,false);
 
         $classroom=Classroom::create($data);
-        return $this->apiResponse('success',$data);
+        return $this->apiResponse('success',$classroom);
     }
 
 
