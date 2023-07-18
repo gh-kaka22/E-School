@@ -1,10 +1,12 @@
 import 'package:e_school/models/home_model.dart';
+import 'package:e_school/models/posts_model.dart';
 import 'package:e_school/modules/Timetable/timetable_screen.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/modules/exams/exams_screen.dart';
 import 'package:e_school/modules/home/cubit/home_states.dart';
 import 'package:e_school/shared/components/category_card.dart';
 import 'package:e_school/shared/components/constants.dart';
+
 import 'package:e_school/shared/network/end_points.dart';
 import 'package:e_school/shared/network/remote/dio_helper.dart';
 import 'package:e_school/shared/styles/colors.dart';
@@ -45,5 +47,27 @@ class HomeCubit extends Cubit<HomeStates>{
 
 
 
+  }
+  ///GET POSTS
+  PostsModel? postsModel;
+  List<dynamic>? posts;
+  void getPosts()
+  {
+    emit(HomeLoadingState());
+    DioHelper.getData(
+      url: GETPOSTS,
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      postsModel = PostsModel.fromJson(value?.data);
+      print(postsModel?.status);
+      print(postsModel?.message);
+      print(postsModel?.data[0]);
+      posts = postsModel?.data;
+      emit(HomeSuccessState());
+    }).catchError((error){
+      print(error.toString());
+      emit(HomeErrorState(error.toString()));
+    });
   }
 }

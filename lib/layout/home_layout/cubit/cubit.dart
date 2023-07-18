@@ -1,6 +1,7 @@
 import 'package:e_school/layout/home_layout/cubit/states.dart';
-import 'package:e_school/modules/favorites/favorites_screen.dart';
+
 import 'package:e_school/modules/home/home_screen.dart';
+import 'package:e_school/modules/posts/posts_screen.dart';
 import 'package:e_school/modules/profile/profile_screen.dart';
 import 'package:e_school/modules/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,8 @@ class SchoolCubit extends Cubit<SchoolStates>
         label:'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.favorite),
-      label:'Favorites',
+      icon: Icon(Icons.newspaper),
+      label:'Posts',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.person),
@@ -36,7 +37,7 @@ class SchoolCubit extends Cubit<SchoolStates>
 
   List<Widget> screens = [
     HomeScreen(),
-    FavoritesScreen(),
+    PostsScreen(),
     ProfileStudent(),
     SettingsScreen(),
 
