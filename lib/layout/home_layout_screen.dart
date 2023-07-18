@@ -16,6 +16,8 @@ import 'package:untitled/modules/employee/show/show_employee.dart';
 import 'package:untitled/modules/employee/update/UpdateEmployee.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
+import 'package:untitled/modules/news/add/create_post.dart';
+import 'package:untitled/modules/news/show/get_posts.dart';
 import 'package:untitled/modules/notice/add/add_notice.dart';
 import 'package:untitled/modules/notice/show/show_note.dart';
 import 'package:untitled/modules/notice/show/show_notes.dart';
@@ -130,9 +132,9 @@ class HomeLayout extends StatelessWidget {
                                 addScreen: AddSchoolYear()
                             ),
                           cubit.SideBarItem(
-                              text: 'News',
-                              showScreen: StudentsShow(),
-                              addScreen: StudentRegisterScreen()
+                              text: 'Posts',
+                              showScreen: GetPosts(),
+                              addScreen: CreatePost()
                           ),
                             cubit.SideBarItem(
                                 text: 'Notice',

@@ -56,7 +56,7 @@ class ExamsAdd extends StatelessWidget {
                 children: [
                   Text(
                     'EXAMS',
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.w400,color: kDarkBlue2Color),
                   ),
                   SizedBox(
                     height: 30,

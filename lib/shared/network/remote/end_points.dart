@@ -55,6 +55,20 @@ const CREATCLASSONESTUDENT='createOneStudent';
 const ADDFILE='upload_file';
 const SHOWFILE ='show_files_classroom';
 
+///POSTS
+const CREATESCHOOLPOST='create_for_school';
+const CREATEGRADEPOST ='create_for_grade';
+const CREATECLASSROOMPOST = 'create_for_classroom';
+const GETPOSTS = 'posts';
+const TOGGLELIKE = 'like';
+const GETLIKES = 'show_all_likes';
+const GETCOMMENTS = 'show_all_comments';
+const CREATECOMMENT = 'create_comment';
+const EDITPOST = 'edit_post';
+const DELETEPOST = 'delete_post';
+const EDITCOMMENT = 'update_comment';
+const DELETECOMMENT = 'delete_comment';
+
 ///Employee
 const ADDEMPLOYEE='create_employee';
 const SHOWEMPLOYEE='employee/index';
