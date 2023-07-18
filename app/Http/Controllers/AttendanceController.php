@@ -22,7 +22,7 @@ class AttendanceController extends Controller
     {
         //
         //$student = Student::query()
-
+//
         $validatedData = $request->validate([
             'student_id' => 'required|array',
             'date' => 'required|date'

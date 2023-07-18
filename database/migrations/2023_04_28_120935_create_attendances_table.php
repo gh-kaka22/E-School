@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('day');
 
-
+//
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
-
+//
             $table->unsignedbigInteger('student_id');
             $table->foreign('student_id')->references('student_id')->on('students')
                 ->onUpdate('cascade')
