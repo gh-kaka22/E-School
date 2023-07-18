@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
@@ -24,14 +25,13 @@ class AttendanceController extends Controller
 
         $validatedData = $request->validate([
             'student_id' => 'required|array',
-            'date' => 'required|date',
-            'day' => 'required'
+            'date' => 'required|date'
         ]);
 
 
         $student_ids = $validatedData['student_id'];
         $date = $validatedData['date'];
-        $day = $validatedData['day'];
+        $day = Carbon::createFromFormat('Y-m-d', $date)->format('l');
 
 
         foreach ($student_ids as $student_id) {
@@ -45,7 +45,6 @@ class AttendanceController extends Controller
                     'student_id' => $student_id,
                     'date' => $date,
                     'day' => $day
-
                 ]);
             }
 

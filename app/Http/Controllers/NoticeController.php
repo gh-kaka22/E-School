@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Notice;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,21 @@ class NoticeController extends Controller
             'date' => 'required|date',
         ]);
 
-        $notice = Notice::query()->Create($validatedData);
+        $student_id = $validatedData['student_id'];
+        $type = $validatedData['type'];
+        $content = $validatedData['content'];
+        $date = $validatedData['date'];
+        $day = Carbon::createFromFormat('Y-m-d', $date)->format('l');
+
+
+        $notice=  Notice::query()->Create([
+            'student_id' => $student_id,
+            'type' =>$type,
+            'content' =>$content,
+            'date' => $date,
+            'day' => $day
+        ]);
+
 
         return $this->apiResponse('Notice sent successfully', $notice);
 

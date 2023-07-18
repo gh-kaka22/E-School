@@ -134,9 +134,9 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/schoolyears', [\App\Http\Controllers\SchoolYearController::class, 'index']);
     Route::post('/create_schoolyear', [\App\Http\Controllers\SchoolYearController::class, 'store']);
     //Route::get('/delete_schoolyear/{id}', [\App\Http\Controllers\SchoolYearController::class, 'destroy']);
+//
 
-
-
+//
     //Student Routes
     Route::post('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
     Route::get('/students/index', [\App\Http\Controllers\StudentController::class, 'index']);

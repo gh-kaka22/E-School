@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('student_id')->on('students')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-
+            $table->string('day');
             $table->string('type');
             $table->text('content');
             $table->date('date');
