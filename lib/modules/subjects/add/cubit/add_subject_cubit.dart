@@ -1,10 +1,10 @@
 
 import 'package:untitled/models/add_subject_model.dart';
-import 'package:untitled/models/subject_model.dart';
 import 'package:untitled/modules/subjects/add/cubit/add_subject_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
+import 'package:untitled/shared/components/constants.dart';
 
 class AddSubjectCubit extends Cubit<AddSubjectStates> {
   AddSubjectCubit() : super(AddSubjectInitialState());
@@ -32,7 +32,6 @@ class AddSubjectCubit extends Cubit<AddSubjectStates> {
     ).then((value) {
       print(value?.data);
       addSubjectModel = AddSubjectModel.fromJson(value?.data);
-      if(value!.data['massege'])
       emit(AddSubjectSuccessState(addSubjectModel!));
     })
         .catchError((error) {

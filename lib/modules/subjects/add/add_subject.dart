@@ -31,7 +31,7 @@ class AddSubject extends StatelessWidget {
       child: BlocConsumer<AddSubjectCubit, AddSubjectStates>(
         listener: (context, state) {
           if (state is AddSubjectSuccessState) {
-            if(state.addSubjectModel.status ?? true) {
+            if(state.addSubjectModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:
