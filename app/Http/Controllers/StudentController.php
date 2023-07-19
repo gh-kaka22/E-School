@@ -100,11 +100,6 @@ class StudentController extends Controller
     }
 
 
-    public function getStudentCount()
-    {
-        $studentCount = DB::table('students')->count();
-        return $studentCount;
-    }
 
 
     public function searchByName(Request $request)

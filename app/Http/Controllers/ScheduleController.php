@@ -14,6 +14,47 @@ class ScheduleController extends Controller
 {
     use ApiResponseTrait;
 
+
+    function getTeacherIdsFromSubjectIds($subjectIds)
+    {
+        $subjectIds = array_map('intval', $subjectIds);
+
+        $teacherIds = DB::table('teachers')
+            ->whereIn('subject_id', $subjectIds)
+            ->pluck('teacher_id')
+            ->toArray();
+
+        return $teacherIds;
+    }
+
+
+
+    function checkTeacherSubjectScheduleConflict($teacherId, $classroomIds, $dayNumber, $subjectIds)
+    {
+        $query = DB::table('schedules')
+            ->join('teachers_classrooms', 'schedules.classroom_id', '=', 'teachers_classrooms.classroom_id')
+            ->whereIn('schedules.classroom_id', $classroomIds)
+            ->where('schedules.day_number', $dayNumber);
+
+        foreach ($subjectIds as $subjectId) {
+            $query->where(function ($query) use ($subjectId) {
+                $query->where('first_subject', $subjectId)
+                    ->orWhere('second_subject', $subjectId)
+                    ->orWhere('third_subject', $subjectId)
+                    ->orWhere('fourth_subject', $subjectId)
+                    ->orWhere('fifth_subject', $subjectId)
+                    ->orWhere('sixth_subject', $subjectId)
+                    ->orWhere('seventh_subject', $subjectId);
+            });
+        }
+
+        $query->where('teachers_classrooms.teacher_id', $teacherId);
+
+        return $query->exists();
+    }
+
+
+
     public function create(Request $request){
         $validatedData = $request->validate([
             'day_number' => ['required','integer'],
@@ -51,11 +92,28 @@ class ScheduleController extends Controller
             return $this->apiResponse('A schedule already exists for this classroom and day.',null,false);
 
 
-        $schedule=Schedule::create($validatedData);
+        // Fetch the teacher IDs from the subjects
+        $subjectIds = array_values(array_slice($validatedData, 1));
+        $teacherIds = $this->getTeacherIdsFromSubjectIds($subjectIds);
 
-        return $this->apiResponse('Created',$schedule);
+        // Check for teacher subject schedule conflicts
+        foreach ($teacherIds as $teacherId) {
+            $classroomIds = DB::table('teachers_classrooms')
+                ->where('teacher_id', $teacherId)
+                ->pluck('classroom_id')
+                ->toArray();
 
+            $teacherSubjectConflict = $this->checkTeacherSubjectScheduleConflict($teacherId, $classroomIds, $request->day_number, $subjectIds);
 
+            if ($teacherSubjectConflict) {
+                return $this->apiResponse('The teacher is already teaching one of the assigned subjects at the same time in another classroom.', null, false);
+            }
+        }
+
+        // Create the schedule
+        $schedule = Schedule::create($validatedData);
+
+        return $this->apiResponse('Created', $schedule);
     }
 
     public function showClassroomScheduleStudent(Request $request){

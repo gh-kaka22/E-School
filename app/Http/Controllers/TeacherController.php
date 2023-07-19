@@ -97,11 +97,6 @@ class TeacherController extends Controller
     }
 
 
-    public function getTeacherCount()
-    {
-        $teacherCount = DB::table('teachers')->count();
-        return $teacherCount;
-    }
 
     public function subjectTeacher($id){
         $teachers = DB::table('teachers')
