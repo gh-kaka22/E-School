@@ -74,3 +74,6 @@ const ADDEMPLOYEE='create_employee';
 const SHOWEMPLOYEE='employee/index';
 const GETEMPLOYEE='/employee/1';
 const EDITEMPLOYEE='update_employee/1';
+
+///STATS
+const STATS='admin/stats';

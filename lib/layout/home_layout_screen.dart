@@ -24,6 +24,7 @@ import 'package:untitled/modules/notice/show/show_notes.dart';
 import 'package:untitled/modules/owner/owner_login_screen.dart';
 import 'package:untitled/modules/schoolYears/add/add_school_year.dart';
 import 'package:untitled/modules/schoolYears/show/show_school_year.dart';
+import 'package:untitled/modules/statistics/stats_screen.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/modules/students/show/search_students.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
@@ -74,7 +75,7 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: UpdateEmployee(),
+                            screen: StatsScreen(),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',
