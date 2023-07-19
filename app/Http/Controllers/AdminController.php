@@ -17,10 +17,17 @@ class AdminController extends Controller
         return $this->apiResponse('success',$admins);
     }
 
-    public function getAdminCount()
+    public function getStatistics()
     {
-        $adminCount = DB::table('admins')->count();
-        return $adminCount;
+
+
+        $statistics['admins']=DB::table('admins')->count();
+        $statistics['teachers']=DB::table('teachers')->count();
+        $statistics['students']=DB::table('students')->count();
+        $statistics['employees']=DB::table('employees')->count();
+
+        return $this->apiResponse('success',$statistics);
+
     }
 
     public function show(Request $request)

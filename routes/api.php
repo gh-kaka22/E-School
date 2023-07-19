@@ -100,9 +100,8 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //get numbers of students,teachers,Admins to show it in the dashboard
-    Route::get('/admin/getnumber',[\App\Http\Controllers\AdminController::class, 'getAdminCount']);
-    Route::get('/student/getnumber',[\App\Http\Controllers\StudentController::class, 'getStudentCount']);
-    Route::get('/teacher/getnumber',[\App\Http\Controllers\TeacherController::class, 'getTeacherCount']);
+    Route::get('/admin/stats',[\App\Http\Controllers\AdminController::class, 'getStatistics']);
+
 
 
 
