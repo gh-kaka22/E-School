@@ -115,6 +115,10 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     //Schedule Routes
     Route::post('/create_schedule', [\App\Http\Controllers\ScheduleController::class, 'create']);
     Route::post('/show_schedule_classroom', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
+
+
+    Route::get('/show_teacher_schedule/{id}/{day_number}', [\App\Http\Controllers\ScheduleController::class, 'showTeachersScheduleForAdmin']);
+
     Route::get('/index_schedule', [\App\Http\Controllers\ScheduleController::class, 'index']);
 
 
