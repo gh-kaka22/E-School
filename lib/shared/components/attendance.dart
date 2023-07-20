@@ -7,7 +7,7 @@ import 'package:untitled/styles/colors.dart';
 import 'components.dart';
 
 
-Widget ShowAttendanceItem(w, student, index, context,ShowAttendanceCubit cubit,state) => Container(
+Widget ShowAttendanceItem(w,h,padding,radius, student, index, context,ShowAttendanceCubit cubit,state) => Container(
   width: 4 / 5 * w,
   height: 50,
   decoration: BoxDecoration(
@@ -46,9 +46,82 @@ Widget ShowAttendanceItem(w, student, index, context,ShowAttendanceCubit cubit,s
         Expanded(
           child: Center(
             child: defaultButton(
-              onPressed: () {
-                cubit.getAttenadnce();
-               cubit.showAbcenceDialog(context: context);
+              onPressed: () async {
+             await cubit.getAttenadnce(student.studentId);
+             showDialog<Future<void>>(
+               context: context,
+               builder: (BuildContext context) {
+                 return AlertDialog(
+                   title: Text('${student.firstName + ' ' + student.lastName}',style: TextStyle(
+                     color: kDarkBlue2Color,
+                     fontSize: 20,
+
+                   ),
+                   ),
+                   content: Container(
+                     width: w/4,
+
+                     child: ConditionalBuilder(
+                       condition: cubit.absence != null && state is! ShowAttendanceLoadingState,
+                       builder: (context) => ListView.separated(
+                         physics: BouncingScrollPhysics(),
+                         shrinkWrap: true,
+                         itemCount: cubit.absence!.length,
+                         separatorBuilder: (BuildContext context, int index) => Center(child: Container(height:1,width: w/5,color: kDarkBlue2Color,)),
+                         itemBuilder: (BuildContext context, int index) {
+                           return  Padding(
+                             padding: EdgeInsets.all(padding),
+                             child: Container(
+                               width: w/4,
+                               height: h / 18,
+                               decoration: BoxDecoration(
+                                   color: Colors.grey[300],
+                                   borderRadius: BorderRadius.all(Radius.circular(radius)),
+                                  ),
+                               child: Row(
+                                 children: [
+                                   Container(
+                                     width: w / 20,
+                                     height: h / 18,
+                                     decoration: BoxDecoration(
+                                       color: kDarkBlue2Color,
+                                       borderRadius: BorderRadius.all(Radius.circular(radius)),
+
+                                     ),
+                                     child: Center(child: Text('${cubit.absence?[index].day.substring(0, 3)}',style: TextStyle(
+                                       color: kDarkWhiteColor,
+                                       fontSize: 20,
+
+                                     ),)),
+
+                                   ),
+                                   Expanded(
+                                       child: Center(
+                                         child: Text('${cubit.absence?[index].date}',
+                                             style: TextStyle(overflow: TextOverflow.ellipsis , color: kDarkBlue2Color,fontSize: 20)),
+                                       )),
+
+                                 ],
+                               ),
+                             ),
+                           );
+                         },
+                       ),
+                       fallback: (context) => Center(child: Text('<< No Absence >>')),
+                     ),
+                   ),
+                   actions: <Widget>[
+                     TextButton(
+                       child: Text('OK'),
+                       onPressed: () {
+                         Navigator.of(context).pop();
+                       },
+                     ),
+                   ],
+                 );
+               },
+             );
+           ;
 
               },
               height: 30,
@@ -65,11 +138,11 @@ Widget ShowAttendanceItem(w, student, index, context,ShowAttendanceCubit cubit,s
     ),
   ),
 );
-Widget ShowAttendanceBuilder(w, students, context, state,cubit) => ConditionalBuilder(
+Widget ShowAttendanceBuilder(w,h,padding,radius, students, context, state,cubit) => ConditionalBuilder(
   condition: state is! ShowAttendanceLoadingState && students != null,
   builder: (context) => ListView.separated(
       itemBuilder: (context, index) =>
-          ShowAttendanceItem(w, students[index], index, context,cubit,state),
+          ShowAttendanceItem(w,h,padding,radius,students[index], index, context,cubit,state),
       separatorBuilder: (context, index) {
         return MyDivider();
       },
@@ -77,46 +150,3 @@ Widget ShowAttendanceBuilder(w, students, context, state,cubit) => ConditionalBu
   fallback: (context) => Center(child: LinearProgressIndicator()),
 );
 
-
-Widget ShowAbsentItem(w, absent, index, context) => Container(
-  width: 100,
-  height: 50,
-  decoration: BoxDecoration(
-      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.2),
-            blurRadius: 20) //blur radius of shadow
-      ]),
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
-    child: Row(
-      children: [
-        Expanded(
-            child: Center(
-              child: Text('${absent.id}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-        Expanded(
-            child: Center(
-              child: Text('${absent.date}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
-
-
-
-      ],
-    ),
-  ),
-);
-Widget ShowAbsentBuilder(w, absence, context, state) => ConditionalBuilder(
-  condition: state is! ShowAttendanceLoadingState && absence != null,
-  builder: (context) => ListView.separated(
-      itemBuilder: (context, index) =>
-          ShowAbsentItem(w, absence[index], index, context),
-      separatorBuilder: (context, index) {
-        return MyDivider();
-      },
-      itemCount: absence.length ?? 0),
-  fallback: (context) => Center(child: LinearProgressIndicator()),
-);

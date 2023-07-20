@@ -39,11 +39,11 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
   List<DropdownMenuItem> menuItemsType = [
     DropdownMenuItem(
       value: '1',
-      child: Text('T1'),
+      child: Text('Behavioral'),
     ),
     DropdownMenuItem(
       value: '2',
-      child: Text('Mid'),
+      child: Text('Late'),
     ),
   ];
 
@@ -107,35 +107,6 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
     });
   }
 
-  //
-  // ClassroomModel? classroomModel;
-  // List<dynamic>? classrooms;
-  // void getClassrooms()
-  // {
-  //   emit(ShowClassroomsXLoadingState());
-  //   DioHelper.getData(
-  //     url: GETCLASSROOMS,
-  //     token: token,
-  //   ).then((value) {
-  //     print(value?.data);
-  //     classroomModel = ClassroomModel.fromJson(value?.data);
-  //     print(classroomModel?.status);
-  //     print(classroomModel?.message);
-  //     print(classroomModel?.data?[0].capacity);
-  //     classrooms = classroomModel?.data;
-  //     print(classrooms?[1].roomNumber);
-  //     menuItemsSection = classrooms!.map((classroom) {
-  //       return DropdownMenuItem<dynamic>(
-  //         value: classroom.roomNumber,
-  //         child: Text(classroom.roomNumber),
-  //       );
-  //     }).toList();
-  //     emit(ShowClassroomsXSuccessState(classroomModel!));
-  //   }).catchError((error){
-  //     print(error.toString());
-  //     emit(ShowClassroomsXErrorState(error.toString()));
-  //   });
-  // }
 
   DateTime selectedDate = DateTime.now();
 

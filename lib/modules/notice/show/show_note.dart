@@ -170,7 +170,7 @@ class ShowNotesScreen extends StatelessWidget {
                   ),
                   Expanded(
                       child: ShowNotesBuilder(
-                          100,
+                          w,
                           cubit.showNotesModel?.data,
                           context,
                           state

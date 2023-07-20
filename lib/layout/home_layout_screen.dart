@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
 import 'package:untitled/modules/about_us/add/add_information.dart';
+import 'package:untitled/modules/about_us/update/update_school.dart';
 import 'package:untitled/modules/admin/admin_register/register_screen.dart';
 import 'package:untitled/modules/admin/show_admins/show_admins.dart';
 import 'package:untitled/modules/attendance/add/add.dart';
@@ -13,7 +14,6 @@ import 'package:untitled/modules/classrooms/add/add_classroom.dart';
 import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
 import 'package:untitled/modules/employee/add/add_employee_screen.dart';
 import 'package:untitled/modules/employee/show/show_employee.dart';
-import 'package:untitled/modules/employee/update/UpdateEmployee.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/news/add/create_post.dart';
@@ -39,8 +39,9 @@ import 'package:untitled/modules/teachers/update/update_screen.dart';
 import 'package:untitled/modules/timetable/show/show_timetable.dart';
 import 'package:untitled/shared/components/search_bar.dart';
 
+import '../modules/about_us/show/show_school.dart';
 import '../modules/admin/login/login_screen.dart';
-import '../modules/attendance/show/Showww.dart';
+
 import '../modules/students/update/update_students_screen.dart';
 import '../shared/components/notice.dart';
 import '../test.dart';
@@ -57,8 +58,7 @@ class HomeLayout extends StatelessWidget {
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
           return Scaffold(
-            body: Row(
-                children: [
+            body: Row(children: [
               Container(
                 height: h,
                 width: w / 5,
@@ -145,7 +145,7 @@ class HomeLayout extends StatelessWidget {
                             ),
                             cubit.SideBarItem(
                               text: 'About Us',
-                              showScreen: AddSchool(),
+                              showScreen: ShowSchool(),
                               addScreen: AddSchool(),
                             ),
                             cubit.SpecialSideBarItem(

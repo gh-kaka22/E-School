@@ -3,11 +3,12 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:untitled/models/class_one_student_model.dart';
+import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/update_student_model.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import '../../../../shared/components/constants.dart';
 import '../../../../shared/network/remote/end_points.dart';
-
 part 'update_students_state.dart';
 
 class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
@@ -15,53 +16,57 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
 
   static UpdateStudentsCubit get(context) => BlocProvider.of(context);
   UpdateStudentModel? updateStudentModel;
-  String? grade;
-  String? dropDownValue;
-  int? gradeID;
-  List<DropdownMenuItem<String>> ReligionItems = [
+  ClassOneStudentModel? classOneStudentModel;
+  bool isChecked = true;
+  String? ischeck;
+  String currText = 'Active';
+  String? dropDownValueClass = '7';
+  String? dropDownValueSection;
+
+  List<DropdownMenuItem> menuItemsClass = [
     DropdownMenuItem(
-      value: 'muslim',
-      child: Text('Muslim'),
+      value: '7',
+      child: Text('7'),
     ),
     DropdownMenuItem(
-      value: 'christian',
-      child: Text('Christian'),
-    ),
-  ];
-  List<DropdownMenuItem<String>> GradeItems = [
-    DropdownMenuItem(
-      value: 'Seventh',
-      child: Text('Seventh'),
+      value: '8',
+      child: Text('8'),
     ),
     DropdownMenuItem(
-      value: 'Eighth',
-      child: Text('Eighth'),
-    ),
-    DropdownMenuItem(
-      value: 'Ninth',
-      child: Text('Ninth'),
+      value: '9',
+      child: Text('9'),
     ),
   ];
+  List<DropdownMenuItem> menuItemsSection = [];
 
-  void changeDropDownButton(String newValue) {
-    dropDownValue = newValue;
-    print('${dropDownValue}');
-    emit(ReligionState());
+  void changeClassDropDownButton(String newValue)
+  {
+    dropDownValueClass = newValue;
+    dropDownValueSection='none';
+    getClassrooms(dropDownValueClass);
+    print('section====> ${dropDownValueSection}');
+    emit(ClassDropDownButtonState());
+
+  }
+  void changeSectionDropDownButton(String newValue)
+  {
+    dropDownValueSection = newValue;
+    emit(SectionDropDownButtonState());
   }
 
-  void changeGradeDropDownButton(String gr) {
-    print('gggg $gr');
-    grade = gr;
-    if (grade == 'Seventh') gradeID = 7;
+  changeCheck(val) {
+    isChecked = val!;
+    if (isChecked)
+      ischeck = 'active';
+    else
+      ischeck ='unactive';
+    print('Active or no :  ${ischeck}');
 
-    if (grade == 'Eighth') gradeID = 8;
-
-    if (grade == 'Ninth') gradeID = 9;
-
-    emit(GradeState());
-    print('grade: ${grade}');
-    print('grade Id: ${gradeID}');
+    emit(CheckState());
   }
+
+
+
   DateTime selectedDate = DateTime.now();
 
   Future<void> selectDate(BuildContext context) async {
@@ -80,7 +85,7 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   void getStudentData(student_id) {
     emit(ShowStudentInfoLoading());
     DioHelper.getData(
-      url: '${SHOWSTUDENTBYID}/${1}',
+      url: '${SHOWSTUDENTBYID}/${student_id}',
       token: token,
     ).then((value) {
       updateStudentModel = UpdateStudentModel.fromJson(value!.data);
@@ -106,10 +111,11 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
     grade_number,
     date_of_birth,
     religion,
+    status,
   }) {
     emit(UpdateStudentsLoading());
-    DioHelper.puttData(
-      url: '${UPDATESTUDENT}/1',
+    DioHelper.postData(
+      url: '${UPDATESTUDENT}/${updateStudentModel?.data?.studentId}',
       token: token,
       data: {
         'first_name': firstname,
@@ -121,8 +127,8 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
         'mother_last_name': lastMotherName,
         'mother_phone_number': motherPhoneNumber,
         'national_id': nationalId,
-        'religion': dropDownValue.toString(),
         'date_of_birth': DateFormat('yyyy-MM-dd').format(selectedDate).toString(),
+        'status':status,
       },
     ).then((value) {
       print(value?.data);
@@ -140,4 +146,70 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
       );
     });
   }
+
+
+
+  void UpdateClass({
+    student_id,
+    classroom_id,
+  }) {
+    emit(ClassLoading());
+    DioHelper.postData(
+      url: CREATCLASSONESTUDENT,
+      token: token,
+      data: {
+        'student_id':student_id,
+        'classroom_id':classroom_id,
+      },
+    ).then((value) {
+      print(value?.data);
+      if (value!.data['status']) {
+        classOneStudentModel = ClassOneStudentModel.fromJson(value.data);
+        print(classOneStudentModel?.data);
+        emit(ClassSuccess(classOneStudentModel!));
+      } else {
+        emit(ClassError(value.data['message']));
+      }
+    }).catchError((error) {
+      print("Error ===> ${(error)}");
+      emit(
+        ClassError(error.toString()),
+      );
+    });
+  }
+
+  ClassroomModel? classroomModel;
+  List<dynamic>? classrooms;
+  void getClassrooms(value)
+  {
+    emit(ShowClassroomsSLoadingState());
+    DioHelper.getData(
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      classroomModel = ClassroomModel.fromJson(value?.data);
+      print(classroomModel?.status);
+      print(classroomModel?.message);
+      print(classroomModel?.data?[0].classroomId);
+      classrooms = classroomModel?.data;
+      print(classrooms?[1].classroomId);
+      menuItemsSection = classrooms!.map((classroom) {
+        return DropdownMenuItem<dynamic>(
+          value: classroom.classroomId,
+          child: Text(classroom.roomNumber),
+        );
+      }).toList();
+      emit(ShowClassroomsSSuccessState(classroomModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowClassroomsSErrorState(error.toString()));
+    });
+  }
+
+
+
+
+
+
 }

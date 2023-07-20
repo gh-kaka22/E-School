@@ -161,12 +161,12 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
       }
       else if (value?.data is Map) {
         final model = ShowStudentsModel.fromJson(value?.data);
-        search = model.data!;
+        search = model.data;
       }
       emit(SearchStudentsSuccessState());
     }).catchError((error){
       print(error.toString());
-      emit(SearchStudentsErrorState(error));
+      emit(SearchStudentsErrorState(error.toString()));
     });
   }
 

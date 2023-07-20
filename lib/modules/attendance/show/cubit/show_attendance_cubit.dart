@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/show_Attendance_model.dart';
 import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/modules/attendance/show/cubit/show_attendance_state.dart';
 import 'package:untitled/shared/components/attendance.dart';
-import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -17,7 +17,7 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
   static ShowAttendanceCubit get(context) => BlocProvider.of(context);
 
   String? dropDownValueClass = '7';
-  String? dropDownValueSection = 'A';
+  String? dropDownValueSection ;
 
   List<DropdownMenuItem> menuItems = [
     DropdownMenuItem(
@@ -33,22 +33,11 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
       child: Text('9'),
     ),
   ];
-  List<DropdownMenuItem> menuItems2 = [
-    DropdownMenuItem(
-      value: 'A',
-      child: Text('A'),
-    ),
-    DropdownMenuItem(
-      value: 'B',
-      child: Text('B'),
-    ),
-    DropdownMenuItem(
-      value: 'C',
-      child: Text('C'),
-    ),
-  ];
+  List<DropdownMenuItem> menuItemsSection = [];
   void changeClassDropDownButton(String newValue) {
     dropDownValueClass = newValue;
+    dropDownValueSection='none';
+    getClassrooms(dropDownValueClass);
     emit(ShowStudentsClassDropDownButtonState());
   }
 
@@ -83,31 +72,87 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
     });
   }
 
-  // void getStudentsByGrade(value)
-  // {
-  //   emit(ShowStudentsLoadingState());
-  //   DioHelper.getData(
-  //     url: '${GETSTUDENTSBYGRADE}/${value}',
-  //     token: token,
-  //   ).then((value) {
-  //     print(value?.data);
-  //     showStudentsModel = ShowStudentsModel.fromJson(value?.data);
-  //     print(showStudentsModel?.status);
-  //     print(showStudentsModel?.message);
-  //     print(showStudentsModel?.data?[0].email);
-  //     students = showStudentsModel?.data;
-  //     print(students?[1].religion);
-  //     emit(ShowStudentsSuccessState(showStudentsModel!));
-  //   }).catchError((error){
-  //     print(error.toString());
-  //     emit(ShowStudentsErrorState(error.toString()));
-  //   });
-  // }
-
-  void getAttenadnce() {
+  void getStudentsByGrade(value) {
     emit(ShowAttendanceLoadingState());
     DioHelper.getData(
-      url: SHOWATTENDANCE,
+      url: '${GETSTUDENTSBYGRADE}/${value}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      students = showStudentsModel?.data;
+      print(students?[1].religion);
+      emit(ShowStudentsSuccessState(showStudentsModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShowStudentsErrorState(error.toString()));
+    });
+  }
+
+
+  void getStudentsByGradeAndClassroom(grade,classroom)
+  {
+    emit(ShowAttendanceLoadingState());
+    DioHelper.postData(
+      url: GETSTUDENTSBYGRADEANDCLASSROOM,
+      data:{
+        'grade_id': grade,
+        'room_number': classroom,
+      },
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      print(showStudentsModel?.data?[0]);
+      students = showStudentsModel?.data;
+      print(students?[1].religion);
+      emit(ShowStudentsSuccessState(showStudentsModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowStudentsErrorState(error.toString()));
+    });
+  }
+
+
+
+  ClassroomModel? classroomModel;
+  List<dynamic>? classrooms;
+  void getClassrooms(value)
+  {
+    emit(ShowClassroomsXLoadingState());
+    DioHelper.getData(
+      url: GETCLASSROOMS,
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      classroomModel = ClassroomModel.fromJson(value?.data);
+      print(classroomModel?.status);
+      print(classroomModel?.message);
+      print(classroomModel?.data?[0].capacity);
+      classrooms = classroomModel?.data;
+      print(classrooms?[1].roomNumber);
+      menuItemsSection = classrooms!.map((classroom) {
+        return DropdownMenuItem<dynamic>(
+          value: classroom.roomNumber,
+          child: Text(classroom.roomNumber),
+        );
+      }).toList();
+      emit(ShowClassroomsXSuccessState(classroomModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowClassroomsXErrorState(error.toString()));
+    });
+  }
+
+
+  Future<void>? getAttenadnce(studentId) {
+    emit(ShowAttendanceLoadingState());
+    DioHelper.getData(
+      url: '${SHOWATTENDANCE}/${studentId}',
       token: token,
     ).then((value) {
       print(value?.data);
@@ -124,43 +169,6 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
     });
   }
 
-  void showAbcenceDialog({
-    required BuildContext context,
-    Function? getAttenadnce,
-  }) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-              title: MyText(name: "Absences", size: 25),
-              content:
-              // Text('${showAttendanceModel!.data?[0].date}'),
-              ShowAbsentBuilder(
-                  100,
-                  showAttendanceModel?.data,
-                  context,
-                  state
-              ),
 
-              actions: [
-                ElevatedButton(
 
-      onPressed: () {
-        if (getAttenadnce != null) { // check if getAttenadnce is not null
-          getAttenadnce(); // call the function
-        }
-                  },
-                  child: Text("OK"),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor:
-                        Colors.white, //change background color of button
-                    backgroundColor: kGold1Color, //change text color of button
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    elevation: 15.0,
-                  ),
-                ),
-              ],
-            ));
-  }
 }

@@ -32,20 +32,20 @@ class UpdateStudent extends StatelessWidget {
     var formkey = GlobalKey<FormState>();
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double padding=MediaQuery.of(context).size.width/20;
+    double padding = MediaQuery.of(context).size.width / 20;
     double borderwidth = 1;
 
     return BlocProvider(
-      create: (context) => UpdateStudentsCubit()..getStudentData(1),
+      create: (context) => UpdateStudentsCubit()
+        ..getStudentData(1)
+        ..getClassrooms(7),
       child: BlocConsumer<UpdateStudentsCubit, UpdateStudentsState>(
         listener: (context, state) {
-          if (state is UpdateStudentsError)
-          {
+          if (state is UpdateStudentsError) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
                 content:
-                Text(state.error, style: TextStyle(color: Colors.white))));
-
+                    Text(state.error, style: TextStyle(color: Colors.white))));
           }
 
           if (state is UpdateStudentsSuccess) {
@@ -56,7 +56,7 @@ class UpdateStudent extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 )));
 
-            navigateTo(context, StudentsShow());
+            //navigateTo(context, StudentsShow());
           }
         },
         builder: (context, state) {
@@ -72,320 +72,341 @@ class UpdateStudent extends StatelessWidget {
             FatherController.text = model.data!.fatherFirstName!;
             FmotherController.text = model.data!.motherFirstName!;
             LmotherController.text = model.data!.motherLastName!;
-            nationalityController.text=model.data!.nationalId!;
+            nationalityController.text = model.data!.nationalId!;
           }
-          return ConditionalBuilder(
-            condition: UpdateStudentsCubit.get(context).updateStudentModel != null,
-            builder: (context) => Container(
-              width: w - (w / 5) - 5,
-              decoration: BoxDecoration(
-                color: Colors.white24,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Update Student Data : ",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge!
-                              .copyWith(color: kDarkBlue2Color),
+          return Material(
+            child: ConditionalBuilder(
+              condition:
+                  UpdateStudentsCubit.get(context).updateStudentModel != null,
+              builder: (context) => Container(
+                width: w - (w / 5) - 5,
+                decoration: BoxDecoration(
+                  color: Colors.white24,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Update Student Data : ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(color: kDarkBlue2Color),
+                          ),
                         ),
-                      ),
-                      Form(
-                        key: formkey,
-                        child: Column(
-                          children: [
-                            SizedBox(height: h/8),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: buildSForm(
-                                      controller: FnameController,
-                                      labeltext: 'First Name',
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
+                        Form(
+                          key: formkey,
+                          child: Column(
+                            children: [
+                              SizedBox(height: h / 20),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
                                       child: buildSForm(
-                                          controller: LnameController,
-                                          labeltext: ' Last Name')),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: buildSForm(
-                                      controller: addressController,
-                                      labeltext: 'Address',
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: detailsController,
-                                          labeltext: ' Details')),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: buildSForm(
-                                      controller: FatherController,
-                                      labeltext: 'First Father Name',
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: fatherPhoneController,
-                                          labeltext: ' Father Phone Number')),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: FmotherController,
-                                          labeltext: 'First Mother Name')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: LmotherController,
-                                          labeltext: 'Last Mother Name')),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: motherPhoneController,
-                                          labeltext: 'Mother Phone Number')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: nationalityController,
-                                          labeltext: 'National Number')),
-                                ],
-                              ),
-                            ),
-                            // Padding(
-                            //   padding: const EdgeInsets.all(16.0),
-                            //   child: Row(
-                            //     children: [
-                            //       Expanded(
-                            //         child: Container(
-                            //           decoration: BoxDecoration(
-                            //             border: Border.all(
-                            //               color: kDarkBlue2Color,
-                            //               width: borderwidth,
-                            //             ),
-                            //             borderRadius: BorderRadius.circular(20),
-                            //           ),
-                            //           child: DropdownButton<String>(
-                            //             value: cubit.updateStudentModel!.data!.religion,
-                            //             icon: Icon(
-                            //               Icons.keyboard_arrow_down,
-                            //               color: kGold1Color,
-                            //             ),
-                            //             iconSize: 24,
-                            //             elevation: 40,
-                            //             borderRadius: BorderRadius.circular(40),
-                            //             underline: Container(),
-                            //             hint: Padding(
-                            //               padding:
-                            //               EdgeInsets.only(left: padding,right: padding),
-                            //               child: Text(
-                            //                 'Choose Religion',
-                            //                 style: TextStyle(
-                            //                     color: kDarkBlue2Color,
-                            //                     fontSize: 16),
-                            //               ),
-                            //             ),
-                            //             onChanged: (newValue) {
-                            //               cubit.changeDropDownButton(newValue!);
-                            //             },
-                            //             items: cubit.ReligionItems,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       SizedBox(
-                            //         width: w / 30,
-                            //       ),
-                            //       Expanded(
-                            //         child: Container(
-                            //           decoration: BoxDecoration(
-                            //             border: Border.all(
-                            //               color: kDarkBlue2Color,
-                            //               width: borderwidth,
-                            //             ),
-                            //             borderRadius: BorderRadius.circular(20),
-                            //           ),
-                            //           child: DropdownButton<String>(
-                            //
-                            //             value: cubit.updateStudentModel!.data!.gradeId.toString(),
-                            //
-                            //             icon: Icon(
-                            //               Icons.keyboard_arrow_down,
-                            //               color: kGold1Color,
-                            //             ),
-                            //             iconSize: 24,
-                            //             elevation: 40,
-                            //             borderRadius: BorderRadius.circular(40),
-                            //
-                            //             underline: Container(),
-                            //
-                            //             hint: Padding(
-                            //               padding:  EdgeInsets.only(
-                            //                 right: padding,
-                            //                 left: padding,
-                            //               ),
-                            //               child: Text(
-                            //                 'Choose Grade',
-                            //                 style: TextStyle(
-                            //                     color: kDarkBlue2Color,
-                            //                     fontSize: 16),
-                            //               ),
-                            //             ),
-                            //             //  style: ,
-                            //             onChanged: (gr) {
-                            //               cubit.changeGradeDropDownButton(gr!);
-                            //             },
-                            //
-                            //             items: cubit.GradeItems,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //
-                            //     ],
-                            //   ),
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                      child: buildSForm(
-                                          controller: addressController,
-                                          labeltext: 'Address')),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: borderwidth,
-                                          color: kDarkBlue2Color,
-                                        ),
-                                        borderRadius: BorderRadius.circular(20),
+                                        controller: FnameController,
+                                        labeltext: 'First Name',
                                       ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        children: [
-                                          Text("${cubit.updateStudentModel!.data!.dateOfBirth}"
-                                              .split(' ')[0],
-
+                                    ),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: LnameController,
+                                            labeltext: ' Last Name')),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: buildSForm(
+                                        controller: addressController,
+                                        labeltext: 'Address',
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: detailsController,
+                                            labeltext: ' Details')),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: buildSForm(
+                                        controller: FatherController,
+                                        labeltext: 'First Father Name',
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: fatherPhoneController,
+                                            labeltext: ' Father Phone Number')),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: FmotherController,
+                                            labeltext: 'First Mother Name')),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: LmotherController,
+                                            labeltext: 'Last Mother Name')),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: motherPhoneController,
+                                            labeltext: 'Mother Phone Number')),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                        child: buildSForm(
+                                            controller: nationalityController,
+                                            labeltext: 'National Number')),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: borderwidth,
+                                            color: kDarkBlue2Color,
                                           ),
-
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.white54.withOpacity(0.1),
-                                              foregroundColor: kGold1Color,
-                                              side: BorderSide(
-                                                  width: 1, color: Colors.white),
-                                              elevation: 0,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "${cubit.updateStudentModel!.data!.dateOfBirth}"
+                                                  .split(' ')[0],
                                             ),
-                                            onPressed: () =>
-                                                cubit.selectDate(context),
-                                            child: const Text(
-                                              'Select date of birth',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w400,
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white54
+                                                    .withOpacity(0.1),
+                                                foregroundColor: kGold1Color,
+                                                side: BorderSide(
+                                                    width: 1,
+                                                    color: Colors.white),
+                                                elevation: 0,
+                                              ),
+                                              onPressed: () =>
+                                                  cubit.selectDate(context),
+                                              child: const Text(
+                                                'Select date of birth',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                    SizedBox(
+                                      width: w / 30,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                        width: w / 7,
+                                        child: CheckboxListTile(
+                                          checkColor: Colors.white,
+                                          activeColor: kDarkBlue2Color,
+                                          title: Text(
+                                            cubit.currText,
+                                            style: TextStyle(
+                                              color: kGold1Color,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          value: cubit.isChecked,
+                                          onChanged: cubit.changeCheck,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: kDarkBlue2Color,
+                                            width: borderwidth,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                      ),
+                                    ),
 
-                          ],
+
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+
+                                            border: Border.all(color: kDarkBlue2Color, width: 1),
+                                            borderRadius: BorderRadius.circular(20),
+                                           ),
+                                        child: Padding(
+                                          padding:
+                                          EdgeInsets.only(left: padding, right: padding),
+                                          child: DropdownButton<dynamic>(
+                                            underline: const SizedBox(),
+                                            value: cubit.dropDownValueClass,
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              color: kGold1Color,
+                                            ),
+                                            iconSize: 24,
+                                            elevation: 40,
+                                            hint: Text('Choose Class',style: TextStyle(color: kDarkBlue2Color),),
+                                            style:
+                                            TextStyle(color: kGold1Color, fontSize: 16),
+                                            onChanged: (newValue) {
+                                              cubit.changeClassDropDownButton(newValue!);
+                                            },
+                                            items: cubit.menuItemsClass,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: w/30,
+                                    ),
+                                    Expanded(
+                                      child: DecoratedBox(
+                                        decoration: BoxDecoration(
+
+                                            border: Border.all(color: kDarkBlue2Color, width: 1),
+                                            borderRadius: BorderRadius.circular(20),
+                                           ),
+                                        child: Padding(
+                                          padding:
+                                          EdgeInsets.only(left: padding, right: padding),
+                                          child: DropdownButton<dynamic>(
+                                            underline: const SizedBox(),
+                                            value: cubit.dropDownValueSection,
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down,
+                                              color: kGold1Color,
+                                            ),
+                                            iconSize: 24,
+                                            elevation: 40,
+                                            hint: Text('Choose Section',style: TextStyle(color: kDarkBlue2Color),),
+                                            style:
+                                            TextStyle(color: kDarkBlue2Color, fontSize: 16),
+                                            onChanged: (newValue) {
+                                              cubit.changeSectionDropDownButton(newValue!);
+                                            },
+                                            items: cubit.menuItemsSection,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                      ),
-                      state is! UpdateStudentsLoading
-                          ? defaultButton(
-                              text: 'Update',
-                              width: w / 5,
-                              height: h / 20,
-                              onPressed: () {
-                                if (formkey.currentState!.validate()) {
-                                 cubit.UpdateStudentData(
-                                    firstname: FnameController.text,
-                                    lastname: LnameController.text,
-                                    firstFatherName: FatherController.text,
-                                    firstMotherName: FmotherController.text,
-                                    lastMotherName: LmotherController.text,
-                                    fatherPhoneNumber: fatherPhoneController.text,
-                                    motherPhoneNumber: motherPhoneController.text,
-                                    address: addressController.text,
-                                    details: detailsController.text,
-                                    nationalId: nationalityController.text,
-                                  );
-                                }
-                              })
-                          : Center(
-                              child: LinearProgressIndicator(
-                              color: kDarkBlue2Color,
-                            )),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                        ),
+                        state is! UpdateStudentsLoading
+                            ? defaultButton(
+                                text: 'Update',
+                                width: w / 5,
+                                height: h / 20,
+                                onPressed: () {
+                                  if (formkey.currentState!.validate()) {
+                                    cubit.UpdateStudentData(
+                                      firstname: FnameController.text,
+                                      lastname: LnameController.text,
+                                      firstFatherName: FatherController.text,
+                                      firstMotherName: FmotherController.text,
+                                      lastMotherName: LmotherController.text,
+                                      fatherPhoneNumber:
+                                          fatherPhoneController.text,
+                                      motherPhoneNumber:
+                                          motherPhoneController.text,
+                                      address: addressController.text,
+                                      details: detailsController.text,
+                                      nationalId: nationalityController.text,
+                                      status: cubit.ischeck.toString(),
+                                    );
+                                    cubit.UpdateClass(
+                                      student_id:
+                                          model!.data!.studentId.toString(),
+                                      classroom_id:cubit.dropDownValueSection.toString() ,
+                                    );
+                                  }
+                                })
+                            : Center(
+                                child: LinearProgressIndicator(
+                                color: kDarkBlue2Color,
+                              )),
+                      ],
+                    ),
                   ),
                 ),
               ),
+              fallback: (context) => Center(child: CircularProgressIndicator()),
             ),
-            fallback: (context) => Center(child: CircularProgressIndicator()),
           );
         },
       ),

@@ -30,15 +30,17 @@ class Data {
   int? id;
   int? studentId;
   String? date;
+  String? day;
   String? createdAt;
   String? updatedAt;
 
-  Data({required this.id,required this.studentId, required this.date, this.createdAt, this.updatedAt});
+  Data({required this.id,required this.studentId, required this.date,this.day, this.createdAt, this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     studentId = json['student_id'];
     date = json['date'];
+    day = json['day'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -48,6 +50,7 @@ class Data {
     data['id'] = this.id;
     data['student_id'] = this.studentId;
     data['date'] = this.date;
+    data['day'] = this.day;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;

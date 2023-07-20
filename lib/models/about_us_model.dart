@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+AboutUsModel aboutUsModelFromJson(String str) => AboutUsModel.fromJson(json.decode(str));
+
+String aboutUsModelToJson(AboutUsModel data) => json.encode(data.toJson());
+
 class AboutUsModel {
   bool? status;
   String? message;
@@ -25,7 +31,7 @@ class AboutUsModel {
 class Data {
   String? name;
   String? address;
-  String? phone;
+  int? phone;
   String? overview;
   String? updatedAt;
   String? createdAt;
@@ -47,7 +53,7 @@ class Data {
     overview = json['overview'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
-    id = json['id'];
+    id = json['id'] ;
   }
 
   Map<String, dynamic> toJson() {
@@ -58,7 +64,7 @@ class Data {
     data['overview'] = this.overview;
     data['updated_at'] = this.updatedAt;
     data['created_at'] = this.createdAt;
-    data['id'] = this.id;
+    data['id'] = this.id.toString();
     return data;
   }
 }
