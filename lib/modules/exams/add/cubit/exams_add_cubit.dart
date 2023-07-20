@@ -63,7 +63,7 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   void changeClassDropDownButton(String newValue)
   {
     dropDownValueClass = newValue;
-    dropDownValueSection='none';
+    dropDownValueSection='7A';
     getClassrooms(dropDownValueClass);
     emit(AddExamsClassDropDownButtonState());
   }

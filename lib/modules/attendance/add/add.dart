@@ -13,9 +13,10 @@ class AddAttendance extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
-    double padding=MediaQuery.of(context).size.width/20;
+    double padding = MediaQuery.of(context).size.width / 20;
+    double borderwidth=3.0;
     return BlocProvider(
-      create: (context) => AttendanceCubit()..getStudents(),
+      create: (context) => AttendanceCubit()..getStudents()..getClassrooms(7),
       child: BlocConsumer<AttendanceCubit, AttendanceState>(
         listener: (context, state) {
           if (state is AttendanceSuccessState) {
@@ -59,6 +60,7 @@ class AddAttendance extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+
                       Expanded(
 
                         child: DecoratedBox(
@@ -122,7 +124,7 @@ class AddAttendance extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color),),
+                              hint: Text('Choose Section',style: TextStyle(color: kGold1Color),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -133,56 +135,108 @@ class AddAttendance extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       SizedBox(
                         width: 20,
                       ),
-                      SearchBar(),
+                      //SearchBar(),
+                      Expanded(
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: borderwidth,
+                              color: kGold1Color,
+
+                            ),
+                            color: kDarkBlue2Color,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Row(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            children: [
+                              Text("${cubit.selectedDate}"
+                                  .split(' ')[0],
+                                style: TextStyle(color: kGold1Color),
+
+                              ),
+
+                              SizedBox(
+                                width: 20,
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: kDarkBlue2Color.withOpacity(0.1),
+                                  foregroundColor: kGold1Color,
+                                  side: BorderSide(
+                                      width: 1, color:kGold1Color),
+                                  elevation: 0,
+                                ),
+                                onPressed: () =>
+                                    cubit.selectDate(context),
+                                child: const Text(
+                                  'Select date of birth',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(
                     height: 30,
                   ),
                   Container(
-
                     width: 4 / 5 * w,
                     height: 50,
                     decoration: BoxDecoration(
-                        color:  Colors.white ,
+                        color: Colors.white,
                         boxShadow: <BoxShadow>[
                           BoxShadow(
                               color: Color.fromRGBO(0, 0, 0, 0.2),
                               blurRadius: 20) //blur radius of shadow
                         ]),
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
                           Expanded(
                               child: Center(
-                                child: ShowText(name:'Id',
-                                ),
-                              )),
+                            child: ShowText(
+                              name: 'Id',
+                            ),
+                          )),
                           Expanded(
                               child: Center(
-                                child: ShowText(name:'First Name',
-                                ),
-                              )),
+                            child: ShowText(
+                              name: 'First Name',
+                            ),
+                          )),
                           Expanded(
-                            child: Center(child: ShowText(name:'Last Name')),
+                            child: Center(child: ShowText(name: 'Last Name')),
                           ),
-                          Expanded(child: Center(child: ShowText(name:'Grade'))),
                           Expanded(
-                            child: Center(child: ShowText(name:'Section')),
+                              child: Center(child: ShowText(name: 'Grade'))),
+                          Expanded(
+                            child: Center(child: ShowText(name: 'Section')),
                           ),
                           Expanded(
                               child: Center(
-                                child: ShowText(name:'E-Mail',
-                                ),
-                              )),
+                            child: ShowText(
+                              name: 'E-Mail',
+                            ),
+                          )),
                           Expanded(
                             child: defaultButton(
                               onPressed: () {
-                                cubit.getStudentsByGrade(cubit.dropDownValueClass);
+                                cubit.getStudentsByGradeAndClassroom(cubit.dropDownValueClass, cubit.dropDownValueSection);
                               },
                               height: 30,
                               text: 'Refresh',
@@ -198,210 +252,30 @@ class AddAttendance extends StatelessWidget {
                   Expanded(
                       child: AddAttendanceBuilder(
                           w,
-                          cubit.addExamsModel?.data,
+                          cubit.showStudentsModel?.data,
                           cubit.selectedDate,
                           cubit.checkbox,
                           cubit.idStudents,
                           context,
-                          state
-                      )
-                  )
+                          state)),
+                  state is! AttendanceLoadingState
+                      ? defaultButton(
+                          text: 'Send',
+                          width: w / 5,
+                          height: h / 20,
+                          onPressed: () {
+                            AttendanceCubit.get(context).AddAbsence(
+                                students_id: cubit.idStudents,
+                                date: cubit.selectedDate.toString());
+                          })
+                      : Center(child: CircularProgressIndicator()),
                 ],
               ),
             ),
           );
-          //   Column(
-          //   children: [
-          //     SizedBox(
-          //       height: h / 25,
-          //     ),
-          //     MyText(name: 'Attendance:'),
-          //     SizedBox(
-          //       height: h / 20,
-          //     ),
-          //     Padding(
-          //       padding: const EdgeInsets.only(left: 30),
-          //       child: Row(
-          //         children: [
-          //           Expanded(
-          //             child: DecoratedBox(
-          //               decoration: BoxDecoration(
-          //                   color: Colors.white70,
-          //                   border:
-          //                       Border.all(color: kDarkBlue2Color, width: 3),
-          //                   borderRadius: BorderRadius.circular(50),
-          //                   boxShadow: <BoxShadow>[
-          //                     BoxShadow(
-          //                         color: Color.fromRGBO(0, 0, 0, 0.2),
-          //                         //shadow for button
-          //                         blurRadius: 5) //blur radius of shadow
-          //                   ]),
-          //               child: DropdownButton<dynamic>(
-          //                 underline: const SizedBox(),
-          //                 value: cubit.dropDownValueClass,
-          //                 icon: Icon(
-          //                   Icons.keyboard_arrow_down,
-          //                   color: kGold1Color,
-          //                 ),
-          //                 iconSize: 24,
-          //                 elevation: 40,
-          //                 borderRadius: BorderRadius.circular(50),
-          //                 hint: Text('     Choose Class'),
-          //                 style: TextStyle(color: kGold1Color, fontSize: 16),
-          //                 onChanged: (newValue) {
-          //                   cubit.changeClassDropDownButton(newValue!);
-          //                 },
-          //                 items: cubit.menuItemsClass,
-          //               ),
-          //             ),
-          //           ),
-          //           SizedBox(
-          //             width: 20,
-          //           ),
-          //           Expanded(
-          //             child: ElevatedButton(
-          //               style: ElevatedButton.styleFrom(
-          //                 backgroundColor: Colors.white,
-          //                 foregroundColor: kGold1Color,
-          //                 side: BorderSide(width: 1, color: Colors.white),
-          //                 elevation: 0,
-          //               ),
-          //               onPressed: () => cubit.selectDate(context),
-          //               child: const Text(
-          //                 'Select date ',
-          //                 style: TextStyle(
-          //                   fontWeight: FontWeight.w400,
-          //                 ),
-          //               ),
-          //             ),
-          //           ),
-          //           SizedBox(
-          //             width: 20,
-          //           ),
-          //           Expanded(
-          //             child: DecoratedBox(
-          //               decoration: BoxDecoration(
-          //                   color: Colors.white70,
-          //                   border:
-          //                       Border.all(color: kDarkBlue2Color, width: 3),
-          //                   borderRadius: BorderRadius.circular(50),
-          //                   boxShadow: <BoxShadow>[
-          //                     BoxShadow(
-          //                         color: Color.fromRGBO(0, 0, 0, 0.2),
-          //                         //shadow for button
-          //                         blurRadius: 5) //blur radius of shadow
-          //                   ]),
-          //               child: DropdownButton<dynamic>(
-          //                 underline: const SizedBox(),
-          //                 value: cubit.dropDownValueSection,
-          //                 icon: Icon(
-          //                   Icons.keyboard_arrow_down,
-          //                   color: kGold1Color,
-          //                 ),
-          //                 iconSize: 24,
-          //                 elevation: 40,
-          //                 borderRadius: BorderRadius.circular(50),
-          //                 hint: Text('         Choose Class'),
-          //                 style: TextStyle(color: kGold1Color, fontSize: 16),
-          //                 onChanged: (newValue) {
-          //                   cubit.changeSectionDropDownButton(newValue!);
-          //                 },
-          //                 items: cubit.menuItemsSection,
-          //               ),
-          //             ),
-          //           ),
-          //           SizedBox(
-          //             width: 20,
-          //           ),
-          //           SearchBar(),
-          //         ],
-          //       ),
-          //     ),
-          //     SizedBox(
-          //       height: h / 25,
-          //     ),
-          //     Container(
-          //       height: 50,
-          //       width: 4 / 5 * w ,
-          //       decoration: BoxDecoration(
-          //           color: Colors.white,
-          //           border: Border.all(color: kDarkBlue2Color, width: 3),
-          //           // borderRadius: BorderRadius.circular(20),
-          //           boxShadow: <BoxShadow>[
-          //             BoxShadow(
-          //                 color: Color.fromRGBO(0, 0, 0, 0.2),
-          //                 //shadow for button
-          //                 blurRadius: 20) //blur radius of shadow
-          //           ]),
-          //       child: Padding(
-          //         padding: const EdgeInsets.symmetric(horizontal: 10),
-          //         child: Row(
-          //           children: [
-          //             Expanded(
-          //               child: Center(
-          //                 child: ShowText(
-          //                   name: 'Id',
-          //                 ),
-          //               ),
-          //             ),
-          //             Expanded(
-          //               child: Center(
-          //                 child: ShowText(
-          //                   name: 'First Name',
-          //                 ),
-          //               ),
-          //             ),
-          //             Expanded(
-          //               child: Center(child: ShowText(name: 'Last Name')),
-          //             ),
-          //             Expanded(child: Center(child: ShowText(name: 'Grade'))),
-          //             Expanded(
-          //               child: Center(child: ShowText(name: 'Section')),
-          //             ),
-          //             Expanded(
-          //               child: Center(
-          //                   child: ShowText(
-          //                 name: 'E-Mail',
-          //               )),
-          //             ),
-          //             Expanded(
-          //               child: ShowText(name: 'Absent??'),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //     SizedBox(
-          //       height: h / 20,
-          //     ),
-          //     Expanded(
-          //         child: AddAttendanceBuilder(
-          //       w,
-          //       cubit.addExamsModel?.data,
-          //       cubit.selectedDate,
-          //           cubit.checkbox,
-          //           cubit.idStudents,
-          //           context,
-          //           state,
-          //
-          //
-          //     )),
-          //
-          //     state is! AttendanceLoadingState
-          //         ? defaultButton(
-          //         text: 'Send',
-          //         width: w / 5,
-          //         height: h / 20,
-          //         onPressed: () {
-          //           AttendanceCubit.get(context).AddAbsence(
-          //               students_id: cubit.idStudents,
-          //               date: cubit.selectedDate.toString());
-          //         })
-          //         : Center(child: CircularProgressIndicator()),
-          //   ],
-          // );
         },
       ),
     );
   }
 }
+

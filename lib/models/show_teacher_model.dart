@@ -7,8 +7,8 @@ String showTeacherModelToJson(ShowTeacherModel data) => json.encode(data.toJson(
 
 
 class ShowTeacherModel {
-  bool? status;
-  String? message;
+  bool status;
+  String message;
   List<Data> data;
 ShowTeacherModel({
    required this.status,

@@ -9,6 +9,8 @@ const GETSTUDENTS='students/index';
 const GETSTUDENTSBYGRADE='show_by_grade';
 const GETSTUDENTSBYGRADEANDCLASSROOM='show_by_classroomAndGrade';
 const SHOWSTUDENTBYID='show_student';
+const UPDATESTUDENT='update_student';
+const CREATCLASSONESTUDENT='createOneStudent';
 ///TEACHER
 const UPDATETEACHER='update_teacher/';
 const ADDTEACHER='teacher/register';
@@ -36,7 +38,7 @@ const GETSCHOOLYEARS='schoolyears';
 
 ///ATTENDANCE
 const ATTENDANCE='storeattendance';
-const SHOWATTENDANCE='Ashowattendance/1';
+const SHOWATTENDANCE='Ashowattendance';
 
 ///EXAMS
 const ADDEXAM='exams/store';
@@ -48,8 +50,10 @@ const SHOWTIMETABLE= 'show_schedule_classroom';
 
 ///ABOUT
 const ADDSCHOOL='admin/create_school';
-const UPDATESTUDENT='update_student';
-const CREATCLASSONESTUDENT='createOneStudent';
+const SHOWSCHOOL='admin/show_school/1';
+const UPDATESCHOOL='admin/update_school/1';
+
+
 
 ///FILES
 const ADDFILE='upload_file';

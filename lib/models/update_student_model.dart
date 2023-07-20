@@ -1,3 +1,10 @@
+import 'dart:convert';
+
+UpdateStudentModel showUpdateSTModelFromJson(String str) => UpdateStudentModel.fromJson(json.decode(str));
+
+String showUpdateSTModelToJson(UpdateStudentModel data) => json.encode(data.toJson());
+
+
 class UpdateStudentModel {
   bool? status;
   String? message;

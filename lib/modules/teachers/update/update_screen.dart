@@ -78,6 +78,7 @@ class UpdateTeacher extends StatelessWidget {
                               .copyWith(color: kDarkBlue2Color),
                         ),
                       ),
+
                       Form(
                         key: formkey,
                         child: Column(

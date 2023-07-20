@@ -14,9 +14,10 @@ class ShowAttendance extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double padding=MediaQuery.of(context).size.width/20;
+    double padding=20;
+    double radius=10;
     return BlocProvider(
-      create: (BuildContext context) => ShowAttendanceCubit()..getStudents(),
+      create: (BuildContext context) => ShowAttendanceCubit()..getStudents()..getClassrooms(7),
       child: BlocConsumer<ShowAttendanceCubit, ShowAttendanceStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -32,7 +33,7 @@ class ShowAttendance extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  MyText(name: 'Students'),
+                  MyText(name: 'Show Attendance For Students'),
                   SizedBox(
                     height: 30,
                   ),
@@ -109,7 +110,7 @@ class ShowAttendance extends StatelessWidget {
                               onChanged: (newValue) {
                                 cubit.changeSectionDropDownButton(newValue!);
                               },
-                              items: cubit.menuItems2,
+                              items: cubit.menuItemsSection,
                             ),
                           ),
                         ),
@@ -172,7 +173,11 @@ class ShowAttendance extends StatelessWidget {
                   ),
                   Expanded(
                       child:  ShowAttendanceBuilder(
-                          100,
+                          w,
+                          h,
+
+                          padding,
+                          radius,
                           cubit.showStudentsModel?.data,
                           context,
                           state,

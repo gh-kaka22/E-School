@@ -9,14 +9,14 @@ ShowStudentsModel showStudentsModelFromJson(String str) => ShowStudentsModel.fro
 String showStudentsModelToJson(ShowStudentsModel data) => json.encode(data.toJson());
 
 class ShowStudentsModel {
-  bool? status;
-  String? message;
-  List<Datum>? data;
+  bool status;
+  String message;
+  List<Datum> data;
 
   ShowStudentsModel({
-    this.status,
-  this.message,
-    this.data,
+  required  this.status,
+ required this.message,
+   required this.data,
   });
 
   factory ShowStudentsModel.fromJson(Map<String, dynamic> json) => ShowStudentsModel(
@@ -81,7 +81,7 @@ class Datum {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     email: json["email"],
-    roomNumber: json["room_number"],
+    roomNumber: json["room_number"] ?? 'No Section',
   );
 
   Map<String, dynamic> toJson() => {
@@ -99,7 +99,7 @@ class Datum {
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
     "email": email,
-    "room_number": roomNumber,
+    "room_number": roomNumber?.toString(),
 
   };
 }
