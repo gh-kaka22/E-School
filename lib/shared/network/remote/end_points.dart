@@ -77,3 +77,8 @@ const EDITEMPLOYEE='update_employee/1';
 
 ///STATS
 const STATS='admin/stats';
+
+///RESULTS
+const CALCULATE='calcResult';
+const UPGRADE ='upgrade_students';
+const RANKING='show_students_results';

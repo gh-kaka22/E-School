@@ -16,6 +16,7 @@ import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
 import 'package:untitled/modules/news/show/cubit/get_posts_states.dart';
 import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
 import 'package:untitled/modules/notice/show/show_notes.dart';
+import 'package:untitled/modules/results/cubit/results_states.dart';
 import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
@@ -306,6 +307,92 @@ Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
       itemCount: students.length),
   fallback: (context) => Center(child: LinearProgressIndicator()),
 );
+
+//Ranking
+Widget RankingItem(w, student, index, context) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Medal(index+1),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${student.firstName}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+          child: Center(child: Text('${student.lastName}')),
+        ),
+        Expanded(child: Center(child: Text('${student.gradeId}'))),
+        Expanded(
+          child: Center(child: Text('${student.schoolyear}')),
+        ),
+        Expanded(
+            child: Center(
+              child: Text('${student.result}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        student.result>1000?
+        Expanded(
+          child: Center(
+            child:Icon(Icons.check_circle,color: Colors.lightGreen,)
+          ),
+        ):
+        Expanded(
+          child: Center(
+              child:Icon(Icons.highlight_remove,color: Colors.red,)
+          ),
+        )
+      ],
+    ),
+  ),
+);
+Widget RankingBuilder(w, students, context, state) => ConditionalBuilder(
+  condition: state is! ResultsLoadingState && students != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          RankingItem(w, students[index], index, context),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: students.length),
+  fallback: (context) => Center(child: SizedBox()),
+);
+Widget? Medal(index){
+  if(index == 1){
+    return Container(
+      height: 50,
+      width: 50,
+      child: Image.asset('assets/icons/medalG.png'),
+    );
+  }else if(index == 2){
+    return Container(
+      height: 50,
+      width: 50,
+      child: Image.asset('assets/icons/medalS.png'),
+    );
+  } else if(index == 3){
+    return Container(
+      height: 50,
+      width: 50,
+      child: Image.asset('assets/icons/medalB.png'),
+    );
+  } else return Text('${index}',
+      style: TextStyle(fontWeight: FontWeight.bold));
+
+}
 
 //Subjects
 

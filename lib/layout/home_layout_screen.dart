@@ -22,6 +22,7 @@ import 'package:untitled/modules/notice/add/add_notice.dart';
 import 'package:untitled/modules/notice/show/show_note.dart';
 import 'package:untitled/modules/notice/show/show_notes.dart';
 import 'package:untitled/modules/owner/owner_login_screen.dart';
+import 'package:untitled/modules/results/results_screen.dart';
 import 'package:untitled/modules/schoolYears/add/add_school_year.dart';
 import 'package:untitled/modules/schoolYears/show/show_school_year.dart';
 import 'package:untitled/modules/statistics/stats_screen.dart';
@@ -146,6 +147,10 @@ class HomeLayout extends StatelessWidget {
                               text: 'About Us',
                               showScreen: AddSchool(),
                               addScreen: AddSchool(),
+                            ),
+                            cubit.SpecialSideBarItem(
+                              text: 'Results',
+                              screen: ResultsScreen(),
                             ),
                           cubit.SpecialSideBarItem(
                             text: 'Settings',

@@ -247,10 +247,9 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
       print(schoolYearModel?.data?[0].name);
       schoolYears = schoolYearModel?.data;
       print(schoolYears?[1].name);
-
       menuItemsYear = schoolYears!.map((year) {
         return DropdownMenuItem<dynamic>(
-          value: year.name,
+          value: '${year.name}',
           child: Text(year.name),
         );
       }).toList();
