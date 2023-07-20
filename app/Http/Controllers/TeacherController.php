@@ -17,7 +17,22 @@ class TeacherController extends Controller
     {
         $teachers = Teacher::all();
 
+
+        $teachers = $teachers->map(function ($teacher) {
+
+            $teacher->subject_name =  DB::table('subjects')
+                ->where('subject_id', '=', $teacher->subject_id)
+                ->first()->name;
+
+            $teacher->classrooms = collect(DB::table('teachers_classrooms')
+                ->where('teacher_id', '=', $teacher->teacher_id)
+                ->get())->pluck('classroom_id')->toArray();;
+
+
+            return $teacher;
+        });
         return $this->apiResponse('success',$teachers);
+
     }
 
 
