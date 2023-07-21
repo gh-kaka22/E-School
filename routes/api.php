@@ -40,13 +40,6 @@ Route::middleware('auth:api')->group(function () {
 
 //.....................................................................................
 
-
-//Owner routes
-Route::middleware(['auth:api', 'isOwner'])->group(function () {
-
-});
-
-
 //Admin routes
 Route::middleware(['auth:api', 'isAdmin'])->group(function () {
 

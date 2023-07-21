@@ -436,17 +436,25 @@ class AuthController extends Controller
             ->get();
 
        // return $this->apiResponse('s',$kids);
-
-        $counter =1;
+        $children=[];
+        //$counter =1;
         foreach ($kids as $kid){
-            $parent->{"kid_number_$counter"}=$kid->student_id;
-            $counter++;
+           // $parent->{"kid_number_$counter"}=$kid->student_id;
+            $children[]= (object)['kid_name' => $kid->first_name,'kid_id'=>$kid->student_id];
+            //$counter++;
 
         }
+        $parent->children = $children;
 
         $parent->token=Auth::user()->createToken('accessToken')->accessToken;
 
         return $this->apiResponse('login successfully',$parent);
+//        return response()->json([
+//            'status'=>true,
+//            'message'=>'login successfully',
+//            'children'=>$children,
+//            'data'=>$parent,
+//        ],200);
 
 
 
