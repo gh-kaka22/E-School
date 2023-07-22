@@ -16,13 +16,21 @@ class TimetableCard extends StatelessWidget {
         imageUrl = 'assets/icons/subjects/math.png';
         color = Colors.lightGreen;
         break;
-      case 'physics':
+      case 'Science':
         imageUrl = 'assets/icons/subjects/science.png';
         color = Colors.orangeAccent;
+        break;
+      case 'Physics':
+        imageUrl = 'assets/icons/subjects/test.png';
+        color = Colors.teal;
         break;
       case 'Arabic':
         imageUrl = 'assets/icons/subjects/arabic.png';
         color = Colors.grey;
+        break;
+      case 'English':
+        imageUrl = 'assets/icons/subjects/arabic.png';
+        color = Colors.red;
         break;
       case 'Geography':
         imageUrl = 'assets/icons/subjects/geo.png';
@@ -32,7 +40,7 @@ class TimetableCard extends StatelessWidget {
         imageUrl = 'assets/icons/subjects/music.png';
         color = Colors.pinkAccent;
         break;
-      case 'sport':
+      case 'Sport':
         imageUrl = 'assets/icons/subjects/sports.png';
         color = Colors.yellowAccent;
         break;
@@ -74,6 +82,7 @@ class TimetableCard extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: Image.asset(
                     '${imageUrl}',
+                    color: kWhiteColor,
                   ),
                 ),
               ),

@@ -32,13 +32,13 @@ class HomeCubit extends Cubit<HomeStates>{
     DioHelper.getData(
         url: HOME,
       token: token
-
     ).then((value) {
       print(value?.data);
       homeModel = HomeModel.fromJson(value?.data);
       print(homeModel?.data);
       print(homeModel?.status);
       print(homeModel?.message);
+      print(homeModel?.data!.classroom);
       emit(HomeSuccessState());
     }).catchError((error){
       print(error.toString());

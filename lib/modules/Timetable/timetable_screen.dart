@@ -15,7 +15,7 @@ class TimetableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => TimetableCubit()..getTimetable(day_number: 1),
+        create: (BuildContext context) => TimetableCubit()..getHomeData()..getTimetable(day_number: 1),
       child: BlocConsumer<TimetableCubit,TimetableStates>(
           listener: (context,state){},
           builder: (context,state){
@@ -44,7 +44,7 @@ class TimetableScreen extends StatelessWidget {
                                   blurRadius: 8) //blur radius of shadow
                             ]),
                         child: Center(child: Text(
-                          'Class- ${homeModel?.data?.grade_id} ${homeModel?.data?.classroom}',
+                          'Class- ${cubit.homeModel?.data?.classroom}',
                           style: TextStyle(fontSize: 18),
                         )),
                       ),
@@ -91,7 +91,7 @@ class TimetableScreen extends StatelessWidget {
                       SizedBox(height: 20,),
                       Expanded(
                         child: ConditionalBuilder(
-                            condition: state is! TimeTableLoadingState,
+                            condition: state is TimeTableSuccessState,
                             builder: (context)=>timetableBuilder(cubit.periodsList,cubit.currentIndex+1,context),
                             fallback: (context)=>Center(child: CircularProgressIndicator())),
                       ),
