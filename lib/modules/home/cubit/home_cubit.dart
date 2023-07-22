@@ -4,6 +4,7 @@ import 'package:e_school/modules/Timetable/timetable_screen.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/modules/exams/exams_screen.dart';
 import 'package:e_school/modules/home/cubit/home_states.dart';
+import 'package:e_school/modules/library/library_screen.dart';
 import 'package:e_school/shared/components/category_card.dart';
 import 'package:e_school/shared/components/constants.dart';
 
@@ -20,7 +21,7 @@ class HomeCubit extends Cubit<HomeStates>{
     CategoryCard('Attendance', 'assets/icons/attendance.png', kWhiteColor,AttendanceScreen()),
     CategoryCard('Exams', 'assets/icons/exam.png', kWhiteColor,ExamsScreen()),
     CategoryCard('Schedule', 'assets/icons/schedule.png', kWhiteColor,TimetableScreen()),
-    CategoryCard('Library', 'assets/icons/bookshelf.png', kWhiteColor,AttendanceScreen()),
+    CategoryCard('Library', 'assets/icons/bookshelf.png', kWhiteColor,LibraryScreen()),
     CategoryCard('Discipline', 'assets/icons/behavior.png', kWhiteColor,AttendanceScreen()),
     CategoryCard('Education', 'assets/icons/homework.png', kWhiteColor,AttendanceScreen()),
   ];

@@ -23,70 +23,79 @@ class ExamsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 30,
+                  height: 8,
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: kDarkBlue2Color,
-                            border: Border.all(color: kGold1Color, width: 3),
-                            borderRadius: BorderRadius.circular(50),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.57),
-                                  //shadow for button
-                                  blurRadius: 5) //blur radius of shadow
-                            ]),
-                        child: Center(
-                          child: DropdownButton<dynamic>(
-                            underline: SizedBox(),
-                            value: cubit.dropDownValueType,
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: kGold1Color,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: kDarkBlue2Color,
+                              border: Border.all(color: kGold1Color, width: 3),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.57),
+                                    //shadow for button
+                                    blurRadius: 5) //blur radius of shadow
+                              ]),
+                          child: Center(
+                            child: DropdownButton<dynamic>(
+                              underline: SizedBox(),
+                              value: cubit.dropDownValueType,
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: kGold1Color,
+                              ),
+                              iconSize: 24,
+                              elevation: 40,
+                              hint: Text('Choose Course'),
+                              style: TextStyle(color: kGold1Color,fontSize: 16),
+                              onChanged: (newValue) {
+                                cubit.changeTypeDropDownButton(newValue);
+                                cubit.getStudentMarks(cubit.dropDownValueType, cubit.dropDownValueYear);
+                              },
+                              items: cubit.menuItemsType,
                             ),
-                            iconSize: 24,
-                            elevation: 40,
-                            hint: Text('Choose Course'),
-                            style: TextStyle(color: kGold1Color,fontSize: 16),
-                            onChanged: (newValue) {
-                              cubit.changeTypeDropDownButton(newValue);
-                            },
-                            items: cubit.menuItemsType,
                           ),
                         ),
                       ),
                     ),
                     Expanded(
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: kDarkBlue2Color,
-                            border: Border.all(color: kGold1Color, width: 3),
-                            borderRadius: BorderRadius.circular(50),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.57),
-                                  //shadow for button
-                                  blurRadius: 5) //blur radius of shadow
-                            ]),
-                        child: Center(
-                          child: DropdownButton<dynamic>(
-                            underline: SizedBox(),
-                            value: cubit.dropDownValueYear,
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: kGold1Color,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                              color: kDarkBlue2Color,
+                              border: Border.all(color: kGold1Color, width: 3),
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                    color: Color.fromRGBO(0, 0, 0, 0.57),
+                                    //shadow for button
+                                    blurRadius: 5) //blur radius of shadow
+                              ]),
+                          child: Center(
+                            child: DropdownButton<dynamic>(
+                              underline: SizedBox(),
+                              value: cubit.dropDownValueYear,
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: kGold1Color,
+                              ),
+                              iconSize: 24,
+                              elevation: 40,
+                              hint: Text('Choose Year'),
+                              style: TextStyle(color: kGold1Color,fontSize: 16),
+                              onChanged: (newValue) {
+                                cubit.changeYearDropDownButton(newValue);
+                                cubit.getStudentMarks(cubit.dropDownValueType, cubit.dropDownValueYear);
+
+                              },
+                              items: cubit.menuItemsYear,
                             ),
-                            iconSize: 24,
-                            elevation: 40,
-                            hint: Text('Choose Year'),
-                            style: TextStyle(color: kGold1Color,fontSize: 16),
-                            onChanged: (newValue) {
-                              cubit.changeYearDropDownButton(newValue);
-                            },
-                            items: cubit.menuItemsYear,
                           ),
                         ),
                       ),

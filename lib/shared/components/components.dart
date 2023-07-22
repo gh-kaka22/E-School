@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:dio/dio.dart';
 import 'package:e_school/models/timetable_model.dart';
+import 'package:e_school/modules/library/cubit/library_states.dart';
 import 'package:e_school/modules/posts/cubit/posts_states.dart';
+import 'package:e_school/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../styles/colors.dart';
 
@@ -925,6 +932,172 @@ Widget buildPostItemH(post,context,cubit) => Card(
 
 
       ],
+    ),
+  ),
+);
+
+
+
+
+Widget ShowFilesBuilder(w, files, context, state) => ConditionalBuilder(
+  condition:  state is! LibraryLoadingState && files != null,
+  builder: (context) => ListView.separated(
+    physics: BouncingScrollPhysics(),
+      itemBuilder: (context, index) =>
+          ShowFilesItem(w, files[index], index, context),
+      separatorBuilder: (context, index) {
+        return SizedBox();
+      },
+      itemCount: files.length ),//files.length),
+  fallback: (context) => Center(child: CircularProgressIndicator()),
+);
+Widget ShowFilesItem(w, file, index, context) => Padding(
+  padding: const EdgeInsets.all(15.0),
+  child: ListTile(
+    leading:InkWell(
+      onTap: () =>openFile(
+        url: '${baseUrl}${file.path}',
+      ),
+      child: Image.asset(
+        'assets/icons/pdf.png',
+      ),
+    ),
+    title: Text(
+      '${file.name}',
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    ),
+    subtitle:Text(
+      '${file.createdAt}',
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: Colors.grey,
+      ),
+    ) ,
+    trailing: InkWell(
+      onTap: (){
+
+          downloadFile(
+              '${baseUrl}${file.path}',
+              file.name
+          );
+          showToast(
+              text: 'File Downloaded...',
+              state: ToastStates.SUCCESS
+          );
+
+
+      },
+      child: Container(
+        height: 30,
+        width: 30,
+        child: Image.asset(
+          'assets/icons/download.png',
+
+        ),
+      ),
+    ),
+  ),
+);
+
+///open file
+Future openFile ({required String url , String? fileName})async{
+  final name = fileName ?? url.split('/').last;
+  final file = await downloadFile(url,name);
+  if (file== null)  return;
+  print('path : ${file.path}');
+  OpenFile.open(file.path);
+}
+
+///download file
+Future<File?> downloadFile(String url,String name)async{
+  final appStorage = await getApplicationDocumentsDirectory();
+  final file =File('${appStorage.path}/$name');
+  try {
+    final response = await Dio().get(
+        url,
+        options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+
+        )
+    );
+    final raf = file.openSync(mode: FileMode.write);
+    raf.writeFromSync(response.data);
+    await raf.close();
+    return file;
+  }catch(e){
+    return null;
+  }
+}
+
+
+
+Widget ShowFilessItem(w, file, index, context) => Padding(
+  padding: const EdgeInsets.all(15.0),
+  child: Container(
+    width: w,
+    height: 90,
+    margin: EdgeInsets.all(5),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: kWhiteColor,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.2),
+              blurRadius: 10) //blur radius of shadow
+        ]),
+    child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Row(
+        children: [
+          Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+              color: kWhiteColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Image.asset(
+                'assets/icons/pdf.png',
+                color: kWhiteColor,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            child: Container(
+              height: 60.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${file.name}',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  Text(
+                    'pdf',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     ),
   ),
 );
