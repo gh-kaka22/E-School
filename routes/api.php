@@ -223,6 +223,9 @@ Route::middleware(['auth:api', 'isTeacher'])->group(function () {
     ///
     Route::get('/teacher/getschedule/{day_number}',[\App\Http\Controllers\ScheduleController::class, 'showTeachersSchedule']);
 
+    //profile
+    Route::get('/teacher/profile', [\App\Http\Controllers\TeacherController::class, 'showProfile']);
+
 
 });
 
