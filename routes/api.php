@@ -211,6 +211,10 @@ Route::middleware(['auth:api', 'isStudent'])->group(function () {
     //Exams
     Route::Post('/exams/show_for_student', [\App\Http\Controllers\ExamController::class, 'showForStudent']);
 
+    //Files
+    Route::get('/show_file_student', [\App\Http\Controllers\FileController::class, 'showForStudent']);
+
+
 });
 
 //Students or Parents routes

@@ -181,7 +181,7 @@ class PostController extends Controller
             ->join('users','users.id','=','posts.user_id')
             ->where('posts_destination.user_id','=', $user->id)
             ->select('posts.post_id','posts.body','posts.date','posts.updated_at','posts.user_id','role')
-            ->orderBy('posts.date')
+            ->orderBy('posts.post_id')
             ->get();
             //->pluck('body');
 
@@ -268,7 +268,7 @@ class PostController extends Controller
         $posts = DB::table('posts')
             ->join('users','users.id','=','posts.user_id')
             ->select('posts.post_id','posts.body','posts.date','posts.updated_at','posts.user_id','role')
-            ->orderBy('posts.date')
+            ->orderBy('posts.post_id')
             ->get();
 
 

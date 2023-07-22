@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -70,6 +71,19 @@ class FileController extends Controller
 
         return $this->apiResponse('success',$file);
 
+
+    }
+
+    public function showForStudent(){
+        $user_id=Auth::id();
+        $student_id=DB::table('students')
+            ->where('user_id',$user_id)
+            ->join('students_classrooms','students_classrooms.student_id','=','students.student_id')
+            ->join('files','students_classrooms.classroom_id','=','files.classroom_id')
+            ->select('files.*')
+            ->get();
+
+        return $this->apiResponse('success',$student_id);
 
     }
 }
