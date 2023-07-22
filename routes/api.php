@@ -57,7 +57,6 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //About Us Routes
-    Route::post('/admin/create_school', [\App\Http\Controllers\SchoolController::class, 'store']);
     Route::get('/admin/show_school/{id}', [\App\Http\Controllers\SchoolController::class, 'show']);
     Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
 
