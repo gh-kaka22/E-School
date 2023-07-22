@@ -54,7 +54,6 @@ class ScheduleController extends Controller
     }
 
 
-
     public function create(Request $request){
         $validatedData = $request->validate([
             'day_number' => ['required','integer'],
@@ -115,6 +114,8 @@ class ScheduleController extends Controller
 
         return $this->apiResponse('Created', $schedule);
     }
+
+
 
     public function showClassroomScheduleStudent(Request $request){
         $request->validate([

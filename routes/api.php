@@ -95,6 +95,12 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/admin/stats',[\App\Http\Controllers\AdminController::class, 'getStatistics']);
 
 
+    //exams schedule
+    Route::Post('/exams_schedule/create', [\App\Http\Controllers\ExamScheduleController::class, 'create']);
+    Route::get('/exams_schedule/index', [\App\Http\Controllers\ExamScheduleController::class, 'index']);
+    Route::get('/exams_schedule/showByGrade/{grade_id}', [\App\Http\Controllers\ExamScheduleController::class, 'showByGrade']);
+
+
 
 
     //Exams Routes
@@ -223,12 +229,13 @@ Route::middleware(['auth:api', 'isStudentOrParent'])->group(function () {
 
 //Teacher routes
 Route::middleware(['auth:api', 'isTeacher'])->group(function () {
+
+    //profile
+    Route::get('/profile/teacher', [\App\Http\Controllers\TeacherController::class,'showProfile']);
     //get Schedules
     ///
     Route::get('/teacher/getschedule/{day_number}',[\App\Http\Controllers\ScheduleController::class, 'showTeachersSchedule']);
 
-    //profile
-    Route::get('/teacher/profile', [\App\Http\Controllers\TeacherController::class, 'showProfile']);
 
 
 });
