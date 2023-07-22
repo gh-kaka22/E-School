@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
@@ -37,28 +38,6 @@ class TeacherController extends Controller
 
 
 
-    /*
-     *
-      public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'first_name' => ['required','string','max:255'],
-            'last_name' => ['required','string','max:255'],
-            'phone_number' => ['required','string','min:10','max:10'],
-            'address' => ['required','string','max:255'],
-            'subject_id' => ['required','integer']
-        ]);
-
-        $request->validate([
-            'classrooms' => ['required', 'array', 'min:1', 'max:10']
-        ]);
-
-        $teacher = Teacher::create($validatedData);
-
-        return $this->apiResponse('success',$teacher);
-    }
-     *
-     */
 //
 
     public function show(Request $request)
@@ -110,6 +89,32 @@ class TeacherController extends Controller
 
         return $this->apiResponse('success',$teacher);
     }
+
+
+
+
+    public function showProfile()
+    {
+        $user_id=Auth::id();
+
+
+        $teacher = Teacher::find($user_id);
+
+        $teacher['subject_name'] = DB::table('subjects')
+            ->where('subject_id', '=', $teacher->subject_id)
+            ->first()->name;
+
+        $classrooms = DB::table('teachers_classrooms')
+            ->where('teacher_id', '=', $teacher->teacher_id)
+            ->get();
+
+        $teacher['classrooms'] = collect($classrooms)->pluck('classroom_id')->toArray();
+
+        return $this->apiResponse('success',$teacher);
+    }
+
+
+
 
 
 

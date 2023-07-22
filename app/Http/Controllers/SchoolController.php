@@ -10,32 +10,6 @@ class SchoolController extends Controller
     use ApiResponseTrait;
 
 
-    public function index()
-    {
-        //
-        //        $school = School::all();
-        //        return $this->apiResponse('success',$school);
-    }
-
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => ['required', 'max:55', 'string'],
-            'address' => ['required', 'string'],
-            'overview' => ['required' , 'string'],
-            'phone' => ['required','min:10', 'max:14', 'string'],
-        ]);
-        $school= School::query()->Create([
-            'name' => $request->name,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'overview' => $request->overview,
-        ]);
-
-        return $this->apiResponse('The School created successfully',$school);
-    }
-
     public function show(string $id)
     {
         //
@@ -53,9 +27,6 @@ class SchoolController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
-
-
 
         $school = School::find($id);
         $school = School::query()->where('id', '=', $id )->update(
