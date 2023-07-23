@@ -23,7 +23,6 @@ Widget defaultButton({
 }) =>
     Container(
       width: width,
-      color: background,
       child: MaterialButton(
         onPressed: onPressed(),
         child: Text(
@@ -35,8 +34,44 @@ Widget defaultButton({
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radius),
+        color: kDarkBlue2Color,
+
       ),
     );
+////////////////////////
+
+Widget defaultButton2({
+  double width = 100,
+  required void Function() onPressed,
+  double height = 20,
+  Color buttColor = kDarkBlue2Color,
+  Color colortext = Colors.white,
+  double fontsize = 20,
+  FontWeight fontWeight = FontWeight.w300,
+  required String text,
+}) =>
+    Center(
+      child: Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: buttColor,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: kGold1Color, width: 3),
+          ),
+          child: MaterialButton(
+            onPressed: onPressed,
+            child: Text(
+              text.toUpperCase(),
+              style: TextStyle(
+                fontWeight: fontWeight,
+                color: colortext,
+                fontSize: fontsize,
+              ),
+            ),
+          )),
+    );
+
 
 /////
 

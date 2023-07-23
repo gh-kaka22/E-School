@@ -18,4 +18,4 @@ var kGold2Color = Color(0xffebc600);
 var kDarkRed1Color = Color(0xff88001b);
 var kDarkRed2Color = Color(0xff7b1010);
 var kDarkBlue1Color = Color(0xff3b4195);
-var kDarkBlue2Color = Color(0xff212562);
+const kDarkBlue2Color = Color(0xff212562);

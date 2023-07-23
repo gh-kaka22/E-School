@@ -1,63 +1,85 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/modules/attendance/cubit/attendance_cubit.dart';
+import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../shared/components/components.dart';
-import '../../shared/components/schedule_card.dart';
-import '../../shared/styles/colors.dart';
-
-
-class attendanceItem{
-  final bool absent;
-  final String type;
-  final String description;
-  final String month;
-  final String day;
-  attendanceItem(this.absent,this.type, this.description, this.month, this.day);
-}
-
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../shared/components/attendance_notes.dart';
 
 class AttendanceScreen extends StatelessWidget {
-  List<attendanceItem> attendance=[
-    attendanceItem(true,'Absent', 'absent', 'JAN', '11'),
-    attendanceItem(true,'Absent', 'absent', 'AUG', '06'),
-    attendanceItem(false,'Late', '30 min', 'JAN', '11'),
-    attendanceItem(true,'Absent', 'absent', 'MAR', '24'),
-    attendanceItem(false,'Late', '1 hour', 'DEC', '16'),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Attendance'),
-      ),
-      body: attendanceBuilder(attendance,context),
-    );
+    double w=MediaQuery.of(context).size.width;
+    double h=MediaQuery.of(context).size.height;
+    return BlocProvider(
+      create: (BuildContext context) => AttendanceCubit()..getAbsences(),
+      child: BlocConsumer<AttendanceCubit, AttendanceState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            // appBar: AppBar(
+            //   title: Text('Your Absences'),
+            // ),
 
+            body: Column(
+
+              children: [
+
+                Stack(
+                  children:[
+                    Container(
+                      width: w,
+                      height: h/3,
+                      decoration: BoxDecoration(
+                        color: kDarkBlue2Color,
+                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30),),
+                      ),
+                      child: Text("Your Absences"),
+                    ),
+
+
+                    Padding(
+                      padding:  EdgeInsets.only(top: h/6,left: w/10,right: w/10),
+                      child: Center(
+                        child: Container(
+                          width: w-(w/10),
+                          height: h-(h/4),
+                          decoration: BoxDecoration(
+                            color: kBackgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.3), blurRadius: 20)
+                              ]
+                          ),
+
+                          child:ShowAttendanceBuilder(
+                            w,
+                            h,
+                            AttendanceCubit
+                                .get(context)
+
+                                .showAbsencesModel
+                                ?.data,
+                            context,
+                            state,
+
+                          ) ,
+
+                        ),
+                      ),
+                    ),
+                    Center(child: Container(
+                        width: w/2,
+                        height: h/5,
+
+                        child: Center(child: Text('Your Absences',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white),)))),
+
+                  ]
+                ),
+              ],
+            )
+          );
+        },
+      ),
+    );
   }
 }
-Widget attendanceBuilder(attendance,context) => ConditionalBuilder(
-  condition: attendance.length > 0,
-  builder:(context) =>
-      ListView.separated(
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context,index)=> buildAttendanceItem(attendance, index),
-        separatorBuilder: (context,index)=> MyDivider(),
-        itemCount: attendance.length,
-      ),
-  fallback: (context) =>  Container(),
-
-);
-Widget buildAttendanceItem(attendance, index) =>
-  Padding(
-    padding: const EdgeInsets.all(20.0),
-    child:  ScheduleCard(
-        '${attendance[index].type}',
-        '${attendance[index].description}',
-        '${attendance[index].day}',
-        '${attendance[index].month}',
-        attendance[index].absent ? kOrangeColor : kYellowColor,
-    ),
-);
-

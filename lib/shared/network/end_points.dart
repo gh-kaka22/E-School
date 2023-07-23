@@ -15,3 +15,8 @@ const TOGGLELIKE = 'api/like';
 const GETLIKES = 'api/show_all_likes';
 const GETCOMMENTS = 'api/show_all_comments';
 
+
+
+///teacher
+const TEACHERPROFILE='profile/teacher';
+const SHOWTIMETABLETEACHER='/teacher/getschedule/';

@@ -1,12 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
+import 'package:e_school/modules/teacher/teacher_schedule/teacher_schedule_screen.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/cubit/app_cubit.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'modules/school_login/shop_login_screen.dart';
+import 'modules/teacher/profie_teacher/profile_teacher_screen.dart';
 import 'shared/bloc_observer.dart';
 
 import 'shared/cubit/app_states.dart';
@@ -58,7 +61,8 @@ class MyApp extends StatelessWidget {
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: startWidget,
+            home:TeacherSchedule(),
+            //startWidget,
           );
         },
       ),
