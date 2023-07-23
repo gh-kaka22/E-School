@@ -96,11 +96,14 @@ class TeacherController extends Controller
     public function showProfile()
     {
         $user_id=Auth::id();
+        $user=Auth::user();
+
+        $teacher=DB::table('teachers')
+            ->where('user_id','=',$user_id)
+            ->first();
 
 
-        $teacher = Teacher::find($user_id);
-
-        $teacher['subject_name'] = DB::table('subjects')
+        $teacher->subject_name = DB::table('subjects')
             ->where('subject_id', '=', $teacher->subject_id)
             ->first()->name;
 
@@ -108,7 +111,8 @@ class TeacherController extends Controller
             ->where('teacher_id', '=', $teacher->teacher_id)
             ->get();
 
-        $teacher['classrooms'] = collect($classrooms)->pluck('classroom_id')->toArray();
+        $teacher->classrooms = collect($classrooms)->pluck('classroom_id')->toArray();
+        $teacher->email=$user->email;
 
         return $this->apiResponse('success',$teacher);
     }
