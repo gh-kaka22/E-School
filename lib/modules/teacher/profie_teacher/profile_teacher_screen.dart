@@ -38,6 +38,7 @@ class ProfileTeacher extends StatelessWidget {
               "desc":"Email:",
               "text": "${cubit.profileTeacher?.data?.email}",
             },
+
             {
               "desc":"Subject :",
               "text": "${cubit.profileTeacher?.data?.subjectName}",
