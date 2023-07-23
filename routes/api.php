@@ -34,7 +34,6 @@ Route::middleware('auth:api')->group(function () {
 
     //Posts
     Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
-    Route::post('/edit_post/{post_id}',[\App\Http\Controllers\PostController::class, 'updatePost']);
 
 });
 
@@ -113,10 +112,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     //Schedule Routes
     Route::post('/create_schedule', [\App\Http\Controllers\ScheduleController::class, 'create']);
     Route::post('/show_schedule_classroom', [\App\Http\Controllers\ScheduleController::class, 'showClassroomSchedule']);
-
-
     Route::get('/show_teacher_schedule/{id}/{day_number}', [\App\Http\Controllers\ScheduleController::class, 'showTeachersScheduleForAdmin']);
-
     Route::get('/index_schedule', [\App\Http\Controllers\ScheduleController::class, 'index']);
 
 
@@ -135,9 +131,9 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/schoolyears', [\App\Http\Controllers\SchoolYearController::class, 'index']);
     Route::post('/create_schoolyear', [\App\Http\Controllers\SchoolYearController::class, 'store']);
     //Route::get('/delete_schoolyear/{id}', [\App\Http\Controllers\SchoolYearController::class, 'destroy']);
-//
 
-//
+
+
     //Student Routes
     Route::post('/update_student/{student_id}', [\App\Http\Controllers\StudentController::class, 'update']);
     Route::get('/students/index', [\App\Http\Controllers\StudentController::class, 'index']);
@@ -252,6 +248,8 @@ Route::middleware(['auth:api', 'isStudentOrParentOrTeacher'])->group(function ()
 Route::middleware(['auth:api', 'isAdminOrOwnerOrTeacher'])->group(function () {
     Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
     Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
+    Route::post('/edit_post/{post_id}',[\App\Http\Controllers\PostController::class, 'updatePost']);
+
 
 });
 
