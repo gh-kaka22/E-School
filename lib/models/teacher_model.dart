@@ -5,11 +5,20 @@ class ProfileTeacher {
 
   ProfileTeacher({this.status, this.message, this.data});
 
-  ProfileTeacher.fromJson(Map<String,dynamic> json)
-  {
-    status=json['status'];
-    message=json['message'];
-    data=json['data'] != null ? Data.fromJson(json['data']) : null ;
+  ProfileTeacher.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data?.toJson();
+    }
+    return data;
   }
 }
 
@@ -26,6 +35,7 @@ class Data {
   String? updatedAt;
   String? subjectName;
   List<int>? classrooms;
+  String? email;
 
   Data(
       {this.teacherId,
@@ -39,7 +49,8 @@ class Data {
         this.createdAt,
         this.updatedAt,
         this.subjectName,
-        this.classrooms});
+        this.classrooms,
+        this.email});
 
   Data.fromJson(Map<String, dynamic> json) {
     teacherId = json['teacher_id'];
@@ -53,7 +64,8 @@ class Data {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     subjectName = json['subject_name'];
-    classrooms = json['classrooms'];
+    classrooms = json['classrooms'].cast<int>();
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +82,7 @@ class Data {
     data['updated_at'] = this.updatedAt;
     data['subject_name'] = this.subjectName;
     data['classrooms'] = this.classrooms;
+    data['email'] = this.email;
     return data;
   }
 }

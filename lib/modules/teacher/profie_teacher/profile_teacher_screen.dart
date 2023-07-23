@@ -35,6 +35,10 @@ class ProfileTeacher extends StatelessWidget {
               "text": "${cubit.profileTeacher?.data?.phoneNumber}",
             },
             {
+              "desc":"Email:",
+              "text": "${cubit.profileTeacher?.data?.email}",
+            },
+            {
               "desc":"Subject :",
               "text": "${cubit.profileTeacher?.data?.subjectName}",
             },
@@ -48,7 +52,7 @@ class ProfileTeacher extends StatelessWidget {
             },
             {
               "desc":"Classrooms :",
-              "text": "${cubit.profileTeacher?.data?.classrooms}",
+              "text": "${cubit.profileTeacher?.data?.classrooms.toString()}",
             },
 
           ];
