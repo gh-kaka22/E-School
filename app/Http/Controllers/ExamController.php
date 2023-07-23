@@ -131,5 +131,4 @@ class ExamController extends Controller
 
      }
 
-
 }
