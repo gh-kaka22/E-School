@@ -1,5 +1,7 @@
+import 'package:e_school/models/home_model.dart';
 import 'package:e_school/models/timetable_model.dart';
 import 'package:e_school/modules/Timetable/cubit/timetable_states.dart';
+import 'package:e_school/modules/home/cubit/home_states.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/components/timetable_card.dart';
 import 'package:e_school/shared/network/end_points.dart';
@@ -12,6 +14,36 @@ class TimetableCubit extends Cubit<TimetableStates> {
   TimetableCubit() : super(TimetableInitialState());
 
   static TimetableCubit get(context) => BlocProvider.of(context);
+
+
+  HomeModel? homeModel ;
+  void getHomeData()
+  {
+    emit(HomedataLoadingState());
+    print(token);
+    DioHelper.getData(
+        url: HOME,
+        token: token
+    ).then((value) {
+      print(value?.data);
+      homeModel = HomeModel.fromJson(value?.data);
+      print(homeModel?.data);
+      print(homeModel?.status);
+      print(homeModel?.message);
+      print(homeModel?.data!.classroom);
+      emit(HomedataSuccessState());
+    }).catchError((error){
+      print(error.toString());
+      emit(HomedataErrorState(error.toString()));
+    });
+
+
+
+  }
+
+
+
+
   List<TimetableCard> periodsList =[];
   List<String> days = [
     "SUN",

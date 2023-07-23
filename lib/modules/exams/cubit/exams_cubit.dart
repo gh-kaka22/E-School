@@ -65,7 +65,7 @@ class ExamsCubit extends Cubit<ExamsStates> {
         'type_id':type,
         'schoolyear':year,
       },
-      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWUxNzZkYTI4ZWQzNWQ5ZmQwMDYxYzQ5MGY4ZDE1ZjI0OTBmMDAyNTYzNTUwNDRjMTkwMWFmMWQ5ODQ5MzJmMjQxYWFkYzg2OWUzYzM4YzciLCJpYXQiOjE2ODY5MTQ4MDguMjM1MjE4LCJuYmYiOjE2ODY5MTQ4MDguMjM1MjIzLCJleHAiOjE3MTg1MzcyMDguMjI4NDY2LCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.XOVgym3SBJzNj2dz790IYnjYZUqXjiL5pGKh6pQ8fJNojaCqNoBPR3Jn-KbEGq9wyFcx0mYFSx81x3ntMxbzXawqYnHLwkOOcoOayZddpN76CTqU0x9MS9riNgu8fSPOOgiUrgAHZ5UOpgKViYj5tXG4I5fXW9tZxmQmI6ZKxsLpegrUVILhaQRtTYvaHsF7klCOmxQf9nk0l2LLavfRAB2P60fsyEIzEDwEpyefMT6zBU2Pk9rKDEva7-08DWC9wmT94OD1njsgmT0BF14T1plJlDrAh90xDXsaM00d-MIE6iJDr_Ogy1NwLlSgGmLgd9OzO02cmhAsk1cG8jjphm2C2nrWfLQ1N6LcxplXfuFooSPrfJRnj_iyovWLg9OmkmjThxIJrMPnkSBEIcCPaPPgfqAsZfUDtqG1qDRKCSUQANXP8h03JyeyvYvUYtTrlssZGxusWTCKtaC9OwniSyKEmDdtmhIEfgtbQKsmDVHuyPD_1-l0YbInFOFznqEEjZruBLQJlmLZ9o8LUfLwQodWMYw1G8ccF9Eiz4k_SaB9KndFKdprw4p_3tUzrw4Vc0DE_MmjUfeK1PtjOts7tpFGVHCwBgVcbWPqc-6HmW-ZAS3_YzL8hAU_yBfM55JQzqRRfCoWalakd3ajpiw-NO-cSC_ORqSxFAPvKNbNfyo',
+      token: token
     ).then((value) {
       print(value?.data);
       examsModel = ExamsModel.fromJson(value?.data);

@@ -1,10 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_school/modules/Timetable/timetable_screen.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/modules/exams/exams_screen.dart';
 import 'package:e_school/modules/home/cubit/home_cubit.dart';
 import 'package:e_school/modules/home/cubit/home_states.dart';
 import 'package:e_school/shared/components/category_card.dart';
+import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context)=> HomeCubit()..getHomeData(),
+        create: (BuildContext context)=> HomeCubit()..getHomeData()..getPosts(),
             child: BlocConsumer<HomeCubit,HomeStates>(
               listener: (context,state){},
               builder: (context,state){
@@ -134,36 +136,20 @@ class HomeScreen extends StatelessWidget {
                         ),
                         CarouselSlider(
                           items: [
-                            Container(
-                              width: 350,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/announcements1.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                            ConditionalBuilder(
+                              condition: cubit.posts != null ,
+                              builder:(context) => buildPostItemH(cubit.posts?[0], context, cubit),
+                              fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
-                            Container(
-                              width: 350,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/announcements2.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                            ConditionalBuilder(
+                              condition: cubit.posts != null ,
+                              builder:(context) => buildPostItemH(cubit.posts?[1], context, cubit),
+                              fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
-                            Container(
-                              width: 350,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/announcements3.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                            ConditionalBuilder(
+                              condition: cubit.posts != null ,
+                              builder:(context) =>buildPostItemH(cubit.posts?[2], context, cubit),
+                              fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
                           ],
                           options: CarouselOptions(

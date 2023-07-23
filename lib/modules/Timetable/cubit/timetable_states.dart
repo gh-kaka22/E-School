@@ -17,3 +17,10 @@ class TimeTableErrorState extends TimetableStates{
   final String error;
   TimeTableErrorState(this.error);
 }
+
+class HomedataLoadingState extends TimetableStates{}
+class HomedataSuccessState extends TimetableStates{}
+class HomedataErrorState extends TimetableStates{
+  final String error;
+  HomedataErrorState(this.error);
+}

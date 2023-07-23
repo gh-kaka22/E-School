@@ -23,7 +23,7 @@ void main() async {
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark');
   Widget widget;
-  token = CacheHelper.getData(key: 'token');
+  //token = CacheHelper.getData(key: 'token');
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
 
  if(onBoarding != null)
