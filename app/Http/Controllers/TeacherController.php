@@ -96,6 +96,7 @@ class TeacherController extends Controller
     public function showProfile()
     {
         $user_id=Auth::id();
+        $user=Auth::user();
 
         $teacher=DB::table('teachers')
             ->where('user_id','=',$user_id)
@@ -111,6 +112,7 @@ class TeacherController extends Controller
             ->get();
 
         $teacher->classrooms = collect($classrooms)->pluck('classroom_id')->toArray();
+        $teacher->email=$user->email;
 
         return $this->apiResponse('success',$teacher);
     }
