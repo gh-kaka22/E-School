@@ -51,7 +51,7 @@ Route::middleware(['auth:api', 'isAdmin'])->group(function () {
 
 //Admin or Owner routes
 Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
-    //registe routes
+    //register routes
     Route::post('/student/register',[AuthController::class, 'StudentRegister']);
     Route::post('/teacher/register',[AuthController::class, 'TeacherRegister']);
 
@@ -154,6 +154,8 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/classrooms/index', [\App\Http\Controllers\ClassroomController::class, 'index']);
     Route::get('/classrooms/showByGrade/{grade_id}', [\App\Http\Controllers\ClassroomController::class, 'showByGrade']);
     Route::post('/createOneStudent', [\App\Http\Controllers\StudentClassroomController::class, 'create']);
+    Route::get('/classrooms/clear', [\App\Http\Controllers\StudentClassroomController::class, 'clearClassrooms']);
+
 
     //files Routes
     Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);

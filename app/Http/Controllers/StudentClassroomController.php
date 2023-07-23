@@ -29,4 +29,10 @@ class StudentClassroomController extends Controller
 
         return $this->apiResponse('s',$res);
     }
+
+    public function clearClassrooms(){
+        DB::table('students_classrooms')->truncate();
+
+        return $this->apiResponse('Cleared');
+    }
 }
