@@ -182,6 +182,15 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::post('/delete_employee/{id}', [\App\Http\Controllers\EmployeeController::class, 'update']);
 
 
+    //books
+    Route::post('/addbook',[\App\Http\Controllers\BookController::class, 'store']);
+    Route::get('/admin/showbooks',[\App\Http\Controllers\BookController::class, 'showAdmin']);
+    Route::delete('/deletebook/{id}',[\App\Http\Controllers\BookController::class, 'deleteBook']);
+    Route::post('/updatebook',[\App\Http\Controllers\BookController::class, 'updateBook']);
+
+
+
+
 
 });
 
@@ -216,6 +225,10 @@ Route::middleware(['auth:api', 'isStudent'])->group(function () {
 
     //Files
     Route::get('/show_file_student', [\App\Http\Controllers\FileController::class, 'showForStudent']);
+
+    //books
+    Route::get('/student/showbooks',[\App\Http\Controllers\BookController::class, 'showStudent']);
+
 
 
 });
