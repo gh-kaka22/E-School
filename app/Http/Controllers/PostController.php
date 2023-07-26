@@ -8,11 +8,14 @@ use App\Models\Student;
 use App\Models\Student_classroom;
 use App\Models\Teacher;
 use App\Models\User;
+use App\Notifications\Attendance_Notification;
+use App\Notifications\PostsNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class PostController extends Controller
 {
@@ -48,7 +51,16 @@ class PostController extends Controller
                 'post_id'=>$post->post_id
             ]);
 
-            return $this->apiResponse('success',$post);
+        Notification::send($student, new PostsNotification(
+                $student-> first_name,
+                $student-> last_name,
+                $request-> body,
+                $request-> date
+
+            )
+        );
+
+        return $this->apiResponse('success',$post);
 
 
 

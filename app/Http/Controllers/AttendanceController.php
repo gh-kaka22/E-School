@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\AttendanceEvent;
+use App\Events\ParentAttendanceEvent;
+use App\Events\StudentAttendanceEvent;
 use App\Models\Attendance;
 use App\Models\Parentt;
 use App\Models\Student;
@@ -74,7 +75,9 @@ class AttendanceController extends Controller
                 )
             );
 
-            //event(new AttendanceEvent($student,$parent));
+            event(new StudentAttendanceEvent($student));
+            event(new ParentAttendanceEvent($parent,$student));
+
         }
 
         $attend = Attendance::query()->where('date' , '=' , $date)->get();

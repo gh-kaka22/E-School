@@ -12,26 +12,11 @@ use Illuminate\Notifications\Notification;
 class Attendance_Notification extends Notification implements ShouldQueue
 {
     use Queueable;
-//////////
-    /**
-     * The name of the student.
-     *
-     * @var string
-     */
+
     public $first_name;
 
-    /**
-     * The name of the student.
-     *
-     * @var string
-     */
     public $last_name;
 
-    /**
-     * The date of the attendance.
-     *
-     * @var string
-     */
     public $date;
 
     /**
@@ -52,7 +37,7 @@ class Attendance_Notification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['database','broadcast'];
+        return ['database',/*'broadcast'*/];
     }
 
     /**
@@ -81,9 +66,7 @@ class Attendance_Notification extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the broadcastable representation of the notification.
-     */
+
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
@@ -93,6 +76,11 @@ class Attendance_Notification extends Notification implements ShouldQueue
             'date'=>$this->date,
         ]);
     }
+
+    /*public function broadcastOn()
+    {
+        return new PrivateChannel('AttendanceChannel');
+    }*/
 
     /*public function broadcastAs()
     {
