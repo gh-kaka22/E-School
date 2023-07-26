@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class Attendance_Notification extends Notification implements ShouldQueue
-{
+{//
     use Queueable;
 
     public $first_name;

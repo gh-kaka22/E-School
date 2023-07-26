@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
-    ////////
+    //////////
     use ApiResponseTrait;
     public function store(Request $request)
     {
