@@ -35,7 +35,7 @@ class ParentAttendanceEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('ParentAttendanceChannel'),
+            new Channel('ParentAttendanceChannel'),
         ];
     }
 

@@ -31,7 +31,7 @@ class StudentAttendanceEvent implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new PrivateChannel('StudentAttendanceChannel');
+        return new Channel('StudentAttendanceChannel');
     }
 
     public function broadcastAs()
