@@ -4,12 +4,13 @@ namespace App\Notifications;
 
 use BeyondCode\LaravelWebSockets\WebSockets\Channels\PrivateChannel;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Attendance_Notification extends Notification implements ShouldQueue
+class Attendance_Notification extends Notification implements ShouldBroadcast
 {//
     use Queueable;
 
@@ -37,7 +38,7 @@ class Attendance_Notification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['database',/*'broadcast'*/];
+        return ['database','broadcast'];
     }
 
     /**

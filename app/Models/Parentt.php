@@ -47,6 +47,11 @@ class Parentt extends Authenticatable
 
     public $timestamps=true ;
 
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'App.Models.Parent.'.$this->id;
+    }
+
      public function student_parents() : HasMany
 {
     return $this->hasMany(Student_Parent::class,'parent_id');

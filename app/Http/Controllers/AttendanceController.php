@@ -61,7 +61,7 @@ class AttendanceController extends Controller
                 ->where('parent_id' , '=',$student->parent_id)
                 ->first();
 
-            Notification::send($student, new Attendance_Notification(
+            /*Notification::send($student, new Attendance_Notification(
                     $request->date,
                     $student->first_name,
                     $student->last_name
@@ -73,10 +73,20 @@ class AttendanceController extends Controller
                     $student->first_name,
                     $student->last_name
                 )
-            );
+            );*/
 
-            event(new StudentAttendanceEvent($student));
-            event(new ParentAttendanceEvent($parent,$student));
+            $student->notify(new Attendance_Notification(
+                $request->date,
+                $student->first_name,
+                $student->last_name));
+
+            $parent->notify(new Attendance_Notification(
+                $request->date,
+                $student->first_name,
+                $student->last_name));
+
+            //event(new StudentAttendanceEvent($student));
+            //event(new ParentAttendanceEvent($parent,$student));
 
         }
 
