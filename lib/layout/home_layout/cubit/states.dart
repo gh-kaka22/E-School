@@ -17,6 +17,3 @@ class SchoolGetSearchErrorState extends SchoolStates{
 
 class ChangeAppModeState extends SchoolStates{}
 
-
-
-

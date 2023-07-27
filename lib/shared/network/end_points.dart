@@ -21,3 +21,7 @@ const EDITPOST = 'api/edit_post';
 const DELETEPOST = 'api/delete_post';
 const EDITCOMMENT = 'api/update_comment';
 const DELETECOMMENT = 'api/delete_comment';
+
+///teacher
+const TEACHERPROFILE='profile/teacher';
+const SHOWTIMETABLETEACHER='/teacher/getschedule/';

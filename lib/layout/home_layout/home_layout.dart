@@ -1,6 +1,7 @@
 
 import 'package:e_school/layout/home_layout/cubit/cubit.dart';
 import 'package:e_school/layout/home_layout/cubit/states.dart';
+import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/shared/components/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,7 @@ class HomeLayout extends StatelessWidget {
                 items: cubit.bottomItems,
               ),
               drawer: TheMenu(),
-              body: cubit.screens[cubit.currentIndex],
+              body:cubit.screens[cubit.currentIndex],
             );
         },
       ),
