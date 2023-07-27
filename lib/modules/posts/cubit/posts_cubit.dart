@@ -1,4 +1,5 @@
 import 'package:e_school/models/change_like_model.dart';
+import 'package:e_school/models/create_comment_model.dart';
 import 'package:e_school/models/home_model.dart';
 import 'package:e_school/models/posts_model.dart';
 import 'package:e_school/models/show_comments_model.dart';
@@ -39,6 +40,55 @@ class PostsCubit extends Cubit<PostsStates>{
       emit(PostsErrorState(error.toString()));
     });
   }
+
+
+  // ///Delete Post
+  // void deletePost(id)
+  // {
+  //   emit(DeletePostsLoadingState());
+  //   DioHelper.getData(
+  //     url: '${DELETEPOST}/${id}',
+  //     token: token,
+  //   ).then((value) {
+  //     print(value?.data);
+  //     emit(DeletePostsSuccessState());
+  //   }).catchError((error){
+  //     print(error.toString());
+  //     emit(DeletePostsErrorState(error.toString()));
+  //   });
+  // }
+  //
+  // ///Edit Post
+  // void editPost(
+  //     {
+  //       required postId,
+  //       required  body,
+  //       required  token,
+  //     }
+  //     )
+  // {
+  //   emit(
+  //     EditPostsLoadingState(),
+  //   );
+  //   DioHelper.postData(
+  //     token: token,
+  //     url: '${EDITPOST}/${postId}',
+  //     data: {
+  //       'body': body,
+  //     },
+  //   ).then((value) {
+  //     print(value?.data);
+  //     emit(EditPostsSuccessState());
+  //   }).catchError((error) {
+  //     print(" ${error.response.data}");
+  //     emit(
+  //       EditPostsErrorState(error.toString()),
+  //     );
+  //   });
+  //
+  //
+  // }
+
 
   ///SEND LIKES
   ChangeLikeModel? changeLikeModel;
@@ -105,6 +155,91 @@ class PostsCubit extends Cubit<PostsStates>{
       print(error.toString());
       emit(ShowCommentsErrorState(error.toString()));
     });
+  }
+
+  ///SEND COMMENT
+  CreateCommentModel? createCommentModel;
+  void sendComment(
+      {
+        required postId,
+        required  body,
+        required  token,
+      }
+      )
+  {
+    emit(
+      CreateCommentsLoadingState(),
+    );
+    DioHelper.postData(
+      token: token,
+      url: CREATECOMMENT,
+      data: {
+        'post_id':postId,
+        'body': body,
+      },
+    ).then((value) {
+      print(value?.data);
+      createCommentModel = CreateCommentModel.fromJson(value?.data);
+      emit(CreateCommentsSuccessState(createCommentModel!));
+    })
+        .catchError((error) {
+      print(" ${error.response.data}");
+      emit(
+        CreateCommentsErrorState(error.toString()),
+      );
+    });
+
+
+  }
+
+  ///DELETE COMMENT
+  void deleteComment(id)
+  {
+    emit(DeleteCommentLoadingState());
+    DioHelper.getData(
+      url: '${DELETECOMMENT}/${id}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      emit(DeleteCommentSuccessState());
+    }).catchError((error){
+      print(error.toString());
+      emit(DeleteCommentErrorState(error.toString()));
+    });
+  }
+
+  ///Edit Comment
+  void editComment(
+      {
+        required postId,
+        required commentId,
+        required  body,
+        required  token,
+      }
+      )
+  {
+    emit(
+      EditCommentLoadingState(),
+    );
+    DioHelper.postData(
+      token: token,
+      url: EDITCOMMENT,
+      data: {
+        'post_id': postId,
+        'comment_id': commentId,
+        'body': body,
+      },
+    ).then((value) {
+      print(value?.data);
+      emit(EditCommentSuccessState());
+    }).catchError((error) {
+      print(" ${error.response.data}");
+      emit(
+        EditCommentErrorState(error.toString()),
+      );
+    });
+
+
   }
 
 

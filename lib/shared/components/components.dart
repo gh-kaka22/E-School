@@ -57,7 +57,7 @@ Widget defaultFormField({
   ValueChanged? onSubmit,
   ValueChanged? onChange,
   VoidCallback? suffixPressed,
-  required FormFieldValidator validate,
+  FormFieldValidator? validate,
   required String label,
    IconData? prefix,
   IconData? suffix,
@@ -305,7 +305,7 @@ Widget timetableBuilder(periods,day, context,) => ConditionalBuilder(
 );
 
 
-Widget buildPostItem(post,context,cubit) => Card(
+Widget buildPostItem(post,context,cubit,state) => Card(
   clipBehavior: Clip.antiAliasWithSaveLayer,
   elevation: 7.0,
   margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -345,6 +345,117 @@ Widget buildPostItem(post,context,cubit) => Card(
                 ],
               ),
             ),
+            post.publisher=='Anas' ?
+            Expanded(
+              child: Row(
+                children: [
+                  Spacer(),
+                  InkWell(
+                    onTap: (){
+                      showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(''),
+                            content: SizedBox(
+                                width: 40,
+                                height: 80,
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 10,),
+                                    InkWell(
+                                        onTap:(){
+                                          var editedPostController = TextEditingController(text: '${post.body}');
+                                          showDialog<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text('Edit Post:'),
+                                                content: SizedBox(
+                                                  width: double.maxFinite,
+                                                  child: defaultFormField(
+                                                      type: TextInputType.text,
+                                                      label: 'type here',
+                                                      controller: editedPostController
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text('OK'),
+                                                    onPressed: () {
+                                                      cubit.editPost(
+                                                          postId : post.postId,
+                                                          body : editedPostController.text,
+                                                          token : token
+                                                      );
+                                                      cubit.getPosts();
+                                                      Navigator.of(context).pop();
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Text('Edit Post',style: TextStyle(color: Colors.orange),)),
+                                    SizedBox(height: 20,),
+                                    InkWell(
+                                        onTap:(){
+                                          showDialog<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text('Are You Sure'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text('Delete'),
+                                                    onPressed: () {
+                                                      cubit.deletePost(post.postId);
+                                                      cubit.getPosts();
+                                                      Navigator.of(context).pop();
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: Text('Cancel'),
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Text('Delete Post',style: TextStyle(color: Colors.red))),
+                                  ],
+                                )
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 20,
+                      width: 20,
+                      child: Image.asset(
+                          'assets/icons/dots.png'
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ) :
+            SizedBox()
           ],
         ),
         Padding(
@@ -368,51 +479,51 @@ Widget buildPostItem(post,context,cubit) => Card(
                 child: InkWell(
                   onTap:(){
                     cubit.getLikes(post.postId);
-                       showDialog<void>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('People who liked this'),
-                            content: SizedBox(
-                              width: double.maxFinite,
-                              child: ConditionalBuilder(
-                                condition: cubit.likes != null ,
-                                builder: (context) => ListView.separated(
-                                  physics: BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: cubit.likes.length,
-                                  separatorBuilder: (BuildContext context, int index) => Divider(),
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return ListTile(
-                                      leading: CircleAvatar(
-                                        radius: 20.0,
-                                        backgroundColor: kWhiteColor,
-                                        backgroundImage: cubit.likes[index].name=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/graduating-student-b.png'),
-                                      ),
-                                      title: Text(cubit.likes[index].name),
-                                      trailing: Icon(
-                                        Icons.thumb_up,
-                                        size: 16.0,
-                                        color: Colors.blue,
-                                      ),
-                                    );
-                                  },
-                                ),
-                                fallback: (context) => Center(child: Text('No likes yet...')),
-                              ),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('OK'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                    showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('People who liked this'),
+                          content: SizedBox(
+                            width: double.maxFinite,
+                            child: ConditionalBuilder(
+                              condition: cubit.likes != null ,
+                              builder: (context) => ListView.separated(
+                                physics: BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: cubit.likes.length,
+                                separatorBuilder: (BuildContext context, int index) => Divider(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ListTile(
+                                    leading: CircleAvatar(
+                                      radius: 20.0,
+                                      backgroundColor: kWhiteColor,
+                                      backgroundImage: cubit.likes[index].name=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/graduating-student-b.png'),
+                                    ),
+                                    title: Text(cubit.likes[index].name),
+                                    trailing: Icon(
+                                      Icons.thumb_up,
+                                      size: 16.0,
+                                      color: Colors.blue,
+                                    ),
+                                  );
                                 },
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                              fallback: (context) => Center(child: Text('No likes yet...')),
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Row(
@@ -435,9 +546,9 @@ Widget buildPostItem(post,context,cubit) => Card(
               ),
               Expanded(
                 child: InkWell(
-                  onTap:(){
-                    cubit.getComments(post.postId);
-                    showDialog<void>(
+                  onTap:() async{
+                    await cubit.getComments(post.postId);
+                    showDialog<Future<void>>(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
@@ -445,7 +556,7 @@ Widget buildPostItem(post,context,cubit) => Card(
                           content: SizedBox(
                             width: double.maxFinite,
                             child: ConditionalBuilder(
-                              condition: cubit.comments != null ,
+                              condition: cubit.comments != null && state is! ShowCommentsLoadingState,
                               builder: (context) => ListView.separated(
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
@@ -454,7 +565,7 @@ Widget buildPostItem(post,context,cubit) => Card(
                                 itemBuilder: (BuildContext context, int index) {
                                   return Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.grey[100],
+                                        color: Colors.grey[100],
                                         borderRadius: BorderRadius.circular(10.0), // set the radius of the corners
                                         border: Border.all(
                                           color: Colors.grey[300]!, // set the color of the border
@@ -467,23 +578,125 @@ Widget buildPostItem(post,context,cubit) => Card(
                                         ]
                                     ),
                                     child: ListTile(
-                                      leading: CircleAvatar(
-                                        radius: 20.0,
-                                        backgroundColor: kWhiteColor,
-                                        backgroundImage: cubit.comments[index].publisher=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/graduating-student-b.png'),
-                                      ),
-                                      title: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(cubit.comments[index].publisher,),
-                                          Text(cubit.comments[index].body,style: TextStyle(fontSize: 13),),
-                                        ],
-                                      ),
-                                      subtitle: Text(
-                                          '${cubit.comments[index].date}',
-                                          style:Theme.of(context).textTheme.bodySmall!.copyWith(height: 1.3)
-                                      ),
+                                        leading: CircleAvatar(
+                                          radius: 20.0,
+                                          backgroundColor: kWhiteColor,
+                                          backgroundImage: cubit.comments[index].publisher=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/graduating-student-b.png'),
+                                        ),
+                                        title: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(cubit.comments[index].publisher,),
+                                            Text(cubit.comments[index].body,style: TextStyle(fontSize: 13),),
+                                          ],
+                                        ),
+                                        subtitle: Text(
+                                            '${cubit.comments[index].date}',
+                                            style:Theme.of(context).textTheme.bodySmall!.copyWith(height: 1.3)
+                                        ),
+                                        trailing:
+                                        cubit.comments[index].publisher=='Anas Allahham' ?
+                                        IconButton(
+                                            onPressed: (){
+                                              showDialog<void>(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text('What do you want to do'),
+                                                    content: SizedBox(
+                                                        width: 40,
+                                                        height: 80,
+                                                        child: Column(
+                                                          children: [
+                                                            SizedBox(height: 10,),
+                                                            InkWell(
+                                                                onTap:(){
+                                                                  var editedCommentController = TextEditingController(text: '${cubit.comments[index].body}');
+                                                                  showDialog<void>(
+                                                                    context: context,
+                                                                    builder: (BuildContext context) {
+                                                                      return AlertDialog(
+                                                                        title: Text('Edit Comment:'),
+                                                                        content: SizedBox(
+                                                                          width: double.maxFinite,
+                                                                          child: defaultFormField(
+                                                                              type: TextInputType.text,
+                                                                              label: 'type here',
+                                                                              controller: editedCommentController
+                                                                          ),
+                                                                        ),
+                                                                        actions: <Widget>[
+                                                                          TextButton(
+                                                                            child: Text('OK'),
+                                                                            onPressed: () {
+                                                                              cubit.editComment(
+                                                                                  postId : post.postId,
+                                                                                  commentId : cubit.comments[index].id,
+                                                                                  body : editedCommentController.text,
+                                                                                  token : token
+                                                                              );
+                                                                              //cubit.getComments(post.postId);
+                                                                              Navigator.of(context).pop();
+                                                                              Navigator.of(context).pop();
+                                                                              Navigator.of(context).pop();
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                                child: Text('Edit Comment',style: TextStyle(color: Colors.orange),)),
+                                                            SizedBox(height: 20,),
+                                                            InkWell(
+                                                                onTap:(){
+                                                                  showDialog<void>(
+                                                                    context: context,
+                                                                    builder: (BuildContext context) {
+                                                                      return AlertDialog(
+                                                                        title: Text('Are You Sure'),
+                                                                        actions: <Widget>[
+                                                                          TextButton(
+                                                                            child: Text('Delete'),
+                                                                            onPressed: () {
+                                                                              cubit.deleteComment(cubit.comments[index].id);
+                                                                              cubit.getComments(post.postId);
+                                                                              post.comentsCount = post.comentsCount - 1;
+                                                                              Navigator.of(context).pop();
+                                                                              Navigator.of(context).pop();
+                                                                            },
+                                                                          ),
+                                                                          TextButton(
+                                                                            child: Text('Cancel'),
+                                                                            onPressed: () {
+                                                                              Navigator.of(context).pop();
+                                                                            },
+                                                                          ),
+                                                                        ],
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                                child: Text('Delete Comment',style: TextStyle(color: Colors.red))),
+                                                          ],
+                                                        )
+                                                    ),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        child: Text('Cancel'),
+                                                        onPressed: () {
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            icon: Icon(Icons.edit,color: kGold1Color,)
+                                        ) :
+                                        SizedBox()
                                     ),
                                   );
                                 },
@@ -541,6 +754,37 @@ Widget buildPostItem(post,context,cubit) => Card(
             Expanded(
               child: InkWell(
                 onTap:(){
+                  var commentController = TextEditingController();
+                  showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Write a comment'),
+                        content: SizedBox(
+                          width: double.maxFinite,
+                          child: defaultFormField(
+                              type: TextInputType.text,
+                              label: 'type here',
+                              controller: commentController
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('OK'),
+                            onPressed: () {
+                              cubit.sendComment(
+                                  postId : post.postId,
+                                  body : commentController.text,
+                                  token : token
+                              );
+                              post.comentsCount = post.comentsCount + 1;
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
 
                 },
                 child: Row(
@@ -567,7 +811,7 @@ Widget buildPostItem(post,context,cubit) => Card(
                   post.likesCount = post.likesCount + 1;
                   post.isLiked = !post.isLiked;
                 }else
-                 {
+                {
                   print(post.postId);
                   cubit.Like(post.postId);
                   post.likesCount = post.likesCount - 1;
@@ -611,7 +855,7 @@ Widget PostsBuilder(posts,cubit, context, state) => ConditionalBuilder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) =>
-          buildPostItem(posts[index],context,cubit),
+          buildPostItem(posts[index],context,cubit,state),
       separatorBuilder: (context,index) => SizedBox(height: 8,),
       itemCount: posts.length),
   fallback: (context) => Center(child: CircularProgressIndicator()),

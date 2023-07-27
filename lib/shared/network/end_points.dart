@@ -15,3 +15,9 @@ const TOGGLELIKE = 'api/like';
 const GETLIKES = 'api/show_all_likes';
 const GETCOMMENTS = 'api/show_all_comments';
 
+
+const CREATECOMMENT = 'api/create_comment';
+const EDITPOST = 'api/edit_post';
+const DELETEPOST = 'api/delete_post';
+const EDITCOMMENT = 'api/update_comment';
+const DELETECOMMENT = 'api/delete_comment';
