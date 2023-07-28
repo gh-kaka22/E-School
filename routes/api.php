@@ -206,6 +206,23 @@ Route::middleware(['auth:api', 'isParent'])->group(function () {
     //show notices
     Route::get('/Pshownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforparent']);
 
+    //exams
+    Route::post('/parent/showexams/{student_id}', [\App\Http\Controllers\ExamController::class, 'showForParent']);
+
+    //files
+    Route::get('/parent/showfiles/{student_id}', [\App\Http\Controllers\FileController::class, 'showForParent']);
+
+    //books
+    Route::get('/parent/showbooks/{student_id}', [\App\Http\Controllers\BookController::class, 'showParent']);
+
+    //schedule
+    Route::post('/parent/showschedule/{student_id}', [\App\Http\Controllers\ScheduleController::class, 'showClassroomScheduleParent']);
+
+    //post
+    Route::get('/parent/showposts/{student_id}', [\App\Http\Controllers\PostController::class, 'showParent']);
+
+
+
 });
 
 //Student routes

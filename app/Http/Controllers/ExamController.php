@@ -131,4 +131,25 @@ class ExamController extends Controller
 
      }
 
+    public function showForParent(Request $request,$student_id){
+        $request->validate([
+            'schoolyear'=>['required'],
+            'type_id'=>['required','integer'],
+        ]);
+
+        $exams=DB::table('exams')
+            ->where('student_id','=',$student_id)
+            ->where('schoolyear','=',$request->schoolyear)
+            ->where('type_id','=',$request->type_id)
+            ->join('subjects','subjects.subject_id','=','exams.subject_id')
+            ->select('subjects.name','subjects.max_mark','exams.*')
+            ->get();
+        if ($exams->isEmpty())
+            return $this->apiResponse('Students does not have any marks',null,false);
+
+        return $this->apiResponse('success',$exams);
+
+
+    }
+
 }

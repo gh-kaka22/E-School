@@ -49,7 +49,7 @@ class BookController extends Controller
             ->where('grade_id',$grade_id)
             ->get();
 
-        return $this->apiResponse('s',$res);
+        return $this->apiResponse('success',$res);
     }
 
     public function deleteBook(Request $request, $id)
@@ -76,6 +76,18 @@ class BookController extends Controller
         return $this->apiResponse('success',$book);
 
 
+    }
+
+    public function showParent($student_id){
+        $grade_id = DB::table('students')
+            ->where('student_id',$student_id)
+            ->first()->grade_id;
+
+        $res = DB::table('books')
+            ->where('grade_id',$grade_id)
+            ->get();
+
+        return $this->apiResponse('success',$res);
     }
 
 

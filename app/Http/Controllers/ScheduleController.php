@@ -129,8 +129,15 @@ class ScheduleController extends Controller
             ->first()->student_id;
 
         $classroom_id=DB::table('students_classrooms')
-                     ->where('student_id','=',$student_id)
-                     ->first()->classroom_id;
+            ->where('student_id','=',$student_id)
+            ->first();
+
+        if(!$classroom_id)
+            return $this->apiResponse('student not assigned to a classroom',null,false);
+
+        $classroom_id=DB::table('students_classrooms')
+            ->where('student_id','=',$student_id)
+            ->first()->classroom_id;
 
 
 
@@ -277,10 +284,6 @@ class ScheduleController extends Controller
     }
 
 
-
-
-
-
     public function index(){
         $teachers = Schedule::all();
         return $this->apiResponse('success',$teachers);
@@ -325,5 +328,51 @@ class ScheduleController extends Controller
 
 
         return $this->apiResponse('success',$data);
+    }
+
+    public function showClassroomScheduleParent(Request $request,$student_id){
+        $request->validate([
+            //'classroom_id'=>'required',
+            'day_number'=>'required',
+        ]);
+
+
+
+        $classroom_id=DB::table('students_classrooms')
+            ->where('student_id','=',$student_id)
+            ->first();
+
+        if(!$classroom_id)
+            return $this->apiResponse('student not assigned to a classroom',null,false);
+
+        $classroom_id=DB::table('students_classrooms')
+            ->where('student_id','=',$student_id)
+            ->first()->classroom_id;
+
+
+
+        $data=DB::table('schedules')
+            ->where('classroom_id','=',$classroom_id)
+            ->where('day_number','=',$request->day_number)
+            ->first();
+
+        if(!$data)
+            return $this->apiResponse('data not found',null,false);
+
+        $data->first_subject=Subject::find($data->first_subject)->name;
+        $data->second_subject=Subject::find($data->second_subject)->name;
+        $data->third_subject=Subject::find($data->third_subject)->name;
+        $data->fourth_subject=Subject::find($data->fourth_subject)->name;
+        $data->fifth_subject=Subject::find($data->fifth_subject)->name;
+        $data->sixth_subject=Subject::find($data->sixth_subject)->name;
+        $data->seventh_subject=Subject::find($data->seventh_subject)->name;
+
+
+
+
+        return $this->apiResponse('success',$data);
+
+
+
     }
 }

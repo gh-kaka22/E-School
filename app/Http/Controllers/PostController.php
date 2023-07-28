@@ -326,4 +326,53 @@ class PostController extends Controller
         return false;
     }
 
+    public function showParent($student_id){
+        $user_id=DB::table('students')
+            ->where('student_id',$student_id)
+            ->first()->user_id;
+
+
+            $user=User::find($user_id);
+
+
+            $posts = DB::table('posts_destination')
+                ->join('posts', 'posts.post_id', '=', 'posts_destination.post_id')
+                ->join('users','users.id','=','posts.user_id')
+                ->where('posts_destination.user_id','=', $user->id)
+                ->select('posts.post_id','posts.body','posts.date','posts.updated_at','posts.user_id','role')
+                ->orderByDesc('posts.post_id')
+                ->get();
+            //->pluck('body');
+
+            $res=array();
+
+            foreach($posts as $post) {
+                $post->likes_count=$this->likes($post->post_id);
+                $post->coments_count=$this->comments($post->post_id);
+                $post->is_liked=$this->isLiked($post->post_id,$user->id);
+                if ($post->role == 4)
+                {
+                    $teacher=DB::table('teachers')
+                        ->where('user_id','=',$post->user_id)
+                        ->first();
+                    $post->publisher=$teacher->first_name . " " . $teacher->last_name;
+                    array_push($res,$post);
+                }
+                else{
+                    $post->publisher='E-School';
+                    array_push($res,$post);
+
+                }
+            }
+
+
+
+            return $this->apiResponse('success',$res);
+
+
+
+
+
+    }
+
 }

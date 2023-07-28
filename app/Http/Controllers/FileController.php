@@ -92,4 +92,23 @@ class FileController extends Controller
         return $this->apiResponse('success',$files);
 
     }
+
+    public function showForParent($student_id){
+
+        $files=DB::table('students')
+            ->where('students.student_id',$student_id)
+            ->join('students_classrooms','students_classrooms.student_id','=','students.student_id')
+            ->join('files','students_classrooms.classroom_id','=','files.classroom_id')
+            ->select('files.*')
+            ->get();
+
+        foreach($files as $file){
+            $file->path = 'files/'.$file->name;
+        }
+
+
+
+        return $this->apiResponse('success',$files);
+
+    }
 }
