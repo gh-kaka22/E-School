@@ -35,6 +35,10 @@ Route::middleware('auth:api')->group(function () {
     //Posts
     Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
 
+    //exam schedule for specific grade
+    Route::get('/exams_schedule/showByGrade/{grade_id}', [\App\Http\Controllers\ExamScheduleController::class, 'showByGrade']);
+
+
 });
 
 //.....................................................................................
@@ -97,9 +101,12 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     //exams schedule
     Route::Post('/exams_schedule/create', [\App\Http\Controllers\ExamScheduleController::class, 'create']);
     Route::get('/exams_schedule/index', [\App\Http\Controllers\ExamScheduleController::class, 'index']);
-    Route::get('/exams_schedule/showByGrade/{grade_id}', [\App\Http\Controllers\ExamScheduleController::class, 'showByGrade']);
 
 
+    //complaint
+
+    Route::get('/admin/complaints', [\App\Http\Controllers\AdminController::class, 'ComplaintIndex']);
+    Route::post('/admin/complaints/{complaint}', [\App\Http\Controllers\AdminController::class, 'ComplaintResolve']);
 
 
     //Exams Routes
@@ -205,6 +212,11 @@ Route::middleware(['auth:api', 'isParent'])->group(function () {
 
     //show notices
     Route::get('/Pshownotice/{id}', [\App\Http\Controllers\NoticeController::class, 'showforparent']);
+
+    //complaints
+    Route::post('/complaints', [\App\Http\Controllers\ComplaintController::class, 'store']);
+    Route::get('/parent/complaints', [\App\Http\Controllers\ComplaintController::class, 'getParentComplaints']);
+
 
 });
 
