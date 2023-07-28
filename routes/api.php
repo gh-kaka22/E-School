@@ -151,6 +151,8 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::get('/classrooms/showByGrade/{grade_id}', [\App\Http\Controllers\ClassroomController::class, 'showByGrade']);
     Route::post('/createOneStudent', [\App\Http\Controllers\StudentClassroomController::class, 'create']);
     Route::get('/classrooms/clear', [\App\Http\Controllers\StudentClassroomController::class, 'clearClassrooms']);
+    Route::post('/classroom/update/student', [\App\Http\Controllers\StudentClassroomController::class, 'update']);
+
 
 
     //files Routes
