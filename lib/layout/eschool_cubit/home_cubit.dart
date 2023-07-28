@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/modules/dashboard/dashboard.dart';
+import 'package:untitled/modules/statistics/stats_screen.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/styles/colors.dart';
 part 'home_states.dart';
@@ -12,7 +13,7 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
   static HomeCubit get(context) => BlocProvider.of(context);
 
-  Widget currentScreen = MainScreen();
+  Widget currentScreen = StatsScreen();
 
   //void changeScreen(Widget screen)
   //{

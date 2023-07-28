@@ -62,6 +62,13 @@ dependencies:
   charts_flutter:
   circular_chart_flutter:
   syncfusion_flutter_charts:
+  web_socket_channel:
+  web_socket_client:
+  pusher_client:
+  pusher_channels_flutter: ^2.1.2
+
+
+
 
 
 

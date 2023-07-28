@@ -16,6 +16,7 @@ import 'package:untitled/modules/employee/add/add_employee_screen.dart';
 import 'package:untitled/modules/employee/show/show_employee.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
+import 'package:untitled/modules/login/login_screen.dart';
 import 'package:untitled/modules/news/add/create_post.dart';
 import 'package:untitled/modules/news/show/get_posts.dart';
 import 'package:untitled/modules/notice/add/add_notice.dart';
@@ -37,7 +38,9 @@ import 'package:untitled/modules/teachers/show/show_teachers.dart';
 import 'package:untitled/modules/timetable/add/add_timetable.dart';
 import 'package:untitled/modules/teachers/update/update_screen.dart';
 import 'package:untitled/modules/timetable/show/show_timetable.dart';
+import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/search_bar.dart';
+import 'package:untitled/shared/network/local/cache_helper.dart';
 
 import '../modules/about_us/show/show_school.dart';
 import '../modules/admin/login/login_screen.dart';
@@ -58,6 +61,13 @@ class HomeLayout extends StatelessWidget {
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
           return Scaffold(
+            floatingActionButton: FloatingActionButton(onPressed: (){
+              CacheHelper.removeData(key: 'token').then((value) {
+                if(value!){
+                  navigateAndFinish(context, LoginScreen());
+                }
+              });
+            }),
             body: Row(children: [
               Container(
                 height: h,

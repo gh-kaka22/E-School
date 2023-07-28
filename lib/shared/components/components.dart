@@ -241,6 +241,20 @@ Widget MyDivider() => Padding(
       ),
     );
 
+
+////
+
+void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(
+    builder: (context) => widget,
+  ),
+      (Route<dynamic> route) => false,
+);
+
+////
+
+
 //Lists Items & Builders
 //Students
 Widget ShowStudentsItem(w, student, index, context) => Container(
@@ -969,14 +983,14 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                   child: Row(
                     children: [
                       Spacer(),
-                      IconButton(
-                          onPressed: (){
-                            showDialog<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('What do you want to do'),
-                                  content: SizedBox(
+                      InkWell(
+                        onTap: (){
+                          showDialog<void>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(''),
+                                content: SizedBox(
                                     width: 40,
                                     height: 80,
                                     child: Column(
@@ -1050,20 +1064,26 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                             child: Text('Delete Post',style: TextStyle(color: Colors.red))),
                                       ],
                                     )
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('Cancel'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('Cancel'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          icon: Icon(Icons.edit,color: kGold1Color,)
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          child: Image.asset(
+                              'assets/icons/dots.png'
+                          ),
+                        ),
                       )
                     ],
                   ),

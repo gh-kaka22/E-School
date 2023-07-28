@@ -18,8 +18,8 @@ class AddSchoolYearCubit extends Cubit<AddSchoolYearStates> {
   AddSchoolYearModel? addSchoolYearModel;
   void AddSchoolYear(
       {
-        required String name,
-        required String token,
+        required name,
+        required token,
       }
       )
   {

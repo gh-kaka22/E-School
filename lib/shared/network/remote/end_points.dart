@@ -2,7 +2,7 @@ import 'package:untitled/modules/teachers/add/add_teacher.dart';
 
 ///REGISTER
 const RegisterStudent='student/register';
-const AdminLogin='login';
+const LOGIN='login';
 
 ///STUDENTS
 const GETSTUDENTS='students/index';

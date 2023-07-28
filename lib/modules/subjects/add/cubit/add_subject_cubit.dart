@@ -13,9 +13,9 @@ class AddSubjectCubit extends Cubit<AddSubjectStates> {
   AddSubjectModel? addSubjectModel;
   void AddSubject(
       {
-        required String name,
-        required String max_mark,
-        required String token,
+        required  name,
+        required  max_mark,
+        required  token,
       }
       )
   {

@@ -23,7 +23,7 @@ class OwnerLoginCubit extends Cubit<OwnerLoginStates> {
   {
     emit(OwnerLoginLoadingState());
     DioHelper.postData(
-        url: AdminLogin,
+        url: LOGIN,
         token: token,
         data: {
           'email':email,

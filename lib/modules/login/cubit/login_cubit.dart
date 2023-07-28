@@ -1,25 +1,28 @@
-import 'package:bloc/bloc.dart';
-import 'package:cubit_form/cubit_form.dart';
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/models/admin_models.dart';
+import 'package:untitled/models/login_model.dart';
 import 'package:untitled/modules/admin/login/cubit/login_state.dart';
+import 'package:untitled/modules/login/cubit/login_state.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
 
-class AdminLoginCubit extends Cubit<AdminLoginStates> {
-  AdminLoginCubit() : super(AdminLoginInitialState());
-  static AdminLoginCubit get(context)=>BlocProvider.of(context);
-  AdminModel ?admin;
-  void adminLogin(
+class LoginCubit extends Cubit<LoginStates> {
+  LoginCubit() : super(LoginInitialState());
+  static LoginCubit get(context)=>BlocProvider.of(context);
+  LoginModel? loginModel;
+  void Login(
       {
         required String email,
         required String password,
 
       })
   {
-    emit(AdminLoginLoadingState());
+    emit(LoginLoadingState());
     DioHelper.postData(
         url: LOGIN,
         token: token,
@@ -29,15 +32,15 @@ class AdminLoginCubit extends Cubit<AdminLoginStates> {
         }).then((value) {
 
       print(value?.data);
-      admin= AdminModel.fromJson(value?.data);
-      print(admin!.data!.accessToken);
-      print(admin!.data!.password);
+      loginModel= LoginModel.fromJson(value?.data);
+      print(loginModel!.data.firstName);
+      print(loginModel!.data.lastName);
 
-      emit(AdminLoginSuccessState(admin!));
+      emit(LoginSuccessState(loginModel!));
 
     }).catchError((error){
       print(error.toString());
-      emit(AdminLoginErrorState(error.toString()));
+      emit(LoginErrorState(error.toString()));
     });
 
   }
@@ -47,7 +50,7 @@ class AdminLoginCubit extends Cubit<AdminLoginStates> {
 
     ispassword=!ispassword;
     suffix=ispassword? Icons.visibility_off : Icons.visibility;
-    emit(AdminLoginChangePasswordVisibilityState());
+    emit(LoginChangePasswordVisibilityState());
 
   }
 }

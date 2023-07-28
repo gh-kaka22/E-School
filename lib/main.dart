@@ -1,23 +1,43 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/modules/admin/login/login_screen.dart';
+import 'package:untitled/modules/login/login_screen.dart';
+import 'package:untitled/modules/websocket.dart';
+import 'package:untitled/modules/statistics/stats_screen.dart';
 import 'package:untitled/shared/bloc_observer.dart';
+import 'package:untitled/shared/components/constants.dart';
+import 'package:untitled/shared/network/local/cache_helper.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'layout/home_layout_screen.dart';
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
-  runApp( MyApp());
+  await CacheHelper.init();
+  Widget widget;
+  token = CacheHelper.getData(key: 'token');
+
+
+    if(token != null)
+      {widget= HomeLayout();}
+    else {widget=LoginScreen();}
+
+
+  runApp( MyApp(
+    startWidget: widget,
+  ));
 }
 
 class MyApp extends StatelessWidget {
 
-  const MyApp({Key?key});
+  Widget? startWidget;
+  MyApp({this.startWidget});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeLayout(),
+      home: startWidget,
 
     );
   }
