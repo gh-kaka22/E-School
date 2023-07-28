@@ -314,32 +314,6 @@ class AuthController extends Controller
     }
 
 
-/*
- *
-    public function register(Request $request)
-    {
-
-
-            $user = User::create([
-                'role' => $request->role,
-                'email' => $request->email,
-                'password' => bcrypt($request->password)
-            ]);
-
-            $success['name'] = $user->name;
-            $message = 'Yay! A user has been successfully created.';
-            $success['token'] = $user->createToken('accessToken')->accessToken;
-
-
-        return $this->apiResponse($message,$success);
-    }
- *
- */
-
-
-
-
-
     //.............................................................................................
 
 
@@ -400,6 +374,7 @@ class AuthController extends Controller
         $student->mother_first_name=$parents->mother_first_name;
         $student->mother_last_name=$parents->mother_last_name;
         $student->mother_phone_number=$parents->mother_phone_number;
+        $student->role=2;
         $student->token = Auth::user()->createToken('accessToken')->accessToken;;
 
 
@@ -445,6 +420,7 @@ class AuthController extends Controller
 
         }
         $parent->children = $children;
+        $parent->role=3;
 
         $parent->token=Auth::user()->createToken('accessToken')->accessToken;
 
@@ -484,6 +460,7 @@ class AuthController extends Controller
             ->where('user_id','=',Auth::id())
             ->first();
 
+        $teacher->role=4;
         $teacher->token=Auth::user()->createToken('accessToken')->accessToken;
 
         return $this->apiResponse('login successfully',$teacher);
@@ -491,11 +468,6 @@ class AuthController extends Controller
 
 
     }
-
-
-
-
-
 
 
     //.............................................................................................
