@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,7 +40,23 @@ class AdminController extends Controller
 
     }
 
+    public function ComplaintIndex()
+    {
+        $complaints = Complaint::all();
+        return response()->json($complaints);
+    }
 
+    public function ComplaintResolve(Request $request, Complaint $complaint)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required|in:0,1',
+        ]);
+
+        $status = $validatedData['status'] === '1' ? 'resolved' : 'pending';
+        $complaint->update(['status' => $status]);
+
+        return $this->apiResponse('Complaint resolved successfully',$complaint);
+    }
 
 
 }
