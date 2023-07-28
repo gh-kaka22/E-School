@@ -16,6 +16,7 @@ class Notice extends Model
         'type',
         'content',
         'date',
+        'day'
     ];
 
 
