@@ -64,9 +64,12 @@ dependencies:
   web_socket_client:
 
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 flutter_native_splash:
   color: "#ffffff"
   image: "assets/icons/logo.png"

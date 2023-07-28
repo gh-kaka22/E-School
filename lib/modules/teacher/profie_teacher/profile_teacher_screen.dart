@@ -1,7 +1,3 @@
-
-
-
-import 'package:e_school/modules/profile/cubit/profile_cubit.dart';
 import 'package:e_school/modules/teacher/profie_teacher/cubit/profile_teacher_cubit.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,53 +5,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileTeacher extends StatelessWidget {
-
   ProfileTeacher({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (BuildContext context)=>ProfileTeacherCubit()..getTeacherProfile(1),
-      child: BlocConsumer<ProfileTeacherCubit,ProfileTeacherState>(
-        listener: (context, state){},
-        builder: (context,state){
+    return BlocProvider(
+      create: (BuildContext context) =>
+          ProfileTeacherCubit()..getTeacherProfile(1),
+      child: BlocConsumer<ProfileTeacherCubit, ProfileTeacherState>(
+        listener: (context, state) {},
+        builder: (context, state) {
           var cubit = ProfileTeacherCubit.get(context);
           List item = [
             {
-              "desc":"First Name :",
+              "desc": "First Name :",
               "text": "${cubit.profileTeacher?.data?.firstName}",
             },
             {
-              "desc":"Last Name :",
+              "desc": "Last Name :",
               "text": "${cubit.profileTeacher?.data?.lastName}",
             },
             {
-              "desc":"Phone Number :",
+              "desc": "Phone Number :",
               "text": "${cubit.profileTeacher?.data?.phoneNumber}",
             },
             {
-              "desc":"Email:",
+              "desc": "Email:",
               "text": "${cubit.profileTeacher?.data?.email}",
             },
-
             {
-              "desc":"Subject :",
+              "desc": "Subject :",
               "text": "${cubit.profileTeacher?.data?.subjectName}",
             },
             {
-              "desc":"Details :",
+              "desc": "Details :",
               "text": "${cubit.profileTeacher?.data?.details}",
             },
             {
-              "desc":"Address :",
+              "desc": "Address :",
               "text": "${cubit.profileTeacher?.data?.address}",
             },
             {
-              "desc":"Classrooms :",
+              "desc": "Classrooms :",
               "text": "${cubit.profileTeacher?.data?.classrooms.toString()}",
             },
-
           ];
           return Scaffold(
             body: SingleChildScrollView(
@@ -69,20 +64,20 @@ class ProfileTeacher extends StatelessWidget {
                         clipper: Myclip(),
                         child: Container(
                           height: 250,
-                          color:kDarkBlue2Color,
+                          color: kDarkBlue2Color,
                         ),
                       ),
                       SafeArea(
                           child: IconButton(
-                            onPressed: () {},
-                            icon: Padding(
-                              padding: const EdgeInsets.only(top: 10, left: 10),
-                              child: Icon(
-                                Icons.arrow_back,
-                                size: 30,
-                              ),
-                            ),
-                          )),
+                        onPressed: () {},
+                        icon: Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 10),
+                          child: Icon(
+                            Icons.arrow_back,
+                            size: 30,
+                          ),
+                        ),
+                      )),
                       Align(
                         alignment: Alignment(0, 0),
                         child: Column(
@@ -96,9 +91,9 @@ class ProfileTeacher extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 50,
                                 backgroundImage: AssetImage(
-                                  cubit.profileTeacher?.data?.subjectId == 0 ?
-                                  'assets/icons/graduating-student-g.png':
-                                  'assets/icons/graduating-student-b.png',
+                                  cubit.profileTeacher?.data?.subjectId == 0
+                                      ? 'assets/icons/graduating-student-g.png'
+                                      : 'assets/icons/graduating-student-b.png',
                                 ),
                               ),
                             ),
@@ -128,13 +123,13 @@ class ProfileTeacher extends StatelessWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(item[index]['desc'],
+                            Text(
+                              item[index]['desc'],
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                                 color: kDarkBlue2Color,
                               ),
-
                             ),
                             SizedBox(
                               width: 20,
@@ -143,14 +138,11 @@ class ProfileTeacher extends StatelessWidget {
                               child: Text(
                                 item[index]['text'],
                                 overflow: TextOverflow.ellipsis,
-
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black,
                                 ),
-
-
                               ),
                             ),
                           ],

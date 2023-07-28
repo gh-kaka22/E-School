@@ -27,3 +27,6 @@ const DELETECOMMENT = 'delete_comment';
 ///teacher
 const TEACHERPROFILE='profile/teacher';
 const SHOWTIMETABLETEACHER='/teacher/getschedule/';
+///Exam Schedule
+const GETEXAMSCHEDULE='exams_schedule/index';
+const GETEXAMSCHEDULEBYGRADE='/exams_schedule/showByGrade';

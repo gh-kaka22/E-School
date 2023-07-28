@@ -15,9 +15,7 @@ class TeacherSchedule extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ScheduleCubit(),
       child: BlocConsumer<ScheduleCubit, ScheduleState>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           var cubit = ScheduleCubit.get(context);
           return Scaffold(
@@ -27,7 +25,7 @@ class TeacherSchedule extends StatelessWidget {
             body: Column(
               children: [
                 Container(
-                  height: h/10,
+                  height: h / 10,
                   decoration: BoxDecoration(
                       color: kDarkBlue2Color,
                       border: Border.all(color: kGold1Color, width: 3),
@@ -52,10 +50,9 @@ class TeacherSchedule extends StatelessWidget {
                         'Choose Day',
                         style: TextStyle(color: kWhiteColor),
                       ),
-
                       style: TextStyle(color: kDarkBlue2Color, fontSize: 16),
                       onChanged: (newValue) {
-                        cubit.changeDayDropDownButton(newValue!);
+                       cubit.changeDayDropDownButton(newValue!);
                         cubit.getSchedule(cubit.dropDownValueDay);
                       },
                       items: cubit.menuItemsDay,
@@ -331,7 +328,6 @@ class TeacherSchedule extends StatelessWidget {
                 SizedBox(
                   height: h / 10,
                 ),
-
               ],
             ),
           );

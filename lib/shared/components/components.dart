@@ -17,9 +17,13 @@ Widget defaultButton({
   double width = double.infinity,
   Color background = defaultColor,
   bool isUpperCase = true,
+  double height = 20,
   required Function onPressed,
   required String text,
   double radius = 0.0,
+  double fontsize = 23,
+  FontWeight fontWeight = FontWeight.w400,
+  Color buttColor = kDarkBlue2Color,
 }) =>
     Container(
       width: width,

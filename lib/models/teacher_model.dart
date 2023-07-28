@@ -39,18 +39,18 @@ class Data {
 
   Data(
       {this.teacherId,
-        this.firstName,
-        this.lastName,
-        this.phoneNumber,
-        this.address,
-        this.details,
-        this.subjectId,
-        this.userId,
-        this.createdAt,
-        this.updatedAt,
-        this.subjectName,
-        this.classrooms,
-        this.email});
+      this.firstName,
+      this.lastName,
+      this.phoneNumber,
+      this.address,
+      this.details,
+      this.subjectId,
+      this.userId,
+      this.createdAt,
+      this.updatedAt,
+      this.subjectName,
+      this.classrooms,
+      this.email});
 
   Data.fromJson(Map<String, dynamic> json) {
     teacherId = json['teacher_id'];

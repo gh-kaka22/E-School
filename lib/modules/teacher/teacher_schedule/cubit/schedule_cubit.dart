@@ -45,17 +45,6 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   {
     dropDownValueDay = newValue;
     emit(changDayState());
-    if(dropDownValueDay=='Sunday')
-      dayID=1;
-    if(dropDownValueDay=='Monday')
-      dayID=2;
-    if(dropDownValueDay=='Tuesday')
-      dayID=3;
-    if(dropDownValueDay=='Wednesday')
-      dayID=4;
-    if(dropDownValueDay=='Thursday')
-      dayID=5;
-
   }
 
   void getSchedule(dayId)
