@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Student;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,25 +10,21 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class AttendanceEvent implements ShouldBroadcast
-{
+class ParentAttendanceEvent implements ShouldBroadcast
+{//
     use Dispatchable, InteractsWithSockets, SerializesModels;
-//////
 
-    public $student;
     public $parent;
-
+    public $student;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($student,$parent)
+    public function __construct($parent,$student)
     {
-        $this->student = $student;
         $this->parent = $parent;
+        $this->student = $student;
 
-        //$this->eventName = $eventName;
-        //$this->data = $data;
     }
 
     /**
@@ -40,34 +35,20 @@ class AttendanceEvent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('AttendanceEvent'),
+            new Channel('ParentAttendanceChannel'),
         ];
     }
 
     public function broadcastAs()
     {
-        return "Attendance Notification";
+        return 'Attendance Notification For Parents';
     }
-
-
-    /*public function broadcastWith()
-    {
-        return [
-            'were absent today'
-        ];
-    }*/
 
     public function broadcastWith()
     {
         return [
-            'message' => 'The attendees were absent today.',
-            'student' => $this->student,
-            'parent' => $this->parent,
+            'student name'=>$this->student->first_name,
+            'message'=>'were absent today!'
         ];
     }
-
-
-
 }
-
-

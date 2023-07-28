@@ -1,6 +1,6 @@
 <?php
 
-use App\Events\AttendanceEvent;
+use App\Events\StudentAttendanceEvent;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -77,7 +77,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
     //Attendance routes
         /*Route::Post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store'],function(){
-            event(new AttendanceEvent(['message' => 'Hello world']));;
+            event(new StudentAttendanceEvent(['message' => 'Hello world']));;
         });*/
 
     Route::post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);

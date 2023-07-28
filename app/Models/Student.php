@@ -50,6 +50,10 @@ class Student extends Authenticatable
 
     public $timestamps=true ;
 
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'App.Models.Student.'.$this->id;
+    }
 
     public function attendace() : HasMany
     {

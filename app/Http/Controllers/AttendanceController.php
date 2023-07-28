@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\AttendanceEvent;
+use App\Events\ParentAttendanceEvent;
+use App\Events\StudentAttendanceEvent;
 use App\Models\Attendance;
 use App\Models\Parentt;
 use App\Models\Student;
@@ -16,7 +17,7 @@ use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
-    ////////
+    //////////
     use ApiResponseTrait;
     public function store(Request $request)
     {
@@ -60,7 +61,7 @@ class AttendanceController extends Controller
                 ->where('parent_id' , '=',$student->parent_id)
                 ->first();
 
-            Notification::send($student, new Attendance_Notification(
+            /*Notification::send($student, new Attendance_Notification(
                     $request->date,
                     $student->first_name,
                     $student->last_name
@@ -72,9 +73,21 @@ class AttendanceController extends Controller
                     $student->first_name,
                     $student->last_name
                 )
-            );
+            );*/
 
-            //event(new AttendanceEvent($student,$parent));
+            $student->notify(new Attendance_Notification(
+                $request->date,
+                $student->first_name,
+                $student->last_name));
+
+            $parent->notify(new Attendance_Notification(
+                $request->date,
+                $student->first_name,
+                $student->last_name));
+
+            //event(new StudentAttendanceEvent($student));
+            //event(new ParentAttendanceEvent($parent,$student));
+
         }
 
         $attend = Attendance::query()->where('date' , '=' , $date)->get();

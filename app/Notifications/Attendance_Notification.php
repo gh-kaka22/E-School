@@ -4,34 +4,20 @@ namespace App\Notifications;
 
 use BeyondCode\LaravelWebSockets\WebSockets\Channels\PrivateChannel;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class Attendance_Notification extends Notification implements ShouldQueue
-{
+class Attendance_Notification extends Notification implements ShouldBroadcast
+{//
     use Queueable;
-//////////
-    /**
-     * The name of the student.
-     *
-     * @var string
-     */
+
     public $first_name;
 
-    /**
-     * The name of the student.
-     *
-     * @var string
-     */
     public $last_name;
 
-    /**
-     * The date of the attendance.
-     *
-     * @var string
-     */
     public $date;
 
     /**
@@ -81,9 +67,7 @@ class Attendance_Notification extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the broadcastable representation of the notification.
-     */
+
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
@@ -93,6 +77,11 @@ class Attendance_Notification extends Notification implements ShouldQueue
             'date'=>$this->date,
         ]);
     }
+
+    /*public function broadcastOn()
+    {
+        return new PrivateChannel('AttendanceChannel');
+    }*/
 
     /*public function broadcastAs()
     {
