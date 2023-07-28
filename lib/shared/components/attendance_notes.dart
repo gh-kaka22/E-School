@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'components.dart';
 
 ///Attendance
-Widget ShowAttenanceItem(w, h, absence, index, context) => Padding(
+Widget ShowAttendanceItem(w, h, absence, index, context) => Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
         width: w - (w / 6),
         height: h / 13,
         decoration: BoxDecoration(
-            color: kDarkBlue2Color.withOpacity(0.15),
+            color: kDarkBlue2Color.withOpacity(0.1),
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
         child: Row(
           children: [
             Container(
-              width: w / 7,
+              width: w / 6,
               height: h / 10,
               decoration: BoxDecoration(
                 color: kDarkBlue2Color,
@@ -29,9 +29,7 @@ Widget ShowAttenanceItem(w, h, absence, index, context) => Padding(
                 Container(
                   child: Center(
                     child: Text(
-                      '${absence.day}',
-
-                      //.split('')[0].substring(0, 3)
+                      '${absence.day.substring(0, 3).toUpperCase()}',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -46,7 +44,7 @@ Widget ShowAttenanceItem(w, h, absence, index, context) => Padding(
             ),
             Expanded(
                 child: Center(
-              child: Text('${absence.date}',
+                 child: Text('${absence.date}',
                   style: TextStyle(overflow: TextOverflow.ellipsis , color: kDarkBlue2Color)),
             )),
             Padding(
@@ -64,14 +62,10 @@ Widget ShowAttendanceBuilder(w, h, absences, context, state) =>
           physics: ScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) =>
-              ShowAttenanceItem(w, h, absences[index], index, context),
+              ShowAttendanceItem(w, h, absences[index], index, context),
           separatorBuilder: (context, index) {
             return Center(
-              child: Container(
-                height: 0.5,
-                width: w - (w / 6),
-                color: Colors.grey,
-              ),
+              child: SizedBox(),
             );
           },
           itemCount: absences.length),

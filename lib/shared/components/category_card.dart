@@ -47,11 +47,11 @@ class CategoryCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              right: 22,
-              top: 10,
+              right: 28,
+              top: 15,
               child: Container(
-                height: 60,
-                width: 60,
+                height: 50,
+                width: 50,
                 decoration: BoxDecoration(
                   color: _bgColor,
                   borderRadius: BorderRadius.circular(20),

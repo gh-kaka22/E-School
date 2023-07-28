@@ -23,11 +23,11 @@ class HomeCubit extends Cubit<HomeStates>{
 
   List<CategoryCard> categories =[
     CategoryCard('Attendance', 'assets/icons/attendance.png', kWhiteColor,AttendanceScreen()),
-    CategoryCard('Exams', 'assets/icons/exam.png', kWhiteColor,ExamsScreen()),
+    CategoryCard('Marks', 'assets/icons/exam.png', kWhiteColor,ExamsScreen()),
     CategoryCard('Schedule', 'assets/icons/schedule.png', kWhiteColor,TimetableScreen()),
     CategoryCard('Library', 'assets/icons/bookshelf.png', kWhiteColor,LibraryScreen()),
-    CategoryCard('Discipline', 'assets/icons/behavior.png', kWhiteColor,AttendanceScreen()),
-    CategoryCard('Education', 'assets/icons/homework.png', kWhiteColor,AttendanceScreen()),
+    CategoryCard('Notices', 'assets/icons/post-it.png', kWhiteColor,AttendanceScreen()),
+    CategoryCard('Exams', 'assets/icons/timetable.png', kWhiteColor,AttendanceScreen()),
   ];
   HomeModel? homeModel ;
   void getHomeData()

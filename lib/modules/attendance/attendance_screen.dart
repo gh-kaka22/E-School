@@ -33,7 +33,7 @@ class AttendanceScreen extends StatelessWidget {
                         color: kDarkBlue2Color,
                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30),),
                       ),
-                      child: Text("Your Absences"),
+                      child: Text("Absences"),
                     ),
 
 
@@ -71,8 +71,7 @@ class AttendanceScreen extends StatelessWidget {
                         width: w/2,
                         height: h/5,
 
-                        child: Center(child: Text('Your Absences',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white),)))),
-
+                        child: Center(child: Text('Absences',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white),)))),
                   ]
                 ),
               ],

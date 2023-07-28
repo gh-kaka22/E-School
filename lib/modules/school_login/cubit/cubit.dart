@@ -18,8 +18,8 @@ class SchoolLoginCubit extends Cubit<SchoolLoginStates>{
   LoginModel? loginModel;
 
   void userLogin ({
-    required String email,
-    required String password,
+    required  email,
+    required  password,
 })
   {
     emit(SchoolLoginLoadingState());
@@ -33,9 +33,9 @@ class SchoolLoginCubit extends Cubit<SchoolLoginStates>{
     ).then((value) {
       print(value?.data);
       loginModel = LoginModel.fromJson(value?.data);
-      print(loginModel?.data?.token);
-      print(loginModel?.status);
-      print(loginModel?.message);
+      print(loginModel!.data?.token);
+      print(loginModel!.status);
+      print(loginModel!.message);
       emit(SchoolLoginSuccessState(loginModel!));
     }).catchError((error){
       print(error.toString());

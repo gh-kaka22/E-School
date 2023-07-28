@@ -1,4 +1,4 @@
-import 'package:e_school/modules/school_login/shop_login_screen.dart';
+import 'package:e_school/modules/school_login/login_screen.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +48,6 @@ class SettingsScreen extends StatelessWidget {
                 leading: Icon(Icons.notifications),
                 onToggle: (bool value) {},
                 initialValue: true,
-              ),
-              SettingsTile.switchTile(
-                title: Text('Email Notifications'),
-                leading: Icon(Icons.email),
-                onToggle: (bool value) {value = !value;},
-                initialValue: false,
               ),
             ],
           ),

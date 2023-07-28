@@ -1,26 +1,28 @@
-const LOGIN = 'api/login';
+const LOGIN = 'login';
 
-const HOME = 'api/student/home';
+const HOME = 'student/home';
 
-const PROFILE = 'api/student/profile';
+const PROFILE = 'student/profile';
 
-const GETTIMETABLE = 'api/show_schedule/';
+const ATTENDANCE = 'Sshowattendance';
 
-const EXAMS = 'api/exams/show_for_student';
+const GETTIMETABLE = 'show_schedule/';
 
-const FILES = 'api/show_file_student';
+const EXAMS = 'exams/show_for_student';
 
-const GETPOSTS = 'api/get_posts';
-const TOGGLELIKE = 'api/like';
-const GETLIKES = 'api/show_all_likes';
-const GETCOMMENTS = 'api/show_all_comments';
+const FILES = 'show_file_student';
+
+const GETPOSTS = 'get_posts';
+const TOGGLELIKE = 'like';
+const GETLIKES = 'show_all_likes';
+const GETCOMMENTS = 'show_all_comments';
 
 
-const CREATECOMMENT = 'api/create_comment';
-const EDITPOST = 'api/edit_post';
-const DELETEPOST = 'api/delete_post';
-const EDITCOMMENT = 'api/update_comment';
-const DELETECOMMENT = 'api/delete_comment';
+const CREATECOMMENT = 'create_comment';
+const EDITPOST = 'edit_post';
+const DELETEPOST = 'delete_post';
+const EDITCOMMENT = 'update_comment';
+const DELETECOMMENT = 'delete_comment';
 
 ///teacher
 const TEACHERPROFILE='profile/teacher';

@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
+import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class SchoolLoginScreen extends StatelessWidget {
         child: BlocConsumer<SchoolLoginCubit, SchoolLoginStates>(
           listener: (context, state) {
             if (state is SchoolLoginSuccessState) {
-              if (state.loginModel.status ?? true) {
+              if (state.loginModel.status == true) {
                 print(state.loginModel.message);
                 showToast(
                     text: state.loginModel.message,
@@ -34,6 +35,7 @@ class SchoolLoginScreen extends StatelessWidget {
                 );
                 CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value) {
                   print(state.loginModel.data?.token);
+                  token= state.loginModel.data?.token;
                   navigateAndFinish(context, HomeLayout());
                 });
 

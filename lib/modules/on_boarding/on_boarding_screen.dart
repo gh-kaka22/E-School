@@ -9,7 +9,7 @@ import '../../shared/components/components.dart';
 import '../../shared/network/local/cache_helper.dart';
 import '../../shared/styles/colors.dart';
 import '../attendance/attendance_screen.dart';
-import '../school_login/shop_login_screen.dart';
+import '../school_login/login_screen.dart';
 
 class BoardingModel{
   final String image;

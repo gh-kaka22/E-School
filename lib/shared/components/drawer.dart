@@ -1,17 +1,16 @@
-import 'package:e_school/modules/school_login/shop_login_screen.dart';
+import 'package:e_school/modules/school_login/login_screen.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 
-class TheMenu extends StatefulWidget {
-  const TheMenu({Key? key}) : super(key: key);
+class TheMenu extends StatelessWidget {
+  String? name;
+  String? email;
+  String? image;
+  TheMenu({this.name,this.email,this.image});
 
-  @override
-  State<TheMenu> createState() => _TheMenuState();
-}
 
-class _TheMenuState extends State<TheMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -19,11 +18,11 @@ class _TheMenuState extends State<TheMenu> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('maysa',),
-            accountEmail:Text('maysa@gmail.com'),
+            accountName: Text('${name}',),
+            accountEmail:Text('${email}'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.asset('assets/icons/graduating-student-g.png'),
+                child: Image.asset('${image}'),
               ),
             ),
             decoration: BoxDecoration(

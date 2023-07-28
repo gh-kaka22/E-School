@@ -8,7 +8,7 @@ import 'package:e_school/shared/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'modules/school_login/shop_login_screen.dart';
+import 'modules/school_login/login_screen.dart';
 import 'modules/teacher/profie_teacher/profile_teacher_screen.dart';
 import 'shared/bloc_observer.dart';
 
@@ -26,7 +26,7 @@ void main() async {
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark');
   Widget widget;
-  //token = CacheHelper.getData(key: 'token');
+  token = CacheHelper.getData(key: 'token');
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
 
  if(onBoarding != null)
@@ -61,8 +61,7 @@ class MyApp extends StatelessWidget {
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home:TeacherSchedule(),
-            //startWidget,
+            home: startWidget,
           );
         },
       ),
