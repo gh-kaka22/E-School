@@ -1,3 +1,4 @@
+import 'package:e_school/modules/about_us/about_screen.dart';
 import 'package:e_school/modules/school_login/login_screen.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
@@ -54,7 +55,9 @@ class TheMenu extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.school),
               title: Text('About Us'),
-              onTap: (){},
+              onTap: (){
+                navigateTo(context, AboutScreen());
+              },
             ),
           ),
           Card(
