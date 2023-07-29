@@ -43,7 +43,7 @@ class AdminController extends Controller
     public function ComplaintIndex()
     {
         $complaints = Complaint::all();
-        return response()->json($complaints);
+        return $this->apiResponse('success',$complaints);
     }
 
     public function ComplaintResolve(Request $request, Complaint $complaint)
