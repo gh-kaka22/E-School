@@ -11,7 +11,7 @@ class NotesScreen extends StatelessWidget {
     double w=MediaQuery.of(context).size.width;
     double h=MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (BuildContext context) => NotesCubit()..getAbsences(),
+      create: (BuildContext context) => NotesCubit()..getNotices(),
       child: BlocConsumer<NotesCubit, NotesState>(
         listener: (context, state) {},
         builder: (context, state) {
