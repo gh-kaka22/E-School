@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ComplaintController extends Controller
 {
@@ -15,8 +16,13 @@ class ComplaintController extends Controller
             'description' => 'required|string'
         ]);
 
+        $parent_id=DB::table('parents')
+            ->where('user_id','=', auth()->user()->id)
+            ->first()->parent_id;
+
+
         $complaint = Complaint::create([
-            'parent_id' => auth()->user()->id,
+            'parent_id' => $parent_id,
             'date' =>  Carbon::now()->toDateString(),
             'description' => $validatedData['description'],
         ]);
@@ -28,9 +34,11 @@ class ComplaintController extends Controller
 
     public function getParentComplaints(Request $request)
     {
-        $parent = $request->user();
+        $parent_id=DB::table('parents')
+            ->where('user_id','=', auth()->user()->id)
+            ->first()->parent_id;
 
-        $complaints = Complaint::where('parent_id', $parent->id)
+        $complaints = Complaint::where('parent_id', $parent_id)
             ->orderByDesc('created_at')
             ->get();
 
