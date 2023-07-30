@@ -42,7 +42,7 @@ class AdminController extends Controller
 
     public function ComplaintIndex()
     {
-        $complaints = Complaint::all();
+        $complaints = Complaint::query()->where('status' , '=' , 'pending')->get();
         return $this->apiResponse('success',$complaints);
     }
 
