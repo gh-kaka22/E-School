@@ -231,6 +231,11 @@ Route::middleware(['auth:api', 'isParent'])->group(function () {
 
     //post
     Route::get('/parent/showposts/{student_id}', [\App\Http\Controllers\PostController::class, 'showParent']);
+
+    //home
+    Route::get('/parent/showhome', [\App\Http\Controllers\ParenttController::class, 'showHome']);
+
+
 });
 
 //Student routes
@@ -273,6 +278,8 @@ Route::middleware(['auth:api', 'isTeacher'])->group(function () {
     //get Schedules
     ///
     Route::get('/teacher/getschedule/{day_number}',[\App\Http\Controllers\ScheduleController::class, 'showTeachersSchedule']);
+
+    Route::get('/home/teacher', [\App\Http\Controllers\TeacherController::class,'showHome']);
 
 
 

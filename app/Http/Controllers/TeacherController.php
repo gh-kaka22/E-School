@@ -36,10 +36,6 @@ class TeacherController extends Controller
 
     }
 
-
-
-//
-
     public function show(Request $request)
     {
         $teacher = Teacher::find($request->id);
@@ -90,9 +86,6 @@ class TeacherController extends Controller
         return $this->apiResponse('success',$teacher);
     }
 
-
-
-
     public function showProfile()
     {
         $user_id=Auth::id();
@@ -117,11 +110,6 @@ class TeacherController extends Controller
         return $this->apiResponse('success',$teacher);
     }
 
-
-
-
-
-
     public function subjectTeacher($id){
         $teachers = DB::table('teachers')
           ->where('subject_id','=',$id)
@@ -141,6 +129,22 @@ class TeacherController extends Controller
             ->orWhere('teachers.last_name', 'LIKE', "$name%")
             ->get();
         return $this->apiResponse('success',$teachers);
+    }
+
+    public function showHome(){
+
+        $teacher = Teacher::with(['subjects', 'classrooms'])->where('user_id', Auth::id())->first();
+        $room_numbers = $teacher->classrooms->pluck('room_number');
+
+
+        $data = [
+            'first_name' => $teacher->first_name,
+            'last_name' => $teacher->last_name,
+            'subject_name' => $teacher->subjects->name,
+            'classes' => $room_numbers,
+        ];
+
+        return $this->apiResponse('success',$data);
     }
 
 

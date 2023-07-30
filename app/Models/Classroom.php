@@ -48,4 +48,9 @@ class Classroom extends Model
         return $this->hasMany(TeacherClassroomController::class,'classroom_id');
 
     }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'teachers_classrooms', 'classroom_id', 'teacher_id');
+    }
 }
