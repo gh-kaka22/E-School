@@ -42,6 +42,11 @@ class ComplaintController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
+        if(!$complaints)
+        {
+            return $this->apiResponse('there is no complaints');
+        }
+
         return $this->apiResponse('success',$complaints);
     }
 

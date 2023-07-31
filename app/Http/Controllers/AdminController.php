@@ -43,6 +43,12 @@ class AdminController extends Controller
     public function ComplaintIndex()
     {
         $complaints = Complaint::query()->where('status' , '=' , 'pending')->get();
+
+        if(!$complaints)
+        {
+            return $this->apiResponse('there is no pending complaints');
+        }
+
         return $this->apiResponse('success',$complaints);
     }
 
