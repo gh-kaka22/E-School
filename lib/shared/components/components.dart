@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import '../styles/colors.dart';
 
@@ -1239,7 +1241,7 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
   child: ListTile(
     leading:InkWell(
       onTap: () =>openFile(
-        url: '${baseUrl}${file.path}',
+        url: 'http://192.168.1.9:8000/files/ll.pdf',
       ),
       child: Image.asset(
         'assets/icons/pdf.png',
@@ -1287,11 +1289,11 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
 
 ///open file
 Future openFile ({required String url , String? fileName})async{
-  final name = fileName ?? url.split('/').last;
-  final file = await downloadFile(url,name);
-  if (file== null)  return;
-  print('path : ${file.path}');
-  OpenFile.open(file.path);
+  // final name = fileName ?? url.split('/').last;
+  // final file = await downloadFile(url,name);
+  // if (file== null)  return;
+  // print('path : ${file.path}');
+  OpenFile.open(url);
 }
 
 ///download file
@@ -1382,5 +1384,50 @@ Widget ShowFilessItem(w, file, index, context) => Padding(
         ],
       ),
     ),
+  ),
+);
+
+//Books
+Widget ShowBooksBuilder(w, books, context, state) => ConditionalBuilder(
+  condition:  state is! LibraryLoadingState && books != null,
+  builder: (context) => ListView.separated(
+      physics: BouncingScrollPhysics(),
+      itemBuilder: (context, index) =>
+          ShowBooksItem(w, books[index], index, context),
+      separatorBuilder: (context, index) {
+        return SizedBox();
+      },
+      itemCount: books.length ),//files.length),
+  fallback: (context) => Center(child: CircularProgressIndicator()),
+);
+Widget ShowBooksItem(w, book, index, context) => Padding(
+  padding: const EdgeInsets.all(15.0),
+  child: ListTile(
+    leading:InkWell(
+      onTap: () {
+        launchUrl(
+            Uri.parse(book.url),
+            mode: LaunchMode.externalApplication
+        );
+
+      },
+      child: Image.asset(
+        'assets/icons/book.png',
+      ),
+    ),
+    title: Text(
+      '${book.name}',
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: Colors.black,
+      ),
+    ),
+    subtitle:Text(
+      '${book.createdAt}',
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: Colors.grey,
+      ),
+    ) ,
   ),
 );

@@ -1,5 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
+import 'package:e_school/layout/parent_home_layout/parent_home_layout.dart';
+import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +35,27 @@ class SchoolLoginScreen extends StatelessWidget {
                     text: state.loginModel.message,
                     state: ToastStates.SUCCESS
                 );
-                CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value) {
-                  print(state.loginModel.data?.token);
-                  token= state.loginModel.data?.token;
-                  navigateAndFinish(context, HomeLayout());
+                CacheHelper.saveData(key: 'token', value: state.loginModel.data.token).then((value) {
+                  print(state.loginModel.data.token);
+                  token= state.loginModel.data.token;
+
                 });
+                if(state.loginModel.data.role == 2){
+                  CacheHelper.saveData(key: 'userType', value: 'student').then((value) {
+                    userType='student';
+                  });
+                  navigateAndFinish(context, HomeLayout());
+                }else if(state.loginModel.data.role == 4){
+                  CacheHelper.saveData(key: 'userType', value: 'teacher').then((value) {
+                    userType='teacher';
+                  });
+                  navigateAndFinish(context, TeacherHomeLayout());
+                }else{
+                  CacheHelper.saveData(key: 'userType', value: 'parent').then((value) {
+                    userType='parent';
+                  });
+                  navigateAndFinish(context, ParentHomeLayout());
+                }
 
               } else {
                 print(state.loginModel.message);

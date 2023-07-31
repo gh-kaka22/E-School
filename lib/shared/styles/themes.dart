@@ -14,10 +14,10 @@ ThemeData lightMode = ThemeData(
   appBarTheme: AppBarTheme(
     titleSpacing: 20.0,
     centerTitle: true,
-    systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: kDarkBlue2Color,
-      statusBarIconBrightness: Brightness.light,
-    ),
+    // systemOverlayStyle: SystemUiOverlayStyle(
+    //   statusBarColor: kWhiteColor,
+    //   statusBarIconBrightness: Brightness.light,
+    // ),
     backgroundColor: kDarkBlue2Color,
     elevation: 0.0,
     titleTextStyle: TextStyle(

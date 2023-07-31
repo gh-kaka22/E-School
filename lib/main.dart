@@ -1,8 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
+import 'package:e_school/layout/parent_home_layout/parent_home_layout.dart';
+import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
 import 'package:e_school/modules/about_us/about_screen.dart';
 import 'package:e_school/modules/exam_schedule/exam_schedule.dart';
 import 'package:e_school/modules/teacher/teacher_schedule/teacher_schedule_screen.dart';
+import 'package:e_school/modules/websocket.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/cubit/app_cubit.dart';
 
@@ -29,11 +32,20 @@ void main() async {
   bool? isDark = CacheHelper.getData(key: 'isDark');
   Widget widget;
   token = CacheHelper.getData(key: 'token');
+  userType = CacheHelper.getData(key: 'userType');
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
 
  if(onBoarding != null)
     {
-      if(token != null) widget= HomeLayout();
+      if(token != null) {
+        if(userType=='student'){
+          widget= HomeLayout();
+        }else if(userType=='teacher'){
+          widget=TeacherHomeLayout();
+        }else{
+          widget=ParentHomeLayout();
+        }
+      }
       else widget=SchoolLoginScreen();
     }else widget=OnBoardingScreen();
 

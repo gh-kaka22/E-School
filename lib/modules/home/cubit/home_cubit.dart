@@ -45,7 +45,7 @@ class HomeCubit extends Cubit<HomeStates>{
       print(homeModel?.data);
       print(homeModel?.status);
       print(homeModel?.message);
-      print(homeModel?.data!.classroom);
+      print(homeModel?.data.classroom);
       emit(HomeSuccessState());
     }).catchError((error){
       print(error.toString());

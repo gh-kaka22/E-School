@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:e_school/modules/complaints/add/cubit/complaints_cubit.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/styles/colors.dart';
@@ -127,6 +126,7 @@ class ComplaintsScreen extends StatelessWidget {
                                       cubit.addComplaint(
                                         description: descriptionController.text,
                                       );
+
                                     }),
                               ),
                             )

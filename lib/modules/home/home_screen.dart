@@ -80,10 +80,12 @@ class HomeScreen extends StatelessWidget {
                                               child: CircleAvatar(
                                                 radius: 45,
                                                 backgroundColor: kWhiteColor,
-                                                child: Image.asset(
-                                                  cubit.homeModel?.data?.gender_id == 0 ?
-                                                  'assets/icons/graduating-student-g.png':
-                                                  'assets/icons/graduating-student-b.png',
+                                                child: ClipOval(
+                                                  child: Image.asset(
+                                                    cubit.homeModel?.data.genderId == 0 ?
+                                                    'assets/icons/graduating-student-g.png':
+                                                    'assets/icons/graduating-student-b.png',
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -97,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '${cubit.homeModel?.data?.first_name}'+' '+'${cubit.homeModel?.data?.last_name}' ?? '',
+                                              '${cubit.homeModel?.data.firstName}'+' '+'${cubit.homeModel?.data.lastName}' ?? '',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 20,
@@ -108,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                                               height: 3,
                                             ),
                                             Text(
-                                              'Grade : ${cubit.homeModel?.data?.grade_id ?? ''} ',
+                                              'Grade : ${cubit.homeModel?.data.gradeId ?? ''} ',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 15,
@@ -118,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                                               height: 3,
                                             ),
                                             Text(
-                                              'Section : ${cubit.homeModel?.data?.classroom ?? ''} ',
+                                              'Section : ${cubit.homeModel?.data.classroom ?? ''} ',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 15,

@@ -1,4 +1,5 @@
 
+import 'package:e_school/models/book_model.dart';
 import 'package:e_school/models/files_model.dart';
 import 'package:e_school/modules/library/cubit/library_states.dart';
 import 'package:e_school/shared/components/constants.dart';
@@ -12,6 +13,11 @@ class LibraryCubit extends Cubit<LibraryStates> {
 
   static LibraryCubit get(context) => BlocProvider.of(context);
 
+
+  String type='Files';
+  changeToggle(){
+    emit(ToggleState());
+  }
 
   FilesModel? filesModel;
   List<dynamic>? files;
@@ -35,5 +41,30 @@ class LibraryCubit extends Cubit<LibraryStates> {
       emit(LibraryErrorState(error.toString()));
     });
   }
+
+  BookModel? bookModel;
+  List<dynamic>? book;
+  void getBooks()
+  {
+    emit(BooksLoadingState());
+    DioHelper.getData(
+      url: BOOKS,
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      bookModel = BookModel.fromJson(value?.data);
+      print(bookModel?.status);
+      print(bookModel?.message);
+      print(bookModel?.data[0]);
+      book = bookModel?.data;
+      print(book?[1].name);
+      emit(BooksSuccessState(bookModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(BooksErrorState(error.toString()));
+    });
+  }
+
+
 
 }

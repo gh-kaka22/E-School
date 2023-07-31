@@ -7,18 +7,23 @@ Widget ShowComplaintsItem(w, h, complaint, index, context) => Padding(
   padding: const EdgeInsets.all(15.0),
   child: Container(
     width: w - (w / 6),
-    height: h / 8,
+    height: h / 10,
     decoration: BoxDecoration(
-      color: kDarkBlue2Color.withOpacity(0.1),
+      color: complaint.status == 'pending'?
+      kOrangeColor.withOpacity(0.1):
+      Colors.lightGreen.withOpacity(0.1),
       borderRadius: BorderRadius.all(Radius.circular(15)),
     ),
     child: Row(
       children: [
         Container(
-          width: w / 6,
-          height: h / 8,
+          width: w / 5,
+          height: h / 10,
           decoration: BoxDecoration(
-            color: kDarkBlue2Color,
+            color: complaint.status == 'pending'?
+            kOrangeColor:
+            Colors.lightGreen
+            ,
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           child: Stack(children: [
@@ -48,16 +53,18 @@ Widget ShowComplaintsItem(w, h, complaint, index, context) => Padding(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              height: h/25,
-              width: w/10,
+              height: h/29,
+              width: w/5,
 
               decoration: BoxDecoration(
-                color: kDarkBlue2Color,
+                color: complaint.status == 'pending'?
+                kOrangeColor:
+                Colors.lightGreen,
                 borderRadius: BorderRadius.only(topLeft:Radius.circular(15),bottomRight: Radius.circular(15)),
               ),
               child: Center(child: Text('${complaint.date}',style: TextStyle(
-                color: kGold2Color,
-              ),)),),
+                fontSize: 12,
+                color: Colors.white))))
           ],
         ),
 

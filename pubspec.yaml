@@ -58,11 +58,12 @@ dependencies:
   google_nav_bar:
   settings_ui: ^2.0.2
   path_provider: ^2.0.5
-  open_file: ^3.2.1
+  open_file:
   web_socket_channel:
   pusher_client:
   web_socket_client:
-  laravel_echo:
+  url_launcher:
+
 
 
 

@@ -1,18 +1,31 @@
 const LOGIN = 'login';
 
 const HOME = 'student/home';
+const TEACHERHOME = 'home/teacher';
+const PARENTHOME = 'parent/showhome';
+
 
 const PROFILE = 'student/profile';
 
 const ATTENDANCE = 'Sshowattendance';
+const PARENTATTENDANCE = 'Pshowattendance';
+
+const NOTICES = 'Sshownotices';
+const PARENTNOTICES = 'Pshownotices';
 
 const GETTIMETABLE = 'show_schedule/';
+const PARENTTIMETABLE='parent/showschedule';
 
 const EXAMS = 'exams/show_for_student';
+const PARENTEXAMS = 'parent/showexams';
 
 const FILES = 'show_file_student';
+const BOOKS = 'student/showbooks';
+const PARENTFILES = 'parent/showfiles';
+const PARENTBOOKS = 'parent/showbooks';
 
 const GETPOSTS = 'get_posts';
+const GETPOSTSPARENT = 'parent/showposts';
 const TOGGLELIKE = 'like';
 const GETLIKES = 'show_all_likes';
 const GETCOMMENTS = 'show_all_comments';
@@ -30,3 +43,7 @@ const SHOWTIMETABLETEACHER='/teacher/getschedule/';
 ///Exam Schedule
 const GETEXAMSCHEDULE='exams_schedule/index';
 const GETEXAMSCHEDULEBYGRADE='/exams_schedule/showByGrade';
+
+
+const COMPLAINT = 'complaints';
+const SHOWCOMPLAINT = 'parent/complaints';

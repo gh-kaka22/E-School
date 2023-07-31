@@ -1,8 +1,10 @@
 
 
+import 'package:e_school/modules/complaints/add/complaints_screen.dart';
 import 'package:e_school/modules/complaints/add/cubit/complaints_cubit.dart';
 import 'package:e_school/modules/complaints/show/cubit/show_complaints_cubit.dart';
 import 'package:e_school/shared/components/complaints.dart';
+import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,13 @@ class ShowComplaints extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Complaints'),
+              actions: [
+                IconButton(
+                    onPressed: (){
+                      navigateTo(context, ComplaintsScreen());
+                    },
+                    icon: Icon(Icons.add))
+              ],
             ),
 
               body: SingleChildScrollView(
