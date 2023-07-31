@@ -98,7 +98,7 @@ class AddSchool extends StatelessWidget {
                                 Expanded(
                                   child: buildSForm(
                                     controller: addressController,
-                                    labeltext: 'Adrress',
+                                    labeltext: 'Address',
                                   ),
                                 ),
                                 SizedBox(

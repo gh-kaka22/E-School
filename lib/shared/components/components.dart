@@ -3,19 +3,16 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:untitled/modules/attendance/add/cubit/attendance_cubit.dart';
-import 'package:untitled/modules/books/show/cubit/show_files_states.dart';
+import 'package:untitled/modules/books/show/cubit/show_books_states.dart';
 import 'package:untitled/modules/classrooms/show/cubit/show_classrooms_states.dart';
 import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
 import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
+import 'package:untitled/modules/files/show/cubit/show_files_states.dart';
 import 'package:untitled/modules/news/show/cubit/get_posts_states.dart';
-import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
-import 'package:untitled/modules/notice/show/show_notes.dart';
 import 'package:untitled/modules/results/cubit/results_states.dart';
 import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
@@ -23,6 +20,7 @@ import 'package:untitled/modules/students/show/show_students.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 import 'package:untitled/modules/subjects/show/cubit/show_subjects_states.dart';
 import 'package:untitled/shared/components/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../styles/colors.dart';
 
@@ -159,7 +157,7 @@ TextFormField buildSForm({
         return 'Can\'t be empty';
       }
 
-      if (text.length > 40) {
+      if (text.length > 500) {
         return 'It is too long';
       }
       if (text.length < 2) {
@@ -652,6 +650,79 @@ Widget ShowFilesBuilder(w, files, context, state) => ConditionalBuilder(
         return MyDivider();
       },
       itemCount: files.length),
+  fallback: (context) => Center(child: LinearProgressIndicator()),
+);
+
+//Books
+Widget ShowBooksItem(w, book, index, context,cubit) => Container(
+  width: 4 / 5 * w,
+  height: 50,
+  decoration: BoxDecoration(
+      color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.2),
+            blurRadius: 20) //blur radius of shadow
+      ]),
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Row(
+      children: [
+        Expanded(
+            child: Center(
+              child: Text('${book.id}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${book.name}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${book.url}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )
+        ),
+        Expanded(
+          child: Center(
+            child: defaultButton(
+              onPressed: () {
+                launchUrl(
+                  Uri.parse(book.url),
+                  mode: LaunchMode.externalApplication
+                );
+              },
+              height: 30,
+              text: 'Open',
+              fontsize: 15,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: InkWell(
+              onTap: (){
+                cubit.deleteBook(book.id);
+                cubit.getBooksByGrade(book.gradeId);
+              },
+                child: Icon(Icons.delete_outline,color: Colors.red,))
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+Widget ShowBooksBuilder(w, books, context, state,cubit) => ConditionalBuilder(
+  condition: state is! ShowBooksLoadingState && books != null,
+  builder: (context) => ListView.separated(
+      itemBuilder: (context, index) =>
+          ShowBooksItem(w, books[index], index, context,cubit),
+      separatorBuilder: (context, index) {
+        return MyDivider();
+      },
+      itemCount: books.length),
   fallback: (context) => Center(child: LinearProgressIndicator()),
 );
 

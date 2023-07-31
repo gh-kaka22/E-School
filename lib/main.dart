@@ -14,6 +14,7 @@ void main() async{
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
+  //await UrlLauncherPlugin().init();
   Widget widget;
   token = CacheHelper.getData(key: 'token');
 

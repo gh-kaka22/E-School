@@ -4,8 +4,9 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/modules/books/add/cubit/add_file_cubit.dart';
-import 'package:untitled/modules/books/add/cubit/add_file_states.dart';
+import 'package:untitled/modules/files/add/cubit/add_file_cubit.dart';
+import 'package:untitled/modules/files/add/cubit/add_file_states.dart';
+
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/styles/colors.dart';
 import '../../../shared/components/components.dart';

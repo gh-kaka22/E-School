@@ -10,9 +10,10 @@ import 'package:untitled/models/add_file_model.dart';
 
 import 'package:untitled/models/classroom_model.dart';
 
-import 'package:untitled/modules/books/add/cubit/add_file_states.dart';
+
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled/modules/files/add/cubit/add_file_states.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
@@ -95,7 +96,7 @@ class AddFileCubit extends Cubit<AddFileStates> {
     emit(AddFileUploadLoadingState());
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf','jpg'], // only allow PDF files
+      allowedExtensions: ['pdf','jpg','png'],
     );
     if (result != null) {
       selectedFile = File(result.files.single.path ?? "");

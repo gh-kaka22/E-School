@@ -53,7 +53,11 @@ const ADDSCHOOL='admin/create_school';
 const SHOWSCHOOL='admin/show_school/1';
 const UPDATESCHOOL='admin/update_school/1';
 
-
+///BOOKS
+const ADDBOOK ='addbook';
+const SHOWBOOKS = 'admin/showbooks';
+const UPDATEBOOK = 'updatebook';
+const DELETEBOOK = 'deletebook';
 
 ///FILES
 const ADDFILE='upload_file';

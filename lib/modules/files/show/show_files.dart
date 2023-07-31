@@ -1,7 +1,8 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/modules/books/show/cubit/show_files_states.dart';
-import 'package:untitled/modules/books/show/cubit/show_files_cubit.dart';
+import 'package:untitled/modules/files/show/cubit/show_files_cubit.dart';
+import 'package:untitled/modules/files/show/cubit/show_files_states.dart';
+
 import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/shared/components/components.dart';
