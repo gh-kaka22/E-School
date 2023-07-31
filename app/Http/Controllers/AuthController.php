@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Password as password_rule;
 use App\Http\Controllers\ApiResponseTrait;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class AuthController extends Controller
 {
@@ -351,32 +352,10 @@ class AuthController extends Controller
 
     public function StudentLogin(Request $request): JsonResponse
     {
-
-        $student=DB::table('students')
-            ->where('user_id','=',Auth::id())
-            ->first();
-
-
-
-
-        $parents=DB::table('parents')
-            ->where('parent_id','=',$student->parent_id)
-            ->first();
-
-
-
-        //user//email
-
+        $student = new \stdClass();
         $student->email =Auth::user()->email;
-        $student->father_first_name=$parents->father_first_name;
-        $student->father_last_name=$parents->father_last_name;
-        $student->father_phone_number=$parents->father_phone_number;
-        $student->mother_first_name=$parents->mother_first_name;
-        $student->mother_last_name=$parents->mother_last_name;
-        $student->mother_phone_number=$parents->mother_phone_number;
         $student->role=2;
-        $student->token = Auth::user()->createToken('accessToken')->accessToken;;
-
+        $student->token = Auth::user()->createToken('accessToken')->accessToken;
 
         return $this->apiResponse('login successfully',$student);
 
@@ -402,36 +381,12 @@ class AuthController extends Controller
     public function ParentLogin(Request $request): JsonResponse
     {
 
-        $parent=DB::table('parents')
-            ->where('user_id','=',Auth::id())
-            ->first();
-
-        $kids=DB::table('students')
-            ->where('parent_id','=',$parent->parent_id)
-            ->get();
-
-       // return $this->apiResponse('s',$kids);
-        $children=[];
-        //$counter =1;
-        foreach ($kids as $kid){
-           // $parent->{"kid_number_$counter"}=$kid->student_id;
-            $children[]= (object)['kid_name' => $kid->first_name,'kid_id'=>$kid->student_id];
-            //$counter++;
-
-        }
-        $parent->children = $children;
+        $parent = new \stdClass();
+        $parent->email =Auth::user()->email;
         $parent->role=3;
-
-        $parent->token=Auth::user()->createToken('accessToken')->accessToken;
+        $parent->token = Auth::user()->createToken('accessToken')->accessToken;
 
         return $this->apiResponse('login successfully',$parent);
-//        return response()->json([
-//            'status'=>true,
-//            'message'=>'login successfully',
-//            'children'=>$children,
-//            'data'=>$parent,
-//        ],200);
-
 
 
     }
@@ -456,10 +411,8 @@ class AuthController extends Controller
     public function TeacherLogin(Request $request): JsonResponse
     {
 
-        $teacher=DB::table('teachers')
-            ->where('user_id','=',Auth::id())
-            ->first();
-
+        $teacher = new \stdClass();
+        $teacher->email = Auth::user()->email;
         $teacher->role=4;
         $teacher->token=Auth::user()->createToken('accessToken')->accessToken;
 

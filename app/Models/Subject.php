@@ -22,7 +22,7 @@ class Subject extends Model
     public $timestamps=true ;
 
 
-    public function teacher() : HasMany
+    public function teachers() : HasMany
     {
         return $this->hasMany(Teacher::class,'subject_id');
     }

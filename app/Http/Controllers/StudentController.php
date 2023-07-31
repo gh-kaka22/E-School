@@ -100,8 +100,6 @@ class StudentController extends Controller
     }
 
 
-
-
     public function searchByName(Request $request)
     {
         $name = $request->name;
