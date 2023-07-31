@@ -89,7 +89,7 @@ Widget ShowNotesItem(w, h, note, index, context) => Padding(
 
             boxShadow: <BoxShadow>[
 
-              BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.2), blurRadius: 20)
+              BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.5), blurRadius: 10)
 
             ]),
 
@@ -226,13 +226,7 @@ Widget ShowNotesBuilder(w, h, notes, context, state) => ConditionalBuilder(
           itemBuilder: (context, index) =>
               ShowNotesItem(w, h, notes[index], index, context),
           separatorBuilder: (context, index) {
-            return Center(
-              child: Container(
-                height: 0.5,
-                width: w - (w / 6),
-                color: Colors.grey,
-              ),
-            );
+            return SizedBox();
           },
           itemCount: notes.length),
       fallback: (context) => Center(child: LinearProgressIndicator()),

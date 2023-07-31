@@ -62,6 +62,7 @@ dependencies:
   web_socket_channel:
   pusher_client:
   web_socket_client:
+  laravel_echo:
 
 
 

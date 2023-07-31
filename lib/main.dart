@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
+import 'package:e_school/modules/about_us/about_screen.dart';
 import 'package:e_school/modules/exam_schedule/exam_schedule.dart';
 import 'package:e_school/modules/teacher/teacher_schedule/teacher_schedule_screen.dart';
 import 'package:e_school/shared/components/constants.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
             theme: lightMode,
             darkTheme: darkMode,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: ShowExamSchedule(),
+            home: startWidget,
           );
         },
       ),

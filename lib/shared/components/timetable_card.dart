@@ -29,7 +29,7 @@ class TimetableCard extends StatelessWidget {
         color = Colors.grey;
         break;
       case 'English':
-        imageUrl = 'assets/icons/subjects/arabic.png';
+        imageUrl = 'assets/icons/subjects/linguistics.png';
         color = Colors.red;
         break;
       case 'Geography':
