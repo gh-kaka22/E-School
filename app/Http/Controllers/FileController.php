@@ -18,7 +18,7 @@ class FileController extends Controller
             'name' => ['required','string'],
             'room_number'=>['required'],
             'grade_id'=>['required','integer'],
-            'pdf_file' => 'required|file|mimes:pdf|max:2048',
+            'pdf_file' => 'required|file|max:2048',
 
 
         ]);
