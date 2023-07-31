@@ -29,25 +29,30 @@ class ScheduleController extends Controller
 
 
 
-    function checkTeacherSubjectScheduleConflict($teacherId, $classroomIds, $dayNumber, $subjectIds)
+    public function checkTeacherSubjectScheduleConflict($teacherId, $classroomIds, $dayNumber, $subjectIds)
     {
         $query = DB::table('schedules')
             ->join('teachers_classrooms', 'schedules.classroom_id', '=', 'teachers_classrooms.classroom_id')
             ->whereIn('schedules.classroom_id', $classroomIds)
             ->where('schedules.day_number', $dayNumber);
 
-        foreach ($subjectIds as $subjectId) {
-            $query->where(function ($query) use ($subjectId) {
-                $query->where('first_subject', $subjectId)
-                    ->orWhere('second_subject', $subjectId)
-                    ->orWhere('third_subject', $subjectId)
-                    ->orWhere('fourth_subject', $subjectId)
-                    ->orWhere('fifth_subject', $subjectId)
-                    ->orWhere('sixth_subject', $subjectId)
-                    ->orWhere('seventh_subject', $subjectId);
-            });
+        foreach ($subjectIds as $index => $subjectId) {
+            $column = "first_subject";
+            if ($index === 1) {
+                $column = "second_subject";
+            } elseif ($index === 2) {
+                $column = "third_subject";
+            } elseif ($index === 3) {
+                $column = "fourth_subject";
+            } elseif ($index === 4) {
+                $column = "fifth_subject";
+            } elseif ($index === 5) {
+                $column = "sixth_subject";
+            } elseif ($index === 6) {
+                $column = "seventh_subject";
+            }
+            $query->where($column, $subjectId);
         }
-
         $query->where('teachers_classrooms.teacher_id', $teacherId);
 
         return $query->exists();
@@ -75,11 +80,12 @@ class ScheduleController extends Controller
             ->where('room_number','=',$request->room_number)
             ->where('grade_id','=',$request->grade_id)
             ->first();
+
         if(!$classroom)
             return $this->apiResponse('classroom not found',null,false);
+
         $classroom_id=$classroom->classroom_id;
 
-        $validatedData['classroom_id']=$classroom_id;
 
 
         $scheduleExists = DB::table('schedules')
@@ -101,15 +107,19 @@ class ScheduleController extends Controller
                 ->where('teacher_id', $teacherId)
                 ->pluck('classroom_id')
                 ->toArray();
+        }
 
-            $teacherSubjectConflict = $this->checkTeacherSubjectScheduleConflict($teacherId, $classroomIds, $request->day_number, $subjectIds);
 
-            if ($teacherSubjectConflict) {
-                return $this->apiResponse('The teacher is already teaching one of the assigned subjects at the same time in another classroom.', null, false);
-            }
+        $teacherSubjectConflict = $this->checkTeacherSubjectScheduleConflict($teacherId, $classroomIds, $request->day_number, $subjectIds);
+
+        if ($teacherSubjectConflict) {
+            return $this->apiResponse('The teacher is already teaching one of the assigned subjects at the same time in another classroom.', null, false);
         }
 
         // Create the schedule
+        $validatedData['classroom_id']=$classroom_id;
+
+
         $schedule = Schedule::create($validatedData);
 
         return $this->apiResponse('Created', $schedule);
