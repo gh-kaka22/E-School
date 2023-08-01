@@ -2,7 +2,7 @@
 
 import 'package:e_school/modules/exam_schedule/cubit/exam_schedule_cubit.dart';
 import 'package:e_school/shared/components/components.dart';
-import 'package:e_school/shared/components/schedule_card.dart';
+import 'package:e_school/shared/components/option_card.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

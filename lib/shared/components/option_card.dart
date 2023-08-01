@@ -9,11 +9,11 @@ class OptionCard extends StatelessWidget {
   var _title;
   var _description;
   var _image;
-
+  var _option;
   var _bgColor;
 
   OptionCard(
-      this._title, this._description, this._image, this._bgColor);
+      this._title, this._description, this._image, this._bgColor,this._option);
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +24,30 @@ class OptionCard extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.all(10),
-        child: ListTile(
-          leading: Container(
-            height: 50,
-            width: 50,
-            child: Image.asset(
-              _image,
+        child: InkWell(
+          onTap: (){
+            navigateTo(context, _option);
+          },
+          child: ListTile(
+            leading: Container(
+              height: 50,
+              width: 50,
+              child: Image.asset(
+                _image,
+              ),
             ),
-          ),
-          title: Text(
-            _title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: kTitleTextColor,
+            title: Text(
+              _title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kTitleTextColor,
+              ),
             ),
-          ),
-          subtitle: Text(
-            _description,
-            style: TextStyle(
-              color: kTitleTextColor.withOpacity(0.7),
+            subtitle: Text(
+              _description,
+              style: TextStyle(
+                color: kTitleTextColor.withOpacity(0.7),
+              ),
             ),
           ),
         ),

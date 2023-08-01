@@ -12,9 +12,10 @@ import 'package:e_school/modules/exams/exams_screen.dart';
 import 'package:e_school/modules/home_teacher/cubit/teacher_home_states.dart';
 import 'package:e_school/modules/library/library_screen.dart';
 import 'package:e_school/modules/notes/notes_screen.dart';
+import 'package:e_school/modules/teacher/teacher_schedule/teacher_schedule_screen.dart';
 import 'package:e_school/shared/components/category_card.dart';
 import 'package:e_school/shared/components/constants.dart';
-import 'package:e_school/shared/components/schedule_card.dart';
+import 'package:e_school/shared/components/option_card.dart';
 
 import 'package:e_school/shared/network/end_points.dart';
 import 'package:e_school/shared/network/remote/dio_helper.dart';
@@ -26,8 +27,8 @@ class TeacherHomeCubit extends Cubit<TeacherHomeStates>{
   static TeacherHomeCubit get(context) => BlocProvider.of(context);
 
   List<OptionCard> categories =[
-    OptionCard('Timetable', 'See your daily timetables here...', 'assets/icons/schedule.png', kTeal),
-    OptionCard('Files', 'Browse & Upload files here...', 'assets/icons/folders.png', kTeal)
+    OptionCard('Timetable', 'See your daily timetables here...', 'assets/icons/schedule.png', kTeal,TeacherSchedule()),
+    OptionCard('Files', 'Browse & Upload files here...', 'assets/icons/folders.png', kTeal,LibraryScreen())
   ];
   TeacherHomeModel? teacherHomeModel ;
   void getTeacherHomeData()

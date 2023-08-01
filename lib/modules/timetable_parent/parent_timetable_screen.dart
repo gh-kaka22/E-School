@@ -4,7 +4,7 @@ import 'package:e_school/modules/timetable_parent/cubit/parent_timetable_cubit.d
 import 'package:e_school/modules/timetable_parent/cubit/parent_timetable_states.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/components/constants.dart';
-import 'package:e_school/shared/components/schedule_card.dart';
+import 'package:e_school/shared/components/option_card.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
