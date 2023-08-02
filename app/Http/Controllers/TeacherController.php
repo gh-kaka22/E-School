@@ -134,7 +134,13 @@ class TeacherController extends Controller
     public function showHome(){
 
         $teacher = Teacher::with(['subjects', 'classrooms'])->where('user_id', Auth::id())->first();
-        $room_numbers = $teacher->classrooms->pluck('room_number');
+        $room_numbers = $teacher->classrooms->map(function ($classroom) {
+            return [
+                'classroom_id' => $classroom->classroom_id,
+                'grade_id' => $classroom->grade_id,
+                'room_number' => $classroom->room_number,
+            ];
+        });
 
 
         $data = [

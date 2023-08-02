@@ -163,7 +163,6 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //files Routes
-    Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);
     Route::post('/show_files_classroom',[\App\Http\Controllers\FileController::class, 'showForClassroom']);
 
     //Posts Routes
@@ -296,6 +295,8 @@ Route::middleware(['auth:api', 'isAdminOrOwnerOrTeacher'])->group(function () {
     Route::post('/create_for_classroom', [\App\Http\Controllers\PostController::class, 'createForClassroom']);
     Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
     Route::post('/edit_post/{post_id}',[\App\Http\Controllers\PostController::class, 'updatePost']);
+    Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);
+
 
 
 });
