@@ -169,7 +169,6 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::post('/create_for_student', [\App\Http\Controllers\PostController::class, 'createForStudent']);
     Route::post('/create_for_grade', [\App\Http\Controllers\PostController::class, 'createForGrade']);
     Route::post('/create_for_school', [\App\Http\Controllers\PostController::class, 'createForSchool']);
-    Route::get('/posts', [\App\Http\Controllers\PostController::class, 'getAllPosts']);
 
     //Results Routes
     Route::post('/calcResult', [\App\Http\Controllers\ResultController::class, 'calcResForGrade']);
@@ -296,6 +295,7 @@ Route::middleware(['auth:api', 'isAdminOrOwnerOrTeacher'])->group(function () {
     Route::get('/delete_post/{post_id}',[\App\Http\Controllers\PostController::class, 'deletePost']);
     Route::post('/edit_post/{post_id}',[\App\Http\Controllers\PostController::class, 'updatePost']);
     Route::post('/upload_file',[\App\Http\Controllers\FileController::class, 'upload']);
+    Route::get('/posts', [\App\Http\Controllers\PostController::class, 'getAllPosts']);
 
 
 

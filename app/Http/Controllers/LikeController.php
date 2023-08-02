@@ -19,6 +19,7 @@ class LikeController extends Controller
         foreach ($likes as $like){
             $user = User::find($like->user_id);
             $role = $user->role;
+            $like->role=$role;
             if($role == 0){
                 $like->publisher = "E-School";
 

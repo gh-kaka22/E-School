@@ -286,6 +286,10 @@ class PostController extends Controller
 
 
         foreach($posts as $post) {
+            $is_mine=false;
+            if($post->user_id==$user->id)
+                $is_mine=true;
+            $post->is_mine=$is_mine;
             $post->likes_count=$this->likes($post->post_id);
             $post->coments_count=$this->comments($post->post_id);
             $post->is_liked=$this->isLiked($post->post_id,$user->id);
