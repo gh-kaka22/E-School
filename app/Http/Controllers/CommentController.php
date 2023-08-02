@@ -22,12 +22,19 @@ class CommentController extends Controller
         $comments = $post->comments;
 
 
+
+
         foreach($comments as $comment){
+            $is_mine=false;
             $commentDate = Carbon::parse($comment->created_at);
             $timeAgo = $commentDate->diffForHumans();
             $comment->date = $timeAgo;
             $user = User::find($comment->user_id);
             $role = $user->role;
+
+            if($comment->user_id==Auth::id())
+                $is_mine=true;
+            $comment->is_mine=$is_mine;
 
             if($role == 0)
                  $comment->publisher = "E-School";

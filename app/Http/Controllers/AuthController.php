@@ -399,9 +399,19 @@ class AuthController extends Controller
             ->where('user_id','=',Auth::id())
             ->first();
 
-        $owner->token=Auth::user()->createToken('accessToken')->accessToken;
 
-        return $this->apiResponse('login successfully',$owner);
+        $token=Auth::user()->createToken('accessToken')->accessToken;
+
+        $res = [
+            'first_name' => 'Omar',
+            'last_name' => 'Omarain',
+            'user_id'=>$owner->user_id,
+            'created_at'=>$owner->created_at,
+            'updated_at'=>$owner->updated_at,
+            'token'=>$token
+        ];
+
+        return $this->apiResponse('login successfully',$res);
 
 
 

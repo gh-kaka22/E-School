@@ -332,7 +332,9 @@ class PostController extends Controller
             ->first()->user_id;
 
 
-            $user=User::find($user_id);
+        $user=User::find($user_id);
+
+        $pu=Auth::id();
 
 
             $posts = DB::table('posts_destination')
@@ -344,33 +346,25 @@ class PostController extends Controller
                 ->get();
             //->pluck('body');
 
-            $res=array();
+
 
             foreach($posts as $post) {
                 $post->likes_count=$this->likes($post->post_id);
                 $post->coments_count=$this->comments($post->post_id);
-                $post->is_liked=$this->isLiked($post->post_id,$user->id);
-                if ($post->role == 4)
-                {
+                $post->is_liked=$this->isLiked($post->post_id,$pu);
+                if ($post->role == 4) {
                     $teacher=DB::table('teachers')
                         ->where('user_id','=',$post->user_id)
                         ->first();
                     $post->publisher=$teacher->first_name . " " . $teacher->last_name;
-                    array_push($res,$post);
-                }
-                else{
-                    $post->publisher='E-School';
-                    array_push($res,$post);
 
                 }
+                else $post->publisher='E-School';
+
             }
 
 
-
-            return $this->apiResponse('success',$res);
-
-
-
+            return $this->apiResponse('success',$posts);
 
 
     }
