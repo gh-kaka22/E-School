@@ -21,7 +21,7 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   String? ischeck;
   String currText = 'Active';
   String? dropDownValueClass = '7';
-  String? dropDownValueSection;
+
 
   List<DropdownMenuItem> menuItemsClass = [
     DropdownMenuItem(
@@ -39,20 +39,6 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   ];
   List<DropdownMenuItem> menuItemsSection = [];
 
-  void changeClassDropDownButton(String newValue)
-  {
-    dropDownValueClass = newValue;
-    dropDownValueSection='none';
-    getClassrooms(dropDownValueClass);
-    print('section====> ${dropDownValueSection}');
-    emit(ClassDropDownButtonState());
-
-  }
-  void changeSectionDropDownButton(String newValue)
-  {
-    dropDownValueSection = newValue;
-    emit(SectionDropDownButtonState());
-  }
 
   changeCheck(val) {
     isChecked = val!;
@@ -149,63 +135,7 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
 
 
 
-  void UpdateClass({
-    student_id,
-    classroom_id,
-  }) {
-    emit(ClassLoading());
-    DioHelper.postData(
-      url: CREATCLASSONESTUDENT,
-      token: token,
-      data: {
-        'student_id':student_id,
-        'classroom_id':classroom_id,
-      },
-    ).then((value) {
-      print(value?.data);
-      if (value!.data['status']) {
-        classOneStudentModel = ClassOneStudentModel.fromJson(value.data);
-        print(classOneStudentModel?.data);
-        emit(ClassSuccess(classOneStudentModel!));
-      } else {
-        emit(ClassError(value.data['message']));
-      }
-    }).catchError((error) {
-      print("Error ===> ${(error)}");
-      emit(
-        ClassError(error.toString()),
-      );
-    });
-  }
 
-  ClassroomModel? classroomModel;
-  List<dynamic>? classrooms;
-  void getClassrooms(value)
-  {
-    emit(ShowClassroomsSLoadingState());
-    DioHelper.getData(
-      url: '${GETCLASSROOMSOFAGRADE}/${value}',
-      token: token,
-    ).then((value) {
-      print(value?.data);
-      classroomModel = ClassroomModel.fromJson(value?.data);
-      print(classroomModel?.status);
-      print(classroomModel?.message);
-      print(classroomModel?.data?[0].classroomId);
-      classrooms = classroomModel?.data;
-      print(classrooms?[1].classroomId);
-      menuItemsSection = classrooms!.map((classroom) {
-        return DropdownMenuItem<dynamic>(
-          value: classroom.classroomId,
-          child: Text(classroom.roomNumber),
-        );
-      }).toList();
-      emit(ShowClassroomsSSuccessState(classroomModel!));
-    }).catchError((error){
-      print(error.toString());
-      emit(ShowClassroomsSErrorState(error.toString()));
-    });
-  }
 
 
 

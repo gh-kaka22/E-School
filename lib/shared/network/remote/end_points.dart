@@ -16,16 +16,20 @@ const UPDATETEACHER='update_teacher/';
 const ADDTEACHER='teacher/register';
 const SHOWTEACHERS='teachers';
 const SEARCHTEACHER='search_teacher';
+const SHOWTIMETABLETEACHER='show_teacher_schedule';
 ///NOTICES
 const ADDNOTICE='/storenotice';
 const SHOWNOTES='/Ashownotice/1';
 ///SUBJECTS
 const ADDSUBJECT='create_subject';
 const GETSUBJECTS='subjects';
-
+const SHOWSUBJECT='/subject';
+const UPDATESUBJECT='update_subject';
 ///ADMINS
 const ADDADMIN='admin/register';
 const SHOWADMINS='/admin/index';
+const SHOWCOMPLAINTS='admin/complaints';
+const SOLVECOMPLAINTS='admin/complaints';
 
 ///CLASSROOMS
 const ADDCLASSROOM='create_classroom';
@@ -44,6 +48,9 @@ const SHOWATTENDANCE='Ashowattendance';
 const ADDEXAM='exams/store';
 const SHOWEXAMS='exams/show_for_admin';
 const GETSTEUDENTBYINDEX ='students/index';
+const ADDEXAMSCHEDULE='exams_schedule/create';
+const GETEXAMSCHEDULE='exams_schedule/index';
+const GETEXAMSCHEDULEBYGRADE='exams_schedule/showByGrade';
 ///TIMETABLES
 const ADDTIMETABLE='create_schedule';
 const SHOWTIMETABLE= 'show_schedule_classroom';
@@ -85,6 +92,9 @@ const EDITEMPLOYEE='update_employee/1';
 
 ///STATS
 const STATS='admin/stats';
+
+///Result
+const SHOWRESULTFORSTUDENT='show_result';
 
 ///RESULTS
 const CALCULATE='calcResult';

@@ -7,14 +7,12 @@ String showTeacherModelToJson(ShowTeacherModel data) => json.encode(data.toJson(
 
 
 class ShowTeacherModel {
-  bool status;
-  String message;
-  List<Data> data;
-ShowTeacherModel({
-   required this.status,
-  required this.message,
-  required this.data,
-});
+  bool? status;
+  String? message;
+  List<Data>? data;
+
+  ShowTeacherModel({this.status, this.message, this.data});
+
   factory ShowTeacherModel.fromJson(Map<String, dynamic> json) => ShowTeacherModel(
     status: json["status"],
     message: json["message"],
@@ -27,6 +25,7 @@ ShowTeacherModel({
     "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }
+
 class Data {
   int? teacherId;
   String? firstName;
@@ -38,6 +37,8 @@ class Data {
   int? userId;
   String? createdAt;
   String? updatedAt;
+  String? subjectName;
+  List<int>? classrooms;
 
   Data(
       {this.teacherId,
@@ -49,7 +50,9 @@ class Data {
         this.subjectId,
         this.userId,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.subjectName,
+        this.classrooms});
 
   Data.fromJson(Map<String, dynamic> json) {
     teacherId = json['teacher_id'];
@@ -62,6 +65,8 @@ class Data {
     userId = json['user_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    subjectName = json['subject_name'];
+    classrooms = json['classrooms'].cast<int>();
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +81,8 @@ class Data {
     data['user_id'] = this.userId;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['subject_name'] = this.subjectName;
+    data['classrooms'] = this.classrooms;
     return data;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:untitled/models/classroom_model.dart';
+import 'package:untitled/models/show_result_student.dart';
 import 'package:untitled/models/show_students_model.dart';
 
 abstract class ShowStudentsStates {}
@@ -9,11 +10,13 @@ class ShowStudentsSuccessState extends ShowStudentsStates{
   final ShowStudentsModel showStudentsModel;
   ShowStudentsSuccessState(this.showStudentsModel);
 }
-
 class ShowStudentsErrorState extends ShowStudentsStates{
   final String error;
   ShowStudentsErrorState(this.error);
 }
+
+
+//////////////////////////////////////////////////////
 class ShowStudentsClassDropDownButtonState extends ShowStudentsStates{}
 class ShowStudentsSectionDropDownButtonState extends ShowStudentsStates{}
 
@@ -38,4 +41,15 @@ class SearchStudentsSuccessState extends ShowStudentsStates {}
 class SearchStudentsErrorState extends ShowStudentsStates {
   final String error;
   SearchStudentsErrorState(this.error);
+}
+
+
+class ShowResultLoadingState extends ShowStudentsStates {}
+class ShowResultSuccessState extends ShowStudentsStates {
+  ResultStudentModel resultStudentModel;
+  ShowResultSuccessState(this.resultStudentModel);
+}
+class ShowResultStudentsErrorState extends ShowStudentsStates {
+  final String error;
+  ShowResultStudentsErrorState(this.error);
 }

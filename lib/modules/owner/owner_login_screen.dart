@@ -22,7 +22,7 @@ class OwnerLogin extends StatelessWidget {
           if (state is OwnerLoginSuccessState) {
             if (state.owner.status == true) {
               print(state.owner.status);
-              print('1111111111111111' '${state.owner.data!.accessToken}');
+              print( '${state.owner.data!.accessToken}');
               Fluttertoast.showToast(
                 msg: '$state.adminModel.message',
                 toastLength: Toast.LENGTH_LONG,

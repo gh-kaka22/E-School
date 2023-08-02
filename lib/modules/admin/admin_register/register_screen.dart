@@ -14,12 +14,9 @@ class RegisterAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var FirstnameController = TextEditingController();
-
     var LastnameController = TextEditingController();
     var email=TextEditingController();
     var password=TextEditingController();
-
-
     var formkey = GlobalKey<FormState>();
     double w = MediaQuery
         .of(context)

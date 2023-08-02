@@ -37,16 +37,17 @@ class UpdateStudent extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => UpdateStudentsCubit()
-        ..getStudentData(1)
-        ..getClassrooms(7),
+        ..getStudentData(1),
+
       child: BlocConsumer<UpdateStudentsCubit, UpdateStudentsState>(
         listener: (context, state) {
-          if (state is UpdateStudentsError) {
+          if (state is UpdateStudentsError ) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Colors.red,
                 content:
                     Text(state.error, style: TextStyle(color: Colors.white))));
           }
+
 
           if (state is UpdateStudentsSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -65,7 +66,7 @@ class UpdateStudent extends StatelessWidget {
           if (model != null && model.data != null) {
             FnameController.text = model.data!.firstName!;
             LnameController.text = model.data!.lastName!;
-            fatherPhoneController.text = model.data!.fatherPhoneNumber!;
+            fatherPhoneController.text = model.data!.fatherPhoneNumber! ?? '';
             motherPhoneController.text = model.data!.motherPhoneNumber!;
             addressController.text = model.data!.address!;
             detailsController.text = model.data!.details!;
@@ -285,82 +286,7 @@ class UpdateStudent extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
 
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-
-                                            border: Border.all(color: kDarkBlue2Color, width: 1),
-                                            borderRadius: BorderRadius.circular(20),
-                                           ),
-                                        child: Padding(
-                                          padding:
-                                          EdgeInsets.only(left: padding, right: padding),
-                                          child: DropdownButton<dynamic>(
-                                            underline: const SizedBox(),
-                                            value: cubit.dropDownValueClass,
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              color: kGold1Color,
-                                            ),
-                                            iconSize: 24,
-                                            elevation: 40,
-                                            hint: Text('Choose Class',style: TextStyle(color: kDarkBlue2Color),),
-                                            style:
-                                            TextStyle(color: kGold1Color, fontSize: 16),
-                                            onChanged: (newValue) {
-                                              cubit.changeClassDropDownButton(newValue!);
-                                            },
-                                            items: cubit.menuItemsClass,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: w/30,
-                                    ),
-                                    Expanded(
-                                      child: DecoratedBox(
-                                        decoration: BoxDecoration(
-
-                                            border: Border.all(color: kDarkBlue2Color, width: 1),
-                                            borderRadius: BorderRadius.circular(20),
-                                           ),
-                                        child: Padding(
-                                          padding:
-                                          EdgeInsets.only(left: padding, right: padding),
-                                          child: DropdownButton<dynamic>(
-                                            underline: const SizedBox(),
-                                            value: cubit.dropDownValueSection,
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down,
-                                              color: kGold1Color,
-                                            ),
-                                            iconSize: 24,
-                                            elevation: 40,
-                                            hint: Text('Choose Section',style: TextStyle(color: kDarkBlue2Color),),
-                                            style:
-                                            TextStyle(color: kDarkBlue2Color, fontSize: 16),
-                                            onChanged: (newValue) {
-                                              cubit.changeSectionDropDownButton(newValue!);
-                                            },
-                                            items: cubit.menuItemsSection,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-
-
-                                  ],
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -388,11 +314,6 @@ class UpdateStudent extends StatelessWidget {
                                       details: detailsController.text,
                                       nationalId: nationalityController.text,
                                       status: cubit.ischeck.toString(),
-                                    );
-                                    cubit.UpdateClass(
-                                      student_id:
-                                          model!.data!.studentId.toString(),
-                                      classroom_id:cubit.dropDownValueSection.toString() ,
                                     );
                                   }
                                 })

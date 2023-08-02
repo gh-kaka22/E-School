@@ -19,5 +19,10 @@ var kDarkRed1Color = Color(0xff88001b);
 var kDarkRed2Color = Color(0xff7b1010);
 var kDarkBlue1Color = Color(0xff3b4195);
 const kDarkBlue2Color = Color(0xff212562);
-
+var SundayColor= Color(0xffEF716B);
+var MonColor= Color(0xff3b4195);
+var TueColor=  Color(0xff740d75);
+var WedColor= Color(0xffFFB167);
+var thuColor= Color(0xff7b1010);
+double Dayfontsize=25;
 

@@ -1,142 +1,118 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter_svg/flutter_svg.dart';
 
-class BarChart extends StatelessWidget {
-  final List<ChartData> data;
+void main() {
+  runApp(MyApp());
+}
 
-  BarChart({required this.data});
-
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<ChartData> data = [
-      ChartData(category: "Apples", value: 10, color: charts.MaterialPalette.blue.shadeDefault),
-      ChartData(category: "Oranges", value: 1, color: charts.MaterialPalette.red.shadeDefault),
-      ChartData(category: "Bananas", value: 15, color: charts.MaterialPalette.green.shadeDefault),ChartData(category: "Apples", value: 10, color: charts.MaterialPalette.blue.shadeDefault),
-
-    ];
-
-    BarChart(data: data);
-    List<charts.Series<ChartData, String>> series = [
-      charts.Series(
-        id: "Data",
-        data: data,
-        domainFn: (ChartData series, _) => series.category,
-        measureFn: (ChartData series, _) => series.value,
-        colorFn: (ChartData series, _) => series.color,
+    return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.yellow,
       ),
+      debugShowCheckedModeBanner: false,
+      home: MyWidget(),
+    );
+  }
+}
 
-    ];
-
-    return Container(
-      height: 400,
-      padding: EdgeInsets.all(20),
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Sales by Category',
-                style: Theme.of(context).textTheme.headline6,
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(children: [
+            const Text(
+              'Choose Category',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
-              Expanded(
-                child: charts.BarChart(
-                  series,
-                  animate: true,
-                  vertical: true,
-                  barRendererDecorator: charts.BarLabelDecorator<String>(),
-                  domainAxis: new charts.OrdinalAxisSpec(),
-
-                ),
+            ),
+            Row(children: [
+              CategoryButton(
+                svg: 'assets/candy.svg',
+                label: 'Tech',
+                selected: false,
               ),
-            ],
-          ),
+              CategoryButton(
+                svg: 'assets/candy.svg',
+                label: 'Finance',
+                selected: false,
+              ),
+              CategoryButton(
+                svg: 'assets/candy.svg',
+                label: 'Design',
+                selected: false,
+              ),
+              CategoryButton(
+                svg: 'assets/candy.svg',
+                label: 'File',
+                selected: false,
+              ),
+              CategoryButton(
+                svg: 'assets/candy.svg',
+                label: 'Music',
+                selected: false,
+              ),
+            ])
+          ]),
         ),
       ),
     );
   }
 }
 
-class ChartData {
-  final String category;
-  final int value;
-  final charts.Color color;
+class CategoryButton extends StatefulWidget {
+  CategoryButton({
+    Key? key,
+    required this.svg,
+    required this.label,
+    required this.selected,
+  }) : super(key: key);
+  String svg;
+  String label;
+  bool selected;
+  @override
+  State<CategoryButton> createState() => _CategoryButtonState();
+}
 
-  ChartData({required this.category, required this.value, required this.color});}
-
-
-//
-// import 'package:flutter/material.dart';
-// import 'package:charts_flutter/flutter.dart' as charts;
-//
-// class CircleChart extends StatelessWidget {
-//   final List<ChartData> data;
-//
-//   CircleChart({required this.data});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     List<ChartData> data = [
-//       ChartData(category: "Apples", value: 10, color: charts.MaterialPalette.blue.shadeDefault),
-//       ChartData(category: "Oranges", value: 5, color: charts.MaterialPalette.red.shadeDefault),
-//       ChartData(category: "Bananas", value: 15, color: charts.MaterialPalette.green.shadeDefault),
-//     ];
-//
-//     CircleChart(data: data);
-//     List<charts.Series<ChartData, String>> series = [
-//       charts.Series(
-//         id: "Data",
-//         data: data,
-//         domainFn: (ChartData series, _) => series.category,
-//         measureFn: (ChartData series, _) => series.value,
-//         colorFn: (ChartData series, _) => series.color,
-//         labelAccessorFn: (ChartData series, _) => '${series.category}: ${series.value}',
-//       ),
-//     ];
-//
-//     return Container(
-//       height: 400,
-//       padding: EdgeInsets.all(20),
-//       child: Card(
-//         child: Padding(
-//           padding: EdgeInsets.all(8.0),
-//           child: Column(
-//             children: <Widget>[
-//               Text(
-//                 'Sales by Category',
-//                 style: Theme.of(context).textTheme.headline6,
-//               ),
-//               Expanded(
-//                 child: charts.PieChart(
-//                   series,
-//                   animate: true,
-//                   defaultRenderer: charts.ArcRendererConfig(
-//                       arcRendererDecorators: [
-//                         charts.ArcLabelDecorator(
-//                           labelPosition: charts.ArcLabelPosition.outside,
-//                           leaderLineColor: charts.Color.black,
-//                           outsideLabelStyleSpec: charts.TextStyleSpec(fontSize: 14),
-//                         )
-//                       ]
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-//
-// class ChartData {
-//   final String category;
-//   final int value;
-//   final charts.Color color;
-//
-//   ChartData({required this.category, required this.value, required this.color});
-// }
-
-
-
+class _CategoryButtonState extends State<CategoryButton> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          widget.selected = !widget.selected;
+        });
+        print(widget.selected);
+      },
+      child: Container(
+          height: 40,
+          width: 40,
+          decoration: BoxDecoration(
+            color: widget.selected ? Colors.blue : Colors.black,
+            borderRadius: BorderRadius.circular(90),
+          ),
+          child: Column(
+            children: [
+              SvgPicture.asset(widget.svg,
+                  color: widget.selected ? Colors.white : Colors.blue),
+              Text(
+                widget.label,
+                style: TextStyle(
+                  color: Colors.lightGreen,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          )),
+    );
+  }
+}

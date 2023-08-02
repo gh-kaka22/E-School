@@ -15,6 +15,7 @@ import 'package:untitled/modules/files/show/cubit/show_files_states.dart';
 import 'package:untitled/modules/news/show/cubit/get_posts_states.dart';
 import 'package:untitled/modules/results/cubit/results_states.dart';
 import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.dart';
+import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
@@ -172,6 +173,7 @@ TextFormField buildPostForm({
   Color bordercolor = kDarkBlue2Color,
   Color font = kGold1Color,
   required String labeltext,
+  Type? type,
   required TextEditingController controller,
   double borderwidth = 1,
 }) {
@@ -255,7 +257,7 @@ void navigateAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
 
 //Lists Items & Builders
 //Students
-Widget ShowStudentsItem(w, student, index, context) => Container(
+Widget ShowStudentsItem(w,h,padding,radius, student, index, context,ShowStudentsCubit cubit,state) => Container(
       width: 4 / 5 * w,
       height: 50,
       decoration: BoxDecoration(
@@ -294,6 +296,94 @@ Widget ShowStudentsItem(w, student, index, context) => Container(
             Expanded(
               child: Center(
                 child: defaultButton(
+                  onPressed: () async {
+                    await cubit.getResultStudent(student.studentId);
+                    showDialog<Future<void>>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('${student.firstName + ' ' + student.lastName}',style: TextStyle(
+                            color: kDarkBlue2Color,
+                            fontSize: 20,
+
+                          ),
+                          ),
+                          content: Container(
+                            width: w/4,
+
+                            child: ConditionalBuilder(
+                              condition: cubit.results != null && state is! ShowResultLoadingState,
+                              builder: (context) => ListView.separated(
+                                physics: BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: cubit.results!.length,
+                                separatorBuilder: (BuildContext context, int index) => Center(child: Container(height:1,width: w/5,color: kDarkBlue2Color,)),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return  Padding(
+                                    padding: EdgeInsets.all(padding),
+                                    child: Container(
+                                      width: w/4,
+                                      height: h / 18,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.all(Radius.circular(radius)),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: w / 20,
+                                            height: h / 18,
+                                            decoration: BoxDecoration(
+                                              color: kDarkBlue2Color,
+                                              borderRadius: BorderRadius.all(Radius.circular(radius)),
+
+                                            ),
+                                            child: Center(child: Text('${cubit.results?[index].result}',style: TextStyle(
+                                              color: kDarkWhiteColor,
+                                              fontSize: 20,
+
+                                            ),)),
+
+                                          ),
+                                          Expanded(
+                                              child: Center(
+                                                child: Text('${cubit.results?[index].schoolYear}',
+                                                    style: TextStyle(overflow: TextOverflow.ellipsis , color: kDarkBlue2Color,fontSize: 20)),
+                                              )),
+
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              fallback: (context) => Center(child: Text('<< No Result >>')),
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    ;
+
+                  },
+                  height: 30,
+                  text: 'Result',
+                  fontsize: 15,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: defaultButton(
                   onPressed: () {
                     navigateTo(context, UpdateStudent(id:student.studentId,));
                   },
@@ -304,15 +394,16 @@ Widget ShowStudentsItem(w, student, index, context) => Container(
                 ),
               ),
             ),
+
           ],
         ),
       ),
     );
-Widget ShowStudentsBuilder(w, students, context, state) => ConditionalBuilder(
+Widget ShowStudentsBuilder(w,h,padding,radius, students, context, state,cubit) => ConditionalBuilder(
   condition: state is! ShowStudentsLoadingState && students != null,
   builder: (context) => ListView.separated(
       itemBuilder: (context, index) =>
-          ShowStudentsItem(w, students[index], index, context),
+          ShowStudentsItem(w,h,padding,radius, students[index], index, context,cubit,state),
       separatorBuilder: (context, index) {
         return MyDivider();
       },
@@ -867,7 +958,6 @@ Widget AddExamsItem(w, subject, student, type, year, date, index, context, contr
                   onPressed: () {
                     print(controller.text);
                     print(student.studentId);
-
                     cubit.AddExam(
                       studentId: '${student.studentId}',
                       typeId: type,
@@ -951,7 +1041,7 @@ Widget AddAttendanceItem(w, student,date, cubit , controller, context, int index
         ),
         Expanded(child: Center(child: Text('${student.gradeId}'))),
         Expanded(
-          child: Center(child: Text('${student.gradeId}')),
+          child: Center(child: Text('${student.roomNumber}')),
         ),
         Expanded(
             child: Center(

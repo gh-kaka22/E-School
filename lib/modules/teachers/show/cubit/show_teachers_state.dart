@@ -21,3 +21,16 @@ class SearchTeachersErrorState extends ShowTeachersState {
   final String error;
   SearchTeachersErrorState(this.error);
 }
+
+
+class ScheduleInitial extends ShowTeachersState {}
+class ScheduleLoading extends ShowTeachersState {}
+class ScheduleSuccessState extends ShowTeachersState {
+  final TeachercShedule? teachercShedule;
+  ScheduleSuccessState(this.teachercShedule);
+
+}
+class ScheduleErrorState extends ShowTeachersState {
+  final String error;
+  ScheduleErrorState(this.error);
+}

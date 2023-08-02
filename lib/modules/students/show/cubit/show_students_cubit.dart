@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/models/classroom_model.dart';
+import 'package:untitled/models/show_result_student.dart';
 import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/shared/components/constants.dart';
@@ -49,6 +50,7 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
 
   ShowStudentsModel? showStudentsModel;
   List<dynamic>? students;
+  List<dynamic>? results;
   void getStudents()
   {
     emit(ShowStudentsLoadingState());
@@ -169,8 +171,26 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
       emit(SearchStudentsErrorState(error.toString()));
     });
   }
-
-
+  ResultStudentModel? resultStudentModel;
+  Future<void>? getResultStudent(studentId) {
+    emit(ShowResultLoadingState());
+    DioHelper.getData(
+      url: '${SHOWRESULTFORSTUDENT}/${studentId}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      resultStudentModel = ResultStudentModel.fromJson(value?.data);
+      print(resultStudentModel?.status);
+      print(resultStudentModel?.message);
+      print(resultStudentModel?.data?[0].result);
+      results = resultStudentModel?.data ;
+      print(resultStudentModel?.data![0].firstName);
+      emit(ShowResultSuccessState(resultStudentModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShowResultStudentsErrorState(error.toString()));
+    });
+  }
 
 
 }

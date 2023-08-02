@@ -71,7 +71,7 @@ class Datum {
         firstName: json["first_name"],
         lastName: json["last_name"],
         religion: json["religion"],
-    roomNumber: json["room_number"],
+    roomNumber: json["room_number"] ,
         email: json["email"],
         dateOfBirth: DateTime.parse(json["date_of_birth"]),
         address: json["address"],

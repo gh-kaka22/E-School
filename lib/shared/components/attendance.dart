@@ -121,7 +121,7 @@ Widget ShowAttendanceItem(w,h,padding,radius, student, index, context,ShowAttend
                  );
                },
              );
-           ;
+
 
               },
               height: 30,

@@ -2,7 +2,6 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/admin/login/login_screen.dart';
 import 'package:untitled/modules/login/login_screen.dart';
-import 'package:untitled/modules/websocket.dart';
 import 'package:untitled/modules/statistics/stats_screen.dart';
 import 'package:untitled/shared/bloc_observer.dart';
 import 'package:untitled/shared/components/constants.dart';
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: startWidget,
+      home: HomeLayout(),
 
     );
   }

@@ -29,7 +29,7 @@ class UpdateSchool extends StatelessWidget {
         .size
         .height;
     return BlocProvider(
-      create: (context) => UpdateSchoolCubit()..getSchoolData(1),
+      create: (context) => UpdateSchoolCubit()..getSchoolData(2),
       child: BlocConsumer<UpdateSchoolCubit, UpdateSchoolState>(
         listener: (context, state) {
           if (state is UpdateSchoolError) {

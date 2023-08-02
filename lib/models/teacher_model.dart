@@ -1,3 +1,11 @@
+
+import 'dart:convert';
+
+TeacherModel TModelFromJson(String str) =>
+    TeacherModel.fromJson(json.decode(str));
+
+String TModelToJson(TeacherModel data) => json.encode(data.toJson());
+
 class TeacherModel {
   bool? status;
   String? message;
@@ -40,6 +48,8 @@ class Data {
   String? email;
   String? passwordDecoded;
   String? token;
+  String? subjectName;
+  List<int>? classrooms;
 
   Data(
       {this.firstName,
@@ -53,7 +63,11 @@ class Data {
       this.teacherId,
       this.email,
       this.passwordDecoded,
-      this.token});
+      this.token,
+         this.subjectName,
+        this.classrooms=const[],
+
+      });
 
   Data.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'];
@@ -68,6 +82,8 @@ class Data {
     email = json['email'];
     passwordDecoded = json['password_decoded'];
     token = json['token'];
+    subjectName = json['subject_name'];
+    classrooms = json['classrooms'] != null ? List<int>.from(json['classrooms'].map((x) => x)) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -84,11 +100,28 @@ class Data {
     data['email'] = this.email;
     data['password_decoded'] = this.passwordDecoded;
     data['token'] = this.token;
+    data['subject_name'] = this.subjectName;
+    data['classrooms'] = this.classrooms;
     return data;
   }
-
+  //
   @override
   String toString() {
-    return 'Data{firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, address: $address, subjectId: $subjectId, userId: $userId, updatedAt: $updatedAt, createdAt: $createdAt, teacherId: $teacherId, email: $email, passwordDecoded: $passwordDecoded, token: $token}';
+    return 'Data{'
+        'firstName: $firstName, '
+        'lastName: $lastName, '
+        'phoneNumber: $phoneNumber, '
+        'address: $address, '
+        'subjectId: $subjectId, '
+        'userId: $userId, '
+        'updatedAt: $updatedAt, '
+        'createdAt: $createdAt, '
+        'teacherId: $teacherId, '
+        'email: $email, '
+        'passwordDecoded: $passwordDecoded, '
+        'token: $token, '
+        'subjectName: $subjectName, '
+        'classrooms: $classrooms'
+        '}';
   }
 }

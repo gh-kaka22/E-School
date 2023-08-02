@@ -97,6 +97,10 @@ class ShowTeachers extends StatelessWidget {
                   child: Center(
                     child: ShowText(name:'details',
                     ),
+                  )),  Expanded(
+                  child: Center(
+                    child: ShowText(name:'Schedule',
+                    ),
                   )),
                        Expanded(
                   child: Center(
@@ -112,18 +116,15 @@ class ShowTeachers extends StatelessWidget {
                   Expanded(
                       child: ShowTeachersBuilder(
                          w,
+                          h,
                           cubit.showTeacherModel?.data,
                           context,
-                          state
+                          state,
+                        cubit
                       )
                   ),
 
-                  // Expanded(child: SearchTeachersBuilder(
-                  //     w,
-                  //     cubit.showTeacherModel?.data,
-                  //     cubit.search,
-                  //     context,
-                  //     state)),
+
 
                 ],
               ),

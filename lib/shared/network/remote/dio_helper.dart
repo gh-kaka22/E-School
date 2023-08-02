@@ -38,20 +38,15 @@ class DioHelper
       'lang':lang,
       'Authorization': 'Bearer $token',
     };
-    // print("%%%%% url : ${dio.options.baseUrl+url}");
-    // print("%%%%% token : ${dio.options.headers}");
-    // print("%%%%% data : $data");
+    print("%%%%% url : ${dio.options.baseUrl+url}");
+    print("%%%%% token : ${dio.options.headers}");
+    print("%%%%% data : $data");
     return dio.post(
       url,
       queryParameters: query,
       data: data,
     );
   }
-
-
-
-
-
   static Future<Response?> puttData({
     required String url,
     Map<String,dynamic>? query,
@@ -93,5 +88,25 @@ class DioHelper
     return await dio.delete(url, queryParameters:query, );
   }
 
-}
 
+
+  static Future<Response?> postImage({
+    required String url,
+    required FormData data,
+    String lang = 'en',
+    String? token,
+  }) async {
+    dio.options.headers={
+      'content_type':'application/json',
+      'lang':lang,
+      'Authorization': 'Bearer $token',
+    };
+    print("%%%%% url : ${dio.options.baseUrl+url}");
+    print("%%%%% token : ${dio.options.headers}");
+    print("%%%%% data : $data");
+    return dio.post(
+      url,
+      data: data,
+    );
+  }
+}

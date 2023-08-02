@@ -14,9 +14,12 @@ class StudentsShow extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double padding=MediaQuery.of(context).size.width/20;
+    double padding = MediaQuery.of(context).size.width / 20;
+    double radius = 20;
     return BlocProvider(
-      create: (BuildContext context) => ShowStudentsCubit()..getClassrooms(7)..getStudents(),
+      create: (BuildContext context) => ShowStudentsCubit()
+        ..getClassrooms(7)
+        ..getStudents(),
       child: BlocConsumer<ShowStudentsCubit, ShowStudentsStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -41,7 +44,6 @@ class StudentsShow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                        
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               color: kDarkBlue2Color,
@@ -55,7 +57,7 @@ class StudentsShow extends StatelessWidget {
                               ]),
                           child: Padding(
                             padding:
-                               EdgeInsets.only(left: padding, right: padding),
+                                EdgeInsets.only(left: padding, right: padding),
                             child: DropdownButton<dynamic>(
                               underline: const SizedBox(),
                               value: cubit.dropDownValueClass,
@@ -65,7 +67,10 @@ class StudentsShow extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color),),
+                              hint: Text(
+                                'Choose Class',
+                                style: TextStyle(color: kGold1Color),
+                              ),
                               style:
                                   TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -93,7 +98,7 @@ class StudentsShow extends StatelessWidget {
                               ]),
                           child: Padding(
                             padding:
-                                 EdgeInsets.only(left: padding, right: padding),
+                                EdgeInsets.only(left: padding, right: padding),
                             child: DropdownButton<dynamic>(
                               underline: const SizedBox(),
                               value: cubit.dropDownValueSection,
@@ -103,7 +108,10 @@ class StudentsShow extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color),),
+                              hint: Text(
+                                'Choose Class',
+                                style: TextStyle(color: kGold1Color),
+                              ),
                               style:
                                   TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -124,67 +132,81 @@ class StudentsShow extends StatelessWidget {
                     height: 30,
                   ),
                   Container(
-
                     width: 4 / 5 * w,
                     height: 50,
                     decoration: BoxDecoration(
-                        color:  Colors.white ,
+                        color: Colors.white,
                         boxShadow: <BoxShadow>[
                           BoxShadow(
                               color: Color.fromRGBO(0, 0, 0, 0.2),
                               blurRadius: 20) //blur radius of shadow
                         ]),
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
                           Expanded(
                               child: Center(
-                                child: ShowText(name:'Id',
-                                  ),
-                              )),
+                            child: ShowText(
+                              name: 'Id',
+                            ),
+                          )),
                           Expanded(
                               child: Center(
-                                child: ShowText(name:'First Name',
-                                    ),
-                              )),
+                            child: ShowText(
+                              name: 'First Name',
+                            ),
+                          )),
                           Expanded(
-                            child: Center(child: ShowText(name:'Last Name')),
+                            child: Center(child: ShowText(name: 'Last Name')),
                           ),
-                          Expanded(child: Center(child: ShowText(name:'Grade'))),
                           Expanded(
-                            child: Center(child: ShowText(name:'Section')),
+                              child: Center(child: ShowText(name: 'Grade'))),
+                          Expanded(
+                            child: Center(child: ShowText(name: 'Section')),
                           ),
                           Expanded(
                               child: Center(
-                                child: ShowText(name:'E-Mail',
-                                    ),
+                            child: ShowText(
+                              name: 'E-Mail',
+                            ),
+                          )),
+                          Expanded(
+                              child: Center(
+                                child: ShowText(
+                                  name: 'ShowResult',
+                                ),
                               )),
                           Expanded(
                             child: defaultButton(
                               onPressed: () {
-                                cubit.getStudentsByGradeAndClassroom(cubit.dropDownValueClass, cubit.dropDownValueSection);
+                                cubit.getStudentsByGradeAndClassroom(
+                                    cubit.dropDownValueClass,
+                                    cubit.dropDownValueSection);
                               },
                               height: 30,
                               text: 'Refresh',
                               fontsize: 15,
                               fontWeight: FontWeight.w300,
-
                               buttColor: Colors.green,
                             ),
                           ),
+
                         ],
                       ),
                     ),
                   ),
                   Expanded(
                       child: ShowStudentsBuilder(
-                          w,
-                          cubit.showStudentsModel?.data,
-                        context,
-                        state
-                          )
-                  )
+                    w,
+                    h,
+                    padding,
+                    radius,
+                    cubit.showStudentsModel?.data,
+                    context,
+                    state,
+                    cubit,
+                  ))
                 ],
               ),
             ),

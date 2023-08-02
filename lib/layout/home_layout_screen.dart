@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
-import 'package:untitled/modules/about_us/add/add_information.dart';
+import 'package:untitled/modules/about_us/update/update_school.dart';
 import 'package:untitled/modules/admin/admin_register/register_screen.dart';
 import 'package:untitled/modules/admin/show_admins/show_admins.dart';
 import 'package:untitled/modules/attendance/add/add.dart';
@@ -15,6 +15,7 @@ import 'package:untitled/modules/employee/add/add_employee_screen.dart';
 import 'package:untitled/modules/employee/show/show_employee.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
+import 'package:untitled/modules/exams_schedule/add/add_exams_schedule_screen.dart';
 import 'package:untitled/modules/files/add/add_files.dart';
 import 'package:untitled/modules/files/show/show_files.dart';
 import 'package:untitled/modules/login/login_screen.dart';
@@ -78,7 +79,7 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: StatsScreen(),
+                            screen: AddExamSchedule(),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',
@@ -153,7 +154,7 @@ class HomeLayout extends StatelessWidget {
                             cubit.SideBarItem(
                               text: 'About Us',
                               showScreen: ShowSchool(),
-                              addScreen: AddSchool(),
+                              addScreen: UpdateSchool(),
                             ),
                             cubit.SpecialSideBarItem(
                               text: 'Results',

@@ -26,7 +26,7 @@ class UpdateTeacher extends StatelessWidget {
     double borderwidth = 1;
     double padding = w / 20;
     return BlocProvider(
-      create: (context) => UpdateTeacherCubit()..getTeacherData(1)..getClassrooms(),
+      create: (context) => UpdateTeacherCubit()..getTeacherData(1)..getClassrooms()..getSubjects(),
       child: BlocConsumer<UpdateTeacherCubit, UpdateTeacherState>(
         listener: (context, state) {
           if (state is UpdateTeacherDataError) {
@@ -124,82 +124,41 @@ class UpdateTeacher extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: MultiSelectDialogField(
-                                      items: cubit.items,
-                                      dialogWidth: w/3,
-                                      title: Text("CLASSROOMS"),
-                                      selectedColor: kGold1Color,
-                                      decoration: BoxDecoration(
-                                        color: null,
-                                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                                        border: Border.all(
-                                          color: kDarkBlue2Color,
-                                          width: 1,
-                                        ),
+                              child: Center(
+                                child: Container(
+                                  width: w/4,
+
+                                  child: MultiSelectDialogField(
+
+                                    items: cubit.items,
+                                    dialogWidth: w/3,
+                                    title: Text("CLASSROOMS"),
+                                    selectedColor: kGold1Color,
+                                    decoration: BoxDecoration(
+                                      color: null,
+                                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                                      border: Border.all(
+                                        color: kDarkBlue2Color,
+                                        width: 1,
                                       ),
-                                      buttonIcon: Icon(
-                                        Icons.class_outlined,
+                                    ),
+                                    buttonIcon: Icon(
+                                      Icons.class_outlined,
+                                      color: kGold1Color,
+                                    ),
+                                    buttonText: Text(
+                                      "Choose Classrooms:",
+                                      style: TextStyle(
                                         color: kGold1Color,
-                                      ),
-                                      buttonText: Text(
-                                        "Choose Classrooms:",
-                                        style: TextStyle(
-                                          color: kGold1Color,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-
-                                      onConfirm: (results) {
-                                        selectedItem = results;
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: w / 30,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: kDarkBlue2Color,
-                                          width: borderwidth,
-                                        ),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Center(
-                                        child: DropdownButton<dynamic>(
-                                          value: cubit.dropDownValueSubject,
-                                          icon: Icon(
-                                            Icons.keyboard_arrow_down,
-                                            color: kGold1Color,
-                                          ),
-                                          iconSize: 24,
-                                          elevation: 40,
-                                          borderRadius: BorderRadius.circular(40),
-                                          underline: Container(),
-                                          hint: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: padding, right: padding),
-                                            child: Text(
-                                              cubit.updateTeacherModel!.data!.subjectId.toString(),
-                                              style: TextStyle(
-                                                  color: kDarkBlue2Color,
-                                                  fontSize: 16),
-                                            ),
-                                          ),
-                                          onChanged: (newValue) {
-                                            cubit.changeSubjectDropDownButton(newValue!);
-                                          },
-                                          items: cubit.menuItemsSubject,
-                                        ),
+                                        fontSize: 16,
                                       ),
                                     ),
-                                  ),
 
-                                ],
+                                    onConfirm: (results) {
+                                      selectedItem = results;
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -220,7 +179,7 @@ class UpdateTeacher extends StatelessWidget {
                                     lastname: TLastnameController.text,
                                     phonenumber: TphoneNumberController.text,
                                     address: TaddressController.text,
-                                    subject: cubit.subjectId.toString(),
+                                    subject: cubit.subjectId,
                                     classroom: selectedItem,
                                   );
                                 }

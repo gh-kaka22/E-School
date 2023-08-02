@@ -14,17 +14,7 @@ class UpdateStudentsError extends UpdateStudentsState {
   UpdateStudentsError(this.error);
 }
 
-
-class ClassLoading  extends UpdateStudentsState {}
-class ClassSuccess extends UpdateStudentsState {
-  final ClassOneStudentModel classOneStudentModel;
-  ClassSuccess(this.classOneStudentModel);
-}
-class ClassError extends UpdateStudentsState {
-  final String error;
-  ClassError(this.error);
-}
-
+///=======================================================
 
 class ShowStudentInfoLoading  extends UpdateStudentsState {}
 class ShowStudentInfoSuccess extends UpdateStudentsState {
@@ -36,10 +26,10 @@ class ShowStudentInfoError extends UpdateStudentsState {
   ShowStudentInfoError(this.error);
 }
 
+///========================================================
 class DateOfBirth extends UpdateStudentsState{}
 class CheckState extends UpdateStudentsState{}
-
-
+///========================================================
 
 class ShowClassroomsSLoadingState extends UpdateStudentsState{}
 class ShowClassroomsSSuccessState extends UpdateStudentsState{

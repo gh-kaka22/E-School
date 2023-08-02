@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/show_teacher_model.dart';
+import 'package:untitled/models/teacher_schedule_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
@@ -48,12 +49,32 @@ class ShowTeachersCubit extends Cubit<ShowTeachersState> {
       }
       else if (value?.data is Map) {
         final model = ShowTeacherModel.fromJson(value?.data);
-        search = model.data;
+        search = model.data!;
       }
       emit(SearchTeachersSuccessState());
     }).catchError((error){
       print(error.toString());
       emit(SearchTeachersErrorState(error.toString()));
+    });
+  }
+
+  TeachercShedule? teachercShedule;
+  Future <void>? getSchedule(teacherId,dayId)
+  {
+    emit(ScheduleLoading());
+    DioHelper.getData(
+      url: '${SHOWTIMETABLETEACHER}/${teacherId}/${dayId}',
+      token: token,
+    ).then((value) {
+      teachercShedule = TeachercShedule.fromJson(value!.data);
+      print(teachercShedule!.data!.fifthPeriod);
+      print(teachercShedule!.data!.thirdPeriod);
+      emit(ScheduleSuccessState(teachercShedule!));
+
+    }
+    ).catchError((error){
+      print(error.toString());
+      emit(ScheduleErrorState(error.toString()));
     });
   }
 
