@@ -43,7 +43,20 @@ const SHOWTIMETABLETEACHER='/teacher/getschedule/';
 ///Exam Schedule
 const GETEXAMSCHEDULE='exams_schedule/index';
 const GETEXAMSCHEDULEBYGRADE='/exams_schedule/showByGrade';
+///complaint
+const COMPLAINT='complaints';
+const SHOWCOMPLAINT='parent/complaints';
+
+const GETCLASSROOMS='classrooms/index';
 
 
-const COMPLAINT = 'complaints';
-const SHOWCOMPLAINT = 'parent/complaints';
+
+///POSTS
+const CREATESCHOOLPOST='create_for_school';
+const CREATETEACHERPOST='create_for_classroom';
+const CREATEGRADEPOST ='create_for_grade';
+const CREATECLASSROOMPOST = 'create_for_classroom';
+
+///FILES
+const ADDFILE='upload_file';
+const SHOWFILE ='show_files_classroom';

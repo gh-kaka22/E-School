@@ -1,9 +1,7 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:e_school/modules/teacher/teacher_schedule/cubit/schedule_cubit.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../shared/components/components.dart';
 
 class TeacherSchedule extends StatelessWidget {
@@ -23,7 +21,11 @@ class TeacherSchedule extends StatelessWidget {
               title: Text('Timetable'),
             ),
             body: Column(
+
               children: [
+                SizedBox(
+                  height: h / 20,
+                ),
                 Container(
                   height: h / 10,
                   decoration: BoxDecoration(
@@ -36,8 +38,9 @@ class TeacherSchedule extends StatelessWidget {
                             //shadow for button
                             blurRadius: 5) //blur radius of shadow
                       ]),
-                  child: Center(
-                    child: DropdownButton<dynamic>(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: DropdownButton<String>(
                       underline: Container(),
                       value: cubit.dropDownValueDay,
                       icon: Icon(
@@ -46,11 +49,13 @@ class TeacherSchedule extends StatelessWidget {
                       ),
                       iconSize: 24,
                       elevation: 40,
-                      hint: Text(
-                        'Choose Day',
-                        style: TextStyle(color: kWhiteColor),
+                      hint: Center(
+                        child: Text(
+                          'Choose Day',
+                          style: TextStyle(color: kGold1Color),
+                        ),
                       ),
-                      style: TextStyle(color: kDarkBlue2Color, fontSize: 16),
+                      style: TextStyle(color: kGold1Color, fontSize: 16),
                       onChanged: (newValue) {
                        cubit.changeDayDropDownButton(newValue!);
                         cubit.getSchedule(cubit.dropDownValueDay);
@@ -88,7 +93,7 @@ class TeacherSchedule extends StatelessWidget {
                                       Container(
                                         height: 50.0,
                                         decoration: BoxDecoration(
-                                          color: kDarkBlue2Color,
+                                          color: kGold2Color,
                                           border: Border.all(
                                               color: kGold1Color, width: 3),
                                         ),

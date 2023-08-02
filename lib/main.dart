@@ -2,19 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
 import 'package:e_school/layout/parent_home_layout/parent_home_layout.dart';
 import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
-import 'package:e_school/modules/about_us/about_screen.dart';
-import 'package:e_school/modules/exam_schedule/exam_schedule.dart';
-import 'package:e_school/modules/teacher/teacher_schedule/teacher_schedule_screen.dart';
-import 'package:e_school/modules/websocket.dart';
+
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/cubit/app_cubit.dart';
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'modules/school_login/login_screen.dart';
-import 'modules/teacher/profie_teacher/profile_teacher_screen.dart';
+
 import 'shared/bloc_observer.dart';
 
 import 'shared/cubit/app_states.dart';
@@ -35,47 +31,48 @@ void main() async {
   userType = CacheHelper.getData(key: 'userType');
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
 
- if(onBoarding != null)
-    {
-      if(token != null) {
-        if(userType=='student'){
-          widget= HomeLayout();
-        }else if(userType=='teacher'){
-          widget=TeacherHomeLayout();
-        }else{
-          widget=ParentHomeLayout();
-        }
+  if (onBoarding != null) {
+    if (token != null) {
+      if (userType == 'student') {
+        widget = HomeLayout();
+      } else if (userType == 'teacher') {
+        widget = TeacherHomeLayout();
+      } else {
+        widget = ParentHomeLayout();
       }
-      else widget=SchoolLoginScreen();
-    }else widget=OnBoardingScreen();
+    } else
+      widget = SchoolLoginScreen();
+  } else
+    widget = OnBoardingScreen();
 
-  runApp( MyApp(
+  runApp(MyApp(
     isDark: false,
     startWidget: widget,
   ));
 }
 
 class MyApp extends StatelessWidget {
-
-   bool? isDark;
-   Widget? startWidget;
-  MyApp({this.isDark,this.startWidget});
+  bool? isDark;
+  Widget? startWidget;
+  MyApp({this.isDark, this.startWidget});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context)=>AppCubit()..changeAppMode(
+      create: (BuildContext context) => AppCubit()
+        ..changeAppMode(
           fromShared: isDark,
         ),
-      child: BlocConsumer<AppCubit,AppStates>(
-        listener: (context,state){},
-        builder: (context,state){
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightMode,
             darkTheme: darkMode,
-            themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: startWidget,
+            themeMode:
+                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+            home: startWidget!,
           );
         },
       ),

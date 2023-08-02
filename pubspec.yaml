@@ -63,6 +63,8 @@ dependencies:
   pusher_client:
   web_socket_client:
   url_launcher:
+  auto_size_text:
+  file_picker:
 
 
 

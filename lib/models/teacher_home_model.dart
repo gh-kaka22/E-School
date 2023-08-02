@@ -1,61 +1,82 @@
-// To parse this JSON data, do
-//
-//     final teacherHomeModel = teacherHomeModelFromJson(jsonString);
-
-import 'dart:convert';
-
-TeacherHomeModel teacherHomeModelFromJson(String str) => TeacherHomeModel.fromJson(json.decode(str));
-
-String teacherHomeModelToJson(TeacherHomeModel data) => json.encode(data.toJson());
-
 class TeacherHomeModel {
-  bool status;
-  String message;
-  Data data;
-
   TeacherHomeModel({
     required this.status,
     required this.message,
     required this.data,
   });
+  late final bool status;
+  late final String message;
+  late final Data data;
 
-  factory TeacherHomeModel.fromJson(Map<String, dynamic> json) => TeacherHomeModel(
-    status: json["status"],
-    message: json["message"],
-    data: Data.fromJson(json["data"]),
-  );
+  TeacherHomeModel.fromJson(Map<String, dynamic> json){
+    status = json['status'];
+    message = json['message'];
+    data = Data.fromJson(json['data']);
+  }
 
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": data.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['status'] = status;
+    _data['message'] = message;
+    _data['data'] = data.toJson();
+    return _data;
+  }
 }
 
 class Data {
-  String firstName;
-  String lastName;
-  String subjectName;
-  List<String> classes;
-
   Data({
     required this.firstName,
     required this.lastName,
     required this.subjectName,
     required this.classes,
   });
+  late final String firstName;
+  late final String lastName;
+  late final String subjectName;
+  late final List<Classes> classes;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    subjectName: json["subject_name"],
-    classes: List<String>.from(json["classes"].map((x) => x)),
-  );
+  Data.fromJson(Map<String, dynamic> json){
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    subjectName = json['subject_name'];
+    classes = List.from(json['classes']).map((e)=>Classes.fromJson(e)).toList();
+  }
 
-  Map<String, dynamic> toJson() => {
-    "first_name": firstName,
-    "last_name": lastName,
-    "subject_name": subjectName,
-    "classes": List<dynamic>.from(classes.map((x) => x)),
-  };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['first_name'] = firstName;
+    _data['last_name'] = lastName;
+    _data['subject_name'] = subjectName;
+    _data['classes'] = classes.map((e)=>e.toJson()).toList();
+    return _data;
+  }
+}
+
+class Classes {
+  Classes({
+    required this.classroomId,
+    required this.gradeId,
+    required this.roomNumber,
+  });
+  late final int classroomId;
+  late final int gradeId;
+  late final String roomNumber;
+
+  Classes.fromJson(Map<String, dynamic> json){
+    classroomId = json['classroom_id'];
+    gradeId = json['grade_id'];
+    roomNumber = json['room_number'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['classroom_id'] = classroomId;
+    _data['grade_id'] = gradeId;
+    _data['room_number'] = roomNumber;
+    return _data;
+  }
+  @override
+  String toString() {
+    return 'Classes{classroomId: $classroomId, gradeId: $gradeId, roomNumber: $roomNumber}';
+  }
 }

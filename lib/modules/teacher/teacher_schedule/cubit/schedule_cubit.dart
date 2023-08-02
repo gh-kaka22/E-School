@@ -17,7 +17,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   TeachercShedule? teachercShedule;
   String? dropDownValueDay;
   int? dayID;
-  List<DropdownMenuItem> menuItemsDay = [
+  List<DropdownMenuItem<String>> menuItemsDay = [
     DropdownMenuItem(
       value: '1',
       child: Text('Sunday'),
@@ -51,8 +51,8 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   {
     emit(ScheduleLoading());
     DioHelper.getData(
-      url: '${SHOWTIMETABLETEACHER}/${dropDownValueDay}',
-      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZGNmMDgxNzY1NGQ4Y2FhZDhjYjFjN2UwNDk2MjljYjcxZWZjMzg3MDA3YTQxZWJjODU5MjUzNzU0MWM1NGM2NmJjM2M2NDc4NzQ4OGQwZjAiLCJpYXQiOjE2ODk5MzI1MTMuMjgzMzI4LCJuYmYiOjE2ODk5MzI1MTMuMjgzMzQxLCJleHAiOjE3MjE1NTQ5MTMuMjU5NjkxLCJzdWIiOiIxMCIsInNjb3BlcyI6W119.ILX9sOvmQjVPOIT_9P-G9f_d7xct9eOnsglgP7uAM2ZbAE1JJYvBCW-cepv-V6cKJ88_axCbbuKjSQxnCEl5E7OEcUSLcXBqDh7w3VuvHv0PvV-ZlCtYW1FPv0g8i_YzANwX7EbScH8S8CHi0f4L1NmHkVG-T31goN8ogfmIbFLiXVH1_7S-GWngkW1SSmEbbyHtMQx5kLUBob7DRXMkp7ITTJtIaS0FuZ4P8KjU0utlmTalFA9UYFD7d4BJPkvtJ7B_x-5sc9ukujkSbwWgEo6tloswOETGtW3f5F5rM4XHZRKMWHDDczCC4Ro1i1yieDuAE_uF26YU2y9XfDMX9U0K_jz6Rl8gJ07W25V5Tw7wm0iFISJAWi0ohDF9jB3jrfN7naFOPLsRK9Y6Ts94pTXcQKdasd0hXHKdvMcqgtn03QYLCeURBEbMDImr1yOlv-fdvqb9OrSlqEBw096aOsWbE8yIrDsuBltzVNnxDoh4wpgqU1jpWW6Q4MfUSSIGcI7Lo-LIFULlGuEecWM4jqTgMzhFT6vRIK_27rdNHJu8_5EIeh0M0PgQ2N04O5jr_doOc20nURg7ihd5u8Ro1alTm9w_umAVQjghiWMhCft4-UgBV3LdqSdoZ-f9oa3cS6EkL0nwNOzvpJH1m7Pg75FxriFoaSAWBCvOGaRJG9g',
+      url: '${SHOWTIMETABLETEACHER}/${dayId}',
+      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZGQ3YWY0YjNmODBjMTk5ZjFlZWY5NTdkMGE3ZjFhZWY2YWFlMGNlNDFkODMxZDJmMzkwN2U3NjZmZDVmNzgwNmI3MzU5NGE1ZmY3YWE5NGEiLCJpYXQiOjE2OTA4MjAyMTMuMDYwOTI3LCJuYmYiOjE2OTA4MjAyMTMuMDYwOTMzLCJleHAiOjE3MjI0NDI2MTMuMDQ4MzI4LCJzdWIiOiIyOCIsInNjb3BlcyI6W119.CGX8FLoC-okDx3l61JNXvkjYsFpRcjTLFZec10Xp7zW2Kp5KrXrMGAKJ5bv6cvq5rvCWnyGPSpoVypwVCiNBDQju5CzhlVk5R83saNhsu9RMHlpNTfbSwLv6CNW96PF7ue5N9WSeN5J6_MD_N0IlfB71GTTTLYqfawUmfTNWcC34JYVaPgoHrF_iwLnChy5LmdqF4TuMP2XR0ou0axzmJ33PjrrjY4LOmDfpCbGaQoIdXx673t4gOkCwG9yZ8Hqt2fH800N03V5C2lwfbOseUbjxFnevyWkq5_IK0v5blcodVm_X_t-alAm0wycB0T8k9SzBKZOr6O7UxB27-FqWpEIZSsRWe3bkptK7pCY6EcFVcZ7J3Y8Riza7-uYutwdhEHgVv8obxjgnL8FsGIjtRsxXNftl5gZ6E_p2DAha-MBjaF0II5sS8kN-YU2i61vgZDuYXXU8mi0TLnJvc29f9iZq6roHARSaBZtoGMJ64EoHjwOawV0rWP2ISKkUm3GbRrrmRqkzESOBGRWg56jGhWhGyYk8FvaWjhjItd86hVMuxDceWu1xlzht1UH3JgI0Ag6VkJjgdX-5-OHri1Gk4goOGy1EE8cNdKP0sXxoQSBgPGDmuIfUNq-njFeMP3qe4YUHm4VROb7WPVF5XdkmfXm9qTh1XUt73tKPVKlu9vY',
     ).then((value) {
       teachercShedule = TeachercShedule.fromJson(value!.data);
       print(teachercShedule!.data!.fifthPeriod);

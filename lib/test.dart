@@ -1,129 +1,111 @@
-import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Web Socket Demo'),
-        ),
-        body: WebSocketDemo(),
-      ),
-    );
-  }
-}
-
-class WebSocketDemo extends StatefulWidget {
-  final WebSocketChannel channel =
-  IOWebSocketChannel.connect('ws://echo.websocket.org');
-
-  @override
-  _WebSocketDemoState createState() => _WebSocketDemoState(channel: channel);
-}
-
-class _WebSocketDemoState extends State<WebSocketDemo> {
-  final WebSocketChannel? channel;
-  final inputController = TextEditingController();
-  List<String> messageList = [];
-
-  _WebSocketDemoState({this.channel}) {
-    channel?.stream.listen((data) {
-      setState(() {
-        print(data);
-        messageList.add(data);
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: inputController,
-                    decoration: InputDecoration(
-                      labelText: 'Send Message',
-                      border: OutlineInputBorder(),
-                    ),
-                    style: TextStyle(fontSize: 22),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    child: Text(
-                      'Send',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    onPressed: () {
-                      if (inputController.text.isNotEmpty) {
-                        print(inputController.text);
-                        channel?.sink.add(inputController.text);
-                      }
-                      inputController.text = '';
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: getMessageList(),
-          ),
-//          Expanded(
-//            child: StreamBuilder(
-//              stream: channel.stream,
-//              builder: (context, snapshot) {
-//                if (snapshot.hasData) {
-//                  messageList.add(snapshot.data);
-//                }
+// import 'dart:developer';
 //
-//                return getMessageList();
-//              },
-//            ),
-//          ),
-        ],
-      ),
-    );
-  }
+// import 'package:flutter/material.dart';
+// import 'package:pusher_client/pusher_client.dart';
+//
+// void main() {
+//   runApp(MyApp());
+// }
+//
+// class MyApp extends StatefulWidget {
+//   @override
+//   _MyAppState createState() => _MyAppState();
+// }
+//
+// class _MyAppState extends State<MyApp> {
+//   PusherClient? pusher;
+//   Channel? channel;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     String token = getToken();
+//
+//     pusher = new PusherClient(
+//       "E_school",
+//       PusherOptions(
+//         // if local on android use 10.0.2.2
+//         host: 'localhost',
+//         encrypted: false,
+//         auth: PusherAuth(
+//           'http://example.com/broadcasting/auth',
+//           headers: {
+//             'Authorization': 'Bearer $token',
+//           },
+//         ),
+//       ),
+//       enableLogging: true,
+//     );
+//
+//     channel = pusher!.subscribe("private-orders");
+//
+//     pusher!.onConnectionStateChange((state) {
+//       log("previousState: ${state!.previousState}, currentState: ${state.currentState}");
+//     });
+//
+//     pusher!.onConnectionError((error) {
+//       log("error: ${error!.message}");
+//     });
+//
+//     channel!.bind('status-update', (event) {
+//       log(event!.data!);
+//     });
+//
+//     channel?.bind('order-filled', (event) {
+//       log("Order Filled Event" + event!.data.toString());
+//     });
+//   }
+//
+//   String getToken() => "super-secret-token";
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Example Pusher App'),
+//         ),
+//         body: Center(
+//             child: Column(
+//               children: [
+//                 ElevatedButton(
+//                   child: Text('Unsubscribe Private Orders'),
+//                   onPressed: () {
+//                     pusher!.unsubscribe('private-orders');
+//                   },
+//                 ),
+//                 ElevatedButton(
+//                   child: Text('Unbind Status Update'),
+//                   onPressed: () {
+//                     channel!.unbind('status-update');
+//                   },
+//                 ),
+//                 ElevatedButton(
+//                   child: Text('Unbind Order Filled'),
+//                   onPressed: () {
+//                     channel!.unbind('order-filled');
+//                   },
+//                 ),
+//                 ElevatedButton(
+//                   child: Text('Bind Status Update'),
+//                   onPressed: () {
+//                     channel!.bind('status-update', (PusherEvent? event) {
+//                       log("Status Update Event" + event!.data!.toString());
+//                     });
+//                   },
+//                 ),
+//                 ElevatedButton(
+//                   child: Text('Trigger Client Typing'),
+//                   onPressed: () {
+//                     channel!.trigger('client-istyping', {'name': 'Bob'});
+//                   },
+//                 ),
+//               ],
+//             )),
+//       ),
+//     );
+//   }
+// }
 
-  ListView getMessageList() {
-    List<Widget> listWidget = [];
-
-    for (String message in messageList) {
-      listWidget.add(ListTile(
-        title: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              message,
-              style: TextStyle(fontSize: 22),
-            ),
-          ),
-          color: Colors.teal[50],
-          height: 60,
-        ),
-      ));
-    }
-
-    return ListView(children: listWidget);
-  }
-
-  @override
-  void dispose() {
-    inputController.dispose();
-    widget.channel.sink.close();
-    super.dispose();
-  }
-}
+import 'package:pusher_client/pusher_client.dart';

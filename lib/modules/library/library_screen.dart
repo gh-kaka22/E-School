@@ -3,6 +3,7 @@ import 'package:e_school/modules/exams/cubit/exams_cubit.dart';
 import 'package:e_school/modules/exams/cubit/exams_states.dart';
 import 'package:e_school/modules/library/cubit/library_cubit.dart';
 import 'package:e_school/modules/library/cubit/library_states.dart';
+import 'package:e_school/modules/teacher/files/add/add_files.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,15 @@ class LibraryScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Library'),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(onPressed: (){
+                    navigateTo(context, AddFile());
+                  },
+                      icon:Icon(Icons.add)),
+                ),
+              ],
             ),
             body: Center(
               child: Column(
