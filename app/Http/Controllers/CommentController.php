@@ -31,6 +31,7 @@ class CommentController extends Controller
             $comment->date = $timeAgo;
             $user = User::find($comment->user_id);
             $role = $user->role;
+            $comment->role=$role;
 
             if($comment->user_id==Auth::id())
                 $is_mine=true;
