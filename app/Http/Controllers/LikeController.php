@@ -20,18 +20,18 @@ class LikeController extends Controller
             $user = User::find($like->user_id);
             $role = $user->role;
             if($role == 0){
-                $like->name = "E-School";
+                $like->publisher = "E-School";
 
             }
 
             if($role == 1){
-                $like->name = "E-School";
+                $like->publisher = "E-School";
 
             }
 
             if($role == 2){
                 $student = DB::table('students')->where('user_id','=',$user->id)->first();
-                $like->name = $student->first_name . " " . $student->last_name;
+                $like->publisher = $student->first_name . " " . $student->last_name;
 
             }
 
