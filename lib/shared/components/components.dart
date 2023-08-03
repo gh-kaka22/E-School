@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dio/dio.dart';
-import 'package:e_school/models/timetable_model.dart';
 import 'package:e_school/modules/library/cubit/library_states.dart';
 import 'package:e_school/modules/posts/cubit/posts_states.dart';
 import 'package:e_school/shared/components/constants.dart';
@@ -255,7 +254,7 @@ Color chooseToastColor(ToastStates state) {
       color = Colors.red;
       break;
     case ToastStates.WARNING:
-      color = Colors.amber;
+      color = Colors.orange.shade900;
       break;
   }
   return color;
@@ -358,7 +357,8 @@ Widget buildPostItem(post,context,cubit,state) => Card(
           children: [
             CircleAvatar(
               radius: 25.0,
-              backgroundImage: post.publisher=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/graduating-student-b.png'),
+              backgroundColor: kWhiteColor,
+              backgroundImage: post.publisher=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/teacher.png'),
             ),
             SizedBox(width: 15,),
             Expanded(
@@ -386,7 +386,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                 ],
               ),
             ),
-            post.publisher=='Anas' ?
+            post.isMine == true ?
             Expanded(
               child: Row(
                 children: [
@@ -429,7 +429,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                                           body : editedPostController.text,
                                                           token : token
                                                       );
-                                                      cubit.getPosts();
+                                                      cubit.getTeacherPosts();
                                                       Navigator.of(context).pop();
                                                       Navigator.of(context).pop();
                                                     },
@@ -453,7 +453,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                                     child: Text('Delete'),
                                                     onPressed: () {
                                                       cubit.deletePost(post.postId);
-                                                      cubit.getPosts();
+                                                      cubit.getTeacherPosts();
                                                       Navigator.of(context).pop();
                                                       Navigator.of(context).pop();
                                                     },
@@ -540,9 +540,9 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                       leading: CircleAvatar(
                                         radius: 20.0,
                                         backgroundColor: kWhiteColor,
-                                        backgroundImage: cubit.likes[index].name=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/graduating-student-b.png'),
+                                        backgroundImage: commentImage(cubit.likes[index].role),
                                       ),
-                                      title: Text(cubit.likes[index].name),
+                                      title: Text(cubit.likes[index].publisher),
                                       trailing: Icon(
                                         Icons.thumb_up,
                                         size: 16.0,
@@ -559,6 +559,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                 child: Text('OK'),
                                 onPressed: () {
                                   Navigator.of(context).pop();
+                                  cubit.likes = null;
                                 },
                               ),
                             ],
@@ -626,7 +627,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                           leading: CircleAvatar(
                                             radius: 20.0,
                                             backgroundColor: kWhiteColor,
-                                            backgroundImage: cubit.comments[index].publisher=='E-School' ? AssetImage('assets/icons/Blue-Icon.jpg') :AssetImage('assets/icons/graduating-student-b.png'),
+                                            backgroundImage: commentImage(cubit.comments[index].role),
                                           ),
                                           title: Column(
                                             mainAxisAlignment: MainAxisAlignment.start,
@@ -641,7 +642,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                               style:Theme.of(context).textTheme.bodySmall!.copyWith(height: 1.3)
                                           ),
                                           trailing:
-                                          cubit.comments[index].publisher=='Anas Allahham' ?
+                                          cubit.comments[index].isMine== true ?
                                           IconButton(
                                               onPressed: (){
                                                 showDialog<void>(
@@ -708,6 +709,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                                                                                 cubit.deleteComment(cubit.comments[index].id);
                                                                                 cubit.getComments(post.postId);
                                                                                 post.comentsCount = post.comentsCount - 1;
+                                                                                Navigator.of(context).pop();
                                                                                 Navigator.of(context).pop();
                                                                                 Navigator.of(context).pop();
                                                                               },
@@ -841,7 +843,7 @@ Widget buildPostItem(post,context,cubit,state) => Card(
                     CircleAvatar(
                       radius: 18.0,
                       backgroundColor: Colors.white,
-                      backgroundImage: AssetImage('assets/icons/graduating-student-b.png'),
+                      backgroundImage: commentAddImage(userType),
                     ),
                     SizedBox(width: 15,),
                     Text(
@@ -909,6 +911,27 @@ Widget PostsBuilder(posts,cubit, context, state) => ConditionalBuilder(
       itemCount: posts.length),
   fallback: (context) => Center(child: CircularProgressIndicator()),
 );
+AssetImage commentImage(role){
+  if(role == 0 || role == 1)
+    {
+      return AssetImage('assets/icons/Blue-Icon.jpg');
+    } else if(role == 2){
+    return AssetImage('assets/icons/graduating-student-b.png');
+  } else if(role==4){
+    return AssetImage('assets/icons/teacher.png');
+  }else{
+    return AssetImage('assets/icons/parents (1).png');
+  }
+}
+AssetImage commentAddImage(user){
+   if(user == 'student'){
+    return AssetImage('assets/icons/graduating-student-b.png');
+  } else if(user=='teacher'){
+    return AssetImage('assets/icons/teacher.png');
+  }else{
+    return AssetImage('assets/icons/parents (1).png');
+  }
+}
 
 Widget test(cubit) =>  Container(
 width: 350,
@@ -1248,8 +1271,9 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
   padding: const EdgeInsets.all(15.0),
   child: ListTile(
     leading:InkWell(
-      onTap: () =>openFile(
-        url: 'http://192.168.1.9:8000/files/ll.pdf',
+      onTap: () =>launchUrl(
+          Uri.parse('${baseUrl}/${file.path}'),
+          mode: LaunchMode.externalApplication
       ),
       child: Image.asset(
         'assets/icons/pdf.png',
@@ -1272,14 +1296,15 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
     trailing: InkWell(
       onTap: (){
 
-          downloadFile(
-              '${baseUrl}${file.path}',
-              file.name
-          );
-          showToast(
-              text: 'File Downloaded...',
-              state: ToastStates.SUCCESS
-          );
+          // downloadFile(
+          //     '${baseUrl}${file.path}',
+          //     file.name
+          // );
+        downloadFileGPT(context, '${baseUrl}${file.path}');
+          // showToast(
+          //     text: 'File Downloaded...',
+          //     state: ToastStates.SUCCESS
+          // );
 
 
       },
@@ -1294,6 +1319,33 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
     ),
   ),
 );
+
+Future<void> downloadFileGPT(context,String url) async {
+  try {
+    // Get the temporary directory of the device
+    Directory tempDir = await getTemporaryDirectory();
+
+    // Generate a unique file name based on the current timestamp
+    String fileName ='anasflutter';
+
+    // Create a new file in the temporary directory with the generated file name
+    File file = File('${tempDir.path}/$fileName');
+
+    // Download the file from the URL and save it to the new file using Dio
+    Dio dio = Dio();
+    await dio.download('http://192.168.1.5:8000/files/img.png', file.path);
+
+    // Show a success message to the user
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('File downloaded successfully')),
+    );
+  } catch (error) {
+    // Show an error message to the user
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error downloading file: $error')),
+    );
+  }
+}
 
 ///open file
 Future openFile ({required String url , String? fileName})async{

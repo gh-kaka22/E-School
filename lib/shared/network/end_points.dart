@@ -26,6 +26,7 @@ const PARENTBOOKS = 'parent/showbooks';
 
 const GETPOSTS = 'get_posts';
 const GETPOSTSPARENT = 'parent/showposts';
+const GETPOSTSTEACHER = 'posts';
 const TOGGLELIKE = 'like';
 const GETLIKES = 'show_all_likes';
 const GETCOMMENTS = 'show_all_comments';

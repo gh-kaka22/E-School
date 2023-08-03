@@ -11,7 +11,7 @@ class TeacherSchedule extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
 
     return BlocProvider(
-      create: (BuildContext context) => ScheduleCubit(),
+      create: (BuildContext context) => ScheduleCubit()..getSchedule(1),
       child: BlocConsumer<ScheduleCubit, ScheduleState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -27,7 +27,7 @@ class TeacherSchedule extends StatelessWidget {
                   height: h / 20,
                 ),
                 Container(
-                  height: h / 10,
+                  height: 50,
                   decoration: BoxDecoration(
                       color: kDarkBlue2Color,
                       border: Border.all(color: kGold1Color, width: 3),
@@ -87,13 +87,13 @@ class TeacherSchedule extends StatelessWidget {
                                     ]),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0),
+                                      horizontal: 1.0),
                                   child: Column(
                                     children: [
                                       Container(
                                         height: 50.0,
                                         decoration: BoxDecoration(
-                                          color: kGold2Color,
+                                          color: kDarkBlue2Color,
                                           border: Border.all(
                                               color: kGold1Color, width: 3),
                                         ),
@@ -123,7 +123,7 @@ class TeacherSchedule extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      MyDivider(),
+
                                       SizedBox(
                                         height: 50.0,
                                         child: Row(

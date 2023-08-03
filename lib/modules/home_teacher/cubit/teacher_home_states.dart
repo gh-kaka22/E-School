@@ -14,6 +14,15 @@ class TeacherHomeErrorState extends TeacherHomeStates{
 }
 
 
+class TeacherHomePostsLoadingState extends TeacherHomeStates{}
+
+class TeacherHomePostsSuccessState extends TeacherHomeStates{}
+
+class TeacherHomePostsErrorState extends TeacherHomeStates{
+  final String error;
+  TeacherHomePostsErrorState(this.error);
+}
+
 ///LIKE
 class LikeLoadingState extends TeacherHomeStates{}
 

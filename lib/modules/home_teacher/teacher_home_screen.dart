@@ -20,7 +20,7 @@ class TeacherHomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => TeacherHomeCubit()
         ..getTeacherHomeData()
-        ..getPosts(),
+        ..getPostsTeacher(),
       child: BlocConsumer<TeacherHomeCubit, TeacherHomeStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -124,7 +124,7 @@ class TeacherHomeScreen extends StatelessWidget {
                                     height: 3,
                                   ),
                                   Text(
-                                    'Section : ${cubit.teacherHomeModel?.data.classes ?? ''} ',
+                                    'Section : ${cubit.teacherHomeModel?.data.classes[0].roomNumber ?? ''} ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
@@ -133,22 +133,6 @@ class TeacherHomeScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 3,
                                   ),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        navigateTo(context, CreatePost());
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        foregroundColor:
-                                            kTeal, //change background color of button
-                                        backgroundColor:
-                                            kWhiteColor, //change text color of button
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                        elevation: 15.0,
-                                      ),
-                                      child: Text('Add Post')),
                                 ],
                               ),
                             ],
@@ -175,7 +159,7 @@ class TeacherHomeScreen extends StatelessWidget {
                             Center(child: CircularProgressIndicator()),
                       ),
                       ConditionalBuilder(
-                        condition: cubit.posts?.length == 3,
+                        condition: cubit.posts?.length != null,
                         builder: (context) => buildPostItem(
                             cubit.posts?[2], context, cubit, state),
                         fallback: (context) =>

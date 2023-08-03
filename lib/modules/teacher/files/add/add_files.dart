@@ -64,19 +64,12 @@ class AddFile extends StatelessWidget {
         .size
         .height;
     return BlocProvider(
-      create: (context) => AddFileCubit()..getClassrooms()..getRoomNumber(),
+      create: (context) => AddFileCubit()..getClassrooms()..getGrades(),
       child: BlocConsumer<AddFileCubit, AddFileStates>(
         listener: (context, state) {
           if (state is AddFileSuccessState) {
-            if(state.addFileModel.status = true) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  backgroundColor: Colors.green,
-                  content:
-                  Center(
-                    child: Text(
-                        '${state.addFileModel.message}',
-                        style: TextStyle(color: Colors.white)),
-                  )));
+            if(state.addFileModel.status == true) {
+              showToast(text: 'File Uploaded Successfuly.', state: ToastStates.SUCCESS);
             } else  {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.red,
@@ -88,6 +81,9 @@ class AddFile extends StatelessWidget {
                   )));
 
             }}
+          if(state is AddFileErrorState){
+            showToast(text: 'Check the classroom you entered!', state: ToastStates.WARNING);
+          }
         },
         builder: (context, state) {
           var cubit = AddFileCubit.get(context);
@@ -218,7 +214,7 @@ class AddFile extends StatelessWidget {
                       child: ElevatedButton(
                           child:Text ('Choose File'),
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.pinkAccent,//change background color of button
+                            foregroundColor: Colors.orange,//change background color of button
                             backgroundColor: kDarkBlue2Color,//change text color of button
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
@@ -240,7 +236,7 @@ class AddFile extends StatelessWidget {
 
                           child:Text ('Upload'),
                               style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.pinkAccent,//change background color of button
+                                foregroundColor: Colors.lightGreen,//change background color of button
                                 backgroundColor: kDarkBlue2Color,//change text color of button
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),

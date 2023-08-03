@@ -45,10 +45,12 @@ class ParentHomeCubit extends Cubit<ParentHomeStates>{
     ).then((value) {
       print(value?.data);
       parentHomeModel = ParentHomeModel.fromJson(value?.data);
+      kidID=parentHomeModel?.data.children[0].kidId;
       print(parentHomeModel?.data);
       print(parentHomeModel?.status);
       print(parentHomeModel?.message);
       print(parentHomeModel?.data.children);
+
       emit(ParentHomeSuccessState());
     }).catchError((error){
       print(error.toString());

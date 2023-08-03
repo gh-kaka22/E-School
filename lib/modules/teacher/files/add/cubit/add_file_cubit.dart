@@ -26,30 +26,29 @@ class AddFileCubit extends Cubit<AddFileStates> {
   static AddFileCubit get(context) => BlocProvider.of(context);
 
 
-  int? dropDownValueSection;
+  String? dropDownValueSection;
 
   List<DropdownMenuItem> menuItemsSection = [];
-  int? dropDownValueClassroom;
+  String? dropDownValueClassroom;
 
   List<DropdownMenuItem> menuItemsClassroom = [];
 
 // drop down buttons changing method
 
-  void changeSectionDropDownButton(int newValue)
+  void changeSectionDropDownButton( newValue)
   {
     dropDownValueSection = newValue;
     emit(AddFileSectionDropDownButtonState());
   }
-  void changeClassRoomDropDownButton(int newValue)
+  void changeClassRoomDropDownButton( newValue)
   {
     dropDownValueClassroom = newValue;
     emit(AddFileClassDropDownButtonState());
   }
   // bringing classrooms and putting them in their drop down button
-  List<dynamic>? roomNumber;
   List<dynamic>? classrooms;
   TeacherHomeModel? teacherHomeModel;
-  void getRoomNumber()
+  void getClassrooms()
   {
     emit(RoomNumberFLoadingState());
     DioHelper.getData(
@@ -58,12 +57,12 @@ class AddFileCubit extends Cubit<AddFileStates> {
     ).then((value) {
       print(value?.data);
       teacherHomeModel = TeacherHomeModel.fromJson(value?.data);
-      roomNumber = teacherHomeModel!.data.classes;
-      print(roomNumber);
-      menuItemsSection = roomNumber!.map((roomNum) {
+      classrooms = teacherHomeModel!.data.classes;
+      print(classrooms);
+      menuItemsSection = classrooms!.map((classroom) {
         return DropdownMenuItem<dynamic>(
-          value: roomNum.classroomId,
-          child: Text(roomNum.roomNumber),
+          value: classroom.roomNumber,
+          child: Text(classroom.roomNumber),
 
         );
 
@@ -77,7 +76,8 @@ class AddFileCubit extends Cubit<AddFileStates> {
   }
 
 //=====================================================================
-  void getClassrooms()
+  List<dynamic>? grades;
+  void getGrades()
   {
     emit(ShowClassroomsFLoadingState());
     DioHelper.getData(
@@ -86,12 +86,12 @@ class AddFileCubit extends Cubit<AddFileStates> {
     ).then((value) {
       print(value?.data);
       teacherHomeModel = TeacherHomeModel.fromJson(value?.data);
-      classrooms = teacherHomeModel!.data.classes;
-      print(classrooms);
-      menuItemsClassroom = classrooms!.map((classroom) {
+      grades = teacherHomeModel!.data.classes;
+      print(grades);
+      menuItemsClassroom = grades!.map((grade) {
         return DropdownMenuItem<dynamic>(
-          value: classroom.gradeId,
-          child: Text('${classroom.gradeId}'),
+          value: '${grade.gradeId}',
+          child: Text('${grade.gradeId}'),
 
         );
 
@@ -143,7 +143,7 @@ class AddFileCubit extends Cubit<AddFileStates> {
       'pdf_file': await MultipartFile.fromFile(filePath,filename: fileName)
     });
     var dio=Dio();
-    dio.post("http://192.168.1.5/api/upload_file",data: data,
+    dio.post("http://192.168.1.5:8000/api/upload_file",data: data,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',

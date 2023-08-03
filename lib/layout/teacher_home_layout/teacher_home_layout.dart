@@ -3,6 +3,7 @@
 import 'package:e_school/layout/teacher_home_layout/cubit/teacher_layout_cubit.dart';
 import 'package:e_school/layout/teacher_home_layout/cubit/teacher_layout_states.dart';
 import 'package:e_school/shared/components/drawer.dart';
+import 'package:e_school/shared/components/drawer_teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +28,7 @@ class TeacherHomeLayout extends StatelessWidget {
                 },
                 items: cubit.bottomItems,
               ),
-              drawer: TheMenu(),
+              drawer: TeacherDrawer('Teacher', 'account', 'assets/icons/teacher.png'),
               body:cubit.screens[cubit.currentIndex],
             );
         },

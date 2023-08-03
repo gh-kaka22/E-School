@@ -129,7 +129,7 @@ class ParentHomeScreen extends StatelessWidget {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: Text('Choose a child:'),
+                                              title: Text('Children:'),
                                               content: SizedBox(
                                                   width: 80,
                                                   height: 150,

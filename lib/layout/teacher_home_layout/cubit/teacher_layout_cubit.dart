@@ -2,6 +2,7 @@
 import 'package:e_school/layout/teacher_home_layout/cubit/teacher_layout_states.dart';
 import 'package:e_school/modules/home_teacher/teacher_home_screen.dart';
 import 'package:e_school/modules/posts/posts_screen.dart';
+import 'package:e_school/modules/posts_teacher/teacher_posts_screen.dart';
 import 'package:e_school/modules/profile/profile_screen.dart';
 import 'package:e_school/modules/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class TeacherLayoutCubit extends Cubit<TeacherLayoutStates>
 
   List<Widget> screens = [
     TeacherHomeScreen(),
-    PostsScreen(),
+    TeacherPostsScreen(),
     ProfileStudent(),
     SettingsScreen(),
 

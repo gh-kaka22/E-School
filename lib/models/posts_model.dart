@@ -42,6 +42,7 @@ class Datum {
   int likesCount;
   int comentsCount;
   bool isLiked;
+  bool isMine;
   String publisher;
 
   Datum({
@@ -54,6 +55,7 @@ class Datum {
     required this.likesCount,
     required this.comentsCount,
     required this.isLiked,
+    required this.isMine,
     required this.publisher,
   });
 
@@ -67,6 +69,7 @@ class Datum {
     likesCount: json["likes_count"],
     comentsCount: json["coments_count"],
     isLiked: json["is_liked"],
+    isMine: json["is_mine"],
     publisher: json["publisher"],
   );
 
@@ -80,6 +83,7 @@ class Datum {
     "likes_count": likesCount,
     "coments_count": comentsCount,
     "is_liked": isLiked,
+    "is_mine": isMine,
     "publisher": publisher,
   };
 }

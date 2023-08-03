@@ -40,6 +40,8 @@ class Datum {
   DateTime createdAt;
   DateTime updatedAt;
   String date;
+  int role;
+  bool isMine;
   String publisher;
 
   Datum({
@@ -50,6 +52,8 @@ class Datum {
     required this.createdAt,
     required this.updatedAt,
     required this.date,
+    required this.role,
+    required this.isMine,
     required this.publisher,
   });
 
@@ -61,6 +65,8 @@ class Datum {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     date: json["date"],
+    role: json["role"],
+    isMine: json["is_mine"],
     publisher: json["publisher"],
   );
 
@@ -72,6 +78,8 @@ class Datum {
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
     "date": date,
+    "role": role,
+    "is_mine": isMine,
     "publisher": publisher,
   };
 }

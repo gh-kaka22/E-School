@@ -44,7 +44,7 @@ class ParentTimetableScreen extends StatelessWidget {
                                   blurRadius: 8) //blur radius of shadow
                             ]),
                         child: Center(child: Text(
-                          'Class- ${cubit.homeModel?.data.classroom}',
+                          '${kidName}\'s Timetable',
                           style: TextStyle(fontSize: 18),
                         )),
                       ),

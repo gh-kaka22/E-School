@@ -4,63 +4,23 @@ import 'package:e_school/models/home_model.dart';
 import 'package:e_school/models/posts_model.dart';
 import 'package:e_school/models/show_comments_model.dart';
 import 'package:e_school/models/show_likes_model.dart';
-import 'package:e_school/models/teacher_home_model.dart';
-import 'package:e_school/modules/Timetable/timetable_screen.dart';
-import 'package:e_school/modules/attendance/attendance_screen.dart';
-import 'package:e_school/modules/exam_schedule/exam_schedule.dart';
-import 'package:e_school/modules/exams/exams_screen.dart';
-import 'package:e_school/modules/home_teacher/cubit/teacher_home_states.dart';
-import 'package:e_school/modules/library/library_screen.dart';
-import 'package:e_school/modules/notes/notes_screen.dart';
-import 'package:e_school/modules/teacher/files/add/add_files.dart';
-import 'package:e_school/modules/teacher/teacher_schedule/teacher_schedule_screen.dart';
-import 'package:e_school/shared/components/category_card.dart';
+import 'package:e_school/modules/posts_teacher/cubit/teacher_posts_states.dart';
 import 'package:e_school/shared/components/constants.dart';
-import 'package:e_school/shared/components/option_card.dart';
-
 import 'package:e_school/shared/network/end_points.dart';
 import 'package:e_school/shared/network/remote/dio_helper.dart';
-import 'package:e_school/shared/styles/colors.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TeacherHomeCubit extends Cubit<TeacherHomeStates>{
-  TeacherHomeCubit() : super(TeacherHomeInitialState());
-  static TeacherHomeCubit get(context) => BlocProvider.of(context);
+class TeacherPostsCubit extends Cubit<TeacherPostsStates>{
+  TeacherPostsCubit() : super(TeacherPostsInitialState());
+  static TeacherPostsCubit get(context) => BlocProvider.of(context);
 
-  List<OptionCard> categories =[
-    OptionCard('Timetable', 'See your daily timetables here...', 'assets/icons/schedule.png', kTeal,TeacherSchedule()),
-    OptionCard('Files', 'Upload files here...', 'assets/icons/folders.png', kTeal,AddFile())
-  ];
-  TeacherHomeModel? teacherHomeModel ;
-  void getTeacherHomeData()
-  {
-    emit(TeacherHomeLoadingState());
-    print(token);
-    DioHelper.getData(
-        url: TEACHERHOME,
-      token: token
-    ).then((value) {
-      print(value?.data);
-      teacherHomeModel = TeacherHomeModel.fromJson(value?.data);
-      print(teacherHomeModel?.data);
-      print(teacherHomeModel?.status);
-      print(teacherHomeModel?.message);
-      print(teacherHomeModel?.data.subjectName);
-      emit(TeacherHomeSuccessState());
-    }).catchError((error){
-      print(error.toString());
-      emit(TeacherHomeErrorState(error.toString()));
-    });
-
-
-
-  }
   ///GET POSTS
   PostsModel? postsModel;
   List<dynamic>? posts;
-  void getPostsTeacher()
+  void getTeacherPosts()
   {
-    emit(TeacherHomePostsLoadingState());
+    emit(TeacherPostsLoadingState());
     DioHelper.getData(
       url: GETPOSTSTEACHER,
       token: token,
@@ -71,12 +31,61 @@ class TeacherHomeCubit extends Cubit<TeacherHomeStates>{
       print(postsModel?.message);
       print(postsModel?.data[0]);
       posts = postsModel?.data;
-      emit(TeacherHomePostsSuccessState());
+      emit(TeacherPostsSuccessState());
     }).catchError((error){
       print(error.toString());
-      emit(TeacherHomePostsErrorState(error.toString()));
+      emit(TeacherPostsErrorState(error.toString()));
     });
   }
+
+
+  ///Delete Post
+  void deletePost(id)
+  {
+    emit(DeleteTeacherPostsLoadingState());
+    DioHelper.getData(
+      url: '${DELETEPOST}/${id}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      emit(DeleteTeacherPostsSuccessState());
+    }).catchError((error){
+      print(error.toString());
+      emit(DeleteTeacherPostsErrorState(error.toString()));
+    });
+  }
+
+  ///Edit Post
+  void editPost(
+      {
+        required postId,
+        required  body,
+        required  token,
+      }
+      )
+  {
+    emit(
+      EditTeacherPostsLoadingState(),
+    );
+    DioHelper.postData(
+      token: token,
+      url: '${EDITPOST}/${postId}',
+      data: {
+        'body': body,
+      },
+    ).then((value) {
+      print(value?.data);
+      emit(EditTeacherPostsSuccessState());
+    }).catchError((error) {
+      print(" ${error.response.data}");
+      emit(
+        EditTeacherPostsErrorState(error.toString()),
+      );
+    });
+
+
+  }
+
 
   ///SEND LIKES
   ChangeLikeModel? changeLikeModel;
@@ -229,6 +238,7 @@ class TeacherHomeCubit extends Cubit<TeacherHomeStates>{
 
 
   }
+
 
 
 
