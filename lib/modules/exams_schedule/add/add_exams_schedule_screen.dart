@@ -213,9 +213,9 @@ class AddExamSchedule extends StatelessWidget {
                         height: h / 20,
                         onPressed: () {
                           cubit.AddExamSchedule(
-                            typeId: cubit.dropDownValueType.toString(),
+                            typeId: cubit.dropDownValueType,
                             schoolYear: schoolYearController.text,
-                            gradeId: cubit.gradeID.toString(),
+                            gradeId: cubit.grade,
                             filePath: cubit.filePath,
                             fileName: cubit.fileName,
 

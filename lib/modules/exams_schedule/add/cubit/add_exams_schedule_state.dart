@@ -21,8 +21,7 @@ class TypechangeDropDownButton extends AddExamsScheduleState {}
 
 class SelectLoadingState extends AddExamsScheduleState {}
 class SelectSuccessState extends AddExamsScheduleState {
-  ExamScheduleModel examScheduleModel;
-  SelectSuccessState(this.examScheduleModel);
+
 }
 class SelectErrorState extends AddExamsScheduleState {
   final String error;

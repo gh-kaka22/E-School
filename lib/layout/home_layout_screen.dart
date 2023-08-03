@@ -16,6 +16,7 @@ import 'package:untitled/modules/employee/show/show_employee.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
 import 'package:untitled/modules/exams/show/exams_show_screen.dart';
 import 'package:untitled/modules/exams_schedule/add/add_exams_schedule_screen.dart';
+import 'package:untitled/modules/exams_schedule/show/show_exams_schedule_screen.dart';
 import 'package:untitled/modules/files/add/add_files.dart';
 import 'package:untitled/modules/files/show/show_files.dart';
 import 'package:untitled/modules/login/login_screen.dart';
@@ -79,7 +80,7 @@ class HomeLayout extends StatelessWidget {
                           children: [
                             cubit.SpecialSideBarItem(
                               text: 'Dashboard',
-                            screen: AddExamSchedule(),
+                            screen: StatsScreen(),
                           ),
                             cubit.SideBarItem(
                                 text: 'Admins',
@@ -116,6 +117,11 @@ class HomeLayout extends StatelessWidget {
                               showScreen: TimetableShow(),
                               addScreen: TimetableAdd()
                           ),
+                            cubit.SideBarItem(
+                                text: 'Exams Schedules',
+                                showScreen: ShowExamSchedule(),
+                                addScreen: AddExamSchedule()
+                            ),
                           cubit.SideBarItem(
                               text: 'Exams',
                               showScreen: ExamsShow(),

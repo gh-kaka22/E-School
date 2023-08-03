@@ -1,30 +1,27 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:cubit_form/cubit_form.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:untitled/models/exams_schedule_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 part 'add_exams_schedule_state.dart';
 class AddExamsScheduleCubit extends Cubit<AddExamsScheduleState> {
   AddExamsScheduleCubit() : super(AddExamsScheduleInitial());
   static AddExamsScheduleCubit get(context) => BlocProvider.of(context);
-  int? gradeID;
   String? grade;
   String? dropDownValueType;
   List<DropdownMenuItem<String>> GradeItems = [
     DropdownMenuItem(
-      value: 'Seventh',
+      value: '7',
       child: Text('Seventh'),
     ),
     DropdownMenuItem(
-      value: 'Eighth',
+      value: '8',
       child: Text('Eighth'),
     ),
     DropdownMenuItem(
-      value: 'Ninth',
+      value: '9',
       child: Text('Ninth'),
     ),
   ];
@@ -47,33 +44,21 @@ class AddExamsScheduleCubit extends Cubit<AddExamsScheduleState> {
     ),
   ];
 
-  void changeGradeDropDownButton(String gr)
+  void changeGradeDropDownButton(value)
   {
-    grade = gr;
-    if (grade == 'Seventh') gradeID = 7;
-
-    if (grade == 'Eighth') gradeID = 8;
-
-    if (grade == 'Ninth') gradeID = 9;
-
+    grade = value;
     emit(GradechangeDropDownButton());
-    print('grade: ${grade}');
-    print('grade Id: ${gradeID}');
   }
   void changeTypeDropDownButton(String newValue)
   {
     dropDownValueType = newValue;
     emit(TypechangeDropDownButton());
   }
-
   File? selectedFile;
   String? filePath;
   String? fileName;
   FormData? data;
-
-
-
-      ExamScheduleModel? examScheduleModel;
+  ExamScheduleModel? examScheduleModel;
       Future AddExamSchedule({
         required typeId,
         required schoolYear,
@@ -125,9 +110,9 @@ class AddExamsScheduleCubit extends Cubit<AddExamsScheduleState> {
     if (result != null) {
       selectedFile = File(result.files.single.path ?? "");
       print(selectedFile?.path);
-      fileName = selectedFile?.path.split(r'\').last;
-      filePath = selectedFile?.path;
-      emit(SelectSuccessState(examScheduleModel!));
+      fileName = selectedFile!.path.split(r'\').last;
+      filePath = selectedFile!.path;
+      emit(SelectSuccessState());
     } else {
       emit(SelectErrorState("No Image selected"));
     }
