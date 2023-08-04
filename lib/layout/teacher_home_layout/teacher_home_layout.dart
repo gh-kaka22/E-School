@@ -1,5 +1,6 @@
 
 
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/layout/teacher_home_layout/cubit/teacher_layout_cubit.dart';
 import 'package:e_school/layout/teacher_home_layout/cubit/teacher_layout_states.dart';
 import 'package:e_school/shared/components/drawer.dart';
@@ -28,7 +29,7 @@ class TeacherHomeLayout extends StatelessWidget {
                 },
                 items: cubit.bottomItems,
               ),
-              drawer: TeacherDrawer('Teacher', 'account', 'assets/icons/teacher.png'),
+              drawer: TeacherDrawer(translation(context).teacher, translation(context).account, 'assets/icons/teacher.png'),
               body:cubit.screens[cubit.currentIndex],
             );
         },

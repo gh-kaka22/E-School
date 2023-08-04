@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
 import 'package:e_school/layout/parent_home_layout/parent_home_layout.dart';
 import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
@@ -18,6 +18,10 @@ import 'shared/network/local/cache_helper.dart';
 import 'shared/network/remote/dio_helper.dart';
 import 'shared/styles/themes.dart';
 import 'modules/on_boarding/on_boarding_screen.dart';
+
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,17 +55,42 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   bool? isDark;
   Widget? startWidget;
   MyApp({this.isDark, this.startWidget});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
+
+
+}
+
+class _MyAppState extends State<MyApp> {
+
+  Locale? _locale;
+
+  setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+  @override
+  void didChangeDependencies() {
+    getLocale().then((locale) => {setLocale(locale)});
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit()
         ..changeAppMode(
-          fromShared: isDark,
+          fromShared: widget.isDark,
         ),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
@@ -72,7 +101,10 @@ class MyApp extends StatelessWidget {
             darkTheme: darkMode,
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: startWidget!,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: _locale,
+            home: widget.startWidget!,
           );
         },
       ),

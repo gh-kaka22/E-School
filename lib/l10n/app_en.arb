@@ -1,0 +1,14 @@
+{
+  "home": "Home",
+  "news": "News",
+  "profile":"Profile",
+  "about":"About Us",
+  "language":"Language",
+  "settings":"Settings",
+  "logout":"Logout",
+
+
+  "teacher":"Teacher",
+  "account":"Account"
+
+}

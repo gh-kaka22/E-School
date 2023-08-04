@@ -7,7 +7,7 @@ import 'package:e_school/modules/profile/profile_screen.dart';
 import 'package:e_school/modules/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TeacherLayoutCubit extends Cubit<TeacherLayoutStates>
 {
@@ -20,7 +20,7 @@ class TeacherLayoutCubit extends Cubit<TeacherLayoutStates>
   List<BottomNavigationBarItem> bottomItems = [
     BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label:'Home',
+        label:  'home',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.newspaper),

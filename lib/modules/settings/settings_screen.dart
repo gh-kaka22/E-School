@@ -1,6 +1,8 @@
+import 'package:e_school/language/language.dart';
 import 'package:e_school/modules/school_login/login_screen.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
+import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -11,6 +13,41 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: DropdownButton<Language>(
+              underline: const SizedBox(),
+              icon:  Icon(
+                Icons.language,
+                color: kTitleTextColor,
+              ),
+              onChanged: (Language? language) async {
+                if (language != null) {
+                  // Locale _locale = await setLocale(language.languageCode);
+                  // MyApp.setLocale(context, _locale);
+                }
+              },
+              items: Language.languageList()
+                  .map<DropdownMenuItem<Language>>(
+                    (e) => DropdownMenuItem<Language>(
+                  value: e,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text(
+                        e.flag,
+                        style: const TextStyle(fontSize: 30),
+                      ),
+                      Text(e.name)
+                    ],
+                  ),
+                ),
+              )
+                  .toList(),
+            ),
+          ),
+        ],
       ),
       body: SettingsList(
         sections: [
@@ -59,16 +96,6 @@ class SettingsScreen extends StatelessWidget {
                 leading: Icon(Icons.dark_mode),
                 onToggle: (bool value) {},
                 initialValue: false,
-              ),
-            ],
-          ),
-          SettingsSection(
-            title: Text('Language'),
-            tiles: [
-              SettingsTile(
-                title: Text('Language'),
-                leading: Icon(Icons.language),
-                onPressed: (BuildContext context) {},
               ),
             ],
           ),
