@@ -9,6 +9,16 @@
 
 
   "teacher":"Teacher",
-  "account":"Account"
+  "account":"Account",
+
+  "timeline":"Timeline",
+  "like":"Like",
+  "likes":"Likes",
+  "comments":"Comments",
+  "writeComment":"write a comment...",
+  "likescreen":"People who liked this",
+  "nolikes":"No likes yet...",
+  "nocomments":"No comments yet...",
+  "commentsscreen":"Latest comments"
 
 }

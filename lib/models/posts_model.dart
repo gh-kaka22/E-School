@@ -41,8 +41,8 @@ class Datum {
   int role;
   int likesCount;
   int comentsCount;
-  bool isLiked;
-  bool isMine;
+  bool? isLiked;
+  bool? isMine;
   String publisher;
 
   Datum({

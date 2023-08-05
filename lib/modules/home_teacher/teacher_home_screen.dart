@@ -146,21 +146,21 @@ class TeacherHomeScreen extends StatelessWidget {
                     items: [
                       ConditionalBuilder(
                         condition: cubit.posts != null,
-                        builder: (context) => buildPostItem(
+                        builder: (context) => buildHomePostItem(
                             cubit.posts?[0], context, cubit, state),
                         fallback: (context) =>
                             Center(child: CircularProgressIndicator()),
                       ),
                       ConditionalBuilder(
                         condition: cubit.posts != null,
-                        builder: (context) => buildPostItem(
+                        builder: (context) => buildHomePostItem(
                             cubit.posts?[1], context, cubit, state),
                         fallback: (context) =>
                             Center(child: CircularProgressIndicator()),
                       ),
                       ConditionalBuilder(
                         condition: cubit.posts?.length != null,
-                        builder: (context) => buildPostItem(
+                        builder: (context) => buildHomePostItem(
                             cubit.posts?[2], context, cubit, state),
                         fallback: (context) =>
                             Center(child: CircularProgressIndicator()),

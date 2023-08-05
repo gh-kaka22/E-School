@@ -204,17 +204,17 @@ class ParentHomeScreen extends StatelessWidget {
                           items: [
                             ConditionalBuilder(
                               condition: cubit.posts != null ,
-                              builder:(context) => buildPostItem(cubit.posts?[0], context, cubit,state),
+                              builder:(context) => buildHomePostItem(cubit.posts?[0], context, cubit,state),
                               fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
                             ConditionalBuilder(
                               condition: cubit.posts != null ,
-                              builder:(context) => buildPostItem(cubit.posts?[1], context, cubit,state),
+                              builder:(context) => buildHomePostItem(cubit.posts?[1], context, cubit,state),
                               fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
                             ConditionalBuilder(
                               condition: cubit.posts?.length ==3 ,
-                              builder:(context) =>buildPostItem(cubit.posts?[2], context, cubit,state),
+                              builder:(context) =>buildHomePostItem(cubit.posts?[2], context, cubit,state),
                               fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
                           ],

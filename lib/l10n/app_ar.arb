@@ -10,5 +10,19 @@
 
 
   "teacher":"معلم",
-  "account":"حساب"
+  "account":"حساب",
+
+  "timeline":"الاخبار",
+  "like":"إعجاب",
+  "likes":"الإعجابات",
+  "comments":"تعليقات",
+  "writeComment":"أكتب تعليقا...",
+  "likescreen":"الناس الذين أحبوا هذا",
+  "nolikes":"لا إعجابات حتى الآن ...",
+  "nocomments":"لا تعليقات حتى الآن...",
+  "commentsscreen":"أحدث تعليقات"
+
+
+
+
 }
