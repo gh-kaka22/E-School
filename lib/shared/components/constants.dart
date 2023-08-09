@@ -16,7 +16,6 @@ String? token='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiY2Jk
 String? userType;
 int? kidID;
 String? kidName;
-TimetableModel? timetableModel;
 
 const String baseUrl= 'http://192.168.1.9:8000/';
 

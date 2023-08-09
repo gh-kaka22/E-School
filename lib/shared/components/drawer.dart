@@ -1,3 +1,4 @@
+import 'package:e_school/chatgpt/chat.dart';
 import 'package:e_school/modules/about_us/about_screen.dart';
 import 'package:e_school/modules/school_login/login_screen.dart';
 import 'package:e_school/shared/components/components.dart';
@@ -35,6 +36,15 @@ class TheMenu extends StatelessWidget {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: (){},
+            ),
+          ),
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.mark_unread_chat_alt_outlined),
+              title: Text('Chat Bot'),
+              onTap: (){
+                navigateTo(context, ChatPage(character: 'character'));
+              },
             ),
           ),
           Card(

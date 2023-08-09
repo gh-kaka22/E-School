@@ -12,6 +12,7 @@ class ParentHomeErrorState extends ParentHomeStates{
   final String error;
   ParentHomeErrorState(this.error);
 }
+class ChangeKidState extends ParentHomeStates{}
 
 class ParentHomePostsLoadingState extends ParentHomeStates{}
 

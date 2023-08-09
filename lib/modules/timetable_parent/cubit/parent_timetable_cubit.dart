@@ -61,13 +61,15 @@ class ParentTimetableCubit extends Cubit<ParentTimetableStates> {
   }
 
 
-
+  TimetableModel? timetableModel;
   void getTimetableParent ({
     required day_number,
     required id
   })
   {
     emit(ParentTimetableLoadingState());
+    periodsList=[];
+    timetableModel = null;
     DioHelper.postData(
         url: '${PARENTTIMETABLE}/${id}',
         token: token,
@@ -81,6 +83,7 @@ class ParentTimetableCubit extends Cubit<ParentTimetableStates> {
       print(timetableModel?.status);
       print(timetableModel?.message);
       print(timetableModel?.data?.firstSubject);
+      print(kidID);
       periodsList = [
         TimetableCard(
           subject: '${timetableModel?.data?.firstSubject}',

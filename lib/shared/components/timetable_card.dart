@@ -42,7 +42,7 @@ class TimetableCard extends StatelessWidget {
         break;
       case 'Sport':
         imageUrl = 'assets/icons/subjects/sports.png';
-        color = Colors.yellowAccent;
+        color = Colors.yellow;
         break;
       default:
         imageUrl = 'assets/icons/subjects/keys.png';

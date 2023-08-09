@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/chatgpt/chat.dart';
 import 'package:e_school/modules/Timetable/timetable_screen.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/modules/exams/exams_screen.dart';
@@ -47,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.height / 3.5,
                                   decoration: BoxDecoration(
-                                    color: kDarkBlue2Color.withOpacity(0.6),
+                                    color: kDarkBlue3Color.withOpacity(0.6),
                                     borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(50),
                                       bottomRight: Radius.circular(50),
@@ -131,6 +132,33 @@ class HomeScreen extends StatelessWidget {
                                       ],
                                     ),
                                   )),
+                              Positioned(
+                                  top: 40,
+                                  right: 20,
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          navigateTo(context, ChatPage(character: 'character'));
+                                        },
+                                        child: Container(
+                                          width: 45,
+                                          height: 45,
+                                          child: CircleAvatar(
+                                            radius: 10,
+                                            backgroundColor: kWhiteColor,
+                                            child: ClipOval(
+                                              child: Image.asset(
+                                                'assets/images/robot.png',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Text('Assistant',style: TextStyle(color: kWhiteColor),),
+                                    ],
+                                  )
+                              ),
 
                             ]),
                         SizedBox(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 const defaultColor = Colors.indigo;
 var kTeal = Colors.teal;
+var kChatBar = Color(0xff0b1b24);
+var kDarkBlue3Color = Color(0xff2e4058);
 var kBackgroundColor = Color(0xffF9F9F9);
 var kWhiteColor = Color(0xffffffff);
 var kDarkWhiteColor = Color(0xffF2F2F2);

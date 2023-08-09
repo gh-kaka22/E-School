@@ -62,6 +62,7 @@ class TimetableCubit extends Cubit<TimetableStates> {
 
 
 
+  TimetableModel? timetableModel;
   void getTimetable ({
     required int day_number,
   })

@@ -138,8 +138,12 @@ class ParentHomeScreen extends StatelessWidget {
                                                     itemBuilder: (context, index) {
                                                       return InkWell(
                                                         onTap: (){
-                                                          kidID=cubit.parentHomeModel?.data.children[index].kidId;
-                                                          kidName=cubit.parentHomeModel?.data.children[index].kidName;
+                                                          cubit.changeChild(
+                                                              cubit.parentHomeModel?.data.children[index].kidId,
+                                                              cubit.parentHomeModel?.data.children[index].kidName
+                                                          );
+                                                          print(kidID);
+                                                          print(kidName);
                                                           cubit.getParentHomeData();
                                                           cubit.getPostsParent(cubit.parentHomeModel?.data.children[index].kidId);
                                                           Navigator.of(context).pop();
@@ -213,7 +217,7 @@ class ParentHomeScreen extends StatelessWidget {
                               fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
                             ConditionalBuilder(
-                              condition: cubit.posts?.length ==3 ,
+                              condition: cubit.posts != null ,
                               builder:(context) =>buildHomePostItem(cubit.posts?[2], context, cubit,state),
                               fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),

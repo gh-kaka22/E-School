@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ParentPostsScreen extends StatelessWidget {
+  Future<void> _refresh(){
+    return Future.delayed(Duration(seconds: 2));
+  }
 
 
   @override
@@ -30,12 +33,15 @@ class ParentPostsScreen extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                   PostsBuilder(
-                       cubit.postsModel?.data,
-                       cubit,
-                       context,
-                       state,
+                   RefreshIndicator(
+                     onRefresh: _refresh,
+                     child: PostsBuilder(
+                         cubit.postsModel?.data,
+                         cubit,
+                         context,
+                         state,
 
+                     ),
                    )
                   ],
                 ),

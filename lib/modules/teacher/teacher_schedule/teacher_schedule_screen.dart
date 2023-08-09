@@ -142,7 +142,7 @@ class TeacherSchedule extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                      '${cubit.teachercShedule?.data?.firstPeriod}'),
+                                                      '${cubit.teachercShedule?.data?.firstPeriod ?? 'none'}'),
                                                 ),
                                               ),
                                             ),
@@ -168,7 +168,7 @@ class TeacherSchedule extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                      '${cubit.teachercShedule?.data?.secondPeriod}'),
+                                                      '${cubit.teachercShedule?.data?.secondPeriod ?? 'none'}'),
                                                 ),
                                               ),
                                             ),
@@ -194,7 +194,7 @@ class TeacherSchedule extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                      '${cubit.teachercShedule?.data?.thirdPeriod}'),
+                                                      '${cubit.teachercShedule?.data?.thirdPeriod ?? 'none'}'),
                                                 ),
                                               ),
                                             ),
@@ -220,7 +220,7 @@ class TeacherSchedule extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                      '${cubit.teachercShedule?.data?.forthPeriod}'),
+                                                      '${cubit.teachercShedule?.data?.forthPeriod ?? 'none'}'),
                                                 ),
                                               ),
                                             ),
@@ -246,7 +246,7 @@ class TeacherSchedule extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                      '${cubit.teachercShedule?.data?.fifthPeriod}'),
+                                                      '${cubit.teachercShedule?.data?.fifthPeriod ?? 'none'}'),
                                                 ),
                                               ),
                                             ),
@@ -272,7 +272,7 @@ class TeacherSchedule extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: Text(
-                                                      '${cubit.teachercShedule?.data?.sixthPeriod}'),
+                                                      '${cubit.teachercShedule?.data?.sixthPeriod ?? 'none'}'),
                                                 ),
                                               ),
                                             ),
@@ -301,7 +301,7 @@ class TeacherSchedule extends StatelessWidget {
                                                       ),
                                                       child: Center(
                                                         child: Text(
-                                                            '${cubit.teachercShedule?.data?.seventhPeriod}'),
+                                                            '${cubit.teachercShedule?.data?.seventhPeriod ?? 'none'}'),
                                                       ),
                                                     ),
                                                   ),

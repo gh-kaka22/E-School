@@ -18,6 +18,7 @@ import 'package:e_school/modules/timetable_parent/parent_timetable_screen.dart';
 import 'package:e_school/shared/components/category_card.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/network/end_points.dart';
+import 'package:e_school/shared/network/local/cache_helper.dart';
 import 'package:e_school/shared/network/remote/dio_helper.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,17 @@ class ParentHomeCubit extends Cubit<ParentHomeStates>{
     CategoryCard('Exams', 'assets/icons/timetable.png', kWhiteColor,ShowExamSchedule()),
   ];
   ParentHomeModel? parentHomeModel ;
+
+  void changeChild(newId,newName){
+    CacheHelper.saveData(key: 'kidId', value: newId).then((value) {
+      kidID=newId;
+    });
+    CacheHelper.saveData(key: 'kidName', value: newName).then((value) {
+      kidName=newName;
+    });
+    emit(ChangeKidState());
+  }
+
   void getParentHomeData()
   {
     emit(ParentHomeLoadingState());
