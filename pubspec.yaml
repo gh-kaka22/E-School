@@ -68,6 +68,8 @@ dependencies:
   url_launcher:
   auto_size_text:
   file_picker:
+  firebase_messaging:
+  firebase_core:
 
 
 
