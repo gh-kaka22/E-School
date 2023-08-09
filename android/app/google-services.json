@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "962133515718",
+    "project_id": "school-2440e",
+    "storage_bucket": "school-2440e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962133515718:android:fa5f15c31a08b6ff6166c7",
+        "android_client_info": {
+          "package_name": "com.example.e_school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962133515718-139h5mr69tiuq1fbh09fvhcri64v99dn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3fYHbHBG-7ljw3o4KK6bjWxmYC_VKwtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962133515718-139h5mr69tiuq1fbh09fvhcri64v99dn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
