@@ -442,6 +442,22 @@ class AuthController extends Controller
         return $this->apiResponse('logged out successfully');
     }
 
+    public function resetPassword(Request $request){
+        $request->validate([
+            'email'=>['required','string'],
+            'password'=>['required','string']
+        ]);
+        $user =DB::table('users')
+            ->where('email',$request->email)
+            ->first();
+        if(!$user)
+            return $this->apiResponse('user not found',null,false);
+        $user=DB::table('users')
+            ->update(['password'=>bcrypt($request->password)]);
+
+        return $this->apiResponse('success');
+    }
+
 
 
 

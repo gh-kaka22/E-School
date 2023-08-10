@@ -195,6 +195,10 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
     Route::delete('/deletebook/{id}',[\App\Http\Controllers\BookController::class, 'deleteBook']);
     Route::post('/updatebook',[\App\Http\Controllers\BookController::class, 'updateBook']);
 
+    //password
+    Route::post('/resetPassword',[\App\Http\Controllers\AuthController::class, 'resetPassword']);
+
+
 
 
 
