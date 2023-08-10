@@ -19,10 +19,6 @@ return new class extends Migration
             $table->unsignedbigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                ->onUpdate('cascade');
-
-//            $table->unsignedbigInteger('type_id');
-//            $table->foreign('type_id')->references('type_id')->on('posts_type')
-//                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

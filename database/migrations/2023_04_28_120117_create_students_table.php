@@ -36,16 +36,12 @@ return new class extends Migration
 
             $table->string('status');
 
-
-
-
-
             $table->timestamps();
         });
     }
 
 
-    //ghassan is your uncle
+
 
     /**
      * Reverse the migrations.
