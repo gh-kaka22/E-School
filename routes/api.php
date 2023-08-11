@@ -22,7 +22,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('logout', [AuthController::class, 'Logout']);
+    Route::get('logout', [AuthController::class, 'logout']);
 
 
     //Likes and Comments Routes

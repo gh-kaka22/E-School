@@ -452,7 +452,14 @@ class AuthController extends Controller
 
     public function logout(): JsonResponse
     {
+        DB::table('tokens')
+            ->where('user_id',Auth::id())
+            ->update([
+                'token' => '0'
+            ]);
         Auth::User()->token()->revoke();
+
+
         return $this->apiResponse('logged out successfully');
     }
 

@@ -8,6 +8,7 @@ use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class NoticeController extends Controller
 {
@@ -38,6 +39,29 @@ class NoticeController extends Controller
             'date' => $date,
             'day' => $day
         ]);
+
+        $chiled = DB::table('students')
+            ->where('student_id',$request->student_id)
+            ->value('first_name');
+
+        $FCM_child=DB::table('students')
+            ->join('tokens','tokens.user_id','=','students.user_id')
+            ->where('students.student_id',$request->student_id)
+            ->value('tokens.token');
+
+        $FCM_parent = DB::table('students')
+            ->join('parents','students.parent_id','=','parents.parent_id')
+            ->join('tokens','tokens.user_id','=','parents.user_id')
+            ->where('students.student_id',$request->student_id)
+            ->where('students.parent_id','parents.parent_id')
+            ->value('tokens.token');
+
+        $body = $content;
+        $titleCh = 'Notice';
+        $titlePr = 'Notice for ' . $chiled;
+
+        $this->sendNotification($titlePr,$FCM_parent,$body);
+        $this->sendNotification($titleCh,$FCM_child,$body);
 
 
         return $this->apiResponse('Notice sent successfully', $notice);

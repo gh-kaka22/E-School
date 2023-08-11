@@ -18,7 +18,7 @@ use Carbon\Carbon;
 class AttendanceController extends Controller
 {
     //////////
-    use ApiResponseTrait;
+    use ApiResponseTrait,NotificationTrait;
     public function store(Request $request)
     {
         //
@@ -53,40 +53,32 @@ class AttendanceController extends Controller
 
         foreach ($student_ids as $student_id) {
 
-            $student = Student::query()
-                ->where('student_id', '=', $student_id)
-                ->first();
+            $chiled = DB::table('students')
+                ->where('student_id',$student_id)
+                ->value('first_name');
 
-            $parent = Parentt::query()
-                ->where('parent_id' , '=',$student->parent_id)
-                ->first();
+            $FCM_child=DB::table('students')
+                ->join('tokens','tokens.user_id','=','students.user_id')
+                ->where('students.student_id',$student_id)
+                ->value('tokens.token');
 
-            /*Notification::send($student, new Attendance_Notification(
-                    $request->date,
-                    $student->first_name,
-                    $student->last_name
-                )
-            );
+            $FCM_parent = DB::table('students')
+                ->join('parents','students.parent_id','=','parents.parent_id')
+                ->join('tokens','tokens.user_id','=','parents.user_id')
+                ->where('students.student_id',$student_id)
+                ->where('students.parent_id','parents.parent_id')
+                ->value('tokens.token');
 
-            Notification::send($parent, new Attendance_Notification(
-                    $request->date,
-                    $student->first_name,
-                    $student->last_name
-                )
-            );*/
+            $bodyCH = 'You were absent today';
+            $bodyPr = $chiled . 'were absent today';
+            $title = 'Absent';
 
-            $student->notify(new Attendance_Notification(
-                $request->date,
-                $student->first_name,
-                $student->last_name));
+            $this->sendNotification($title,$FCM_parent,$bodyPr);
+            $this->sendNotification($title,$FCM_child,$bodyCH);
 
-            $parent->notify(new Attendance_Notification(
-                $request->date,
-                $student->first_name,
-                $student->last_name));
 
-            //event(new StudentAttendanceEvent($student));
-            //event(new ParentAttendanceEvent($parent,$student));
+
+
 
         }
 
