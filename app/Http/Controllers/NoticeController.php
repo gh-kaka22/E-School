@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class NoticeController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait,NotificationTrait;
+
 
     public function store(Request $request)
     {
