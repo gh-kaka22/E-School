@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Models\Student_Parent;
 use App\Models\Teacher;
 use App\Models\TeacherClassroom;
+use App\Models\Token;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -323,7 +324,8 @@ class AuthController extends Controller
     {
         $loginData = $request->validate([
             'email'=>'email|required',
-            'password' => 'required'
+            'password' => 'required',
+            'FCM_token'=>'nullable'
         ]);
 
 
@@ -332,6 +334,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+
+
+            if(isset($request->FCM_token)){
+                Token::updateOrCreate(
+                    ['user_id' => $user->id],
+                    ['token' => $request->FCM_token]
+                );
+
+            }
 
             if($user->role==0)
                 return $this->OwnerLogin($request);
@@ -345,8 +356,11 @@ class AuthController extends Controller
                 return $this->TeacherLogin($request);
 
 
+
+
+
         } else {
-            return $this->apiResponse('Unauthorised.',null,false);
+            return $this->apiResponse('The email or password are incorrect',null,false);
         }
     }
 
@@ -436,7 +450,7 @@ class AuthController extends Controller
     //.............................................................................................
 
 
-    public function Logout(): JsonResponse
+    public function logout(): JsonResponse
     {
         Auth::User()->token()->revoke();
         return $this->apiResponse('logged out successfully');

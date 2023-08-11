@@ -20,6 +20,7 @@ Route::middleware(['auth:api', 'isOwner'])->group(function () {
 //............................Login and Logout route...................................
 Route::post('login', [AuthController::class, 'login']);
 
+
 Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'Logout']);
 
@@ -38,6 +39,8 @@ Route::middleware('auth:api')->group(function () {
     //exam schedule for specific grade
     Route::get('/exams_schedule/showByGrade/{grade_id}', [\App\Http\Controllers\ExamScheduleController::class, 'showByGrade']);
 
+
+    Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 
 });
 

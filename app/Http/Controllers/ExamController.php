@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\NotificationController;
 
 
 
 class ExamController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait,NotificationTrait;
+
      public function store(Request $request){
          $validatedData=$request->validate([
              'student_id'=>['required','integer'],
@@ -56,6 +58,15 @@ class ExamController extends Controller
              'date'=>$request->date,
              'schoolyear'=>$request->schoolyear
          ]);
+
+
+
+         $FCM=DB::table('students')
+             ->join('tokens','tokens.user_id','=','students.user_id')
+             ->value('tokens.token');
+
+         $body = $request->subject_name . ' ' .$request->mark;
+         $this->sendNotificationMarks($FCM,$body);
 
 
          return $this->apiResponse('success',$exam);
