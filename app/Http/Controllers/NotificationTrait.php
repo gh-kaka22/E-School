@@ -110,6 +110,6 @@ trait NotificationTrait
 
         $response = curl_exec($ch);
 
-        return $this->apiResponse('s',$response);
+        dd($response);
     }
 }
