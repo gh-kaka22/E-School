@@ -27,6 +27,7 @@ import 'package:untitled/modules/notice/show/show_notes.dart';
 import 'package:untitled/modules/results/results_screen.dart';
 import 'package:untitled/modules/schoolYears/add/add_school_year.dart';
 import 'package:untitled/modules/schoolYears/show/show_school_year.dart';
+import 'package:untitled/modules/settings/reset_password/reset_password.dart';
 import 'package:untitled/modules/statistics/stats_screen.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
@@ -168,7 +169,7 @@ class HomeLayout extends StatelessWidget {
                             ),
                           cubit.SpecialSideBarItem(
                             text: 'Settings',
-                            screen: StudentsShow(),
+                            screen: ResetPassword(),
                           ),
                         ],
                       ),

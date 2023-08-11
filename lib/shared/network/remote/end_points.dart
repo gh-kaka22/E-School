@@ -3,6 +3,7 @@ import 'package:untitled/modules/teachers/add/add_teacher.dart';
 ///REGISTER
 const RegisterStudent='student/register';
 const LOGIN='login';
+const RESETPASSWORD='resetPassword';
 
 ///STUDENTS
 const GETSTUDENTS='students/index';

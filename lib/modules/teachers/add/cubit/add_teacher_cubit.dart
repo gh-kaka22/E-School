@@ -24,7 +24,7 @@ class AddTeacherCubit extends Cubit<AddTeacherState> {
   void changeSubjectDropDownButton(String newValue)
   {
     dropDownValueSubject = newValue;
-    subjectId = menuItemsSubject.indexWhere((item) => item.value == newValue);
+    subjectId = menuItemsSubject.indexWhere((item) => item.value == newValue) + 1;
     emit(SubjectDropDownButtonState());
 
 

@@ -445,10 +445,10 @@ Widget RankingItem(w, student, index, context) => Container(
         ),
         Expanded(
             child: Center(
-              child: Text('${student.result}',
+              child: Text('${student.result *100 /1000} %',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
-        student.result>1000?
+        student.result>700?
         Expanded(
           child: Center(
             child:Icon(Icons.check_circle,color: Colors.lightGreen,)
