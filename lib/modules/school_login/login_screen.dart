@@ -4,6 +4,7 @@ import 'package:e_school/layout/parent_home_layout/parent_home_layout.dart';
 import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -172,9 +173,11 @@ class SchoolLoginScreen extends StatelessWidget {
                                         suffixPressed: () {
                                           SchoolLoginCubit.get(context).changePasswordVisibility();
                                         },
-                                        onSubmit: (value) {
+                                        onSubmit: (value) async{
+                                          var deviceToken =await FirebaseMessaging.instance.getToken();
                                           if (formKey.currentState!.validate()) {
                                             SchoolLoginCubit.get(context).userLogin(
+                                              deviceToken: deviceToken,
                                                 email: emailController.text,
                                                 password:
                                                     passwordController.text);
@@ -189,10 +192,14 @@ class SchoolLoginScreen extends StatelessWidget {
                                         builder: (context) => Container(
                                           width: double.infinity,
                                           child: MaterialButton(
-                                            onPressed: () {
+                                            onPressed: ()async {
+                                              var deviceToken =await FirebaseMessaging.instance.getToken();
+                                              print('fcm : ${deviceToken}');
                                               if (formKey.currentState!.validate())
                                               {
+
                                                 SchoolLoginCubit.get(context).userLogin(
+                                                  deviceToken: deviceToken,
                                                         email:
                                                             emailController.text,
                                                         password:
