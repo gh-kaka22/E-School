@@ -17,47 +17,47 @@ class ExamController extends Controller
     use ApiResponseTrait,NotificationTrait;
 
      public function store(Request $request){
-         $validatedData=$request->validate([
-             'student_id'=>['required','integer'],
-             'subject_name'=>['required','string'],
-             'type_id'=>['required','integer'],
-             'mark'=>['required'],
-             'date'=>['required','date','date_format:Y-m-d'],
-             'schoolyear'=>['required'],
-         ]);
-            $subject_id=DB::table('subjects')
-                ->where('name','=',$request->subject_name)
-                ->first()
-                ->subject_id;
-
-         $subject_max_mark=DB::table('subjects')
-             ->where('name','=',$request->subject_name)
-             ->first()
-             ->max_mark;
-
-         if($request->mark>$subject_max_mark)
-             return $this->apiResponse('The mark you entered is greater than the max mark',null,false);
-//         $dateString = $request->date;
-//         $date = Carbon::createFromFormat('Y-m-d', $dateString);
-//         $monthNumber = $date->format('m');
-         $examExists = DB::table('exams')
-             ->where('student_id', $request->student_id)
-             ->where('subject_id', $subject_id)
-             ->where('type_id','=',$request->type_id)
-             ->where('schoolyear','=',$request->schoolyear)
-             ->exists();
-
-         if($examExists)
-             return $this->apiResponse('The student already have an exam with this subject and type registered',null,false);
-
-         $exam=Exam::create([
-             'student_id'=>$request->student_id,
-             'subject_id'=>$subject_id,
-             'type_id'=>$request->type_id,
-             'mark'=>$request->mark,
-             'date'=>$request->date,
-             'schoolyear'=>$request->schoolyear
-         ]);
+//         $validatedData=$request->validate([
+//             'student_id'=>['required','integer'],
+//             'subject_name'=>['required','string'],
+//             'type_id'=>['required','integer'],
+//             'mark'=>['required'],
+//             'date'=>['required','date','date_format:Y-m-d'],
+//             'schoolyear'=>['required'],
+//         ]);
+//            $subject_id=DB::table('subjects')
+//                ->where('name','=',$request->subject_name)
+//                ->first()
+//                ->subject_id;
+//
+//         $subject_max_mark=DB::table('subjects')
+//             ->where('name','=',$request->subject_name)
+//             ->first()
+//             ->max_mark;
+//
+//         if($request->mark>$subject_max_mark)
+//             return $this->apiResponse('The mark you entered is greater than the max mark',null,false);
+////         $dateString = $request->date;
+////         $date = Carbon::createFromFormat('Y-m-d', $dateString);
+////         $monthNumber = $date->format('m');
+//         $examExists = DB::table('exams')
+//             ->where('student_id', $request->student_id)
+//             ->where('subject_id', $subject_id)
+//             ->where('type_id','=',$request->type_id)
+//             ->where('schoolyear','=',$request->schoolyear)
+//             ->exists();
+//
+//         if($examExists)
+//             return $this->apiResponse('The student already have an exam with this subject and type registered',null,false);
+//
+//         $exam=Exam::create([
+//             'student_id'=>$request->student_id,
+//             'subject_id'=>$subject_id,
+//             'type_id'=>$request->type_id,
+//             'mark'=>$request->mark,
+//             'date'=>$request->date,
+//             'schoolyear'=>$request->schoolyear
+//         ]);
 
 
 
@@ -72,11 +72,13 @@ class ExamController extends Controller
              ->value('tokens.token');
 
          $FCM_parent = DB::table('students')
+             ->where('students.student_id',$request->student_id)
              ->join('parents','students.parent_id','=','parents.parent_id')
              ->join('tokens','tokens.user_id','=','parents.user_id')
-             ->where('students.student_id',$request->student_id)
-             ->where('students.parent_id','parents.parent_id')
              ->value('tokens.token');
+
+
+
 
          $body = $request->subject_name . ' ' .$request->mark;
          $titleCh = 'New Mark';
@@ -86,7 +88,7 @@ class ExamController extends Controller
          $this->sendNotification($titleCh,$FCM_child,$body);
 
 
-         return $this->apiResponse('success',$exam);
+         return $this->apiResponse('success',$FCM_parent);
 
 
 

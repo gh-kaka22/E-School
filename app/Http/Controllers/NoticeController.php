@@ -51,10 +51,9 @@ class NoticeController extends Controller
             ->value('tokens.token');
 
         $FCM_parent = DB::table('students')
+            ->where('students.student_id',$request->student_id)
             ->join('parents','students.parent_id','=','parents.parent_id')
             ->join('tokens','tokens.user_id','=','parents.user_id')
-            ->where('students.student_id',$request->student_id)
-            ->where('students.parent_id','parents.parent_id')
             ->value('tokens.token');
 
         $body = $content;
