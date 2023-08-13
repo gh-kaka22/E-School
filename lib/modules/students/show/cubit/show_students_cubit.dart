@@ -8,6 +8,8 @@ import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
 
+import '../../../../models/update_student_model.dart';
+
 class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
   ShowStudentsCubit() : super(ShowStudentsInitialState());
 
@@ -189,6 +191,23 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
     }).catchError((error) {
       print(error.toString());
       emit(ShowResultStudentsErrorState(error.toString()));
+    });
+  }
+
+
+  UpdateStudentModel? updateStudentModel;
+  void getStudentData(student_id) {
+    emit(ShowStudentInfoLoading());
+    DioHelper.getData(
+      url: '${SHOWSTUDENTBYID}/${student_id}',
+      token: token,
+    ).then((value) {
+      updateStudentModel = UpdateStudentModel.fromJson(value!.data);
+      print(updateStudentModel!.data!.firstName);
+      emit(ShowStudentInfoSuccess(updateStudentModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShowStudentInfoError(error));
     });
   }
 

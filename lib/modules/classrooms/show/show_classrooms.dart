@@ -21,7 +21,31 @@ class ClassroomsShow extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ShowClassroomsCubit()..getClassrooms(),
       child: BlocConsumer<ShowClassroomsCubit, ShowClassroomsStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+
+          if (state is ClearClassroomsSuccessState) {
+            if(state.clearClassroom.status ?? true) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.green,
+                  content:
+                  Center(
+                    child: Text(
+                        '${state.clearClassroom.message}',
+                        style: TextStyle(color: Colors.white)),
+                  )));
+            } else  {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Center(
+                    child: Text(
+                      '${state.clearClassroom.message}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )));
+
+            }}
+
+        },
         builder: (context, state) {
           var cubit = ShowClassroomsCubit.get(context);
           return Padding(
@@ -37,12 +61,9 @@ class ClassroomsShow extends StatelessWidget {
                   ),
                   MyText(name: 'Classrooms'),
                   SizedBox(
-                    height: 30,
+                    height: h/16,
                   ),
-                  SearchBar(),
-                  SizedBox(
-                    height: 30,
-                  ),
+
                   Container(
                     width: 4 / 5 * w,
                     height: 50,
@@ -85,6 +106,8 @@ class ClassroomsShow extends StatelessWidget {
                               buttColor: Colors.green,
                             ),
                           ),
+
+
                         ],
                       ),
                     ),
@@ -96,7 +119,22 @@ class ClassroomsShow extends StatelessWidget {
                           context,
                           state
                       )
-                  )
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.all(h/45),
+                  ),
+                  state is! ClearClassroomsLoadingState
+                      ? defaultButton(
+                      text: 'Clear Classrooms',
+                      width: w / 5,
+                      height: h / 20,
+                      buttColor: Colors.orangeAccent,
+                      onPressed: () {
+                        cubit.clearClassrooms(
+
+                        );
+                      })
+                      : Center(child: CircularProgressIndicator()),
                 ],
               ),
             ),

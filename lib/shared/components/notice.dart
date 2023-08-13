@@ -155,10 +155,8 @@ Widget ShowNotesScreenItem(w, student, index, context,ShowNoticeCubit cubit,stat
             ),
           ),
         ),
-        Expanded(
-          child: Container(
-          ),
-        ),
+
+
 
 
       ],
@@ -192,16 +190,20 @@ Widget ShowNotesItem(w, note, index, context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
     child: Row(
       children: [
-        Expanded(
-            child: Center(
-              child: Text('${note.id}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
+
         Expanded(
             child: Center(
               child: Text('${note.date}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )), Expanded(
+            )),
+        Expanded(
+            child: Center(
+              child: Text('${note.day}',
+                  style: TextStyle(overflow: TextOverflow.ellipsis)),
+            )),
+
+
+        Expanded(
             child: Center(
               child: Text('${note.content}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),

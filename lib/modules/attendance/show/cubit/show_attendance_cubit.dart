@@ -125,7 +125,7 @@ class ShowAttendanceCubit extends Cubit<ShowAttendanceStates> {
   {
     emit(ShowClassroomsXLoadingState());
     DioHelper.getData(
-      url: GETCLASSROOMS,
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
       token: token,
     ).then((value) {
       print(value?.data);

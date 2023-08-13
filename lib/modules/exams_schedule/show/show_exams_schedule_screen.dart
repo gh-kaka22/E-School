@@ -14,8 +14,7 @@ class ShowExamSchedule extends StatelessWidget {
     double padding = MediaQuery.of(context).size.width / 20;
     double radius = 20;
     return BlocProvider(
-      create: (BuildContext context) => ShowExamScheduleCubit()
-        ..getExamSchedule(),
+      create: (BuildContext context) => ShowExamScheduleCubit()..getExamSchedule(),
       child: BlocConsumer<ShowExamScheduleCubit, ShowExamScheduleState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -142,7 +141,7 @@ class ShowExamSchedule extends StatelessWidget {
                   Expanded(
                       child: ShowExamScheduleBuilder(
                     w,
-                    cubit.showExamScheduleModel!.data ,
+                    cubit.showExamScheduleModel?.data ,
                     context,
                     state,
                   ))

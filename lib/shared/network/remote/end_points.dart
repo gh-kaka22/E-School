@@ -12,6 +12,8 @@ const GETSTUDENTSBYGRADEANDCLASSROOM='show_by_classroomAndGrade';
 const SHOWSTUDENTBYID='show_student';
 const UPDATESTUDENT='update_student';
 const CREATCLASSONESTUDENT='createOneStudent';
+const EditCLASSONESTUDENT='classroom/update/student';
+
 ///TEACHER
 const UPDATETEACHER='update_teacher/';
 const ADDTEACHER='teacher/register';
@@ -20,7 +22,7 @@ const SEARCHTEACHER='search_teacher';
 const SHOWTIMETABLETEACHER='show_teacher_schedule';
 ///NOTICES
 const ADDNOTICE='/storenotice';
-const SHOWNOTES='/Ashownotice/1';
+const SHOWNOTES='/Ashownotice';
 ///SUBJECTS
 const ADDSUBJECT='create_subject';
 const GETSUBJECTS='subjects';
@@ -36,6 +38,7 @@ const SOLVECOMPLAINTS='admin/complaints';
 const ADDCLASSROOM='create_classroom';
 const GETCLASSROOMS='classrooms/index';
 const GETCLASSROOMSOFAGRADE='classrooms/showByGrade';
+const CLEARCLASSROOM='/classrooms/clear';
 
 ///SCHOOLYEARS
 const ADDSCHOOLYEAR='create_schoolyear';

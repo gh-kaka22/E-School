@@ -34,18 +34,8 @@ class ShowAdmins extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ASearchBar(
 
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
+
                   Container(
 
                     width: 4 / 5 * w,

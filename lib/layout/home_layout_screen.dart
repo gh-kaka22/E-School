@@ -11,6 +11,8 @@ import 'package:untitled/modules/books/show/show_books.dart';
 
 import 'package:untitled/modules/classrooms/add/add_classroom.dart';
 import 'package:untitled/modules/classrooms/show/show_classrooms.dart';
+import 'package:untitled/modules/classrooms_for_students/classrooms_for_students.dart';
+import 'package:untitled/modules/complaint/show/complaint.dart';
 import 'package:untitled/modules/employee/add/add_employee_screen.dart';
 import 'package:untitled/modules/employee/show/show_employee.dart';
 import 'package:untitled/modules/exams/add/exams_add_screen.dart';
@@ -23,6 +25,7 @@ import 'package:untitled/modules/login/login_screen.dart';
 import 'package:untitled/modules/news/add/create_post.dart';
 import 'package:untitled/modules/news/show/get_posts.dart';
 import 'package:untitled/modules/notice/add/add_notice.dart';
+import 'package:untitled/modules/notice/show/show_note.dart';
 import 'package:untitled/modules/notice/show/show_notes.dart';
 import 'package:untitled/modules/results/results_screen.dart';
 import 'package:untitled/modules/schoolYears/add/add_school_year.dart';
@@ -98,6 +101,11 @@ class HomeLayout extends StatelessWidget {
                               showScreen: StudentsShow(),
                               addScreen: StudentRegisterScreen()
                           ),
+                            cubit.SpecialSideBarItem(
+                              text: 'Section',
+                              screen: ClassroomForStudnt(),
+                            ),
+
                           cubit.SideBarItem(
                               text: 'Teachers',
                               showScreen: ShowTeachers(),
@@ -118,11 +126,6 @@ class HomeLayout extends StatelessWidget {
                               showScreen: TimetableShow(),
                               addScreen: TimetableAdd()
                           ),
-                            cubit.SideBarItem(
-                                text: 'Exams Schedules',
-                                showScreen: ShowExamSchedule(),
-                                addScreen: AddExamSchedule()
-                            ),
                           cubit.SideBarItem(
                               text: 'Exams',
                               showScreen: ExamsShow(),
@@ -132,6 +135,11 @@ class HomeLayout extends StatelessWidget {
                               text: 'Files',
                               showScreen: FilesShow(),
                               addScreen: AddFile()
+                          ),
+                            cubit.SideBarItem(
+                              text: 'Exam Schedule',
+                              showScreen: ShowExamSchedule(),
+                              addScreen: AddExamSchedule()
                           ),
                             cubit.SideBarItem(
                                 text: 'Books',
@@ -166,6 +174,10 @@ class HomeLayout extends StatelessWidget {
                             cubit.SpecialSideBarItem(
                               text: 'Results',
                               screen: ResultsScreen(),
+                            ),
+                            cubit.SpecialSideBarItem(
+                              text: 'Complaints',
+                              screen: ShowComplaints(),
                             ),
                           cubit.SpecialSideBarItem(
                             text: 'Settings',

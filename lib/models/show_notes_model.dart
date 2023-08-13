@@ -32,6 +32,7 @@ class ShowNotesModel {
 class Data {
   int? id;
   int? studentId;
+  String? day;
   String? type;
   String? content;
   String? date;
@@ -41,6 +42,7 @@ class Data {
   Data(
       {this.id,
         this.studentId,
+        this.day,
         this.type,
         this.content,
         this.date,
@@ -50,6 +52,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     studentId = json['student_id'];
+    day = json['day'];
     type = json['type'];
     content = json['content'];
     date = json['date'];
@@ -61,6 +64,7 @@ class Data {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['student_id'] = this.studentId;
+    data['day'] = this.day;
     data['type'] = this.type;
     data['content'] = this.content;
     data['date'] = this.date;

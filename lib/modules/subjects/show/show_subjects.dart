@@ -35,12 +35,10 @@ class SubjectsShow extends StatelessWidget {
                   ),
                   MyText(name: 'Subjects'),
                   SizedBox(
-                    height: 30,
+                    height: h/16,
                   ),
-                  SearchBar(),
-                  SizedBox(
-                    height: 30,
-                  ),
+
+
                   Container(
                     width: 4 / 5 * w,
                     height: 50,

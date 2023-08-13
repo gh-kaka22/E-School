@@ -21,7 +21,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   String? gender;
   String? grade;
   String? gradenumber;
-  int? ischeck;
+  int? ischeck=0;
 
 
   changeCheck(val) {
@@ -67,7 +67,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       'religion': dropDownValue.toString(),
       'gender_id': gender.toString(),
       'grade_number': gradeID.toString(),
-      "have_kids": ischeck,
+      "have_kids": ischeck.toString(),
       'national_id': national_id.toString(),
     };
 

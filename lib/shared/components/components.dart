@@ -19,6 +19,7 @@ import 'package:untitled/modules/schoolYears/show/cubit/show_school_year_states.
 import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/students/show/show_students.dart';
+import 'package:untitled/modules/students/update/cubit/update_students_cubit.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 import 'package:untitled/modules/subjects/show/cubit/show_subjects_states.dart';
 import 'package:untitled/shared/components/constants.dart';
@@ -162,7 +163,7 @@ TextFormField buildSForm({
       if (text.length > 500) {
         return 'It is too long';
       }
-      if (text.length < 2) {
+      if (text.length < 1) {
         return 'It is too short';
       }
       return null;
@@ -386,7 +387,15 @@ Widget ShowStudentsItem(w,h,padding,radius, student, index, context,ShowStudents
               child: Center(
                 child: defaultButton(
                   onPressed: () {
-                    navigateTo(context, UpdateStudent(id:student.studentId,));
+
+                    navigateTo(context, UpdateStudent(id:student.studentId,),);
+                        cubit.getStudentData(student.studentId);
+
+
+
+
+
+                    print(student.studentId);
                   },
                   height: 30,
                   text: 'Edit',

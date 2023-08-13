@@ -25,7 +25,9 @@ class UpdateStudent extends StatelessWidget {
 
   var addressController = TextEditingController();
   var nationalityController = TextEditingController();
-  UpdateStudent({super.key, required id});
+
+ final  int id;
+  UpdateStudent({ required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,8 @@ class UpdateStudent extends StatelessWidget {
     double borderwidth = 1;
 
     return BlocProvider(
-      create: (context) => UpdateStudentsCubit()
-        ..getStudentData(1),
+      create: (context) => UpdateStudentsCubit()..getStudentData(id),
+
 
       child: BlocConsumer<UpdateStudentsCubit, UpdateStudentsState>(
         listener: (context, state) {
@@ -64,16 +66,16 @@ class UpdateStudent extends StatelessWidget {
           var cubit = UpdateStudentsCubit.get(context);
           var model = UpdateStudentsCubit.get(context).updateStudentModel;
           if (model != null && model.data != null) {
-            FnameController.text = model.data!.firstName!;
-            LnameController.text = model.data!.lastName!;
-            fatherPhoneController.text = model.data!.fatherPhoneNumber! ?? '';
-            motherPhoneController.text = model.data!.motherPhoneNumber!;
-            addressController.text = model.data!.address!;
-            detailsController.text = model.data!.details!;
-            FatherController.text = model.data!.fatherFirstName!;
-            FmotherController.text = model.data!.motherFirstName!;
-            LmotherController.text = model.data!.motherLastName!;
-            nationalityController.text = model.data!.nationalId!;
+            FnameController.text = model.data!.firstName ?? '';
+            LnameController.text = model.data!.lastName ?? '';
+            fatherPhoneController.text = model.data!.fatherPhoneNumber ?? '';
+            motherPhoneController.text = model.data!.motherPhoneNumber ?? '';
+            addressController.text = model.data!.address ?? '';
+            detailsController.text = model.data!.details ?? '';
+            FatherController.text = model.data!.fatherFirstName ?? '';
+            FmotherController.text = model.data!.motherFirstName ?? '';
+            LmotherController.text = model.data!.motherLastName ?? '';
+            nationalityController.text = model.data!.nationalId ?? '';
           }
           return Material(
             child: ConditionalBuilder(
@@ -89,11 +91,18 @@ class UpdateStudent extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
+                          child: IconButton(onPressed: (){
+                            Navigator.pop(context);
+                          }, icon: Icon(Icons.arrow_back),color: kDarkBlue2Color,),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
                           child: Text(
-                            "Update Student Data : ",
+                            "Update Student Data ",
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineLarge!
@@ -301,6 +310,7 @@ class UpdateStudent extends StatelessWidget {
                                 onPressed: () {
                                   if (formkey.currentState!.validate()) {
                                     cubit.UpdateStudentData(
+                                      id: id,
                                       firstname: FnameController.text,
                                       lastname: LnameController.text,
                                       firstFatherName: FatherController.text,

@@ -2,6 +2,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
+import 'package:untitled/modules/students/update/cubit/update_students_cubit.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/search_bar.dart';
 import 'package:untitled/shared/components/text_components.dart';
@@ -206,6 +207,7 @@ class StudentsShow extends StatelessWidget {
                     context,
                     state,
                     cubit,
+
                   ))
                 ],
               ),

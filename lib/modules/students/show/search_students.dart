@@ -23,91 +23,93 @@ class StudentsSearchBar extends StatelessWidget {
           double w=MediaQuery.of(context).size.width;
           double h=MediaQuery.of(context).size.height;
           return
-            Column(
+            Scaffold(
+              body: Column(
 
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding:  EdgeInsets.only(top: w/40),
-                  child: Container(
-                    height:50 ,
-                    width: MediaQuery.of(context).size.width/5,
-                    // padding: EdgeInsets.symmetric(horizontal: 30),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding:  EdgeInsets.only(top: w/40),
+                    child: Container(
+                      height:50 ,
+                      width: MediaQuery.of(context).size.width/5,
+                      // padding: EdgeInsets.symmetric(horizontal: 30),
+                      decoration: BoxDecoration(
+                        color: kSearchBackgroundColor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: defaultFormField(
+                          controller: searchController,
+                          type: TextInputType.text,
+                          onChange: (value){
+                            ShowStudentsCubit.get(context).getSearch(value);
+                          },
+                          label: 'Search For Students'),
+
+
+                    ),
+                  ),
+                  SizedBox(height: 50,),
+                  Container(
+
+                    width: 4 / 5 * w,
+                    height: 50,
                     decoration: BoxDecoration(
-                      color: kSearchBackgroundColor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: defaultFormField(
-                        controller: searchController,
-                        type: TextInputType.text,
-                        onChange: (value){
-                          ShowStudentsCubit.get(context).getSearch(value);
-                        },
-                        label: 'Search For Students'),
+                        color:  Colors.white ,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: Color.fromRGBO(0, 0, 0, 0.2),
+                              blurRadius: 20) //blur radius of shadow
+                        ]),
+                    child: Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Center(
+                                child: ShowText(name:'Id',
+                                ),
+                              )),
+                          Expanded(
+                              child: Center(
+                                child: ShowText(name:'First Name',
+                                ),
+                              )),
+                          Expanded(
+                            child: Center(child: ShowText(name:'Last Name')),
+                          ),
+                          Expanded(child: Center(child: ShowText(name:'Subject'))),
+                          Expanded(
+                              child: Center(
+                                child: ShowText(name:'address',
+                                ),
+                              )),
+                          Expanded(
+                              child: Center(
+                                child: ShowText(name:'details',
+                                ),
+                              )),
+                          Expanded(
+                              child: Center(
+                                child: ShowText(name:'Edit',
+                                ),
+                              )),
 
 
-                  ),
-                ),
-                SizedBox(height: 50,),
-                Container(
-
-                  width: 4 / 5 * w,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color:  Colors.white ,
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: Color.fromRGBO(0, 0, 0, 0.2),
-                            blurRadius: 20) //blur radius of shadow
-                      ]),
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                            child: Center(
-                              child: ShowText(name:'Id',
-                              ),
-                            )),
-                        Expanded(
-                            child: Center(
-                              child: ShowText(name:'First Name',
-                              ),
-                            )),
-                        Expanded(
-                          child: Center(child: ShowText(name:'Last Name')),
-                        ),
-                        Expanded(child: Center(child: ShowText(name:'Subject'))),
-                        Expanded(
-                            child: Center(
-                              child: ShowText(name:'address',
-                              ),
-                            )),
-                        Expanded(
-                            child: Center(
-                              child: ShowText(name:'details',
-                              ),
-                            )),
-                        Expanded(
-                            child: Center(
-                              child: ShowText(name:'Edit',
-                              ),
-                            )),
-
-
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: SearchStudentsBuilder(
-                      w,
-                      ShowStudentsCubit.get(context).search,
-                      context,
-                      state),
-                ),
-              ],
+                  Expanded(
+                    child: SearchStudentsBuilder(
+                        w,
+                        ShowStudentsCubit.get(context).search,
+                        context,
+                        state),
+                  ),
+                ],
 
+              ),
             );
         },
       ),

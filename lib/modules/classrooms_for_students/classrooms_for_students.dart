@@ -115,6 +115,22 @@ class ClassroomForStudnt extends StatelessWidget {
                           );
                         })
                         : Center(child: CircularProgressIndicator()),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                    ),
+                    state is! EditClassroomsForStudentLoadingState
+                        ? defaultButton(
+                        text: 'Edit',
+                        width: w / 5,
+                        height: h / 20,
+                        buttColor: Colors.orangeAccent,
+                        onPressed: () {
+                          cubit.EditClass(
+                            student_id: studentID.text,
+                            classroom_id: ClassID.text,
+                          );
+                        })
+                        : Center(child: CircularProgressIndicator()),
                   ],
                 ),
               ),

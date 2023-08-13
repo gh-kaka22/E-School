@@ -20,8 +20,8 @@ class AddNotice extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
 
     return BlocProvider(
-      create: (BuildContext context) => AddNoticeCubit()..getStudents(),
-      //..getClassrooms()..getSubjects()..getSchoolYear(),
+      create: (BuildContext context) => AddNoticeCubit()..getStudents()..getClassrooms(7),
+
       child: BlocConsumer<AddNoticeCubit, AddNoticeState>(
         listener: (context, state) {
           if (state is AddNoticeModelState) {
@@ -54,6 +54,10 @@ class AddNotice extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+                  SizedBox(
+                    height: 30,
+                  ),
                   MyText(
                     name: 'Add Your Notice',
                   ),
@@ -64,9 +68,13 @@ class AddNotice extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding:  EdgeInsets.only(right: w/20),
-                        child: Expanded(
+                      SizedBox(
+                        width: w/50,
+
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding:  EdgeInsets.only(right: w/50),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                                 color: kDarkBlue2Color,
@@ -79,7 +87,7 @@ class AddNotice extends StatelessWidget {
                                       blurRadius: 5) //blur radius of shadow
                                 ]),
                             child: Padding(
-                              padding:  EdgeInsets.only(left: w/20, right: w/20),
+                              padding:  EdgeInsets.only(left: w/14, right: w/30),
                               child: DropdownButton<dynamic>(
                                 underline: const SizedBox(),
                                 value: cubit.dropDownValueClass,
@@ -101,9 +109,10 @@ class AddNotice extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding:  EdgeInsets.only(right: w/20),
-                        child: Expanded(
+                      Expanded(
+                        child: Padding(
+
+                          padding:  EdgeInsets.only(right: w/50),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                                 color: kDarkBlue2Color,
@@ -116,7 +125,7 @@ class AddNotice extends StatelessWidget {
                                       blurRadius: 5) //blur radius of shadow
                                 ]),
                             child: Padding(
-                              padding:  EdgeInsets.only(left: w/20, right: w/30),
+                              padding:  EdgeInsets.only(left: w/14, right: w/30),
                               child: DropdownButton<dynamic>(
                                 underline: const SizedBox(),
                                 value: cubit.dropDownValueSection,
@@ -126,7 +135,7 @@ class AddNotice extends StatelessWidget {
                                 ),
                                 iconSize: 24,
                                 elevation: 40,
-                                hint: Text('Choose Section'),
+                                hint: Text('Choose Section',style: TextStyle(color: kGold1Color),),
                                 style:
                                     TextStyle(color: kGold1Color, fontSize: 16),
                                 onChanged: (newValue) {
@@ -138,70 +147,99 @@ class AddNotice extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding:  EdgeInsets.only(right: w/20),
-                        child: Expanded(
-                            child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              color: kDarkBlue2Color,
-                              border: Border.all(color: kGold1Color, width: 3),
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.57),
-                                    //shadow for button
-                                    blurRadius: 5) //blur radius of shadow
-                              ]),
-                          child: Padding(
-                            padding:  EdgeInsets.only(left: w/20, right: w/20),
-                            child: DropdownButton<dynamic>(
-                              underline: const SizedBox(),
-                              value: cubit.dropDownValueType,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: kGold1Color,
-                              ),
-                              iconSize: 24,
-                              elevation: 40,
-                              hint: Text('Choose Type'),
-                              style: TextStyle(color: kGold1Color, fontSize: 16),
-                              onChanged: (newValue) {
-                                cubit.changeTypeDropDownButton(newValue!);
-                              },
-                              items: cubit.menuItemsType,
-                            ),
-                          ),
-                        )),
-                      ),
+                      // Expanded(
+                      //   child: Padding(
+                      //     padding:  EdgeInsets.only(right: w/50),
+                      //     child: DecoratedBox(
+                      //       decoration: BoxDecoration(
+                      //           color: kDarkBlue2Color,
+                      //           border: Border.all(color: kGold1Color, width: 3),
+                      //           borderRadius: BorderRadius.circular(50),
+                      //           boxShadow: <BoxShadow>[
+                      //             BoxShadow(
+                      //                 color: Color.fromRGBO(0, 0, 0, 0.57),
+                      //                 //shadow for button
+                      //                 blurRadius: 5) //blur radius of shadow
+                      //           ]),
+                      //       child: Padding(
+                      //         padding:  EdgeInsets.only(left: w/14, right: w/30),
+                      //         child: DropdownButton<dynamic>(
+                      //           underline: const SizedBox(),
+                      //           value: cubit.dropDownValueType,
+                      //           icon: Icon(
+                      //             Icons.keyboard_arrow_down,
+                      //             color: kGold1Color,
+                      //           ),
+                      //           iconSize: 24,
+                      //           elevation: 40,
+                      //           hint: Text('Choose Type'),
+                      //           style: TextStyle(color: kGold1Color, fontSize: 16),
+                      //           onChanged: (newValue) {
+                      //             cubit.changeTypeDropDownButton(newValue!);
+                      //           },
+                      //           items: cubit.menuItemsType,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: kGold1Color,
-                            side: BorderSide(width: 1, color:kDarkBlue1Color),
-                            elevation: 0,
-                          ),
-                          onPressed: () => cubit.selectDate(context),
-                          child: const Text(
-                            'Select date ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
+                        child: Container(
+
+                          width: w/4.3,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 3,
+                              color: kGold1Color,
                             ),
+                            color: kDarkBlue2Color,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Row(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            children: [
+                              Text("${cubit.selectedDate}"
+                                  .split(' ')[0],
+                                style: TextStyle(color: kGold1Color),
+
+                              ),
+
+                              SizedBox(
+                                width: 20,
+                              ),
+                              TextButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:kDarkBlue2Color,
+                                  foregroundColor: kGold1Color,
+                                  side: BorderSide(
+                                      width: 1, color: kGold1Color),
+                                  elevation: 0,
+                                ),
+                                onPressed: () =>
+                                    cubit.selectDate(context),
+                                child: const Text(
+                                  'Select date of birth',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
+
                     ],
+
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //
-                  //   ],
-                  // ),
+
+
+
+              
                   SizedBox(
                     height: 30,
                   ),
@@ -249,7 +287,7 @@ class AddNotice extends StatelessWidget {
                   Expanded(
                       child: AddNoticeBuilder(
                           w,
-                          cubit.addExamsModel?.data,
+                          cubit.showStudentsModel?.data,
                           cubit.dropDownValueType,
                           cubit.selectedDate,
                           context,

@@ -1,16 +1,17 @@
 import 'dart:convert';
 
-UpdateStudentModel showUpdateSTModelFromJson(String str) => UpdateStudentModel.fromJson(json.decode(str));
+UpdateStudentModel showUpdateSTModelFromJson(String str) =>
+    UpdateStudentModel.fromJson(json.decode(str));
 
-String showUpdateSTModelToJson(UpdateStudentModel data) => json.encode(data.toJson());
-
+String showUpdateSTModelToJson(UpdateStudentModel data) =>
+    json.encode(data.toJson());
 
 class UpdateStudentModel {
   bool? status;
   String? message;
   Data? data;
 
-  UpdateStudentModel({ this.status, this.message,  this.data});
+  UpdateStudentModel({this.status, this.message, this.data});
 
   UpdateStudentModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -52,29 +53,28 @@ class Data {
   String? motherPhoneNumber;
   String? nationalId;
 
-
   Data(
       {this.studentId,
-        this.firstName,
-        this.lastName,
-        this.religion,
-        this.dateOfBirth,
-        this.address,
-        this.details,
-        this.gradeId,
-        this.genderId,
-        this.parentId,
-        this.userId,
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.fatherFirstName,
-        this.fatherLastName,
-        this.fatherPhoneNumber,
-        this.motherFirstName,
-        this.motherLastName,
-        this.motherPhoneNumber,
-        this.nationalId});
+      this.firstName,
+      this.lastName,
+      this.religion,
+      this.dateOfBirth,
+      this.address,
+      this.details,
+      this.gradeId,
+      this.genderId,
+      this.parentId,
+      this.userId,
+      this.status,
+      this.createdAt,
+      this.updatedAt,
+      this.fatherFirstName,
+      this.fatherLastName,
+      this.fatherPhoneNumber,
+      this.motherFirstName,
+      this.motherLastName,
+      this.motherPhoneNumber,
+      this.nationalId});
 
   Data.fromJson(Map<String, dynamic> json) {
     studentId = json['student_id'];
@@ -124,5 +124,10 @@ class Data {
     data['mother_phone_number'] = this.motherPhoneNumber;
     data['national_id'] = this.nationalId;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Data(studentId: $studentId, firstName: $firstName, lastName: $lastName, religion: $religion, dateOfBirth: $dateOfBirth, address: $address, details: $details, gradeId: $gradeId, genderId: $genderId, parentId: $parentId, userId: $userId, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, fatherFirstName: $fatherFirstName, fatherLastName: $fatherLastName, fatherPhoneNumber: $fatherPhoneNumber, motherFirstName: $motherFirstName, motherLastName: $motherLastName, motherPhoneNumber: $motherPhoneNumber, nationalId: $nationalId)';
   }
 }

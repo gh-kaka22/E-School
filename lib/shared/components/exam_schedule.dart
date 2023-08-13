@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,12 @@ Widget ShowExamScheduleItem(w, schedule, index, context) => Container(
                     return AlertDialog(
                       content: Container(
                         width: w/4,
-                        child:Image(image: NetworkImage('${schedule.image}'),),
+                        //todo: cachenetworkImage
+                        child:CachedNetworkImage(
+                          imageUrl: 'http://127.0.0.1:8000/${schedule.image}',
+                          placeholder: (context,url)=>const CircularProgressIndicator(),
+                          errorWidget: (context,url,error)=>Center(child: Text('Image Not Found')),
+                        ),
                       ),
                       actions: <Widget>[
                         TextButton(

@@ -2,6 +2,7 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:untitled/modules/students/show/search_students.dart';
 import 'package:untitled/modules/teachers/show/cubit/show_teachers_cubit.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/teacher.dart';
@@ -34,6 +35,7 @@ class SearchBar extends StatelessWidget {
           MaterialButton(
             height: 50,
             onPressed: () {
+              navigateTo(context, StudentsSearchBar());
             },
             color: kDarkBlue2Color,
             padding: EdgeInsets.symmetric(

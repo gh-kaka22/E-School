@@ -67,6 +67,7 @@ dependencies:
   pusher_client:
   pusher_channels_flutter: ^2.1.2
   url_launcher:
+  cached_network_image:
 
 
 

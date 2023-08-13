@@ -13,3 +13,15 @@ class ClassroomsForStudentErrorState extends ClassroomsForStudentState {
   final String error;
   ClassroomsForStudentErrorState(this.error);
 }
+
+
+///=================================================================
+class EditClassroomsForStudentLoadingState extends ClassroomsForStudentState {}
+class EditClassroomsForStudentSuccessState extends ClassroomsForStudentState {
+  final ClassOneStudentModel classOneStudentModel;
+  EditClassroomsForStudentSuccessState (this.classOneStudentModel);
+}
+class EditClassroomsForStudentErrorState extends ClassroomsForStudentState {
+  final String error;
+  EditClassroomsForStudentErrorState(this.error);
+}

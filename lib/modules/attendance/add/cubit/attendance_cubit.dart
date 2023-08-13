@@ -36,21 +36,21 @@ class AttendanceCubit extends Cubit<AttendanceState> {
     emit(CheckIsAbsentState());
     print(idStudents);
   }
-  List<DropdownMenuItem> menuItemsClass = [
+  List<DropdownMenuItem<String>> menuItemsClass = [
     DropdownMenuItem(
       value: '7',
-      child: DropText(name: '7'),
+      child: Text('7'),
     ),
     DropdownMenuItem(
       value: '8',
-      child: DropText(name: '8'),
+      child: Text('8'),
     ),
     DropdownMenuItem(
       value: '9',
-      child: DropText(name: '9'),
+      child: Text('9'),
     ),
   ];
-  List<DropdownMenuItem> menuItemsSection = [];
+  List<DropdownMenuItem<String>> menuItemsSection = [];
 
   ShowStudentsModel? showStudentsModel;
   List<dynamic>? students;
@@ -92,6 +92,8 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       emit(AttendanceErrorState(error.toString()));
     });
   }
+
+
 
   ///get students By Grade
   void getStudentsByGrade(value) {
@@ -140,15 +142,14 @@ class AttendanceCubit extends Cubit<AttendanceState> {
   }
 
 
-
-///getClassrooms
+  ///getClassrooms
   ClassroomModel? classroomModel;
   List<dynamic>? classrooms;
   void getClassrooms(value)
   {
     emit(ShowClassroomsXLoadingState());
     DioHelper.getData(
-      url: GETCLASSROOMS,
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
       token: token,
     ).then((value) {
       print(value?.data);
@@ -159,7 +160,7 @@ class AttendanceCubit extends Cubit<AttendanceState> {
       classrooms = classroomModel?.data;
       print(classrooms?[1].roomNumber);
       menuItemsSection = classrooms!.map((classroom) {
-        return DropdownMenuItem<dynamic>(
+        return DropdownMenuItem<String>(
           value: classroom.roomNumber,
           child: Text(classroom.roomNumber),
         );

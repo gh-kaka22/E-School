@@ -6,6 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:untitled/models/add_exams_model.dart';
 import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/notice_model.dart';
+import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
@@ -19,7 +20,7 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
 
   static AddNoticeCubit get(context) => BlocProvider.of(context);
   String? dropDownValueClass = '7';
-  String? dropDownValueSection = '1';
+  String? dropDownValueSection ;
   String? dropDownValueType = '1';
   List<DropdownMenuItem> menuItemsClass = [
     DropdownMenuItem(
@@ -64,23 +65,23 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
   }
 
   List<TextEditingController> controllers = [];
-  AddExamsModel? addExamsModel;
+  ShowStudentsModel? showStudentsModel;
   List<dynamic>? students;
 
   void getStudents() {
-    emit(AddNoticeLoadingState());
+    emit(ShowStudentLoadingState());
     DioHelper.getData(
       url: GETSTUDENTS,
       token: token,
     ).then((value) {
       print(value?.data);
-      addExamsModel = AddExamsModel.fromJson(value?.data);
-      print(addExamsModel?.status);
-      print(addExamsModel?.message);
-      print(addExamsModel?.data?[0].email);
-      students = addExamsModel?.data;
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      print(showStudentsModel?.data?[0].email);
+      students = showStudentsModel?.data;
       print(students?[1].religion);
-      emit(ShowExamSuccessState(addExamsModel!));
+      emit(ShowStudentsSuccessState(showStudentsModel!));
     }).catchError((error) {
       print(error.toString());
       emit(AddNoticeErrorState(error.toString()));
@@ -88,24 +89,78 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
   }
 
   void getStudentByGrade(value) {
-    emit(AddNoticeLoadingState());
+    emit(ShowStudentLoadingState());
     DioHelper.getData(
       url: '${GETSTUDENTSBYGRADE}/${value}',
       token: token,
     ).then((value) {
       print(value?.data);
-      addExamsModel = AddExamsModel.fromJson(value?.data);
-      print(addExamsModel?.status);
-      print(addExamsModel?.message);
-      print(addExamsModel?.data?[0].email);
-      students = addExamsModel?.data;
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      students = showStudentsModel?.data;
       print(students?[1].religion);
-      emit(ShowExamSuccessState(addExamsModel!));
+      emit(ShowStudentsSuccessState(showStudentsModel!));
     }).catchError((error) {
       print(error.toString());
-      emit(AddNoticeErrorState(error.toString()));
+      emit(ShowStudentsErrorState(error.toString()));
     });
   }
+
+  void getStudentsByGradeAndClassroom(grade,classroom)
+  {
+    emit(ShowStudentLoadingState());
+    DioHelper.postData(
+      url: GETSTUDENTSBYGRADEANDCLASSROOM,
+      data:{
+        'grade_id': grade,
+        'room_number': classroom,
+      },
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      print(showStudentsModel?.data?[0]);
+      students = showStudentsModel?.data;
+      print(students?[1].religion);
+      emit(ShowStudentsSuccessState(showStudentsModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowStudentsErrorState(error.toString()));
+    });
+  }
+
+  ClassroomModel? classroomModel;
+  List<dynamic>? classrooms;
+  void getClassrooms(value)
+  {
+    emit(ShowClassroomsXLoadingState());
+    DioHelper.getData(
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      classroomModel = ClassroomModel.fromJson(value?.data);
+      print(classroomModel?.status);
+      print(classroomModel?.message);
+      print(classroomModel?.data?[0].capacity);
+      classrooms = classroomModel?.data;
+      print(classrooms?[1].roomNumber);
+      menuItemsSection = classrooms!.map((classroom) {
+        return DropdownMenuItem<String>(
+          value: classroom.roomNumber,
+          child: Text(classroom.roomNumber),
+        );
+      }).toList();
+      emit(ShowClassroomsXSuccessState(classroomModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowClassroomsXErrorState(error.toString()));
+    });
+  }
+
 
 
   DateTime selectedDate = DateTime.now();
@@ -149,7 +204,7 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
       noticeModel = NoticeModel.fromJson(value?.data);
       emit(AddNoticeModelState(noticeModel!));
     }).catchError((error) {
-      print('mmmmmmmmmmmmmm ${error}');
+      print('Error===> ${error}');
       emit(
         AddNoticeErrorState(error.toString()),
       );
@@ -182,9 +237,8 @@ class AddNoticeCubit extends Cubit<AddNoticeState> {
                         studentId: '$studentId',
                         typeId: type,
                         contentt: notes.text,
-                        date: '2020-02-10',
+                        date:  DateFormat('yyyy-MM-dd').format(selectedDate).toString(),
 
-                        //todo: عم يعطي error وقت حط dateTime
                       );
 
                       notes.clear();

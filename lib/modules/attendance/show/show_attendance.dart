@@ -14,7 +14,7 @@ class ShowAttendance extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double padding=20;
+    double padding=w/20;
     double radius=10;
     return BlocProvider(
       create: (BuildContext context) => ShowAttendanceCubit()..getStudents()..getClassrooms(7),
@@ -104,7 +104,7 @@ class ShowAttendance extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Class'),
+                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -118,7 +118,20 @@ class ShowAttendance extends StatelessWidget {
                       SizedBox(
                         width: 20,
                       ),
-                      SearchBar(),
+                      Expanded(
+                        child: defaultButton(
+                          onPressed: () {
+                            cubit.getStudentsByGradeAndClassroom(
+                                cubit.dropDownValueClass,
+                                cubit.dropDownValueSection);
+                          },
+                          height: 30,
+                          text: 'Refresh',
+                          fontsize: 15,
+                          fontWeight: FontWeight.w300,
+                          buttColor: Colors.green,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(

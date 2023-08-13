@@ -1,6 +1,7 @@
 import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/show_result_student.dart';
 import 'package:untitled/models/show_students_model.dart';
+import 'package:untitled/models/update_student_model.dart';
 
 abstract class ShowStudentsStates {}
 
@@ -52,4 +53,14 @@ class ShowResultSuccessState extends ShowStudentsStates {
 class ShowResultStudentsErrorState extends ShowStudentsStates {
   final String error;
   ShowResultStudentsErrorState(this.error);
+}
+
+class ShowStudentInfoLoading extends ShowStudentsStates {}
+class ShowStudentInfoSuccess extends ShowStudentsStates {
+  UpdateStudentModel updateStudentModel;
+  ShowStudentInfoSuccess(this.updateStudentModel);
+}
+class ShowStudentInfoError extends ShowStudentsStates {
+  final String error;
+  ShowStudentInfoError(this.error);
 }

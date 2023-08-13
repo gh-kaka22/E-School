@@ -249,7 +249,7 @@ Widget ShowTeachersItem(w,h, teacher, index, context, cubit) => Container(
                     navigateTo(
                         context,
                         UpdateTeacher(
-                          id: teacher.id,
+                          id: teacher.teacherId,
                         ));
                   },
                   height: 30,

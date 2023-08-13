@@ -3,7 +3,9 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:untitled/models/add_exams_model.dart';
+import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/show_notes_model.dart';
+import 'package:untitled/models/show_students_model.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:untitled/shared/network/remote/dio_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
@@ -14,7 +16,7 @@ class ShowNoticeCubit extends Cubit<ShowNoticeState> {
   ShowNoticeCubit() : super(ShowNoticeInitial());
   static ShowNoticeCubit get(context) => BlocProvider.of(context);
   String? dropDownValueClass = '7';
-  String? dropDownValueSection = '1';
+  String? dropDownValueSection ;
  // String? dropDownValueType = '1';
   ShowNotesModel? showNotesModel;
   List<DropdownMenuItem> menuItems = [
@@ -59,54 +61,84 @@ class ShowNoticeCubit extends Cubit<ShowNoticeState> {
   //   print('drooooooo${dropDownValueType}');
   //   emit(ShowNoticeByType());
   // }
-  AddExamsModel? addExamsModel;
+
+  ShowStudentsModel? showStudentsModel;
   List<dynamic>? students;
   List<dynamic>? notes;
   void getStudents() {
-    emit(ShowNoticeLoadingState());
+    emit(ShowStudentLoadingState());
     DioHelper.getData(
       url: GETSTUDENTS,
       token: token,
     ).then((value) {
       print(value?.data);
-      addExamsModel = AddExamsModel.fromJson(value?.data);
-      print(addExamsModel?.status);
-      print(addExamsModel?.message);
-      print(addExamsModel?.data?[0].email);
-      students = addExamsModel?.data;
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      print(showStudentsModel?.data?[0].email);
+      students = showStudentsModel?.data;
       print(students?[1].religion);
-      emit(ShowExamSuccessState(addExamsModel!));
+      emit(ShowStudentsSuccessState(showStudentsModel!));
     }).catchError((error) {
       print(error.toString());
-      emit(ShowNoticeErrorState(error.toString()));
+      emit(ShowStudentsErrorState(error.toString()));
     });
   }
   void getStudentsByGrade(value)
   {
-    emit(ShowExamLoadingState());
+    emit(ShowStudentLoadingState());
     DioHelper.getData(
       url: '${GETSTUDENTSBYGRADE}/${value}',
       token: token,
     ).then((value) {
       print(value?.data);
-      addExamsModel = AddExamsModel.fromJson(value?.data);
-      print(addExamsModel?.status);
-      print(addExamsModel?.message);
-      print(addExamsModel?.data?[0].email);
-      students = addExamsModel?.data;
+      showStudentsModel = ShowStudentsModel.fromJson(value?.data);
+      print(showStudentsModel?.status);
+      print(showStudentsModel?.message);
+      print(showStudentsModel?.data?[0].email);
+      students = showStudentsModel?.data;
       print(students?[1].religion);
-      emit(ShowExamSuccessState(addExamsModel!));
+      emit(ShowStudentsSuccessState(showStudentsModel!));
     }).catchError((error){
       print(error.toString());
-      emit(ShowExamErrorState(error.toString()));
+      emit(ShowStudentsErrorState(error.toString()));
+    });
+  }
+  ///getClassrooms
+  ClassroomModel? classroomModel;
+  List<dynamic>? classrooms;
+  void getClassrooms(value)
+  {
+    emit(ShowClassroomsNLoadingState());
+    DioHelper.getData(
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      classroomModel = ClassroomModel.fromJson(value?.data);
+      print(classroomModel?.status);
+      print(classroomModel?.message);
+      print(classroomModel?.data?[0].capacity);
+      classrooms = classroomModel?.data;
+      print(classrooms?[1].roomNumber);
+      menuItems2 = classrooms!.map((classroom) {
+        return DropdownMenuItem<String>(
+          value: classroom.roomNumber,
+          child: Text(classroom.roomNumber),
+        );
+      }).toList();
+      emit(ShowClassroomsNSuccessState(classroomModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowClassroomsNErrorState(error.toString()));
     });
   }
 
-  void getNotes()
+  void getNotes(value)
   {
     emit(ShowNoticeLoadingState());
     DioHelper.getData(
-      url: SHOWNOTES,
+      url: '${SHOWNOTES}/${value}',
       token: token,
     ).then((value) {
       print(value?.data);

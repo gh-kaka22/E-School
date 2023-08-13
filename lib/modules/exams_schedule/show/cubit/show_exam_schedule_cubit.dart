@@ -12,7 +12,7 @@ part 'show_exam_schedule_state.dart';
 class ShowExamScheduleCubit extends Cubit<ShowExamScheduleState> {
   ShowExamScheduleCubit() : super(ShowExamScheduleInitial());
   static ShowExamScheduleCubit get(context) => BlocProvider.of(context);
-  String? dropDownValueClass;
+  String? dropDownValueClass='7';
   List<DropdownMenuItem> menuItemsClass = [
     DropdownMenuItem(
       value: '7',
@@ -54,7 +54,6 @@ class ShowExamScheduleCubit extends Cubit<ShowExamScheduleState> {
       emit(ShowExamScheduleErrorState(error.toString()));
     });
   }
-
 
 
   void getExamSchedule()

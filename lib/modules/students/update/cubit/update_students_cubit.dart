@@ -84,6 +84,7 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   }
 
   void UpdateStudentData({
+    required id,
     firstname,
     lastname,
     firstFatherName,
@@ -101,7 +102,7 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   }) {
     emit(UpdateStudentsLoading());
     DioHelper.postData(
-      url: '${UPDATESTUDENT}/${updateStudentModel?.data?.studentId}',
+      url: '${UPDATESTUDENT}/${id}',
       token: token,
       data: {
         'first_name': firstname,

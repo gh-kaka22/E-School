@@ -14,18 +14,31 @@ class ShowNoticeErrorState extends ShowNoticeState {
   final String error;
   ShowNoticeErrorState(this.error);
 }
+
+
+
+////////////////////////////////////////////////
 class ClassDropDownButtonState extends ShowNoticeState{}
 class SectionDropDownButtonState extends ShowNoticeState{}
 class TypeDropDownButtonState extends ShowNoticeState{}
 class ShowNoticeByType extends ShowNoticeState{}
-
-class ShowExamSuccessState extends ShowNoticeState {
-  final AddExamsModel showExamsModel;
-
-  ShowExamSuccessState(this.showExamsModel);
+class ShowClassroomsNLoadingState extends ShowNoticeState{}
+class ShowClassroomsNSuccessState extends ShowNoticeState{
+  final ClassroomModel classroomModel;
+  ShowClassroomsNSuccessState(this.classroomModel);
 }
-class ShowExamErrorState extends ShowNoticeState {
+class ShowClassroomsNErrorState extends ShowNoticeState{
   final String error;
-  ShowExamErrorState(this.error);
+  ShowClassroomsNErrorState(this.error);
 }
-class ShowExamLoadingState extends ShowNoticeState {}
+/////////////////////////////////
+class ShowStudentsSuccessState extends ShowNoticeState {
+  final ShowStudentsModel showStudentsModel;
+
+  ShowStudentsSuccessState(this.showStudentsModel);
+}
+class ShowStudentsErrorState extends ShowNoticeState {
+  final String error;
+  ShowStudentsErrorState(this.error);
+}
+class ShowStudentLoadingState extends ShowNoticeState {}

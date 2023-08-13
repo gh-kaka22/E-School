@@ -62,7 +62,7 @@ class AddClassroom extends StatelessWidget {
               color: Colors.white24,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(20),
+              padding:  EdgeInsets.all(h/40),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +83,7 @@ class AddClassroom extends StatelessWidget {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding:  EdgeInsets.all(h/45),
                             child: Row(
                               children: [
                                 Expanded(
@@ -124,9 +124,9 @@ class AddClassroom extends StatelessWidget {
                                       underline: Container(),
 
                                       hint: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 150,
-                                          left: 20,
+                                        padding: EdgeInsets.only(
+                                          right: h/5.3,
+                                          left: h/40,
                                         ),
                                         child: Text(
                                           'Choose Grade',
@@ -148,7 +148,7 @@ class AddClassroom extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(h/45),
                           ),
 
 
@@ -157,7 +157,7 @@ class AddClassroom extends StatelessWidget {
                     ),
 
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding:  EdgeInsets.all(h/45),
                     ),
                     state is! AddClassroomLoadingState
                         ? defaultButton(

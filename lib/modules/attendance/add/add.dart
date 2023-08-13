@@ -16,7 +16,7 @@ class AddAttendance extends StatelessWidget {
     double padding = MediaQuery.of(context).size.width / 20;
     double borderwidth=3.0;
     return BlocProvider(
-      create: (context) => AttendanceCubit()..getStudents()..getClassrooms(7),
+      create: (context) => AttendanceCubit()..getClassrooms(7)..getStudents(),
       child: BlocConsumer<AttendanceCubit, AttendanceState>(
         listener: (context, state) {
           if (state is AttendanceSuccessState) {
@@ -60,9 +60,7 @@ class AddAttendance extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-
                       Expanded(
-
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                               color: kDarkBlue2Color,
@@ -77,7 +75,7 @@ class AddAttendance extends StatelessWidget {
                           child: Padding(
                             padding:
                             EdgeInsets.only(left: padding, right: padding),
-                            child: DropdownButton<dynamic>(
+                            child: DropdownButton<String>(
                               underline: const SizedBox(),
                               value: cubit.dropDownValueClass,
                               icon: Icon(
@@ -97,6 +95,7 @@ class AddAttendance extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       SizedBox(
                         width: 20,
                       ),
@@ -115,7 +114,7 @@ class AddAttendance extends StatelessWidget {
                           child: Padding(
                             padding:
                             EdgeInsets.only(left: padding, right: padding),
-                            child: DropdownButton<dynamic>(
+                            child: DropdownButton<String>(
                               underline: const SizedBox(),
                               value: cubit.dropDownValueSection,
                               icon: Icon(
@@ -142,7 +141,7 @@ class AddAttendance extends StatelessWidget {
                       //SearchBar(),
                       Expanded(
                         child: Container(
-                          height: 50,
+                          height: 49,
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: borderwidth,

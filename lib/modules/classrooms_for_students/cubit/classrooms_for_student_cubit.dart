@@ -45,4 +45,35 @@ void UpdateClass({
   });
 }
 
+
+
+  void EditClass({
+    student_id,
+    classroom_id,
+  }) {
+    emit(ClassroomsForStudentLoadingState());
+    DioHelper.postData(
+      url: EditCLASSONESTUDENT,
+      token: token,
+      data: {
+        'student_id':student_id,
+        'classroom_id':classroom_id,
+      },
+    ).then((value) {
+      print(value?.data);
+      if (value!.data['status']) {
+        classOneStudentModel = ClassOneStudentModel.fromJson(value.data);
+        print(classOneStudentModel?.data);
+        emit(ClassroomsForStudentSuccessState(classOneStudentModel!));
+      } else {
+        emit(ClassroomsForStudentErrorState(value.data['message']));
+      }
+    }).catchError((error) {
+      print("Error ===> ${(error)}");
+      emit(
+        ClassroomsForStudentErrorState(error.toString()),
+      );
+    });
+  }
+
 }

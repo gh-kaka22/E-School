@@ -14,6 +14,8 @@ class StatsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
+    double padding=w/10;
+
     return BlocProvider(
       create: (BuildContext context) => StatsCubit()..getStats(),
       child: BlocConsumer<StatsCubit, StatsStates>(
@@ -22,7 +24,7 @@ class StatsScreen extends StatelessWidget {
           var cubit = StatsCubit.get(context);
           cubit.getDataC();
           return Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding:  EdgeInsets.all(w/50),
             child: SizedBox(
               height: h,
               width: 4 / 5 * w,
@@ -37,9 +39,10 @@ class StatsScreen extends StatelessWidget {
                         SizedBox(
                           height: 120,
                         ),
+
                         Container(
-                          height: 100,
-                          width: 500,
+                          height: h/8,
+                          width: w/3,
                           decoration:  BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.centerLeft,
@@ -69,7 +72,7 @@ class StatsScreen extends StatelessWidget {
                                     fontFamily: 'Nunito',
                                     color: Colors.white
                                 ),),
-                              SizedBox(width: 20,),
+                              SizedBox(width: w/70,),
                               Text(
                                 '${cubit.students}',
                                 style: TextStyle(
@@ -79,8 +82,8 @@ class StatsScreen extends StatelessWidget {
                                 ),),
                               SizedBox(width: 30,),
                               Container(
-                                height: 50,
-                                width: 50,
+                                height: h/16,
+                                width: w/30,
                                 child: Image.asset('assets/icons/graduated_white.png'),
                               ),
                             ],
@@ -90,8 +93,8 @@ class StatsScreen extends StatelessWidget {
                           height: 30,
                         ),
                         Container(
-                          height: 100,
-                          width: 500,
+                          height: h/8,
+                          width: w/3,
                           decoration:  BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.centerLeft,
@@ -125,8 +128,8 @@ class StatsScreen extends StatelessWidget {
                               Text('${cubit.teachers}',style: TextStyle(fontSize: 50,fontFamily: 'Nunito',color: Colors.white),),
                               SizedBox(width: 30,),
                               Container(
-                                height: 50,
-                                width: 50,
+                                height: h/16,
+                                width: w/30,
                                 child: Image.asset('assets/icons/teacher_white.png'),
                               ),
                             ],
@@ -136,8 +139,8 @@ class StatsScreen extends StatelessWidget {
                           height: 30,
                         ),
                         Container(
-                          height: 100,
-                          width: 500,
+                          height: h/8,
+                          width: w/3,
                           decoration:  BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.centerLeft,
@@ -165,8 +168,8 @@ class StatsScreen extends StatelessWidget {
                               Text('${cubit.employees}',style: TextStyle(fontSize: 50,fontFamily: 'Nunito',color: Colors.white),),
                               SizedBox(width: 30,),
                               Container(
-                                height: 50,
-                                width: 50,
+                                height: h/16,
+                                width: h/30,
                                 child: Image.asset('assets/icons/employees_white.png'),
                               ),
                             ],
@@ -176,8 +179,8 @@ class StatsScreen extends StatelessWidget {
                           height: 30,
                         ),
                         Container(
-                          height: 100,
-                          width: 500,
+                          height: h/8,
+                          width: w/3,
                           decoration:  BoxDecoration(
                             gradient: LinearGradient(
                               begin: Alignment.centerLeft,
@@ -216,8 +219,8 @@ class StatsScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 250,),
                     Container(
-                      height: 500,
-                      width: 350,
+                      height: h/1.6,
+                      width: w/4.4,
                       child: SfCircularChart(
                         title: ChartTitle(
                             text: 'School Stats',
@@ -247,10 +250,12 @@ class StatsScreen extends StatelessWidget {
                             ),
 
 
-                          )
+                          ),
+
                         ],
                       ),
                     ),
+
                   ],
                 ),
                 fallback: (context)=>Center(child: LinearProgressIndicator()),

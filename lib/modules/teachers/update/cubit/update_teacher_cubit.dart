@@ -20,7 +20,7 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
   {
     emit(ShowTeacherDataLoading());
     DioHelper.getData(
-      url:'teacher/${1}',
+      url:'teacher/${value}',
       token:token ,
     ).then((value) {
       updateTeacherModel = UpdateTeacherModel.fromJson(value!.data);
@@ -36,6 +36,7 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
 
   }
   void UpdateTeacherData({
+    required id,
       firstname,
       lastname,
       phonenumber,
@@ -45,7 +46,7 @@ class UpdateTeacherCubit extends Cubit<UpdateTeacherState> {
   }){
     emit(UpdateTeacherDataLoading());
     DioHelper.postData(
-      url: '${UPDATETEACHER}/${1}',
+      url: '${UPDATETEACHER}/${id}',
       token:token ,
       data:
       {

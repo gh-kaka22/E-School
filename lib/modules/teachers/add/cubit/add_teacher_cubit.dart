@@ -7,10 +7,8 @@ import 'package:untitled/models/classroom_model.dart';
 import 'package:untitled/models/subject_model.dart';
 import 'package:untitled/models/teacher_model.dart';
 import 'package:untitled/shared/components/constants.dart';
-
 import '../../../../shared/network/remote/dio_helper.dart';
 import '../../../../shared/network/remote/end_points.dart';
-
 part 'add_teacher_state.dart';
 
 class AddTeacherCubit extends Cubit<AddTeacherState> {

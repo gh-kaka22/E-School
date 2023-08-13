@@ -18,7 +18,7 @@ class ShowNotes extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double padding=MediaQuery.of(context).size.width/20;
     return BlocProvider(
-      create: (BuildContext context) => ShowNoticeCubit()..getStudents(),
+      create: (BuildContext context) => ShowNoticeCubit()..getStudents()..getClassrooms(7),
       child: BlocConsumer<ShowNoticeCubit, ShowNoticeState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -105,7 +105,7 @@ class ShowNotes extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Class'),
+                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -115,6 +115,22 @@ class ShowNotes extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        width: w/30,
+                      ),
+                      defaultButton(
+                        onPressed: () {
+                          cubit.getStudentsByGrade(cubit.dropDownValueClass);
+                        },
+                        height: 30,
+                        text: 'Refresh',
+                        fontsize: 15,
+                        fontWeight: FontWeight.w300,
+                        buttColor: Colors.green,
+                      ),
+                      SizedBox(
+                        width: w/30,
                       ),
 
                     ],
@@ -164,18 +180,7 @@ class ShowNotes extends StatelessWidget {
                                 child: ShowText(name:'Notes',
                                 ),
                               )),
-                          Expanded(
-                            child: defaultButton(
-                              onPressed: () {
-                                cubit.getStudentsByGrade(cubit.dropDownValueClass);
-                              },
-                              height: 30,
-                              text: 'Refresh',
-                              fontsize: 15,
-                              fontWeight: FontWeight.w300,
-                              buttColor: Colors.green,
-                            ),
-                          ),
+
                         ],
                       ),
                     ),
@@ -183,7 +188,7 @@ class ShowNotes extends StatelessWidget {
                   Expanded(
                       child: ShowNotesScreenBuilder(
                           100,
-                          cubit.addExamsModel?.data,
+                          cubit.showStudentsModel?.data,
                           context,
                           state,
                         cubit,
