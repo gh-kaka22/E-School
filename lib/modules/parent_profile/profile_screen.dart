@@ -1,46 +1,60 @@
-import 'package:e_school/modules/teacher/profie_teacher/cubit/profile_teacher_cubit.dart';
+import 'package:e_school/modules/parent_profile/cubit/profile_cubit.dart';
+import 'package:e_school/modules/parent_profile/cubit/profile_states.dart';
+import 'package:e_school/modules/profile/cubit/profile_cubit.dart';
+import 'package:e_school/modules/profile/cubit/profile_states.dart';
 import 'package:e_school/shared/components/circle.dart';
-import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/styles/colors.dart';
 
-class ProfileTeacher extends StatelessWidget {
-  ProfileTeacher({
+class ParentProfileStudent extends StatelessWidget {
+  ParentProfileStudent({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ProfileTeacherCubit()..getTeacherProfile(),
-      child: BlocConsumer<ProfileTeacherCubit, ProfileTeacherState>(
+      create: (BuildContext context) => ParentProfileCubit()..getParentProfileData(),
+      child: BlocConsumer<ParentProfileCubit, ParentProfileStates>(
           listener: (context, state) {},
           builder: (context, state) {
-            var cubit = ProfileTeacherCubit.get(context);
+            var cubit = ParentProfileCubit.get(context);
             double h=MediaQuery.of(context).size.height;
             List item = [
               {
                 "desc": "E-Mail :",
-                "text": "${cubit.profileTeacher?.data?.email}",
+                "text": "${cubit.profileModel?.data?.email}",
               },
               {
-                "desc": "Classrooms :",
-                "text": "${cubit.profileTeacher?.data?.classrooms}",
+                "desc": "Grade :",
+                "text": "${cubit.profileModel?.data?.grade_id}",
+              },
+              {
+                "desc": "Classroom :",
+                "text": "${cubit.profileModel?.data?.classroom}",
+              },
+              {
+                "desc": "Date of Birth :",
+                "text": "${cubit.profileModel?.data?.date_of_birth}",
+              },
+              {
+                "desc": "Father Name :",
+                "text": "${cubit.profileModel?.data?.father_first_name}",
+              },
+              {
+                "desc": "Mother Name :",
+                "text": "${cubit.profileModel?.data?.mother_first_name}",
+              },
+              {
+                "desc": "Religion :",
+                "text": "${cubit.profileModel?.data?.religion}",
               },
               {
                 "desc": "Address :",
-                "text": "${cubit.profileTeacher?.data?.address}",
+                "text": "${cubit.profileModel?.data?.address}",
               },
-              {
-                "desc": "Subject",
-                "text": "${cubit.profileTeacher?.data?.subjectName}",
-              },
-              {
-                "desc": "Phone Number",
-                "text": "${cubit.profileTeacher?.data?.phoneNumber}",
-              },
-
             ];
             return Scaffold(
               body: SingleChildScrollView(
@@ -83,7 +97,7 @@ class ProfileTeacher extends StatelessWidget {
                                       width: 100,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                        color: Colors.teal.withOpacity(0.3),
+                                        color: kDarkBlue2Color.withOpacity(0.5),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
 
@@ -101,14 +115,14 @@ class ProfileTeacher extends StatelessWidget {
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            ' ${cubit.profileTeacher?.data?.firstName}  ${cubit.profileTeacher?.data?.lastName}',
+                                            ' ${cubit.profileModel?.data?.first_name}  ${cubit.profileModel?.data?.last_name}',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20,
-                                              color: Colors.teal,
+                                              color: Colors.black,
                                             ),
                                           ),
                                           SizedBox(
@@ -121,7 +135,7 @@ class ProfileTeacher extends StatelessWidget {
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15,
-                                                color: Colors.teal.withOpacity(0.7),
+                                                color: Colors.black.withOpacity(0.7),
                                               ),
                                             ),
                                           ),
@@ -139,51 +153,41 @@ class ProfileTeacher extends StatelessWidget {
                       SizedBox(height: 50,
 
                       ),
+                     Row(
+                       children: [
+                         MyCircle(),
+                         Text('Email : ${cubit.profileModel?.data?.email}',
+                         style:TextStyle(color: Colors.purple,fontSize: 17),),
+                       ],
+                     ),
+                      MyLine(),
                       Row(
                         children: [
-                          MyCircle(color: Colors.teal),
-                          Text('Email : ${cubit.profileTeacher?.data?.email}',
-                            style:TextStyle(color: Colors.teal,fontSize: 17),),
+                          MyCircle(),
+                          Text('Details : ${cubit.profileModel?.data?.details}',
+                            style:TextStyle(color: Colors.purple,fontSize: 17),),
                         ],
                       ),
-                      MyLine(lineColor: Colors.teal.withOpacity(0.5),),
+                      MyLine(),
                       Row(
                         children: [
-                          MyCircle(color: Colors.teal),
-                          Text('Details : ${cubit.profileTeacher?.data?.details}',
-                            style:TextStyle(color: Colors.teal,fontSize: 17),),
+                          MyCircle(),
+                          Text('Religion : ${cubit.profileModel?.data?.religion}',
+                            style:TextStyle(color: Colors.purple,fontSize: 17),),
                         ],
-                      ),
-                      MyLine(lineColor: Colors.teal.withOpacity(0.5),),
+                      ),    MyLine(),
                       Row(
                         children: [
-                          MyCircle(color: Colors.teal),
-                          Text('Address : ${cubit.profileTeacher?.data?.address}',
-                            style:TextStyle(color: Colors.teal,fontSize: 17),),
+                          MyCircle(),
+                          Text('Address : ${cubit.profileModel?.data?.address}',
+                            style:TextStyle(color: Colors.purple,fontSize: 17),),
                         ],
-                      ),
-                      MyLine(lineColor: Colors.teal.withOpacity(0.5),),
+                      ),    MyLine(),
                       Row(
                         children: [
-                          MyCircle(color: Colors.teal),
-                          Text('Phone Number : ${cubit.profileTeacher?.data?.phoneNumber}',
-                            style:TextStyle(color: Colors.teal,fontSize: 17),),
-                        ],
-                      ),
-                      MyLine(lineColor: Colors.teal.withOpacity(0.5),),
-                      Row(
-                        children: [
-                          MyCircle(color: Colors.teal),
-                          Text('Classroom : ${cubit.profileTeacher?.data?.classrooms}',
-                            style:TextStyle(color: Colors.teal,fontSize: 17),),
-                        ],
-                      ),
-                      MyLine(lineColor: Colors.teal.withOpacity(0.5),),
-                      Row(
-                        children: [
-                          MyCircle(color: Colors.teal),
-                          Text('Subject : ${cubit.profileTeacher?.data?.subjectName}',
-                            style:TextStyle(color: Colors.teal,fontSize: 17),),
+                          MyCircle(),
+                          Text('Classroom : ${cubit.profileModel?.data?.classroom}',
+                            style:TextStyle(color: Colors.purple,fontSize: 17),),
                         ],
                       ),
 

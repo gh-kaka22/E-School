@@ -12,7 +12,7 @@ class ProfileTeacherCubit extends Cubit<ProfileTeacherState> {
   ProfileTeacherCubit() : super(ProfileTeacherInitial());
   static ProfileTeacherCubit get(context) => BlocProvider.of(context);
   ProfileTeacher? profileTeacher;
-  void getTeacherProfile(value)
+  void getTeacherProfile()
   {
     emit(ProfileTeacherLoadingState());
     DioHelper.getData(

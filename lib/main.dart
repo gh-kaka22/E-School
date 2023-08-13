@@ -3,7 +3,8 @@ import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/layout/home_layout/home_layout.dart';
 import 'package:e_school/layout/parent_home_layout/parent_home_layout.dart';
 import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
-import 'package:e_school/modules/profile/profile_screen.dart';
+import 'package:e_school/modules/parent_profile/profile_screen.dart';
+import 'package:e_school/modules/teacher/profie_teacher/profile_teacher_screen.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/cubit/app_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -101,13 +102,14 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: lightMode,
+
             darkTheme: darkMode,
             themeMode:
                 AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             locale: _locale,
-            home: widget.startWidget!,
+            home: ParentProfileStudent(),
           );
         },
       ),
