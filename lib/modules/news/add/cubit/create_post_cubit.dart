@@ -25,20 +25,26 @@ class CreatePostCubit extends Cubit<CreatePostStates> {
 
   changeCheck(val) {
     isCheckedGeneral = val!;
+    isCheckedGrade = false;
+    isCheckedClassroom=false;
     emit(CheckBoxState());
   }
 
-  bool isCheckedGrade = true;
+  bool isCheckedGrade = false;
 
   changeCheckGrade(val) {
     isCheckedGrade = val!;
+    isCheckedGeneral=false;
+    isCheckedClassroom=false;
     emit(CheckBoxState());
   }
 
-  bool isCheckedClassroom = true;
+  bool isCheckedClassroom = false;
 
   changeCheckClassroom(val) {
     isCheckedClassroom = val!;
+    isCheckedGeneral=false;
+    isCheckedGrade=false;
     emit(CheckBoxState());
   }
 

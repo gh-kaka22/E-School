@@ -299,7 +299,8 @@ Widget ShowStudentsItem(w,h,padding,radius, student, index, context,ShowStudents
               child: Center(
                 child: defaultButton(
                   onPressed: () async {
-                    await cubit.getResultStudent(student.studentId);
+                     await cubit.getResultStudent(student.studentId);
+                     Future.delayed(Duration(seconds: 1), () {
                     showDialog<Future<void>>(
                       context: context,
                       builder: (BuildContext context) {
@@ -373,7 +374,7 @@ Widget ShowStudentsItem(w,h,padding,radius, student, index, context,ShowStudents
                         );
                       },
                     );
-                    ;
+                     });
 
                   },
                   height: 30,

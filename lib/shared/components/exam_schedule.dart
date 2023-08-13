@@ -48,11 +48,11 @@ Widget ShowExamScheduleItem(w, schedule, index, context) => Container(
                   builder: (BuildContext context) {
                     return AlertDialog(
                       content: Container(
-                        width: w/4,
+                        width: w,
                         //todo: cachenetworkImage
                         child:CachedNetworkImage(
-                          imageUrl: 'http://127.0.0.1:8000/${schedule.image}',
-                          placeholder: (context,url)=>const CircularProgressIndicator(),
+                          imageUrl: 'http://127.0.0.1:8000/ExamScheduleImages/${schedule.image}',
+                          placeholder: (context,url)=>const LinearProgressIndicator(),
                           errorWidget: (context,url,error)=>Center(child: Text('Image Not Found')),
                         ),
                       ),

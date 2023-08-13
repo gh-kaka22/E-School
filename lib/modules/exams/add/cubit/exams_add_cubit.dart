@@ -15,11 +15,11 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
 
   static AddExamsCubit get(context) => BlocProvider.of(context);
 
-  String? dropDownValueClass = '7';
+  String? dropDownValueClass='7';
   String? dropDownValueSection;
-  String? dropDownValueSubject='none';
+  String? dropDownValueSubject;
   String? dropDownValueType;
-  String? dropDownValueYear='2022/2023';
+  String? dropDownValueYear;
 // drop down buttons' lists
   List<DropdownMenuItem> menuItemsClass = [
     DropdownMenuItem(
@@ -57,11 +57,12 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
   ];
   List<DropdownMenuItem> menuItemsYear = [];
 
+
 // drop down buttons changing method
   void changeClassDropDownButton(String newValue)
   {
     dropDownValueClass = newValue;
-    dropDownValueSection='7A';
+    dropDownValueSection='none';
     getClassrooms(dropDownValueClass);
     emit(AddExamsClassDropDownButtonState());
   }
@@ -104,7 +105,7 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
       addExamsModel = AddExamsModel.fromJson(value?.data);
       print(addExamsModel?.status);
       print(addExamsModel?.message);
-      print(addExamsModel?.data?[0].email);
+      print(addExamsModel?.data[0].email);
       students = addExamsModel?.data;
       print(students?[1].religion);
       emit(AddExamsSuccessState(addExamsModel!));
@@ -247,7 +248,7 @@ class AddExamsCubit extends Cubit<AddExamsStates> {
       print(schoolYears?[1].name);
       menuItemsYear = schoolYears!.map((year) {
         return DropdownMenuItem<dynamic>(
-          value: '${year.name}',
+          value: year.name,
           child: Text(year.name),
         );
       }).toList();

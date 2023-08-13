@@ -21,7 +21,7 @@ class ShowComplaints extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ComplaintCubit.get(context);
-          return  Padding(
+          return Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
               height: h,
@@ -52,16 +52,16 @@ class ShowComplaints extends StatelessWidget {
                         children: [
                           Expanded(
                               child: Center(
-                                child: ShowText(
-                                  name: 'Id',
-                                ),
-                              )),
+                            child: ShowText(
+                              name: 'Id',
+                            ),
+                          )),
                           Expanded(
                               child: Center(
-                                child: ShowText(
-                                  name: 'Date',
-                                ),
-                              )),
+                            child: ShowText(
+                              name: 'Date',
+                            ),
+                          )),
                           Expanded(
                             child: Center(child: ShowText(name: 'Description')),
                           ),
@@ -79,81 +79,101 @@ class ShowComplaints extends StatelessWidget {
                   ),
                   Expanded(
                       child: ConditionalBuilder(
-                        condition: state is! ComplaintLoadingState && cubit.complaints != null,
-                        builder: (context) => ListView.separated(
-                            itemBuilder: (context, index) => Container(
+                    condition: state is! ComplaintLoadingState &&
+                        cubit.complaints != null,
+                    builder: (context) => ListView.separated(
+                        itemBuilder: (context, index) => Container(
                               width: 4 / 5 * w,
                               height: 50,
                               decoration: BoxDecoration(
-                                  color: index % 2 == 0 ? Colors.white : Colors.grey[200]!,
+                                  color: index % 2 == 0
+                                      ? Colors.white
+                                      : Colors.grey[200]!,
                                   boxShadow: <BoxShadow>[
                                     BoxShadow(
                                         color: Color.fromRGBO(0, 0, 0, 0.2),
-                                        blurRadius: 20) //blur radius of shadow
+                                        blurRadius: 20)
+                                    //blur radius of shadow
                                   ]),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: Row(
                                   children: [
                                     Expanded(
                                         child: Center(
-                                          child: Text('${cubit.complaintModel?.data?[index].complaintId}',
-                                              style: TextStyle(overflow: TextOverflow.ellipsis)),
-                                        )),
+                                      child: Text(
+                                          '${cubit.complaintModel?.data?[index].complaintId}',
+                                          style: TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
+                                    )),
                                     Expanded(
                                         child: Center(
-                                          child: Text('${cubit.complaintModel?.data?[index].date}',
-                                              style: TextStyle(overflow: TextOverflow.ellipsis)),
-                                        )),
+                                      child: Text(
+                                          '${cubit.complaintModel?.data?[index].date}',
+                                          style: TextStyle(
+                                              overflow: TextOverflow.ellipsis)),
+                                    )),
                                     Expanded(
-                                      child: Center(child: Text('${cubit.complaintModel?.data?[index].description}')),
+                                      child: Center(
+                                          child: Text(
+                                              '${cubit.complaintModel?.data?[index].description}')),
                                     ),
                                     Expanded(
                                       child: Center(
-                                        child: state is! StatusComplaintLoadingState
+                                        child: state
+                                                is! StatusComplaintLoadingState
                                             ? Center(
-                                          child:
-                                          IconButton(
-                                            onPressed: () {
-
-                                              cubit.clicked();
-                                              cubit.click! ? change=1 : change=0 ;
-                                              cubit.solveComplaints(
-                                                ID: cubit.complaintModel?.data?[index].complaintId,
-                                                status: change.toString(),
-                                              );
-                                              print('...........${cubit.click}');
-                                              print('...........${change}');
-
-                                            },
-                                            icon: cubit.click! ==false ? Icon(
-
-                                              Icons.warning_amber_outlined,
-                                              size: 30,
-                                              color:  Colors.orange ,
-
-                                            )  : Icon(
-
-                                              Icons.check_circle_sharp,
-                                              size: 30,
-                                              color: Colors.lightGreen,
-
-                                            ) ,
-                                          ),
-                                        )
-                                            : Center(child: CircularProgressIndicator()),
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    cubit.clicked();
+                                                    cubit.click!
+                                                        ? change = 1
+                                                        : change = 0;
+                                                    cubit.solveComplaints(
+                                                      ID: cubit
+                                                          .complaintModel
+                                                          ?.data?[index]
+                                                          .complaintId,
+                                                      status: change.toString(),
+                                                    );
+                                                    print(
+                                                        '...........${cubit.click}');
+                                                    print(
+                                                        '...........${change}');
+                                                  },
+                                                  icon: cubit.click! == false
+                                                      ? Icon(
+                                                          Icons
+                                                              .warning_amber_outlined,
+                                                          size: 30,
+                                                          color: Colors.orange,
+                                                        )
+                                                      : Icon(
+                                                          Icons
+                                                              .check_circle_sharp,
+                                                          size: 30,
+                                                          color:
+                                                              Colors.lightGreen,
+                                                        ),
+                                                ),
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator()),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ), separatorBuilder: (context, index) {
+                            ),
+                        separatorBuilder: (context, index) {
                           return MyDivider();
                         },
-
-                            itemCount: cubit.complaints!.length ),
-                        fallback: (context) => Center(child: LinearProgressIndicator()),
-                      )),
+                        itemCount: cubit.complaints!.length),
+                    fallback: (context) =>
+                        Center(child: LinearProgressIndicator()),
+                  )),
                 ],
               ),
             ),

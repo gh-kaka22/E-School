@@ -31,7 +31,7 @@ class Data {
   String? lastName;
   String? schoolYear;
   int? gradeId;
-  int? result;
+  String? result;
   int? Id;
 
   Data(
@@ -49,9 +49,9 @@ class Data {
     studentId = json['student_id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
-    schoolYear = json['schoolYear'];
+    schoolYear = json['schoolyear'];
     gradeId = json['grade_id'];
-    result = json['result'];
+    result = json['result'].toString();
     Id = json['id'];
 
   }

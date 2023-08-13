@@ -43,6 +43,7 @@ import 'package:untitled/modules/timetable/show/show_timetable.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/network/local/cache_helper.dart';
 import 'package:untitled/shared/network/remote/end_points.dart';
+import 'package:untitled/styles/colors.dart';
 
 import '../modules/about_us/show/show_school.dart';
 
@@ -59,13 +60,6 @@ class HomeLayout extends StatelessWidget {
         builder: (context, state) {
           var cubit = HomeCubit.get(context);
           return Scaffold(
-            floatingActionButton: FloatingActionButton(onPressed: (){
-              CacheHelper.removeData(key: 'token').then((value) {
-                if(value!){
-                  navigateAndFinish(context, LoginScreen());
-                }
-              });
-            }),
             body: Row(children: [
               Container(
                 height: h,
@@ -101,20 +95,16 @@ class HomeLayout extends StatelessWidget {
                               showScreen: StudentsShow(),
                               addScreen: StudentRegisterScreen()
                           ),
-                            cubit.SpecialSideBarItem(
-                              text: 'Section',
-                              screen: ClassroomForStudnt(),
-                            ),
-
                           cubit.SideBarItem(
                               text: 'Teachers',
                               showScreen: ShowTeachers(),
                               addScreen: AddTeacher(),
                           ),
-                          cubit.SideBarItem(
+                          cubit.SideBar3Item(
                               text: 'Classrooms',
                               showScreen: ClassroomsShow(),
-                              addScreen: AddClassroom()
+                              addScreen: AddClassroom(),
+                            distScreen: ClassroomForStudnt()
                           ),
                           cubit.SideBarItem(
                               text: 'Subjects',
@@ -180,9 +170,19 @@ class HomeLayout extends StatelessWidget {
                               screen: ShowComplaints(),
                             ),
                           cubit.SpecialSideBarItem(
-                            text: 'Settings',
+                            text: 'Reset Password',
                             screen: ResetPassword(),
                           ),
+                            cubit.LogoutItem(
+                                text: 'Logout',
+                                ontap: (){
+                                  CacheHelper.removeData(key: 'token').then((value) {
+                                    if(value!){
+                                      navigateAndFinish(context, LoginScreen());
+                                    }
+                                  });
+                                }
+                            )
                         ],
                       ),
                     )

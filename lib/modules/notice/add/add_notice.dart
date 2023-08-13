@@ -222,7 +222,7 @@ class AddNotice extends StatelessWidget {
                                 onPressed: () =>
                                     cubit.selectDate(context),
                                 child: const Text(
-                                  'Select date of birth',
+                                  'Select date',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                   ),

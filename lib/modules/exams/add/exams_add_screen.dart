@@ -89,7 +89,7 @@ class ExamsAdd extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Class'),
+                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color, fontSize: 16),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -127,7 +127,7 @@ class ExamsAdd extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Class'),
+                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color, fontSize: 16),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -165,7 +165,7 @@ class ExamsAdd extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Subject'),
+                              hint: Text('Choose Subject',style: TextStyle(color: kGold1Color, fontSize: 16),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -203,7 +203,7 @@ class ExamsAdd extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Type'),
+                              hint: Text('Choose Type',style: TextStyle(color: kGold1Color, fontSize: 16),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
@@ -248,13 +248,13 @@ class ExamsAdd extends StatelessWidget {
                               ),
                               iconSize: 24,
                               elevation: 40,
-                              hint: Text('Choose Year'),
+                              hint: Text('Choose Year',style: TextStyle(color: kGold1Color, fontSize: 16),),
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
-                                cubit.changeClassDropDownButton(newValue!);
+                                cubit.changeYearDropDownButton(newValue!);
                               },
-                              items: cubit.menuItemsYear,
+                              items: cubit.menuItemsYear
                             ),
                           ),
                         ),
@@ -263,21 +263,50 @@ class ExamsAdd extends StatelessWidget {
                         width: 20,
                       ),
                       Expanded(
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: kGold1Color,
-                            side: BorderSide(
-                                width: 1, color: Colors.white),
-                            elevation: 0,
-                          ),
-                          onPressed: () =>
-                              cubit.selectDate(context),
-                          child: const Text(
-                            'Select date ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
+                        child: Container(
+                          height: 49,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: kGold1Color,
+
                             ),
+                            color: kDarkBlue2Color,
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          child: Row(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            children: [
+                              Text("${cubit.selectedDate}"
+                                  .split(' ')[0],
+                                style: TextStyle(color: kGold1Color),
+
+                              ),
+
+                              SizedBox(
+                                width: 20,
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: kDarkBlue2Color.withOpacity(0.1),
+                                  foregroundColor: kGold1Color,
+                                  side: BorderSide(
+                                      width: 1, color:kGold1Color),
+                                  elevation: 0,
+                                ),
+                                onPressed: () =>
+                                    cubit.selectDate(context),
+                                child: const Text(
+                                  'Select date ',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

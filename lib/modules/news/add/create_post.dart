@@ -303,7 +303,7 @@ class CreatePost extends StatelessWidget {
                                 body: bodyController.text,
                                 token: token
                             );
-                          }
+                          } else
                         if(cubit.isCheckedGrade)
                         {
                           cubit.CreatePostGrade(
@@ -311,7 +311,7 @@ class CreatePost extends StatelessWidget {
                               gradeId: cubit.grade,
                               token: token
                           );
-                        }
+                        } else
                         if(cubit.isCheckedClassroom)
                         {
                           cubit.CreatePostClassroom(

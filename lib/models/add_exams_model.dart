@@ -42,7 +42,7 @@ class Datum {
   DateTime dateOfBirth;
   String address;
   String details;
-  String roomNumber;
+  String? roomNumber;
   int gradeId;
   int genderId;
   int parentId;

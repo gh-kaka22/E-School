@@ -67,7 +67,7 @@ Widget ShowAttendanceItem(w,h,padding,radius, student, index, context,ShowAttend
                          physics: BouncingScrollPhysics(),
                          shrinkWrap: true,
                          itemCount: cubit.absence!.length,
-                         separatorBuilder: (BuildContext context, int index) => Center(child: Container(height:1,width: w/5,color: kDarkBlue2Color,)),
+                         separatorBuilder: (BuildContext context, int index) => Center(child: SizedBox()),
                          itemBuilder: (BuildContext context, int index) {
                            return  Padding(
                              padding: EdgeInsets.all(padding),

@@ -64,6 +64,59 @@ class HomeCubit extends Cubit<HomeStates> {
         ),
       );
 
+  Widget SideBar3Item({
+    required String text,
+    required Widget showScreen,
+    required Widget addScreen,
+    required Widget distScreen,
+
+    double fontsize = 23,
+    FontWeight fontWeight = FontWeight.w400,
+    Color color = kGold1Color,
+    Color iconcolor = kDarkBlue2Color,
+  }) =>
+      Card(
+        elevation: 5,
+        child: ExpansionTile(
+          title: Text(
+            text,
+            style: TextStyle(
+                color: kDarkBlue2Color,
+                fontSize: fontsize,
+                fontWeight: fontWeight),
+          ),
+          collapsedIconColor: iconcolor,
+          iconColor: color,
+          childrenPadding: EdgeInsets.only(
+            left: 20,
+          ),
+          children: [
+            ListTile(
+              title: Text('Show'),
+              onTap: () {
+                currentScreen = showScreen;
+                emit(HomeChangeScreenState());
+              },
+            ),
+            ListTile(
+              title: Text('Add'),
+              onTap: () {
+                currentScreen = addScreen;
+                emit(HomeChangeScreenState());
+              },
+            ),
+            ListTile(
+              title: Text('Distribute'),
+              onTap: () {
+                currentScreen = distScreen;
+                emit(HomeChangeScreenState());
+              },
+            ),
+          ],
+        ),
+      );
+
+
   Widget SpecialSideBarItem({
     required String text,
     required Widget screen,
@@ -88,4 +141,31 @@ class HomeCubit extends Cubit<HomeStates> {
           ),
         ),
       );
+
+  Widget LogoutItem({
+    required String text,
+    required Function ontap,
+    double fontsize = 23,
+    FontWeight fontWeight = FontWeight.w400,
+  }) =>
+      Card(
+        elevation: 5,
+        child: InkWell(
+          onTap: () {
+            ontap();
+            emit(LogoutState());
+          },
+          child: ListTile(
+            title: Text(
+              text,
+              style: TextStyle(
+                  color: kDarkBlue2Color,
+                  fontSize: fontsize,
+                  fontWeight: fontWeight),
+            ),
+            trailing: Icon(Icons.logout,color: kDarkBlue2Color,),
+          ),
+        ),
+      );
+
 }

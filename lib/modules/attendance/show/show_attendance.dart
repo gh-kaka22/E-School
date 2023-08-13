@@ -14,7 +14,7 @@ class ShowAttendance extends StatelessWidget {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double padding=w/20;
+    double padding=w/80;
     double radius=10;
     return BlocProvider(
       create: (BuildContext context) => ShowAttendanceCubit()..getStudents()..getClassrooms(7),

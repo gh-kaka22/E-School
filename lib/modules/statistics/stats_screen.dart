@@ -168,8 +168,8 @@ class StatsScreen extends StatelessWidget {
                               Text('${cubit.employees}',style: TextStyle(fontSize: 50,fontFamily: 'Nunito',color: Colors.white),),
                               SizedBox(width: 30,),
                               Container(
-                                height: h/16,
-                                width: h/30,
+                                height: 50,
+                                width: 50,
                                 child: Image.asset('assets/icons/employees_white.png'),
                               ),
                             ],
