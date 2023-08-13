@@ -1,4 +1,5 @@
 const LOGIN = 'login';
+const LOGOUT = 'logout';
 
 const HOME = 'student/home';
 const TEACHERHOME = 'home/teacher';
