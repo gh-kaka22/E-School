@@ -4,6 +4,7 @@ use App\Events\StudentAttendanceEvent;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 
 
 //
@@ -89,6 +90,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
         });*/
 
     Route::post('/storeattendance', [\App\Http\Controllers\AttendanceController::class, 'store']);
+    Route::post('sendNotification', [\App\Http\Controllers\AttendanceController::class, 'sendNotification']);
     Route::get('/Ashowattendance/{id}', [\App\Http\Controllers\AttendanceController::class, 'showforadmin']);
 
 
@@ -241,6 +243,8 @@ Route::middleware(['auth:api', 'isParent'])->group(function () {
     //home
     Route::get('/parent/showhome', [\App\Http\Controllers\ParenttController::class, 'showHome']);
 
+    //profile
+    Route::get('/parent/profile', [\App\Http\Controllers\ParenttController::class, 'profile']);
 
 });
 
