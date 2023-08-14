@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //
+Route::post('/python-script', [\App\Http\Controllers\PythonController::class , 'answer']);
 
 //............................register routes.............................................
 //Owner routes
