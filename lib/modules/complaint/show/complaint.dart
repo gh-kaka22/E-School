@@ -53,7 +53,7 @@ class ShowComplaints extends StatelessWidget {
                           Expanded(
                               child: Center(
                             child: ShowText(
-                              name: 'Id',
+                              name: 'Complainer',
                             ),
                           )),
                           Expanded(
@@ -103,7 +103,7 @@ class ShowComplaints extends StatelessWidget {
                                     Expanded(
                                         child: Center(
                                       child: Text(
-                                          '${cubit.complaintModel?.data?[index].complaintId}',
+                                          '${cubit.complaintModel?.data?[index].parentName}',
                                           style: TextStyle(
                                               overflow: TextOverflow.ellipsis)),
                                     )),
@@ -137,21 +137,11 @@ class ShowComplaints extends StatelessWidget {
                                                           .complaintId,
                                                       status: change.toString(),
                                                     );
-                                                    print(
-                                                        '...........${cubit.click}');
-                                                    print(
-                                                        '...........${change}');
+
                                                   },
-                                                  icon: cubit.click! == false
-                                                      ? Icon(
+                                                  icon: Icon(
                                                           Icons
-                                                              .warning_amber_outlined,
-                                                          size: 30,
-                                                          color: Colors.orange,
-                                                        )
-                                                      : Icon(
-                                                          Icons
-                                                              .check_circle_sharp,
+                                                              .check,
                                                           size: 30,
                                                           color:
                                                               Colors.lightGreen,

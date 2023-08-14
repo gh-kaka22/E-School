@@ -25,43 +25,49 @@ class ComplaintModel {
   };
 }
 
-class Data {
-  int? complaintId;
-  int? parentId;
-  String? date;
-  String? description;
-  String? status;
-  String? createdAt;
-  String? updatedAt;
 
-  Data(
-      {this.complaintId,
-        this.parentId,
-        this.date,
-        this.description,
-        this.status,
-        this.createdAt,
-        this.updatedAt});
 
-  Data.fromJson(Map<String, dynamic> json) {
-    complaintId = json['complaint_id'];
-    parentId = json['parent_id'];
-    date = json['date'];
-    description = json['description'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+ class Data {
+  Data({
+  required this.complaintId,
+  required this.parentId,
+  required this.date,
+  required this.description,
+  required this.status,
+  required this.createdAt,
+  required this.updatedAt,
+  required this.parentName,
+  });
+  late final int complaintId;
+  late final int parentId;
+  late final String date;
+  late final String description;
+  late final String status;
+  late final String createdAt;
+  late final String updatedAt;
+  late final String parentName;
+
+  Data.fromJson(Map<String, dynamic> json){
+  complaintId = json['complaint_id'];
+  parentId = json['parent_id'];
+  date = json['date'];
+  description = json['description'];
+  status = json['status'];
+  createdAt = json['created_at'];
+  updatedAt = json['updated_at'];
+  parentName = json['parent_name'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['complaint_id'] = this.complaintId;
-    data['parent_id'] = this.parentId;
-    data['date'] = this.date;
-    data['description'] = this.description;
-    data['status'] = this.status;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
+  final data = <String, dynamic>{};
+  data['complaint_id'] = complaintId;
+  data['parent_id'] = parentId;
+  data['date'] = date;
+  data['description'] = description;
+  data['status'] = status;
+  data['created_at'] = createdAt;
+  data['updated_at'] = updatedAt;
+  data['parent_name'] = parentName;
+  return data;
   }
-}
+  }
