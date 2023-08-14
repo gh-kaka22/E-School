@@ -24,37 +24,22 @@ class ParentProfileStudent extends StatelessWidget {
             double h=MediaQuery.of(context).size.height;
             List item = [
               {
-                "desc": "E-Mail :",
-                "text": "${cubit.profileModel?.data?.email}",
+                "desc": "National Id :",
+                "text": "${cubit.parentProfileModel?.data?.nationalId}",
               },
               {
-                "desc": "Grade :",
-                "text": "${cubit.profileModel?.data?.grade_id}",
+                "desc": "Kids :",
+                "text": "${cubit.parentProfileModel?.data?.kids}",
               },
               {
-                "desc": "Classroom :",
-                "text": "${cubit.profileModel?.data?.classroom}",
+                "desc": "Father Phone Number :",
+                "text": "${cubit.parentProfileModel?.data?.fatherPhoneNumber}",
               },
               {
-                "desc": "Date of Birth :",
-                "text": "${cubit.profileModel?.data?.date_of_birth}",
+                "desc": "Mother Phone Number :",
+                "text": "${cubit.parentProfileModel?.data?.motherPhoneNumber}",
               },
-              {
-                "desc": "Father Name :",
-                "text": "${cubit.profileModel?.data?.father_first_name}",
-              },
-              {
-                "desc": "Mother Name :",
-                "text": "${cubit.profileModel?.data?.mother_first_name}",
-              },
-              {
-                "desc": "Religion :",
-                "text": "${cubit.profileModel?.data?.religion}",
-              },
-              {
-                "desc": "Address :",
-                "text": "${cubit.profileModel?.data?.address}",
-              },
+
             ];
             return Scaffold(
               body: SingleChildScrollView(
@@ -118,7 +103,7 @@ class ParentProfileStudent extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            ' ${cubit.profileModel?.data?.first_name}  ${cubit.profileModel?.data?.last_name}',
+                                            ' ${cubit.parentProfileModel?.data?.firstName}  ${cubit.parentProfileModel?.data?.lastName}',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20,
@@ -156,7 +141,7 @@ class ParentProfileStudent extends StatelessWidget {
                      Row(
                        children: [
                          MyCircle(),
-                         Text('Email : ${cubit.profileModel?.data?.email}',
+                         Text('Father Phone Number : ${cubit.parentProfileModel?.data?.fatherPhoneNumber}',
                          style:TextStyle(color: Colors.purple,fontSize: 17),),
                        ],
                      ),
@@ -164,7 +149,7 @@ class ParentProfileStudent extends StatelessWidget {
                       Row(
                         children: [
                           MyCircle(),
-                          Text('Details : ${cubit.profileModel?.data?.details}',
+                          Text('Mother Phone Number : ${cubit.parentProfileModel?.data?.motherPhoneNumber}',
                             style:TextStyle(color: Colors.purple,fontSize: 17),),
                         ],
                       ),
@@ -172,21 +157,14 @@ class ParentProfileStudent extends StatelessWidget {
                       Row(
                         children: [
                           MyCircle(),
-                          Text('Religion : ${cubit.profileModel?.data?.religion}',
+                          Text('Kids : ${cubit.parentProfileModel?.data?.kids}',
                             style:TextStyle(color: Colors.purple,fontSize: 17),),
                         ],
                       ),    MyLine(),
                       Row(
                         children: [
                           MyCircle(),
-                          Text('Address : ${cubit.profileModel?.data?.address}',
-                            style:TextStyle(color: Colors.purple,fontSize: 17),),
-                        ],
-                      ),    MyLine(),
-                      Row(
-                        children: [
-                          MyCircle(),
-                          Text('Classroom : ${cubit.profileModel?.data?.classroom}',
+                          Text('National Id : ${cubit.parentProfileModel?.data?.nationalId}',
                             style:TextStyle(color: Colors.purple,fontSize: 17),),
                         ],
                       ),

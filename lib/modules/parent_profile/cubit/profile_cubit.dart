@@ -1,4 +1,5 @@
 import 'package:e_school/models/home_model.dart';
+import 'package:e_school/models/parent_profile_model.dart';
 import 'package:e_school/models/profile_model.dart';
 import 'package:e_school/modules/parent_profile/cubit/profile_states.dart';
 import 'package:e_school/modules/profile/cubit/profile_states.dart';
@@ -13,20 +14,18 @@ class ParentProfileCubit extends Cubit<ParentProfileStates>{
   ParentProfileCubit() : super(ParentProfileInitialState());
   static ParentProfileCubit get(context) => BlocProvider.of(context);
 
-  ProfileModel? profileModel ;
+  ParentProfileModel? parentProfileModel ;
 
   void getParentProfileData()
   {
     emit(ParentProfileLoadingState());
     DioHelper.getData(
-        url: 'ParentProfile',
+        url: PARENTPROFILE,
         token: token
     ).then((value) {
       print(value?.data);
-      // ParentProfileModel = ParentProfileModel.fromJson(value?.data);
-      // print(ParentProfileModel?.data);
-      // print(ParentProfileModel?.status);
-      // print(ParentProfileModel?.message);
+      parentProfileModel = ParentProfileModel.fromJson(value?.data);
+      print(parentProfileModel!.data);
       emit(ParentProfileSuccessState());
     }).catchError((error){
       print(error.toString());

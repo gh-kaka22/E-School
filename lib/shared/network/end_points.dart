@@ -16,6 +16,7 @@ const PARENTNOTICES = 'Pshownotices';
 
 const GETTIMETABLE = 'show_schedule/';
 const PARENTTIMETABLE='parent/showschedule';
+const PARENTPROFILE='/parent/profile';
 
 const EXAMS = 'exams/show_for_student';
 const PARENTEXAMS = 'parent/showexams';

@@ -4,18 +4,15 @@ import 'package:e_school/layout/home_layout/home_layout.dart';
 import 'package:e_school/layout/parent_home_layout/parent_home_layout.dart';
 import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
 import 'package:e_school/modules/profile/profile_screen.dart';
-import 'package:e_school/shared/components/components.dart';
-import 'package:e_school/modules/parent_profile/profile_screen.dart';
-import 'package:e_school/modules/teacher/profie_teacher/profile_teacher_screen.dart';
 import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/cubit/app_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'modules/school_login/login_screen.dart';
 
+import 'modules/teacher/profie_teacher/profile_teacher_screen.dart';
 import 'shared/bloc_observer.dart';
 
 import 'shared/cubit/app_states.dart';
@@ -26,32 +23,9 @@ import 'modules/on_boarding/on_boarding_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Future<void> firebaseMessagingBackgroundHandler (RemoteMessage message)async{
-  print('message background');
-  print(message.data.toString());
-  showToast(text: 'message background', state: ToastStates.SUCCESS);
-}
-
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp();
-  var deviceToken =await FirebaseMessaging.instance.getToken();
-  print('fcm : ${deviceToken}');
-  FirebaseMessaging.onMessage.listen((event) {
-    print('on message');
-    print(event.data.toString());
-    showToast(text: 'on message', state: ToastStates.SUCCESS);
-
-  });
-  FirebaseMessaging.onMessageOpenedApp.listen((event) {
-    print('on message opened');
-    print(event.data.toString());
-    showToast(text: 'on message opened app', state: ToastStates.SUCCESS);
-  });
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
+  await Firebase.initializeApp;
 
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
@@ -73,7 +47,6 @@ Future main() async {
         widget = TeacherHomeLayout();
       } else {
         widget = ParentHomeLayout();
-        FirebaseMessaging.instance.subscribeToTopic('parents');
       }
     } else
       widget = SchoolLoginScreen();
@@ -116,8 +89,6 @@ class _MyAppState extends State<MyApp> {
     super.didChangeDependencies();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -137,10 +108,11 @@ class _MyAppState extends State<MyApp> {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             locale: _locale,
-            home: ParentProfileStudent(),
+            home: ProfileTeacher(),
           );
         },
       ),
+
     );
   }
 }
