@@ -14,6 +14,12 @@ import 'layout/home_layout_screen.dart';
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  if(Platform.isWindows)
+    await DesktopWindow.setMinWindowSize(
+      Size(1000, 600),
+    );
+
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();

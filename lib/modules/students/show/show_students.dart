@@ -2,6 +2,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
 import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
+import 'package:untitled/modules/students/show/search_students.dart';
 import 'package:untitled/modules/students/update/cubit/update_students_cubit.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/search_bar.dart';
@@ -37,6 +38,10 @@ class StudentsShow extends StatelessWidget {
                     height: 30,
                   ),
                   MyText(name: 'Students'),
+                  SizedBox(
+                    height: 30,
+                  ),
+
                   SizedBox(
                     height: 30,
                   ),
@@ -126,7 +131,27 @@ class StudentsShow extends StatelessWidget {
                       SizedBox(
                         width: 20,
                       ),
-                      SearchBar(),
+                      ElevatedButton(
+                        child: Text('Search For Students',style: TextStyle(
+                          color: kGold1Color,
+
+
+                        ),
+
+
+                        ),
+                        onPressed: (){
+                          navigateTo(context, StudentsSearchBar());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: kDarkBlue2Color,
+                          foregroundColor: kGold1Color,
+                          side: BorderSide(
+                              width: 1, color: Colors.white),
+                          elevation: 0,
+                        ),
+                      ),
+
                     ],
                   ),
                   SizedBox(

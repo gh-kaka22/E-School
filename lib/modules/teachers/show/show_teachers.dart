@@ -6,6 +6,7 @@ import 'package:untitled/modules/teachers/update/update_screen.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/teacher.dart';
 import 'package:untitled/shared/components/text_components.dart';
+import 'package:untitled/styles/colors.dart';
 class ShowTeachers extends StatelessWidget {
   var searchController = TextEditingController();
 
@@ -36,23 +37,24 @@ class ShowTeachers extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      navigateTo(context, TSearchBar());
-                    },
+                  ElevatedButton(
+                    child: Text('Search For Teachers',style: TextStyle(
+                    color: kGold1Color,
 
-                    child: Container(
-                      width: w/4,
-                      child:MyText(name:'Search For Teachers',size: 20),
 
-                      // defaultFormField(
-                      //     controller: searchController,
-                      //     type: TextInputType.text,
-                      //     onChange: (value){
-                      //
-                      //       ShowTeachersCubit.get(context).getSearch(value);
-                      //     },
-                      //     label: 'Search For Teachers'),
+                  ),
+
+
+                  ),
+                    onPressed: (){
+                    navigateTo(context, TSearchBar());
+                  },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kDarkBlue2Color,
+                      foregroundColor: kGold1Color,
+                      side: BorderSide(
+                          width: 1, color: Colors.white),
+                      elevation: 0,
                     ),
                   ),
 

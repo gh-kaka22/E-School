@@ -174,6 +174,7 @@ class ShowStudentsCubit extends Cubit<ShowStudentsStates> {
     });
   }
   ResultStudentModel? resultStudentModel;
+
   Future<void>? getResultStudent(studentId) {
     emit(ShowResultLoadingState());
     DioHelper.getData(

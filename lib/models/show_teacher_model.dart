@@ -66,7 +66,7 @@ class Data {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     subjectName = json['subject_name'];
-    classrooms = json['classrooms'].cast<int>();
+    classrooms = (json['classrooms'] != null) ? List<int>.from(json['classrooms'].cast<int>()) : [];
   }
 
   Map<String, dynamic> toJson() {

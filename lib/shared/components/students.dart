@@ -37,11 +37,7 @@ Widget SearchStudentsItem(w, student, index, context) => Container(
         Expanded(
           child: Center(child: Text('${student.roomNumber}')),
         ),
-        Expanded(
-            child: Center(
-              child: Text('${student.email}',
-                  style: TextStyle(overflow: TextOverflow.ellipsis)),
-            )),
+
         Expanded(
           child: Center(
             child: defaultButton(

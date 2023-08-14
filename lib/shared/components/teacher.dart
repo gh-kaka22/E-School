@@ -69,7 +69,7 @@ Widget ShowTeachersItem(w,h, teacher, index, context, cubit) => Container(
                                       onPressed: () async {
                                         await cubit.getSchedule(
                                             teacher.teacherId, 1);
-
+                                        Future.delayed(Duration(seconds: 1));
                                         showDialog(
                                             context: context,
                                             builder: (context) {
@@ -108,6 +108,7 @@ Widget ShowTeachersItem(w,h, teacher, index, context, cubit) => Container(
                                       onPressed: () async {
                                         await cubit.getSchedule(
                                             teacher.teacherId, 2);
+                                        Future.delayed(Duration(seconds: 1));
                                         showDialog(
                                             context: context,
                                             builder: (context) {
@@ -137,6 +138,7 @@ Widget ShowTeachersItem(w,h, teacher, index, context, cubit) => Container(
                                       onPressed: () async {
                                         await cubit.getSchedule(
                                             teacher.teacherId, 3);
+                                        Future.delayed(Duration(seconds: 1));
                                         showDialog(
 
                                             context: context,
@@ -166,6 +168,7 @@ Widget ShowTeachersItem(w,h, teacher, index, context, cubit) => Container(
                                       onPressed: () async {
                                         await cubit.getSchedule(
                                             teacher.teacherId, 4);
+                                        Future.delayed(Duration(seconds: 1));
                                         showDialog(
                                             context: context,
                                             builder: (context) {
@@ -194,6 +197,7 @@ Widget ShowTeachersItem(w,h, teacher, index, context, cubit) => Container(
                                       onPressed: () async {
                                         await cubit.getSchedule(
                                             teacher.teacherId, 5);
+                                        Future.delayed(Duration(seconds: 1));
                                         showDialog(
                                             context: context,
                                             builder: (context) {
@@ -304,9 +308,7 @@ Widget SearchTeachersItem(w, teacher, index, context) => Container(
             Expanded(
               child: Center(child: Text('${teacher.lastName}')),
             ),
-            Expanded(
-              child: Center(child: Text('${teacher.subjectId}')),
-            ),
+
             Expanded(child: Center(child: Text('${teacher.address}'))),
             Expanded(
               child: Center(child: Text('${teacher.details}')),
@@ -318,7 +320,7 @@ Widget SearchTeachersItem(w, teacher, index, context) => Container(
                     navigateTo(
                         context,
                         UpdateTeacher(
-                          id: teacher.id,
+                          id: teacher.teacherId,
                         ));
                   },
                   height: 30,
@@ -328,23 +330,7 @@ Widget SearchTeachersItem(w, teacher, index, context) => Container(
                 ),
               ),
             ),
-            Expanded(
-              child: Center(
-                child: defaultButton(
-                  onPressed: () {
-                    navigateTo(
-                        context,
-                        UpdateTeacher(
-                          id: teacher.id,
-                        ));
-                  },
-                  height: 30,
-                  text: 'Edit',
-                  fontsize: 15,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ),
+
           ],
         ),
       ),

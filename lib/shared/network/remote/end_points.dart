@@ -54,7 +54,7 @@ const SHOWEXAMS='exams/show_for_admin';
 const GETSTEUDENTBYINDEX ='students/index';
 const ADDEXAMSCHEDULE='exams_schedule/create';
 const GETEXAMSCHEDULE='exams_schedule/index';
-const GETEXAMSCHEDULEBYGRADE='exams_schedule/showByGrade';
+const GETEXAMSCHEDULEBYGRADE='/exams_schedule/showByGrade';
 ///TIMETABLES
 const ADDTIMETABLE='create_schedule';
 const SHOWTIMETABLE= 'show_schedule_classroom';

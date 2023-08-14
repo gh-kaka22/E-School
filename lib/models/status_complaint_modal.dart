@@ -61,6 +61,6 @@ class Data {
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    return data;
+    return data ;
   }
 }

@@ -31,7 +31,7 @@ class AboutUsModel {
 class Data {
   String? name;
   String? address;
-  int? phone;
+  String? phone;
   String? overview;
   String? updatedAt;
   String? createdAt;
@@ -49,11 +49,11 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     address = json['address'];
-    phone = json['phone'];
+    phone = json['phone'] ;
     overview = json['overview'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
-    id = json['id'] ;
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {

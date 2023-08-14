@@ -16,7 +16,7 @@ class TSearchBar extends StatelessWidget {
       create: (context) => ShowTeachersCubit()..getTeachers(),
       child: BlocConsumer<ShowTeachersCubit, ShowTeachersState>(
         listener: (context, state) {
-          // TODO: implement listener
+
         },
         builder: (context, state) {
           var list= ShowTeachersCubit.get(context).search;
@@ -28,15 +28,21 @@ class TSearchBar extends StatelessWidget {
 
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.arrow_back),color: kDarkBlue2Color,),
+                  ),
                   Padding(
-                    padding:  EdgeInsets.only(top: w/40),
+                    padding:  EdgeInsets.only(top: w/40,left: w/40),
                     child: Container(
                       height:50 ,
                       width: MediaQuery.of(context).size.width/5,
                       // padding: EdgeInsets.symmetric(horizontal: 30),
                       decoration: BoxDecoration(
                         color: kSearchBackgroundColor,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: defaultFormField(
                           controller: searchController,
@@ -52,7 +58,7 @@ class TSearchBar extends StatelessWidget {
                   SizedBox(height: 50,),
                   Container(
 
-                    width: 4 / 5 * w,
+                    width: w,
                     height: 50,
                     decoration: BoxDecoration(
                         color:  Colors.white ,
@@ -78,7 +84,6 @@ class TSearchBar extends StatelessWidget {
                           Expanded(
                             child: Center(child: ShowText(name:'Last Name')),
                           ),
-                          Expanded(child: Center(child: ShowText(name:'Subject'))),
                           Expanded(
                               child: Center(
                                 child: ShowText(name:'address',
