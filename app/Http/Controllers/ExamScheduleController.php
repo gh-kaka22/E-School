@@ -58,7 +58,11 @@ class ExamScheduleController extends Controller
             'type_id'=>$request->type_id,
         ]);
 
-        $exam_schedule->type_id=$insertedData2->type_id;
+        $exam_type =  DB::table('exams_type')
+            ->where('type_id',$request->type_id)
+            ->first()->name;
+
+        $exam_schedule->type_name=$exam_type;
 
 
         return $this->apiResponse('Schedule uploaded successfully',$exam_schedule);
@@ -81,10 +85,13 @@ class ExamScheduleController extends Controller
 
         $exam_type =  ExamSchedule_ExamType::query()
             ->where('exam_schedule_id','=',$exam_schedule->exam_schedule_id)
-            ->first()->type_id;
+            ->first();
 
+        $exam_name =  DB::table('exams_type')
+            ->where('type_id',$exam_type->type_id)
+            ->first()->name;
 
-        $exam_schedule->type_id=$exam_type;
+        $exam_schedule->type_name=$exam_name;
 
 
 
