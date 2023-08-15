@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Parentt;
 use App\Models\Student;
 use App\Models\StudentHistory;
 use App\Models\Teacher;
@@ -82,6 +83,35 @@ class StudentController extends Controller
         $student->update($data);
 
 
+        $parent = Parentt::find($student->parent_id);
+         Parentt::query()->where('parent_id', '=', $student->parent_id )->update(
+            [
+                'father_first_name' => $request->has('father_first_name') ?
+                    $request['father_first_name'] : $parent['father_first_name'],
+
+                'father_last_name' => $request->has('father_last_name') ?
+                    $request['father_last_name'] : $parent['father_last_name'],
+
+                'father_phone_number' => $request->has('father_phone_number') ?
+                    $request['father_phone_number'] : $parent['father_phone_number'],
+
+                'mother_first_name' => $request->has('mother_first_name') ?
+                    $request['mother_first_name'] : $parent['mother_first_name'],
+
+                'mother_last_name' => $request->has('mother_last_name') ?
+                    $request['mother_last_name'] : $parent['mother_last_name'],
+
+                'mother_phone_number' => $request->has('mother_phone_number') ?
+                    $request['mother_phone_number'] : $parent['mother_phone_number'],
+
+            ]);
+
+
+        $student = DB::table('students')
+            ->join('parents', 'students.parent_id', '=', 'parents.parent_id')
+            ->where('students.student_id','=',$student_id)
+            ->select('students.*', 'parents.*')
+            ->first();
 
         return $this->apiResponse('success',$student);
 
