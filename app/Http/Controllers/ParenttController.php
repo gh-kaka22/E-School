@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Parentt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +53,34 @@ class ParenttController extends Controller
 //            'data'=>$parent,
 //        ],200);
 
+
+    }
+
+    public function profile (Request $request){
+
+        $parent=DB::table('parents')
+            ->where('user_id',Auth::id())
+            ->first();
+
+
+        $kids_count=DB::table('students')
+            ->where('parent_id' , '=' , $parent->parent_id)
+            ->count();
+
+        $profile_data=[
+            'first name' => $parent->father_first_name,
+            'last name' => $parent->father_last_name,
+            'mother first name' => $parent->mother_first_name,
+            'mother last name' => $parent->mother_last_name,
+            'father phone number' => $parent->father_phone_number,
+            'mother phone number' => $parent->mother_phone_number,
+            'national id' => $parent->national_id,
+            'kids' => $kids_count,
+
+        ];
+
+
+        return $this->apiResponse('success',$profile_data);
 
     }
 

@@ -15,9 +15,9 @@ class Complaint extends Model
 
     public $timestamps=true ;
 
-    public function parent()
+    public function parentt()
     {
-        return $this->belongsTo(Parentt::class);
+        return $this->belongsTo(Parentt::class, 'parent_id', 'parent_id');
     }
 }
 

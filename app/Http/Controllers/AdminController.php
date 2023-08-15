@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Complaint;
+use App\Models\Parentt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,14 +43,21 @@ class AdminController extends Controller
 
     public function ComplaintIndex()
     {
-        $complaints = Complaint::query()->where('status' , '=' , 'pending')->get();
+        $complaintsWithParentNames = Complaint::selectRaw(
+            'complaints.*,
+    CONCAT(parents.father_first_name, " ", parents.father_last_name) as parent_name'
+        )
+            ->join('parents', 'complaints.parent_id', '=', 'parents.parent_id')
+            ->get();
 
-        if(!$complaints)
+
+
+        if(!$complaintsWithParentNames)
         {
             return $this->apiResponse('there is no pending complaints');
         }
 
-        return $this->apiResponse('success',$complaints);
+        return $this->apiResponse('success',$complaintsWithParentNames);
     }
 
     public function ComplaintResolve(Request $request, Complaint $complaint)
