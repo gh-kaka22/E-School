@@ -21,6 +21,8 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
   String? ischeck;
   String currText = 'Active';
   String? dropDownValueClass = '7';
+  String? dropDownValueSection;
+
 
 
   List<DropdownMenuItem> menuItemsClass = [
@@ -38,6 +40,69 @@ class UpdateStudentsCubit extends Cubit<UpdateStudentsState> {
     ),
   ];
   List<DropdownMenuItem> menuItemsSection = [];
+
+  void changeSectionDropDownButton(String newValue)
+  {
+    dropDownValueSection = newValue;
+    emit(SectionDropDownButtonState());
+  }
+
+  ClassroomModel? classroomModel;
+  List<dynamic>? classrooms;
+  void getClassrooms(value)
+  {
+    emit(ShowClassroomsSLoadingState());
+    DioHelper.getData(
+      url: '${GETCLASSROOMSOFAGRADE}/${value}',
+      token: token,
+    ).then((value) {
+      print(value?.data);
+      classroomModel = ClassroomModel.fromJson(value?.data);
+      print(classroomModel?.status);
+      print(classroomModel?.message);
+      print(classroomModel?.data?[0].capacity);
+      classrooms = classroomModel?.data;
+      print(classrooms?[1].roomNumber);
+      menuItemsSection = classrooms!.map((classroom) {
+        return DropdownMenuItem<dynamic>(
+          value: '${classroom.classroomId}',
+          child: Text(classroom.roomNumber),
+        );
+      }).toList();
+      emit(ShowClassroomsSSuccessState(classroomModel!));
+    }).catchError((error){
+      print(error.toString());
+      emit(ShowClassroomsSErrorState(error.toString()));
+    });
+  }
+
+  void EditClass({
+    student_id,
+    classroom_id,
+  }) {
+    emit(ClassroomsForStudentLoadingState());
+    DioHelper.postData(
+      url: EditCLASSONESTUDENT,
+      token: token,
+      data: {
+        'student_id':student_id,
+        'classroom_id':classroom_id,
+      },
+    ).then((value) {
+      print(value?.data);
+      if (value!.data['status']) {
+        emit(ClassroomsForStudentSuccessState());
+      } else {
+        emit(ClassroomsForStudentErrorState(value.data['message']));
+      }
+    }).catchError((error) {
+      print("Error ===> ${(error)}");
+      emit(
+        ClassroomsForStudentErrorState(error.toString()),
+      );
+    });
+  }
+
 
 
   changeCheck(val) {

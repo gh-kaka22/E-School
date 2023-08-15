@@ -389,7 +389,7 @@ Widget ShowStudentsItem(w,h,padding,radius, student, index, context,ShowStudents
                 child: defaultButton(
                   onPressed: () {
 
-                    navigateTo(context, UpdateStudent(id:student.studentId,),);
+                    navigateTo(context, UpdateStudent(id:student.studentId,grade: student.gradeId,),);
                         cubit.getStudentData(student.studentId);
 
 

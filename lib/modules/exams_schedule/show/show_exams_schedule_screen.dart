@@ -68,7 +68,7 @@ class ShowExamSchedule extends StatelessWidget {
                             style: TextStyle(color: kGold1Color, fontSize: 16),
                             onChanged: (newValue) {
                               cubit.changeClassDropDownButton(newValue!);
-                            },
+                              },
                             items: cubit.menuItemsClass,
                           ),
                         ),
@@ -77,9 +77,8 @@ class ShowExamSchedule extends StatelessWidget {
                         width: 20,
                       ),
                       defaultButton(
-                        onPressed: () async {
-                          await cubit
-                              .getExamScheduleByGrade(cubit.dropDownValueClass);
+                        onPressed: ()  {
+                           cubit.getExamScheduleByGrade(cubit.dropDownValueClass);
                           print(cubit.dropDownValueClass);
                         },
                         height: 30,

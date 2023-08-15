@@ -42,3 +42,12 @@ class ShowClassroomsSErrorState extends UpdateStudentsState{
 }
 class ClassDropDownButtonState extends UpdateStudentsState{}
 class SectionDropDownButtonState extends UpdateStudentsState{}
+
+///
+class ClassroomsForStudentLoadingState extends UpdateStudentsState{}
+class ClassroomsForStudentSuccessState extends UpdateStudentsState{
+}
+class ClassroomsForStudentErrorState extends UpdateStudentsState{
+  final String error;
+  ClassroomsForStudentErrorState(this.error);
+}

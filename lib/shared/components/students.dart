@@ -42,7 +42,7 @@ Widget SearchStudentsItem(w, student, index, context) => Container(
           child: Center(
             child: defaultButton(
               onPressed: () {
-                navigateTo(context, UpdateStudent(id:student.studentId,));
+                navigateTo(context, UpdateStudent(id:student.studentId,grade: student.gradeId,));
               },
               height: 30,
               text: 'Edit',

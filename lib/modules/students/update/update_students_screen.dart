@@ -27,7 +27,8 @@ class UpdateStudent extends StatelessWidget {
   var nationalityController = TextEditingController();
 
  final  int id;
-  UpdateStudent({ required this.id});
+ final int grade;
+  UpdateStudent({ required this.id,required this.grade});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class UpdateStudent extends StatelessWidget {
     double borderwidth = 1;
 
     return BlocProvider(
-      create: (context) => UpdateStudentsCubit()..getStudentData(id),
+      create: (context) => UpdateStudentsCubit()..getStudentData(id)..getClassrooms(grade),
 
 
       child: BlocConsumer<UpdateStudentsCubit, UpdateStudentsState>(
@@ -59,7 +60,15 @@ class UpdateStudent extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 )));
 
-            //navigateTo(context, StudentsShow());
+            Navigator.pop(context);
+          }
+          if (state is ClassroomsForStudentSuccessState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.green,
+                content: Text(
+                  'Classroom Changed',
+                  style: TextStyle(color: Colors.white),
+                )));
           }
         },
         builder: (context, state) {
@@ -107,6 +116,43 @@ class UpdateStudent extends StatelessWidget {
                                 .textTheme
                                 .headlineLarge!
                                 .copyWith(color: kDarkBlue2Color),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                color: kDarkBlue2Color,
+                                border: Border.all(color: kGold1Color, width: 3),
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                      color: Color.fromRGBO(0, 0, 0, 0.57),
+                                      //shadow for button
+                                      blurRadius: 5) //blur radius of shadow
+                                ]),
+                            child: Padding(
+                              padding:
+                              const EdgeInsets.only(left: 80, right: 80),
+                              child: DropdownButton<dynamic>(
+                                underline: const SizedBox(),
+                                value: cubit.dropDownValueSection,
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: kGold1Color,
+                                ),
+                                iconSize: 24,
+                                elevation: 40,
+                                hint: Text('Choose Class',style: TextStyle(color: kGold1Color, fontSize: 16),),
+                                style:
+                                TextStyle(color: kGold1Color, fontSize: 16),
+                                onChanged: (newValue) {
+                                  cubit.changeSectionDropDownButton(newValue!);
+                                  cubit.EditClass(student_id: this.id,classroom_id: newValue);
+                                },
+                                items: cubit.menuItemsSection,
+                              ),
+                            ),
                           ),
                         ),
                         Form(
