@@ -73,7 +73,39 @@ class ExamScheduleController extends Controller
     public function showByGrade($grade_id)
     {
 
+        $exam_schedule = DB::table('exam_schedules')
+            ->where('grade_id','=',$grade_id)
+            ->orderBy('created_at', 'DESC')
+            ->first();
 
+        if(!$exam_schedule)
+            return $this->apiResponse('schedule is not found',null,false);
+
+
+
+        $exam_type =  ExamSchedule_ExamType::query()
+            ->where('exam_schedule_id','=',$exam_schedule->exam_schedule_id)
+            ->first();
+
+        $exam_name =  DB::table('exams_type')
+            ->where('type_id',$exam_type->type_id)
+            ->first()->name;
+
+        $exam_schedule->type_name=$exam_name;
+
+
+
+        return $this->apiResponse('success',$exam_schedule);
+
+
+    }
+
+    public function showToken()
+    {
+        $grade_id = DB::table('students')
+            ->where('user_id',Auth::id())
+            ->first()
+            ->grade_id;
 
         $exam_schedule = DB::table('exam_schedules')
             ->where('grade_id','=',$grade_id)

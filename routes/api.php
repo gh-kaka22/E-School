@@ -271,6 +271,9 @@ Route::middleware(['auth:api', 'isStudent'])->group(function () {
     //books
     Route::get('/student/showbooks',[\App\Http\Controllers\BookController::class, 'showStudent']);
 
+    Route::get('/student/showExamSchedule',[\App\Http\Controllers\ExamScheduleController::class, 'showToken']);
+
+
 
 
 });
