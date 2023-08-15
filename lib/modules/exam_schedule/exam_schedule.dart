@@ -2,6 +2,7 @@
 
 import 'package:e_school/modules/exam_schedule/cubit/exam_schedule_cubit.dart';
 import 'package:e_school/shared/components/components.dart';
+import 'package:e_school/shared/components/constants.dart';
 import 'package:e_school/shared/components/option_card.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -35,148 +36,18 @@ class ShowExamSchedule extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        DecoratedBox(
-                          decoration: BoxDecoration(
-                              color: kDarkBlue2Color,
-                              border: Border.all(color: kGold1Color, width: 3),
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.57),
-                                    //shadow for button
-                                    blurRadius: 5) //blur radius of shadow
-                              ]),
-                          child: Padding(
-                            padding:  EdgeInsets.only(left: padding,right: padding),
-                            child: DropdownButton<String>(
-                              underline: const SizedBox(),
-                              value: cubit.dropDownValueClass,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: kGold1Color,
-                              ),
-                              iconSize: 24,
-                              elevation: 40,
-                              hint: Text(
-                                'Choose Class',
-                                style: TextStyle(color: kGold1Color),
-                              ),
-                              style: TextStyle(color: kGold1Color, fontSize: 16),
-                              onChanged: (newValue) {
-                                cubit.changeClassDropDownButton(newValue!);
-                              },
-                              items: cubit.menuItemsClass,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        // defaultButton(
-                        //   onPressed: ()   {
-                        //     cubit
-                        //         .getExamScheduleByGrade(cubit.dropDownValueType);
-                        //   },
-                        //   height: 30,
-                        //   text: 'Refresh',
-                        //   fontsize: 15,
-                        //   fontWeight: FontWeight.w300,
-                        //   buttColor: Colors.green,
-                        // ),
-                        // Expanded(
-                        //   child: DecoratedBox(
-                        //     decoration: BoxDecoration(
-                        //         color: kDarkBlue2Color,
-                        //         border: Border.all(color: kGold1Color, width: 3),
-                        //         borderRadius: BorderRadius.circular(50),
-                        //         boxShadow: <BoxShadow>[
-                        //           BoxShadow(
-                        //               color: Color.fromRGBO(0, 0, 0, 0.57),
-                        //               //shadow for button
-                        //               blurRadius: 5) //blur radius of shadow
-                        //         ]),
-                        //     child: Padding(
-                        //       padding:
-                        //       EdgeInsets.only(left: padding, right: padding),
-                        //       child: DropdownButton<dynamic>(
-                        //         underline: const SizedBox(),
-                        //         value: cubit.dropDownValueType,
-                        //         icon: Icon(
-                        //           Icons.keyboard_arrow_down,
-                        //           color: kGold1Color,
-                        //         ),
-                        //         iconSize: 24,
-                        //         elevation: 40,
-                        //         hint: Text(
-                        //           'Choose Type',
-                        //           style: TextStyle(color: kGold1Color),
-                        //         ),
-                        //         style:
-                        //         TextStyle(color: kGold1Color, fontSize: 16),
-                        //         onChanged: (newValue) {
-                        //           cubit.changeTypeDropDownButton(newValue!);
-                        //         },
-                        //         items: cubit.menuItemsType,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
                     SizedBox(
                       height: 30,
                     ),
+                    state is ShowExamScheduleLoadingState?
+                    Center(child: CircularProgressIndicator()):
                     Container(
                       width: w,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: kWhiteColor,
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: Color.fromRGBO(0, 0, 0, 0.2),
-                                blurRadius: 20) //blur radius of shadow
-                          ]),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
+                      height: h/3,
 
-                            Expanded(
-                                child: Center(
-                                  child: Text(
-                                     'Type',
-                                  ),
-                                )),
-                            Expanded(
-                                child: Center(
-                                  child: Text(
-                                    'Grade',
-                                  ),
-                                )),
-                            Expanded(
-                              child: Center(child: Text('School Year')),
-                            ),
-                            Expanded(
-                                child: Center(
-                                  child: Text(
-                                     'Show',
-                                  ),
-                                )),
-                          ],
-                        ),
-                      ),
+                      child:Image(image: NetworkImage('${baseUrl}/ExamScheduleImages/${cubit.image}'),),
                     ),
-                    ShowExamScheduleBuilder(
-                      w,
-                      cubit.showExamScheduleModel?.data,
-                      context,
-                      state,
-                    )
+
                   ],
                 ),
               ),

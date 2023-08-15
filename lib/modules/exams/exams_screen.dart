@@ -56,7 +56,7 @@ class ExamsScreen extends StatelessWidget {
                               style: TextStyle(color: kGold1Color,fontSize: 16),
                               onChanged: (newValue) {
                                 cubit.changeTypeDropDownButton(newValue);
-                                cubit.getStudentMarks(cubit.dropDownValueType, cubit.dropDownValueYear);
+                                cubit.getStudentMarks(newValue, cubit.dropDownValueYear);
                               },
                               items: cubit.menuItemsType,
                             ),

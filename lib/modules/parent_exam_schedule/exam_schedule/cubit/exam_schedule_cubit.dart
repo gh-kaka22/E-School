@@ -25,7 +25,7 @@ class ExamScheduleParentCubit extends Cubit<ExamScheduleParentState> {
       child: Text('9'),
     ),
   ];
-  ShowExamScheduleModel? showExamScheduleModel;
+  ExamScheduleModel? showExamScheduleModel;
   List<dynamic>? schedules;
 
   void changeClassDropDownButton(String newValue)
@@ -34,25 +34,6 @@ class ExamScheduleParentCubit extends Cubit<ExamScheduleParentState> {
     emit(ExamsClassDropDownButtonState());
   }
 
-   void getExamScheduleParentByGrade(value)
-  {
-    emit(ShowExamScheduleParentLoadingState());
-    DioHelper.getData(
-      url: '${GETEXAMSCHEDULEBYGRADE}/${dropDownValueClass}',
-      token: token,
-    ).then((value) {
-      print(value?.data);
-      showExamScheduleModel = ShowExamScheduleModel.fromJson(value?.data);
-      print(showExamScheduleModel?.status);
-      print(showExamScheduleModel?.message);
-      print(showExamScheduleModel?.data?[0].gradeId);
-      schedules = showExamScheduleModel?.data;
-      emit(ShowExamScheduleParentSuccessState(showExamScheduleModel!));
-    }).catchError((error){
-      print(error.toString());
-      emit(ShowExamScheduleParentErrorState(error.toString()));
-    });
-  }
 
   void getExamScheduleParent()
   {
@@ -62,11 +43,11 @@ class ExamScheduleParentCubit extends Cubit<ExamScheduleParentState> {
       token: token
     ).then((value) {
       print(value?.data);
-      showExamScheduleModel = ShowExamScheduleModel.fromJson(value?.data);
+      showExamScheduleModel = ExamScheduleModel.fromJson(value?.data);
       print(showExamScheduleModel?.status);
       print(showExamScheduleModel?.message);
-      print(showExamScheduleModel?.data?[0].gradeId);
-      schedules = showExamScheduleModel?.data;
+      // print(showExamScheduleModel?.data?[0].gradeId);
+      // schedules = showExamScheduleModel?.data;
       emit(ShowExamScheduleParentSuccessState(showExamScheduleModel!));
     }).catchError((error){
       print(error.toString());

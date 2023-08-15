@@ -2,6 +2,7 @@
 
 import 'package:e_school/layout/parent_home_layout/cubit/parent_layout_states.dart';
 import 'package:e_school/modules/home_parent/parent_home_screen.dart';
+import 'package:e_school/modules/parent_profile/profile_screen.dart';
 import 'package:e_school/modules/posts/posts_screen.dart';
 import 'package:e_school/modules/posts_parent/parent_posts_screen.dart';
 import 'package:e_school/modules/profile/profile_screen.dart';
@@ -40,7 +41,7 @@ class ParentLayoutCubit extends Cubit<ParentLayoutStates>
   List<Widget> screens = [
     ParentHomeScreen(),
     ParentPostsScreen(),
-    ProfileStudent(),
+    ParentProfileStudent(),
     SettingsScreen(),
 
   ];

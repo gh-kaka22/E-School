@@ -21,15 +21,6 @@ class LibraryScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Library'),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(onPressed: (){
-                    navigateTo(context, AddFile());
-                  },
-                      icon:Icon(Icons.add)),
-                ),
-              ],
             ),
             body: Center(
               child: Column(

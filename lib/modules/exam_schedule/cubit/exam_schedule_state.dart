@@ -6,8 +6,8 @@ abstract class ExamScheduleState {}
 class ExamScheduleInitial extends ExamScheduleState {}
 class ShowExamScheduleLoadingState extends ExamScheduleState {}
 class ShowExamScheduleSuccessState extends ExamScheduleState {
-  ShowExamScheduleModel showExamScheduleModel;
-  ShowExamScheduleSuccessState(this.showExamScheduleModel);
+  ExamScheduleModel examScheduleModel;
+  ShowExamScheduleSuccessState(this.examScheduleModel);
 }
 class ShowExamScheduleErrorState extends ExamScheduleState {
   final String error;

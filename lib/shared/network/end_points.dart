@@ -44,8 +44,7 @@ const DELETECOMMENT = 'delete_comment';
 const TEACHERPROFILE='profile/teacher';
 const SHOWTIMETABLETEACHER='/teacher/getschedule/';
 ///Exam Schedule
-const GETEXAMSCHEDULE='exams_schedule/index';
-const GETEXAMSCHEDULEBYGRADE='/exams_schedule/showByGrade';
+const GETEXAMSCHEDULE='student/showExamSchedule';
 ///complaint
 const COMPLAINT='complaints';
 const SHOWCOMPLAINT='parent/complaints';

@@ -61,7 +61,7 @@ class ProfileStudent extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/Background.jpg',),
+                      image: AssetImage('assets/images/BackgroundP.jpg',),
                       alignment: Alignment.topCenter,
                       fit: BoxFit.fitWidth,
                     ),
@@ -95,11 +95,11 @@ class ProfileStudent extends StatelessWidget {
                                       width: 100,
                                       height: 100,
                                       decoration: BoxDecoration(
-                                        color: kDarkBlue2Color.withOpacity(0.5),
+                                        color: kDarkBlue3Color.withOpacity(0.9),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
 
-                                      child: Image.asset('assets/icons/teacher.png',
+                                      child: Image.asset('assets/icons/graduating-student-b.png',
                                         alignment: Alignment.topLeft,
                                         fit: BoxFit.cover,
 
@@ -129,7 +129,7 @@ class ProfileStudent extends StatelessWidget {
                                           Padding(
                                             padding:  EdgeInsets.only(left: 5),
                                             child: Text(
-                                              'Section: 7A',
+                                              'Section: ${cubit.profileModel?.data?.classroom}',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15,

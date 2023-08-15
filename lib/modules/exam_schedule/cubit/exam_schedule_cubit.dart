@@ -27,35 +27,13 @@ class ExamScheduleCubit extends Cubit<ExamScheduleState> {
       child: Text('9'),
     ),
   ];
-  ShowExamScheduleModel? showExamScheduleModel;
-  List<dynamic>? schedules;
-
+  ExamScheduleModel? examScheduleModel;
   void changeClassDropDownButton(String newValue)
   {
     dropDownValueClass = newValue;
     emit(ExamsClassDropDownButtonState());
   }
-
-   void getExamScheduleByGrade(value)
-  {
-    emit(ShowExamScheduleLoadingState());
-    DioHelper.getData(
-      url: '${GETEXAMSCHEDULEBYGRADE}/${dropDownValueClass}',
-      token: token,
-    ).then((value) {
-      print(value?.data);
-      showExamScheduleModel = ShowExamScheduleModel.fromJson(value?.data);
-      print(showExamScheduleModel?.status);
-      print(showExamScheduleModel?.message);
-      print(showExamScheduleModel?.data?[0].gradeId);
-      schedules = showExamScheduleModel?.data;
-      emit(ShowExamScheduleSuccessState(showExamScheduleModel!));
-    }).catchError((error){
-      print(error.toString());
-      emit(ShowExamScheduleErrorState(error.toString()));
-    });
-  }
-
+String? image;
   void getExamSchedule()
   {
     emit(ShowExamScheduleLoadingState());
@@ -64,12 +42,12 @@ class ExamScheduleCubit extends Cubit<ExamScheduleState> {
       token: token
     ).then((value) {
       print(value?.data);
-      showExamScheduleModel = ShowExamScheduleModel.fromJson(value?.data);
-      print(showExamScheduleModel?.status);
-      print(showExamScheduleModel?.message);
-      print(showExamScheduleModel?.data?[0].gradeId);
-      schedules = showExamScheduleModel?.data;
-      emit(ShowExamScheduleSuccessState(showExamScheduleModel!));
+      examScheduleModel = ExamScheduleModel.fromJson(value?.data);
+      print(examScheduleModel?.status);
+      print(examScheduleModel?.message);
+      print(examScheduleModel?.data.gradeId);
+      image=examScheduleModel?.data.image;
+      emit(ShowExamScheduleSuccessState(examScheduleModel!));
     }).catchError((error){
       print(error.toString());
       emit(ShowExamScheduleErrorState(error.toString()));

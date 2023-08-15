@@ -8,7 +8,7 @@ abstract class ExamScheduleParentState {}
 class ExamScheduleParentInitial extends ExamScheduleParentState {}
 class ShowExamScheduleParentLoadingState extends ExamScheduleParentState {}
 class ShowExamScheduleParentSuccessState extends ExamScheduleParentState {
-  ShowExamScheduleModel showExamScheduleModel;
+  ExamScheduleModel showExamScheduleModel;
   ShowExamScheduleParentSuccessState(this.showExamScheduleModel);
 }
 class ShowExamScheduleParentErrorState extends ExamScheduleParentState {

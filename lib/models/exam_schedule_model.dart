@@ -1,73 +1,73 @@
+// To parse this JSON data, do
+//
+//     final examScheduleModel = examScheduleModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ShowExamScheduleModel showModelFromJson(String str) => ShowExamScheduleModel.fromJson(json.decode(str));
+ExamScheduleModel examScheduleModelFromJson(String str) => ExamScheduleModel.fromJson(json.decode(str));
 
-String showModelToJson(ShowExamScheduleModel data) => json.encode(data.toJson());
+String examScheduleModelToJson(ExamScheduleModel data) => json.encode(data.toJson());
 
-
-class ShowExamScheduleModel {
+class ExamScheduleModel {
   bool status;
   String message;
-  List<Data>? data;
+  Data data;
 
-  ShowExamScheduleModel({required this.status,required this.message, this.data});
+  ExamScheduleModel({
+    required this.status,
+    required this.message,
+    required this.data,
+  });
 
-  factory ShowExamScheduleModel.fromJson(Map<String, dynamic> json) => ShowExamScheduleModel(
+  factory ExamScheduleModel.fromJson(Map<String, dynamic> json) => ExamScheduleModel(
     status: json["status"],
     message: json["message"],
-    data: List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+    data: Data.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+    "data": data.toJson(),
   };
 }
 
 class Data {
-  int? id;
-  int? typeId;
-  int? examScheduleId;
-  String? createdAt;
-  String? updatedAt;
-  String? image;
-  int? gradeId;
-  int? schoolYear;
+  int examScheduleId;
+  String image;
+  int gradeId;
+  int schoolYear;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String typeName;
 
-  Data(
-      {
-        this.id,
-        this.typeId,
-        this.examScheduleId,
-        this.createdAt,
-        this.updatedAt,
-        this.image,
-        this.gradeId,
-        this.schoolYear});
+  Data({
+    required this.examScheduleId,
+    required this.image,
+    required this.gradeId,
+    required this.schoolYear,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.typeName,
+  });
 
-  Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    typeId = json['type_id'];
-    examScheduleId = json['exam_schedule_id'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    image = json['image'];
-    gradeId = json['grade_id'];
-    schoolYear = json['School_Year'];
-  }
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    examScheduleId: json["exam_schedule_id"],
+    image: json["image"],
+    gradeId: json["grade_id"],
+    schoolYear: json["School_Year"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    typeName: json["type_name"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['type_id'] = this.typeId;
-    data['exam_schedule_id'] = this.examScheduleId;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['image'] = this.image;
-    data['grade_id'] = this.gradeId;
-    data['School_Year'] = this.schoolYear;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "exam_schedule_id": examScheduleId,
+    "image": image,
+    "grade_id": gradeId,
+    "School_Year": schoolYear,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "type_name": typeName,
+  };
 }

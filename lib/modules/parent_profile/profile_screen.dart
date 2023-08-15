@@ -48,7 +48,7 @@ class ParentProfileStudent extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/Background.jpg',),
+                      image: AssetImage('assets/images/BackgroundPa.jpg',),
                       alignment: Alignment.topCenter,
                       fit: BoxFit.fitWidth,
                     ),
@@ -86,7 +86,7 @@ class ParentProfileStudent extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
 
-                                      child: Image.asset('assets/icons/teacher.png',
+                                      child: Image.asset('assets/icons/parents (1).png',
                                         alignment: Alignment.topLeft,
                                         fit: BoxFit.cover,
 

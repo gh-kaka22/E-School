@@ -31,7 +31,7 @@ class ParentHomeScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage('assets/images/Background.jpg'),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                   ),
                                   borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(50),
@@ -43,7 +43,7 @@ class ParentHomeScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.height / 3.5,
                                   decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.6),
+                                    color: kVioletColor.withOpacity(0.7),
                                     borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(50),
                                       bottomRight: Radius.circular(50),

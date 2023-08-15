@@ -1830,7 +1830,7 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
   child: ListTile(
     leading:InkWell(
       onTap: () =>launchUrl(
-          Uri.parse('${baseUrl}/${file.path}'),
+          Uri.parse('${baseUrl}${file.path}'),
           mode: LaunchMode.externalApplication
       ),
       child: Image.asset(
@@ -1858,7 +1858,7 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
           //     '${baseUrl}${file.path}',
           //     file.name
           // );
-        downloadFileGPT(context, '${baseUrl}${file.path}');
+        downloadFileA(context, '${baseUrl}${file.path}');
           // showToast(
           //     text: 'File Downloaded...',
           //     state: ToastStates.SUCCESS
@@ -1878,24 +1878,24 @@ Widget ShowFilesItem(w, file, index, context) => Padding(
   ),
 );
 
-Future<void> downloadFileGPT(context,String url) async {
+Future<void> downloadFileA(context,String url) async {
   try {
     // Get the temporary directory of the device
     Directory tempDir = await getTemporaryDirectory();
 
-    // Generate a unique file name based on the current timestamp
-    String fileName ='anasflutter';
+    // Generate a unique file name
+    String fileName ='schoolFile';
 
     // Create a new file in the temporary directory with the generated file name
     File file = File('${tempDir.path}/$fileName');
 
     // Download the file from the URL and save it to the new file using Dio
     Dio dio = Dio();
-    await dio.download('http://192.168.1.5:8000/files/img.png', file.path);
+    await dio.download(url, file.path);
 
     // Show a success message to the user
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('File downloaded successfully')),
+      SnackBar(content: Text('File downloaded successfully'),backgroundColor: Colors.lightGreen,),
     );
   } catch (error) {
     // Show an error message to the user

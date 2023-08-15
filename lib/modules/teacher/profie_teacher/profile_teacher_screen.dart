@@ -49,7 +49,7 @@ class ProfileTeacher extends StatelessWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/Background.jpg',),
+                      image: AssetImage('assets/images/BackgroundT.jpg',),
                       alignment: Alignment.topCenter,
                       fit: BoxFit.fitWidth,
                     ),
