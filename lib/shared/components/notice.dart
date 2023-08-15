@@ -145,7 +145,7 @@ Widget ShowNotesScreenItem(w, student, index, context,ShowNoticeCubit cubit,stat
           child: Center(
             child: defaultButton(
               onPressed: () {
-                navigateTo(context, ShowNotesScreen);
+                navigateTo(context, ShowNotesScreen(id: student.studentId,));
                 },
               height: 30,
               text: 'Show',
@@ -211,7 +211,6 @@ Widget ShowNotesItem(w, note, index, context) => Container(
 
 
 
-
       ],
     ),
   ),
@@ -224,6 +223,7 @@ Widget ShowNotesBuilder(w, notes, context, state) => ConditionalBuilder(
       separatorBuilder: (context, index) {
         return MyDivider();
       },
+
       itemCount: notes.length ?? 0),
   fallback: (context) => Center(child: LinearProgressIndicator()),
 );

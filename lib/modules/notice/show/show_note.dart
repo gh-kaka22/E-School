@@ -11,6 +11,8 @@ import 'package:untitled/styles/colors.dart';
 
 class ShowNotesScreen extends StatelessWidget {
   var searchController = TextEditingController();
+  int id;
+  ShowNotesScreen({ required this.id,});
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +20,28 @@ class ShowNotesScreen extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     double padding = MediaQuery.of(context).size.width / 20;
     return BlocProvider(
-      create: (BuildContext context) => ShowNoticeCubit()..getNotes(1),
+      create: (BuildContext context) => ShowNoticeCubit()..getNotes(id),
       child: BlocConsumer<ShowNoticeCubit, ShowNoticeState>(
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ShowNoticeCubit.get(context);
-          return Material(
-            child: Padding(
+          return Scaffold(
+            body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: SizedBox(
                 height: h,
-                width: 4 / 5 * w,
+                width:  w,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  crossAxisAlignment: CrossAxisAlignment.center,
+
                   children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, icon: Icon(Icons.arrow_back),color: kDarkBlue2Color,),
+                    ),
                     SizedBox(
                       height: 30,
                     ),
@@ -40,7 +50,7 @@ class ShowNotesScreen extends StatelessWidget {
                       height: 30,
                     ),
                     Container(
-                      width: 4 / 5 * w,
+                      width:  w,
                       height: 50,
                       decoration: BoxDecoration(
                           color: Colors.white,

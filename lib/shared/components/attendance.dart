@@ -48,6 +48,9 @@ Widget ShowAttendanceItem(w,h,padding,radius, student, index, context,ShowAttend
             child: defaultButton(
               onPressed: () async {
              await cubit.getAttenadnce(student.studentId);
+           // Future.delayed(Duration(seconds: 1),(){
+           //
+           // });
              showDialog<Future<void>>(
                context: context,
                builder: (BuildContext context) {
@@ -75,9 +78,9 @@ Widget ShowAttendanceItem(w,h,padding,radius, student, index, context,ShowAttend
                                width: w/4,
                                height: h / 18,
                                decoration: BoxDecoration(
-                                   color: Colors.grey[300],
-                                   borderRadius: BorderRadius.all(Radius.circular(radius)),
-                                  ),
+                                 color: Colors.grey[300],
+                                 borderRadius: BorderRadius.all(Radius.circular(radius)),
+                               ),
                                child: Row(
                                  children: [
                                    Container(
