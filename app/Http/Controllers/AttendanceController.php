@@ -69,7 +69,7 @@ class AttendanceController extends Controller
                 ->value('tokens.token');
 
             $bodyCH = 'You were absent today';
-            $bodyPr = $chiled . ' were absent today';
+            $bodyPr = $chiled . ' was absent today';
             $title = 'Absent';
 
             $this->sendNotification($title,$FCM_parent,$bodyPr);
