@@ -39,7 +39,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/get_posts', [\App\Http\Controllers\PostController::class, 'getPosts']);
 
     //exam schedule for specific grade
-    Route::get('/exams_schedule/showByGrade/{grade_id}', [\App\Http\Controllers\ExamScheduleController::class, 'showByGrade']);
+    Route::get('/exams_schedule/showByGrade', [\App\Http\Controllers\ExamScheduleController::class, 'showByGrade']);
 
 
     Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ExamSchedule;
 use App\Models\ExamSchedule_ExamType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ExamScheduleController extends Controller
@@ -69,8 +70,13 @@ class ExamScheduleController extends Controller
 
     }
 
-    public function showByGrade($grade_id)
+    public function showByGrade()
     {
+
+        $grade_id = DB::table('students')
+            ->where('user_id',Auth::id())
+            ->first()
+            ->grade_id;
 
 
         $exam_schedule = DB::table('exam_schedules')
