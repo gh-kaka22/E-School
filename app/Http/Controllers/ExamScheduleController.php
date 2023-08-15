@@ -70,13 +70,9 @@ class ExamScheduleController extends Controller
 
     }
 
-    public function showByGrade()
+    public function showByGrade($grade_id)
     {
 
-        $grade_id = DB::table('students')
-            ->where('user_id',Auth::id())
-            ->first()
-            ->grade_id;
 
 
         $exam_schedule = DB::table('exam_schedules')
