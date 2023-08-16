@@ -43,84 +43,79 @@ class FilesShow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              color: kDarkBlue2Color,
-                              border: Border.all(color: kGold1Color, width: 3),
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.57),
-                                    //shadow for button
-                                    blurRadius: 5) //blur radius of shadow
-                              ]),
-                          child: Padding(
-                            padding:
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: kDarkBlue2Color,
+                            border: Border.all(color: kGold1Color, width: 3),
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.57),
+                                  //shadow for button
+                                  blurRadius: 5) //blur radius of shadow
+                            ]),
+                        child: Padding(
+                          padding:
+                             EdgeInsets.only(left: padding, right: padding),
+                          child: DropdownButton<dynamic>(
+                            underline: const SizedBox(),
+                            value: cubit.dropDownValueClass,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: kGold1Color,
+                            ),
+                            iconSize: 24,
+                            elevation: 40,
+                            hint: Text('Choose Class'),
+                            style:
+                                TextStyle(color: kGold1Color, fontSize: 16),
+                            onChanged: (newValue) {
+                              cubit.changeClassDropDownButton(newValue!);
+                            },
+                            items: cubit.menuItems,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                            color: kDarkBlue2Color,
+                            border: Border.all(color: kGold1Color, width: 3),
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.57),
+                                  //shadow for button
+                                  blurRadius: 5) //blur radius of shadow
+                            ]),
+                        child: Padding(
+                          padding:
                                EdgeInsets.only(left: padding, right: padding),
-                            child: DropdownButton<dynamic>(
-                              underline: const SizedBox(),
-                              value: cubit.dropDownValueClass,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: kGold1Color,
-                              ),
-                              iconSize: 24,
-                              elevation: 40,
-                              hint: Text('Choose Class'),
-                              style:
-                                  TextStyle(color: kGold1Color, fontSize: 16),
-                              onChanged: (newValue) {
-                                cubit.changeClassDropDownButton(newValue!);
-                              },
-                              items: cubit.menuItems,
+                          child: DropdownButton<dynamic>(
+                            underline: const SizedBox(),
+                            value: cubit.dropDownValueSection,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: kGold1Color,
                             ),
+                            iconSize: 24,
+                            elevation: 40,
+                            hint: Text('Choose Class',style: TextStyle(color: kGold1Color),),
+                            style:
+                                TextStyle(color: kGold1Color, fontSize: 16),
+                            onChanged: (newValue) {
+                              cubit.changeSectionDropDownButton(newValue!);
+                            },
+                            items: cubit.menuItems2,
                           ),
                         ),
                       ),
                       SizedBox(
                         width: 20,
                       ),
-                      Expanded(
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                              color: kDarkBlue2Color,
-                              border: Border.all(color: kGold1Color, width: 3),
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: Color.fromRGBO(0, 0, 0, 0.57),
-                                    //shadow for button
-                                    blurRadius: 5) //blur radius of shadow
-                              ]),
-                          child: Padding(
-                            padding:
-                                 EdgeInsets.only(left: padding, right: padding),
-                            child: DropdownButton<dynamic>(
-                              underline: const SizedBox(),
-                              value: cubit.dropDownValueSection,
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: kGold1Color,
-                              ),
-                              iconSize: 24,
-                              elevation: 40,
-                              hint: Text('Choose Class',style: TextStyle(color: kGold1Color),),
-                              style:
-                                  TextStyle(color: kGold1Color, fontSize: 16),
-                              onChanged: (newValue) {
-                                cubit.changeSectionDropDownButton(newValue!);
-                              },
-                              items: cubit.menuItems2,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      SearchBar(),
+
                     ],
                   ),
                   SizedBox(

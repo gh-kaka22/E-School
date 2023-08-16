@@ -23,7 +23,7 @@ class ExamsAdd extends StatelessWidget {
       child: BlocConsumer<AddExamsCubit, AddExamsStates>(
         listener: (context, state) {
           if (state is AddExamsEnteredSuccessState) {
-            if(state.addExamsEnteredModel.status ?? true) {
+            if(state.addExamsEnteredModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:

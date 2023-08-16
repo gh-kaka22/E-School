@@ -18,7 +18,19 @@ class ShowComplaints extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ComplaintCubit()..getComplaints(),
       child: BlocConsumer<ComplaintCubit, ComplaintState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is StatusComplaintSuccessState)
+            {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  backgroundColor: Colors.green,
+                  content:
+                  Center(
+                    child: Text(
+                        'Complaint is solved now !',
+                        style: TextStyle(color: Colors.white)),
+                  )));
+            }
+        },
         builder: (context, state) {
           var cubit = ComplaintCubit.get(context);
           return Padding(
@@ -124,29 +136,20 @@ class ShowComplaints extends StatelessWidget {
                                         child: state
                                                 is! StatusComplaintLoadingState
                                             ? Center(
-                                                child: IconButton(
-                                                  onPressed: () {
-                                                    cubit.clicked();
-                                                    cubit.click!
-                                                        ? change = 1
-                                                        : change = 0;
+                                                child: InkWell(
+                                                  onTap: () {
                                                     cubit.solveComplaints(
                                                       ID: cubit
                                                           .complaintModel
                                                           ?.data?[index]
                                                           .complaintId,
-                                                      status: change.toString(),
+                                                      status: '1',
                                                     );
+                                                    cubit.getComplaints();
 
                                                   },
-                                                  icon: Icon(
-                                                          Icons
-                                                              .check,
-                                                          size: 30,
-                                                          color:
-                                                              Colors.lightGreen,
-                                                        ),
-                                                ),
+                                                  child: Image.asset('assets/icons/expired.png'),
+                                                )
                                               )
                                             : Center(
                                                 child:

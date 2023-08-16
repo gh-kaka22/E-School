@@ -27,7 +27,7 @@ class CreatePost extends StatelessWidget {
       child: BlocConsumer<CreatePostCubit, CreatePostStates>(
         listener: (context, state) {
           if (state is CreatePostSuccessState) {
-            if(state.createPostModel.status ?? true) {
+            if(state.createPostModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:

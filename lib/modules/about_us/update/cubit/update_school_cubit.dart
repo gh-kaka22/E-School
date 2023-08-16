@@ -37,7 +37,7 @@ AboutUsModel? aboutUsModel;
   }) {
     emit(UpdateSchoolLoading());
     DioHelper.postData(
-      url: '${UPDATESCHOOL}',
+      url: UPDATESCHOOL,
       token: token,
       data: {
         'name':name,

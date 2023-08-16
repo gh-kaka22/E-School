@@ -66,7 +66,7 @@ class AddFile extends StatelessWidget {
       child: BlocConsumer<AddFileCubit, AddFileStates>(
         listener: (context, state) {
           if (state is AddFileSuccessState) {
-            if(state.addFileModel.status = true) {
+            if(state.addFileModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:

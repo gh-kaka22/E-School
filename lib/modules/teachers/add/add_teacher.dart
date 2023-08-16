@@ -46,7 +46,6 @@ class AddTeacher extends StatelessWidget {
                   'Registered Successfully',
                   style: TextStyle(color: Colors.white),
                 )));
-            //todo: Navigate to home
             showDialog(
                 context: context,
                 builder: (ctx) => Column(

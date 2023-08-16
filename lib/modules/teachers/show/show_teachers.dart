@@ -37,25 +37,30 @@ class ShowTeachers extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  ElevatedButton(
-                    child: Text('Search For Teachers',style: TextStyle(
-                    color: kGold1Color,
+                  Row(
+                    children: [
+                      Icon(Icons.search,color: kGold1Color,),
+                      ElevatedButton(
+                        child: Text('Search For Teachers',style: TextStyle(
+                        color: kGold1Color,
 
 
-                  ),
+                      ),
 
 
-                  ),
-                    onPressed: (){
-                    navigateTo(context, TSearchBar());
-                  },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: kDarkBlue2Color,
-                      foregroundColor: kGold1Color,
-                      side: BorderSide(
-                          width: 1, color: Colors.white),
-                      elevation: 0,
-                    ),
+                      ),
+                        onPressed: (){
+                        navigateTo(context, TSearchBar());
+                      },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: kDarkWhiteColor,
+                          foregroundColor: kGold1Color,
+                          side: BorderSide(
+                              width: 1, color: Colors.white),
+                          elevation: 0,
+                        ),
+                      ),
+                    ],
                   ),
 
                   SizedBox(

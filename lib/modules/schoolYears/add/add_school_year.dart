@@ -32,7 +32,7 @@ class AddSchoolYear extends StatelessWidget {
       child: BlocConsumer<AddSchoolYearCubit, AddSchoolYearStates>(
         listener: (context, state) {
           if (state is AddSchoolYearSuccessState) {
-            if(state.addSchoolYearModel.status ?? true) {
+            if(state.addSchoolYearModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:

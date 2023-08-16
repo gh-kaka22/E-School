@@ -21,12 +21,12 @@ Widget ShowExamScheduleItem(w, schedule, index, context) => Container(
       children: [
         Expanded(
             child: Center(
-              child: Text('${schedule.examScheduleId}',
+              child: Text('${index+1}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
         Expanded(
             child: Center(
-              child: Text('${schedule.typeId}',
+              child: Text('${schedule.name}',
                   style: TextStyle(overflow: TextOverflow.ellipsis)),
             )),
 

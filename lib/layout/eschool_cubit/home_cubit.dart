@@ -3,7 +3,7 @@ import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:untitled/modules/dashboard/dashboard.dart';
+
 import 'package:untitled/modules/statistics/stats_screen.dart';
 import 'package:untitled/modules/students/register/register_screen.dart';
 import 'package:untitled/styles/colors.dart';
@@ -15,11 +15,6 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Widget currentScreen = StatsScreen();
 
-  //void changeScreen(Widget screen)
-  //{
-  //currentScreen= screen;
-  //emit(HomeChangeScreenState());
-  //}
 
   Widget SideBarItem({
     required String text,

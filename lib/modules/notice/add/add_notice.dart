@@ -1,17 +1,10 @@
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
-import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
-import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
-import 'package:untitled/modules/notice/add/cubit/add_notice_cubit.dart';
-
-import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/notice.dart';
 import 'package:untitled/shared/components/text_components.dart';
-
 import 'package:untitled/styles/colors.dart';
 
-import 'cubit/add_notice_cubit.dart';
 
 class AddNotice extends StatelessWidget {
   @override
@@ -25,7 +18,7 @@ class AddNotice extends StatelessWidget {
       child: BlocConsumer<AddNoticeCubit, AddNoticeState>(
         listener: (context, state) {
           if (state is AddNoticeModelState) {
-            if (state.noticeModel.status ?? true) {
+            if (state.noticeModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content: Center(

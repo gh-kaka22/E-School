@@ -28,7 +28,7 @@ class AddExamSchedule extends StatelessWidget {
       child: BlocConsumer<AddExamsScheduleCubit, AddExamsScheduleState>(
         listener: (context, state) {
           if (state is AddExamsScheduleSuccessState) {
-            if(state.examScheduleModel.status ?? true) {
+            if(state.examScheduleModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:

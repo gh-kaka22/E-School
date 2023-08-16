@@ -61,8 +61,8 @@ const SHOWTIMETABLE= 'show_schedule_classroom';
 
 ///ABOUT
 const ADDSCHOOL='admin/create_school';
-const SHOWSCHOOL='admin/show_school/1';
-const UPDATESCHOOL='admin/update_school/1';
+const SHOWSCHOOL='show_school';
+const UPDATESCHOOL='admin/update_school';
 
 ///BOOKS
 const ADDBOOK ='addbook';

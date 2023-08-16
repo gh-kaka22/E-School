@@ -1,19 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:cubit_form/cubit_form.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:untitled/layout/eschool_cubit/home_cubit.dart';
-import 'package:untitled/modules/exams/add/cubit/exams_add_cubit.dart';
-import 'package:untitled/modules/exams/add/cubit/exams_add_states.dart';
-import 'package:untitled/modules/exams/show/cubit/exams_show_cubit.dart';
-import 'package:untitled/modules/exams/show/cubit/exams_show_states.dart';
-import 'package:untitled/modules/students/show/cubit/show_students_cubit.dart';
-import 'package:untitled/modules/students/show/cubit/show_students_states.dart';
 import 'package:untitled/modules/timetable/add/cubit/add_timetable_cubit.dart';
 import 'package:untitled/modules/timetable/add/cubit/add_timetable_states.dart';
 import 'package:untitled/shared/components/components.dart';
 import 'package:untitled/shared/components/constants.dart';
-import 'package:untitled/shared/components/search_bar.dart';
 import 'package:untitled/shared/components/text_components.dart';
 import 'package:untitled/styles/colors.dart';
 

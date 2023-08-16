@@ -44,7 +44,6 @@ class AddEmployee extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ))
             );
-            //todo: Navigate to home
           }
         },
         builder: (context, state) {

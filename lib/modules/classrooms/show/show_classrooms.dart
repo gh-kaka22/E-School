@@ -24,7 +24,7 @@ class ClassroomsShow extends StatelessWidget {
         listener: (context, state) {
 
           if (state is ClearClassroomsSuccessState) {
-            if(state.clearClassroom.status ?? true) {
+            if(state.clearClassroom.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content:

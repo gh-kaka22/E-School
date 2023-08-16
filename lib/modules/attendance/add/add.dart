@@ -20,7 +20,7 @@ class AddAttendance extends StatelessWidget {
       child: BlocConsumer<AttendanceCubit, AttendanceState>(
         listener: (context, state) {
           if (state is AttendanceSuccessState) {
-            if (state.attendanceModel.status ?? true) {
+            if (state.attendanceModel.status == true) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: Colors.green,
                   content: Center(

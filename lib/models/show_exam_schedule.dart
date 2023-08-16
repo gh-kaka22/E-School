@@ -35,6 +35,7 @@ class Data {
   String? image;
   int? gradeId;
   int? schoolYear;
+  String? name;
 
   Data(
       {
@@ -45,7 +46,8 @@ class Data {
         this.updatedAt,
         this.image,
         this.gradeId,
-       this.schoolYear});
+       this.schoolYear,
+      this.name});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -56,6 +58,7 @@ class Data {
     image = json['image'];
     gradeId = json['grade_id'];
     schoolYear = json['School_Year'];
+    name=json['name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -68,6 +71,7 @@ class Data {
     data['image'] = this.image;
     data['grade_id'] = this.gradeId;
     data['School_Year'] = this.schoolYear;
+    data['name'] = this.name;
     return data;
   }
 }

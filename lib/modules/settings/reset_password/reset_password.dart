@@ -29,6 +29,26 @@ class ResetPassword extends StatelessWidget {
       create: (context) => ResetPasswordCubit(),
       child: BlocConsumer<ResetPasswordCubit, ResetPasswordStates>(
         listener: (context, state) {
+          if (state is ResetPasswordSuccessState){
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.green,
+                content:
+                Center(
+                  child: Text(
+                      'Password changed successfully',
+                      style: TextStyle(color: Colors.white)),
+                )));
+          }
+          if (state is ResetPasswordErrorState){
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Colors.red,
+                content:
+                Center(
+                  child: Text(
+                      'Failed ',
+                      style: TextStyle(color: Colors.white)),
+                )));
+          }
         },
         builder: (context, state) {
           var cubit = ResetPasswordCubit.get(context);
