@@ -19,8 +19,11 @@ class ExamScheduleController extends Controller
         $exam_schedule = ExamSchedule_ExamType::query()
             ->join('exam_schedules' , 'exam_schedules.exam_schedule_id' , '=' ,
             'exam_schedule__exam_type_pivot.exam_schedule_id')
+            ->join('exams_type', 'exams_type.type_id', '=',
+                'exam_schedule__exam_type_pivot.type_id')
             ->orderBy('exam_schedules.exam_schedule_id','DESC')
             ->get();
+
 
         if($exam_schedule->isEmpty())
             return $this->apiResponse('schedule is not found',null,false);
