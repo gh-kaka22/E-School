@@ -48,7 +48,7 @@ class AdminController extends Controller
     CONCAT(parents.father_first_name, " ", parents.father_last_name) as parent_name'
         )
             ->join('parents', 'complaints.parent_id', '=', 'parents.parent_id')
-            ->get();
+            ->where('complaints.status' , '=' , 'pending')->get();
 
 
 
@@ -69,7 +69,7 @@ class AdminController extends Controller
         $status = $validatedData['status'] === '1' ? 'resolved' : 'pending';
         $complaint->update(['status' => $status]);
 
-        return $this->apiResponse('Complaint resolved successfully',$complaint);
+        return $this->apiResponse('success',$complaint);
     }
 
 
