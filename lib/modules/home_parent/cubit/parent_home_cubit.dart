@@ -7,6 +7,8 @@ import 'package:e_school/models/show_likes_model.dart';
 import 'package:e_school/modules/Timetable/timetable_screen.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/modules/attendance_parent/parent_attendance_screen.dart';
+import 'package:e_school/modules/complaints/add/complaints_screen.dart';
+import 'package:e_school/modules/complaints/show/show_complaints.dart';
 import 'package:e_school/modules/exam_schedule/exam_schedule.dart';
 import 'package:e_school/modules/exams_parent/parent_exams_screen.dart';
 import 'package:e_school/modules/home_parent/cubit/parent_home_states.dart';
@@ -33,7 +35,7 @@ class ParentHomeCubit extends Cubit<ParentHomeStates>{
     CategoryCard('Schedule', 'assets/icons/schedule.png', kWhiteColor,ParentTimetableScreen()),
     CategoryCard('Library', 'assets/icons/books.png', kWhiteColor,ParentLibraryScreen()),
     CategoryCard('Notices', 'assets/icons/post-it.png', kWhiteColor,ParentNotesScreen()),
-    CategoryCard('Exams', 'assets/icons/timetable.png', kWhiteColor,ShowExamSchedule()),
+    CategoryCard('Complaints', 'assets/icons/report.png', kWhiteColor,ShowComplaints()),
   ];
   ParentHomeModel? parentHomeModel ;
 

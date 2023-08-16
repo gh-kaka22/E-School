@@ -12,7 +12,7 @@ const ATTENDANCE = 'Sshowattendance';
 const PARENTATTENDANCE = 'Pshowattendance';
 
 const NOTICES = 'Sshownotices';
-const PARENTNOTICES = 'Pshownotices';
+const PARENTNOTICES = 'Pshownotice';
 
 const GETTIMETABLE = 'show_schedule/';
 const PARENTTIMETABLE='parent/showschedule';
@@ -62,3 +62,7 @@ const CREATECLASSROOMPOST = 'create_for_classroom';
 ///FILES
 const ADDFILE='upload_file';
 const SHOWFILE ='show_files_classroom';
+
+
+///About
+const SHOWSCHOOL='show_school';

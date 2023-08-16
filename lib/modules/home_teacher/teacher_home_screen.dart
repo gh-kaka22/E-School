@@ -1,15 +1,19 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/modules/Timetable/timetable_screen.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
 import 'package:e_school/modules/exams/exams_screen.dart';
 import 'package:e_school/modules/home_teacher/cubit/teacher_home_cubit.dart';
 import 'package:e_school/modules/home_teacher/cubit/teacher_home_states.dart';
+import 'package:e_school/modules/teacher/files/add/add_files.dart';
 import 'package:e_school/modules/teacher/posts_teacher/add/create_post.dart';
+import 'package:e_school/modules/teacher/teacher_schedule/teacher_schedule_screen.dart';
 
 import 'package:e_school/shared/components/category_card.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/components/constants.dart';
+import 'package:e_school/shared/components/option_card.dart';
 import 'package:e_school/shared/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,7 +118,7 @@ class TeacherHomeScreen extends StatelessWidget {
                                     height: 3,
                                   ),
                                   Text(
-                                    'Subject : ${cubit.teacherHomeModel?.data.subjectName} ',
+                                    '${translation(context).subject} : ${cubit.teacherHomeModel?.data.subjectName} ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
@@ -124,7 +128,7 @@ class TeacherHomeScreen extends StatelessWidget {
                                     height: 3,
                                   ),
                                   Text(
-                                    'Section : ${cubit.teacherHomeModel?.data.classes[0].roomNumber ?? ''} ',
+                                    '${translation(context).section} : ${cubit.teacherHomeModel?.data.classes[0].roomNumber ?? ''} ',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
@@ -191,11 +195,11 @@ class TeacherHomeScreen extends StatelessWidget {
                         SizedBox(
                           height: 30,
                         ),
-                        cubit.categories[0],
+                        OptionCard(translation(context).schedule, translation(context).t1, 'assets/icons/schedule.png', kTeal,TeacherSchedule()),
                         SizedBox(
                           height: 30,
                         ),
-                        cubit.categories[1],
+                        OptionCard(translation(context).files, translation(context).t2, 'assets/icons/folders.png', kTeal,AddFile()),
                         SizedBox(
                           height: 30,
                         ),

@@ -31,16 +31,14 @@ class SchoolLoginScreen extends StatelessWidget {
           listener: (context, state) {
             if (state is SchoolLoginSuccessState) {
               if (state.loginModel.status == true) {
-                print(state.loginModel.message);
+                CacheHelper.saveData(key: 'token', value: state.loginModel.data.token).then((value) {
+                  token= state.loginModel.data.token;
+                });
                 showToast(
                     text: state.loginModel.message,
                     state: ToastStates.SUCCESS
                 );
-                CacheHelper.saveData(key: 'token', value: state.loginModel.data.token).then((value) {
-                  print(state.loginModel.data.token);
-                  token= state.loginModel.data.token;
 
-                });
                 if(state.loginModel.data.role == 2){
                   CacheHelper.saveData(key: 'userType', value: 'student').then((value) {
                     userType='student';

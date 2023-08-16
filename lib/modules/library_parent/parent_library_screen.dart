@@ -1,4 +1,5 @@
 
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/modules/library_parent/cubit/parent_library_cubit.dart';
 import 'package:e_school/modules/library_parent/cubit/parent_library_states.dart';
 import 'package:e_school/shared/components/components.dart';
@@ -18,7 +19,7 @@ class ParentLibraryScreen extends StatelessWidget {
           var cubit = ParentLibraryCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text('Library'),
+              title: Text(translation(context).library),
             ),
             body: Center(
               child: Column(
@@ -48,7 +49,7 @@ class ParentLibraryScreen extends StatelessWidget {
                                     blurRadius: 8) //blur radius of shadow
                               ]),
                           child: Center(child: Text(
-                            'Files',
+                            translation(context).files,
                             style: TextStyle(fontSize: 18),
                           )),
                         ),
@@ -73,7 +74,7 @@ class ParentLibraryScreen extends StatelessWidget {
                                     blurRadius: 8) //blur radius of shadow
                               ]),
                           child: Center(child: Text(
-                            'Books',
+                            translation(context).books,
                             style: TextStyle(fontSize: 18),
                           )),
                         ),

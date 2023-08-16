@@ -1,4 +1,5 @@
 
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/layout/home_layout/cubit/cubit.dart';
 import 'package:e_school/layout/home_layout/cubit/states.dart';
 import 'package:e_school/modules/attendance/attendance_screen.dart';
@@ -27,7 +28,7 @@ class HomeLayout extends StatelessWidget {
                 },
                 items: cubit.bottomItems,
               ),
-              drawer: TheMenu(),
+              drawer: TheMenu(translation(context).student, translation(context).account, 'assets/icons/graduating-student-b.png'),
               body:cubit.screens[cubit.currentIndex],
             );
         },

@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/modules/exams_parent/cubit/parent_exams_cubit.dart';
 import 'package:e_school/modules/exams_parent/cubit/parent_exams_states.dart';
 
@@ -18,7 +19,7 @@ class ParentExamsScreen extends StatelessWidget {
           var cubit = ParentExamsCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text('Exams'),
+              title: Text(translation(context).marks),
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

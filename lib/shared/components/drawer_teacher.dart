@@ -5,7 +5,10 @@ import 'package:e_school/layout/teacher_home_layout/teacher_home_layout.dart';
 import 'package:e_school/main.dart';
 import 'package:e_school/modules/about_us/about_screen.dart';
 import 'package:e_school/modules/complaints/show/show_complaints.dart';
+import 'package:e_school/modules/posts_teacher/teacher_posts_screen.dart';
 import 'package:e_school/modules/school_login/login_screen.dart';
+import 'package:e_school/modules/settings/settings_screen.dart';
+import 'package:e_school/modules/teacher/profie_teacher/profile_teacher_screen.dart';
 import 'package:e_school/shared/components/components.dart';
 import 'package:e_school/shared/network/local/cache_helper.dart';
 import 'package:e_school/shared/styles/colors.dart';
@@ -51,13 +54,18 @@ class TeacherDrawer extends StatelessWidget {
               leading: Icon(Icons.newspaper
               ),
               title: Text(translation(context).news),
+              onTap: (){
+                navigateTo(context, TeacherPostsScreen());
+              },
             ),
           ),
           Card(
             child: ListTile(
               leading: Icon(Icons.person),
               title: Text(translation(context).profile),
-              onTap: (){},
+              onTap: (){
+                navigateTo(context, ProfileTeacher());
+              },
             ),
           ),
           Card(
@@ -105,7 +113,9 @@ class TeacherDrawer extends StatelessWidget {
             child: ListTile(
               leading: Icon(Icons.settings),
               title: Text(translation(context).settings),
-              onTap: (){},
+              onTap: (){
+                navigateTo(context, SettingsScreen());
+              },
             ),
           ),
           Card(

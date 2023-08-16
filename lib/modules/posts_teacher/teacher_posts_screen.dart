@@ -1,4 +1,5 @@
 
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/modules/posts_teacher/cubit/teacher_posts_cubit.dart';
 import 'package:e_school/modules/posts_teacher/cubit/teacher_posts_states.dart';
 import 'package:e_school/modules/teacher/posts_teacher/add/create_post.dart';
@@ -27,7 +28,7 @@ class TeacherPostsScreen extends StatelessWidget {
                   }, icon: Icon(Icons.add,color: kTeal,))
                 ],
                 backgroundColor: kDarkWhiteColor,
-                title: Text('Timeline',style: TextStyle(color: kDarkBlue2Color),),
+                title: Text(translation(context).timeline,style: TextStyle(color: kDarkBlue2Color),),
               ),
               backgroundColor: kDarkWhiteColor,
               body: SingleChildScrollView(

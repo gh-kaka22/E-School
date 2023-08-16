@@ -122,6 +122,8 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      showToast(text: 'message opened app', state: ToastStates.SUCCESS);
+
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if(notification != null && android != null){

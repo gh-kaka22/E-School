@@ -139,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       InkWell(
                                         onTap: (){
-                                          navigateTo(context, ChatPage(character: 'character'));
+                                          navigateTo(context, ChatPage());
                                         },
                                         child: Container(
                                           width: 45,

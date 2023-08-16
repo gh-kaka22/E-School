@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/modules/attendance_parent/cubit/parent_attendance_cubit.dart';
 import 'package:e_school/modules/attendance_parent/cubit/parent_attendance_state.dart';
 import 'package:e_school/shared/components/attendance_notes.dart';
@@ -35,7 +36,7 @@ class ParentAttendanceScreen extends StatelessWidget {
                         color: kDarkBlue2Color,
                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30),),
                       ),
-                      child: Text("Absences"),
+                      child: Text(translation(context).attendance),
                     ),
 
 
@@ -73,7 +74,7 @@ class ParentAttendanceScreen extends StatelessWidget {
                         width: w/2,
                         height: h/5,
 
-                        child: Center(child: Text('Absences',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white),)))),
+                        child: Center(child: Text(translation(context).attendance,style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.white),)))),
                   ]
                 ),
               ],

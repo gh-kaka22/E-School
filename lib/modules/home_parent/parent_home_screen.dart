@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/modules/home_parent/cubit/parent_home_cubit.dart';
 import 'package:e_school/modules/home_parent/cubit/parent_home_states.dart';
 import 'package:e_school/shared/components/components.dart';
@@ -104,7 +105,7 @@ class ParentHomeScreen extends StatelessWidget {
                                               height: 3,
                                             ),
                                             Text(
-                                              'Children : ${cubit.parentHomeModel?.data.children.length} ',
+                                              '${translation(context).children} : ${cubit.parentHomeModel?.data.children.length} ',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 15,
@@ -144,7 +145,7 @@ class ParentHomeScreen extends StatelessWidget {
                                                           );
                                                           print(kidID);
                                                           print(kidName);
-                                                          cubit.getParentHomeData();
+                                                          //cubit.getParentHomeData();
                                                           cubit.getPostsParent(cubit.parentHomeModel?.data.children[index].kidId);
                                                           Navigator.of(context).pop();
                                                         },

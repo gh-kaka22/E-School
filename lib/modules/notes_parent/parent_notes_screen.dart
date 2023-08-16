@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/modules/attendance/cubit/attendance_cubit.dart';
 import 'package:e_school/modules/notes/cubit/notes_cubit.dart';
 import 'package:e_school/modules/notes_parent/cubit/parent_notes_cubit.dart';
@@ -20,7 +21,7 @@ class ParentNotesScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('ParentNotes'),
+              title: Text(translation(context).notices),
             ),
             body: ShowNotesBuilder(
               w,

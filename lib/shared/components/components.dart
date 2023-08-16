@@ -1337,7 +1337,7 @@ Widget buildHomePostItem(post,context,cubit,state) => Card(
                         ),
                         SizedBox(width: 5.0,),
                         Text(
-                          '${post.comentsCount} comments',
+                          '${post.comentsCount} ${translation(context).comments}',
                           style: Theme.of(context).textTheme.bodySmall,
 
                         )
@@ -1405,7 +1405,7 @@ Widget buildHomePostItem(post,context,cubit,state) => Card(
                     ),
                     SizedBox(width: 15,),
                     Text(
-                        'write a comment...',
+                        translation(context).writeComment,
                         style:Theme.of(context).textTheme.bodySmall
                     ),
                   ],
@@ -1756,7 +1756,7 @@ Widget buildPostItemH(post,context,cubit) => Card(
                     ),
                     SizedBox(width: 15,),
                     Text(
-                        'write a comment...',
+                        translation(context).writeComment,
                         style:Theme.of(context).textTheme.bodySmall
                     ),
                   ],

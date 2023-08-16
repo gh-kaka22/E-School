@@ -21,7 +21,7 @@ class TeacherLayoutCubit extends Cubit<TeacherLayoutStates>
   List<BottomNavigationBarItem> bottomItems = [
     BottomNavigationBarItem(
         icon: Icon(Icons.home),
-        label:  'home',
+        label:  'Home',
     ),
     BottomNavigationBarItem(
       icon: Icon(Icons.newspaper),

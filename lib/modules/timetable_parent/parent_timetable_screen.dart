@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/models/timetable_model.dart';
 import 'package:e_school/modules/timetable_parent/cubit/parent_timetable_cubit.dart';
 import 'package:e_school/modules/timetable_parent/cubit/parent_timetable_states.dart';
@@ -22,7 +23,7 @@ class ParentTimetableScreen extends StatelessWidget {
             var cubit = ParentTimetableCubit.get(context);
             return Scaffold(
               appBar: AppBar(
-                title: Text('Timetable'),
+                title: Text(translation(context).schedule),
               ),
               body: Center(
                   child: Column(

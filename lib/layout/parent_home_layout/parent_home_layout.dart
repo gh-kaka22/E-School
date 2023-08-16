@@ -1,5 +1,6 @@
 
 
+import 'package:e_school/language/language_constants.dart';
 import 'package:e_school/layout/parent_home_layout/cubit/parent_layout_cubit.dart';
 import 'package:e_school/layout/parent_home_layout/cubit/parent_layout_states.dart';
 import 'package:e_school/shared/components/drawer.dart';
@@ -28,7 +29,7 @@ class ParentHomeLayout extends StatelessWidget {
                 },
                 items: cubit.bottomItems,
               ),
-              drawer: ParentDrawer('Parents','account','assets/icons/parents (1).png'),
+              drawer: ParentDrawer(translation(context).parents, translation(context).account, 'assets/icons/parents (1).png'),
               body:cubit.screens[cubit.currentIndex],
             );
         },

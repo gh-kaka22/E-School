@@ -6,11 +6,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
-  final String character;
+
 
   const ChatPage({
     super.key,
-    required this.character,
+
   });
 
   @override

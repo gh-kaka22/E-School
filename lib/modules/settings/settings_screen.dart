@@ -1,4 +1,6 @@
 import 'package:e_school/language/language.dart';
+import 'package:e_school/language/language_constants.dart';
+import 'package:e_school/main.dart';
 import 'package:e_school/modules/school_login/login_screen.dart';
 import 'package:e_school/modules/settings/cubit/cubit.dart';
 import 'package:e_school/modules/settings/cubit/states.dart';
@@ -22,19 +24,20 @@ class SettingsScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text('Settings'),
+                backgroundColor: kChatBar,
                 actions: [
                   Padding(
-                    padding: const EdgeInsets.all(3.0),
+                    padding: const EdgeInsets.all(14.0),
                     child: DropdownButton<Language>(
                       underline: const SizedBox(),
                       icon:  Icon(
                         Icons.language,
-                        color: kTitleTextColor,
+                        color: kWhiteColor,
                       ),
                       onChanged: (Language? language) async {
                         if (language != null) {
-// Locale _locale = await setLocale(language.languageCode);
-// MyApp.setLocale(context, _locale);
+                          Locale _locale = await setLocale(language.languageCode);
+                          MyApp.setLocale(context, _locale);
                         }
                       },
                       items: Language.languageList()
@@ -93,7 +96,9 @@ class SettingsScreen extends StatelessWidget {
                       SettingsTile.switchTile(
                         title: Text('Push Notifications'),
                         leading: Icon(Icons.notifications),
-                        onToggle: (bool value) {},
+                        onToggle: (bool value) {
+                          value= !value;
+                        },
                         initialValue: true,
                       ),
                     ],
@@ -109,6 +114,7 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+
                 ],
               ),
             );
