@@ -17,9 +17,9 @@ class SchoolSeeder extends Seeder
 
             [
                 'name' => 'School Name',
-                'address' => "Mazzeh",
-                'overview'=>"the best school in the world",
-                'phone'=> '0912345678'
+                'address' => "Damascus-Mazzeh-Near Al-Jalaa Stadium",
+                'overview'=>"Our school's mission is to learn leadership, the common core, and relationships for life. Our mission is to provide a safe, disciplined learning environment that empowers all students to develop their full potential. We feel strongly about helping to build leaders that have the ability to succeed in whatever endeavor they undertake. Winning is not always the measure of success. Our students understand the 'Win, win' philosophy and use it in their daily life.",
+                'phone'=> '+963912345678'
             ]
 
         ]);
