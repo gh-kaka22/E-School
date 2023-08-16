@@ -10,10 +10,10 @@ class SchoolController extends Controller
     use ApiResponseTrait;
 
 
-    public function show(string $id)
+    public function show()
     {
         //
-        $school = School::find($id);
+        $school = School::first();
         if(!$school)
             return $this->apiResponse('School not found');
         return $this->apiResponse('success',$school);
@@ -25,11 +25,11 @@ class SchoolController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
 
-        $school = School::find($id);
-        $school = School::query()->where('id', '=', $id )->update(
+        $school = School::first();
+        $school = School::query()->update(
             [
             'name' => $request->has('name') ? $request['name'] : $school['name'],
             'address' => $request->has('address') ? $request['address'] : $school['address'],

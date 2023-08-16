@@ -42,6 +42,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/exams_schedule/showByGrade/{grade_id}', [\App\Http\Controllers\ExamScheduleController::class, 'showByGrade']);
 
 
+    //ABOUT US
+    Route::get('/show_school', [\App\Http\Controllers\SchoolController::class, 'show']);
+
     Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
 
 });
@@ -65,8 +68,7 @@ Route::middleware(['auth:api', 'isAdminOrOwner'])->group(function () {
 
 
     //About Us Routes
-    Route::get('/admin/show_school/{id}', [\App\Http\Controllers\SchoolController::class, 'show']);
-    Route::post('/admin/update_school/{id}', [\App\Http\Controllers\SchoolController::class, 'update']);
+    Route::post('/admin/update_school', [\App\Http\Controllers\SchoolController::class, 'update']);
 
 
     //Teacher  Routes
