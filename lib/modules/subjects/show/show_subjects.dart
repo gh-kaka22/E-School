@@ -66,18 +66,6 @@ class SubjectsShow extends StatelessWidget {
                           Expanded(
                             child: Center(child: ShowText(name:'Max')),
                           ),
-                          Expanded(
-                            child: defaultButton(
-                              onPressed: () {
-                                cubit.getSubjects();
-                              },
-                              height: 30,
-                              text: 'Refresh',
-                              fontsize: 15,
-                              fontWeight: FontWeight.w300,
-                              buttColor: Colors.green,
-                            ),
-                          ),
                         ],
                       ),
                     ),

@@ -224,7 +224,7 @@ class ExamsShow extends StatelessWidget {
                               style:
                               TextStyle(color: kGold1Color, fontSize: 16),
                               onChanged: (newValue) {
-                                cubit.changeClassDropDownButton(newValue!);
+                                cubit.changeYearDropDownButton(newValue!);
                               },
                               items: cubit.menuItemsYear,
                             ),

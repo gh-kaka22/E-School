@@ -33,7 +33,7 @@ class LoginModel {
 }
 
 class Data {
-  int id;
+  int? id;
   String firstName;
   String lastName;
   int userId;

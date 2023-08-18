@@ -35,11 +35,10 @@ class SchoolYearShow extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  MyText(name: 'School Year'),
+                  MyText(name: 'School Years'),
                   SizedBox(
                     height: 30,
                   ),
-                  SearchBar(),
                   SizedBox(
                     height: 30,
                   ),

@@ -94,20 +94,6 @@ class ClassroomsShow extends StatelessWidget {
                           Expanded(
                             child: Center(child: ShowText(name:'Capacity')),
                           ),
-                          Expanded(
-                            child: defaultButton(
-                              onPressed: () {
-                                cubit.getClassrooms();
-                              },
-                              height: 30,
-                              text: 'Refresh',
-                              fontsize: 15,
-                              fontWeight: FontWeight.w300,
-                              buttColor: Colors.green,
-                            ),
-                          ),
-
-
                         ],
                       ),
                     ),

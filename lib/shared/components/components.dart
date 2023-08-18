@@ -22,6 +22,7 @@ import 'package:untitled/modules/students/show/show_students.dart';
 import 'package:untitled/modules/students/update/cubit/update_students_cubit.dart';
 import 'package:untitled/modules/students/update/update_students_screen.dart';
 import 'package:untitled/modules/subjects/show/cubit/show_subjects_states.dart';
+import 'package:untitled/modules/subjects/update/update_subject.dart';
 import 'package:untitled/shared/components/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -537,17 +538,6 @@ Widget ShowSubjectsItem(w, subject, index, context) => Container(
             Expanded(
               child: Center(child: Text('${subject.max_mark}')),
             ),
-            Expanded(
-              child: Center(
-                child: defaultButton(
-                  onPressed: () {},
-                  height: 30,
-                  text: 'Edit',
-                  fontsize: 15,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -594,17 +584,6 @@ Widget ShowClassroomsItem(w, classroom, index, context) => Container(
         ),
         Expanded(
           child: Center(child: Text('${classroom.capacity}')),
-        ),
-        Expanded(
-          child: Center(
-            child: defaultButton(
-              onPressed: () {},
-              height: 30,
-              text: 'Edit',
-              fontsize: 15,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
         ),
       ],
     ),
