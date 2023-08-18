@@ -11,7 +11,7 @@ String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 class LoginModel {
   bool status;
   String message;
-  Data data;
+  Data? data;
 
   LoginModel({
     required this.status,
@@ -28,7 +28,7 @@ class LoginModel {
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data.toJson(),
+    "data": data!.toJson(),
   };
 }
 

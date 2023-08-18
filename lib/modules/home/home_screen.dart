@@ -177,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                               fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),
                             ConditionalBuilder(
-                              condition: cubit.posts?.length ==3 ,
+                              condition: cubit.posts != null ,
                               builder:(context) =>buildHomePostItem(cubit.posts?[2], context, cubit,state),
                               fallback:(context) => Center(child: CircularProgressIndicator()),
                             ),

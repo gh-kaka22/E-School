@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text('Settings'),
-                backgroundColor: kChatBar,
+                backgroundColor:kDarkBlue2Color,
                 actions: [
                   Padding(
                     padding: const EdgeInsets.all(14.0),

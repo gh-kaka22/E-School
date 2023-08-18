@@ -143,7 +143,7 @@ class AddFileCubit extends Cubit<AddFileStates> {
       'pdf_file': await MultipartFile.fromFile(filePath,filename: fileName)
     });
     var dio=Dio();
-    dio.post("http://192.168.1.5:8000/api/upload_file",data: data,
+    dio.post("${baseUrl}api/upload_file",data: data,
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
