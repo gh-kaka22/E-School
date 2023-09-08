@@ -91,18 +91,6 @@ class AttendanceController extends Controller
 
 
 
-
-    /*public function showforadmin($id)
-    {
-
-        $attend = Attendance::query()->where('student_id' , '=' , $id)->get();
-
-
-        if (!$attend)
-            return $this->apiResponse('Student did not absent',null,false);
-
-       return $this->apiResponse('success', $attend);
-    }*/
     public function showforadmin($id)
     {
         $attend = Attendance::query()->where('student_id', '=', $id)->get();

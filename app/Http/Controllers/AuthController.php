@@ -232,17 +232,6 @@ class AuthController extends Controller
 
 
 
-//        $teacher = Teacher::query()->create([
-//            'first_name'=>$request->first_name,
-//            'last_name'=>$request->last_name,
-//            'phone_number'=>$request->phone_number,
-//            'subject_id'=>$request->subject_id,
-//            'address'=>$request->address,
-//            'details'=>$request->details,
-//            'user_id'=>$user->id,
-//
-//
-//        ]);
         $data['user_id']=$user->id;
         $teacher=Teacher::create($data);
 
@@ -417,8 +406,8 @@ class AuthController extends Controller
         $token=Auth::user()->createToken('accessToken')->accessToken;
 
         $res = [
-            'first_name' => 'Omar',
-            'last_name' => 'Omarain',
+            'first_name' => 'OwnerFirstName',
+            'last_name' => 'OwnerLastName',
             'user_id'=>$owner->user_id,
             'created_at'=>$owner->created_at,
             'updated_at'=>$owner->updated_at,

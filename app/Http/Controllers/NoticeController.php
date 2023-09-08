@@ -17,8 +17,6 @@ class NoticeController extends Controller
 
     public function store(Request $request)
     {
-        //
-//
         $validatedData = $request->validate([
             'student_id' => 'required',
             'type' => 'required',

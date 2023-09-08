@@ -37,9 +37,7 @@ class ExamController extends Controller
 
          if($request->mark>$subject_max_mark)
              return $this->apiResponse('The mark you entered is greater than the max mark',null,false);
-//         $dateString = $request->date;
-//         $date = Carbon::createFromFormat('Y-m-d', $dateString);
-//         $monthNumber = $date->format('m');
+
          $examExists = DB::table('exams')
              ->where('student_id', $request->student_id)
              ->where('subject_id', $subject_id)

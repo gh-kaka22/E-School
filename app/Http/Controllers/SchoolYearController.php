@@ -40,16 +40,4 @@ class SchoolYearController extends Controller
 
 
 
-
-//    public function destroy(SchoolYear $id)
-//    {
-//        $year = SchoolYear::find($id);
-//        if(!$year)
-//            return $this->apiResponse('year not found');
-//
-//
-//        $year->delete();
-//
-//        return $this->apiResponse('deleted');
-//    }
 }

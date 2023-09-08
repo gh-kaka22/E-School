@@ -164,8 +164,6 @@ class PostController extends Controller
              $user_ids = DB::table('users')
               ->pluck('id');
 
-              //return $this->apiResponse('s',$users);
-
 
 
             foreach($user_ids as $id){
@@ -182,9 +180,6 @@ class PostController extends Controller
     }
 
     public function getPosts(Request $request){
-//        $request->validate([
-//            'type_id'=>['required','integer']
-//        ]);
         $user=Auth::user();
 
 
@@ -195,7 +190,6 @@ class PostController extends Controller
             ->select('posts.post_id','posts.body','posts.date','posts.updated_at','posts.user_id','role')
             ->orderByDesc('posts.post_id')
             ->get();
-            //->pluck('body');
 
         $res=array();
 
@@ -348,7 +342,6 @@ class PostController extends Controller
                 ->select('posts.post_id','posts.body','posts.date','posts.updated_at','posts.user_id','role')
                 ->orderByDesc('posts.post_id')
                 ->get();
-            //->pluck('body');
 
 
 

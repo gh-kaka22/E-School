@@ -22,15 +22,17 @@ class ExamSchedule_ExamType extends Model
     public $timestamps=true ;
 
 
-    public function examType() : BelongsToMany
+    public function examType()
     {
-        return $this->BelongsToMany(ExamType::class);
+        return $this->belongsTo(ExamType::class, 'type_id');
     }
 
     public function ExamSchedule() : BelongsToMany
     {
         return $this->BelongsToMany(ExamSchedule::class);
     }
+
+
 
 
 }

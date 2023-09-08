@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 //
 Route::post('/python-script', [\App\Http\Controllers\PythonController::class , 'answer']);
 
+
 //............................register routes.............................................
 //Owner routes
 Route::middleware(['auth:api', 'isOwner'])->group(function () {

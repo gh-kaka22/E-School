@@ -28,17 +28,6 @@ class AdminRegistSeeder extends Seeder
             'user_id'=>$user->id
         ]);
 
-        $user2=User::create([
-            'email' => "omar@schoolname.com",
-            'password' => bcrypt('123456'),
-            'role'=>1
-        ]);
 
-
-        DB::table('admins')->insert([
-            'first_name'=>'omar',
-            'last_name'=>'omarain',
-            'user_id'=>$user2->id
-        ]);
     }
 }

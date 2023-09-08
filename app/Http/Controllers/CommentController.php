@@ -120,21 +120,6 @@ class CommentController extends Controller
     public function destroy($comment_id)
     {
 
-//        $request->validate([
-//            'post_id'=>['required', 'integer'],
-//            'comment_id'=>['required', 'integer'],
-//
-//        ]);
-//
-//        $post_id=$request->post_id;
-//        $comment_id=$request->comment_id;
-
-
-//
-//        $post = Post::find($post_id);
-//        if (!$post) {
-//            return $this->apiResponse('Post not found',null,false);
-//        }
         $comment = Comment::find($comment_id);
         if (!$comment) {
             return $this->apiResponse('Comment not found',null,false);

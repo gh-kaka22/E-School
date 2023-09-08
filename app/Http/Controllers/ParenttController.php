@@ -11,7 +11,6 @@ class ParenttController extends Controller
 {
     use ApiResponseTrait;
     public function search(Request $request){
-//
         $name=$request->name;
         $parents=DB::table('parents')
             ->where('father_first_name','like',"$name%")
@@ -35,23 +34,14 @@ class ParenttController extends Controller
 
 
         $children=[];
-        //$counter =1;
         foreach ($kids as $kid){
-           // $parent->{"kid_number_$counter"}=$kid->student_id;
             $children[]= (object)['kid_name' => $kid->first_name,'kid_id'=>$kid->student_id];
-            //$counter++;
-
         }
         $parent->children = $children;
 
 
         return $this->apiResponse('success',$parent);
-//        return response()->json([
-//            'status'=>true,
-//            'message'=>'login successfully',
-//            'children'=>$children,
-//            'data'=>$parent,
-//        ],200);
+
 
 
     }

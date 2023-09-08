@@ -138,9 +138,4 @@ class ExamScheduleController extends Controller
     }
 
 
-//    public function destroy(ExamSchedule $examSchedule)
-//    {
-//        //
-//    }
-
 }

@@ -19,15 +19,6 @@ class ResultController extends Controller
         ]);
         $grade_id=$request->grade_id;
 
-//       Calc each subject for each student
-//        $students = DB::table('students')
-//                  ->where('students.grade_id','=',$grade_id)
-//                  ->where('students.status','=','active')
-//                  ->join('exams','students.student_id','=','exams.student_id')
-//                  ->join('subjects','subjects.subject_id','=','exams.subject_id')
-//                  ->select('students.student_id','subjects.name','students.first_name','students.last_name', DB::raw('AVG(exams.mark) as average'))
-//                  ->groupBy('students.student_id','subjects.name','students.first_name','students.last_name')
-//                  ->get();
 
 
         $students = DB::table('students')
